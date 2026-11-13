@@ -1,0 +1,11 @@
+.DS_Store
+.env
+.env.*
+*.xlsx
+*.mp4
+*.mov
+.venv/
+__pycache__/
+*.bak-*
+.ekip/
+is/

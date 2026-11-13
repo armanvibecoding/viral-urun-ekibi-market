@@ -1,0 +1,16 @@
+{
+  "name": "viral-urun-market",
+  "owner": {
+    "name": "Viral Ürün Ekibi"
+  },
+  "plugins": [
+    {
+      "name": "viral-urun-ekibi",
+      "source": "./plugins/viral-urun-ekibi",
+      "description": "Viral ürün bulma, AliExpress fırsat avı, AI video üretimi ve kurgu ekibi"
+    }
+  ],
+  "metadata": {
+    "description": "Viral ürün bulma, AliExpress fırsat avı, AI video üretimi ve kurgu için Türkçe Claude ekibi"
+  }
+}
