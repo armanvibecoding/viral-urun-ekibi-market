@@ -92,16 +92,25 @@ def yazi_png(cikti, satirlar, font_yol, agirlik, ust_oran):
 
 
 def plan_isle(ff, p, i, kok, tmp, a):
-    sure = round(p["bit"] - p["bas"], 3)
+    hiz = p.get("hiz", 1.0)
+    kaynak = round(p["bit"] - p["bas"], 3)
+    sure = round(kaynak / hiz, 3)
     klip = os.path.join(kok, p["klip"])
-    vf = [f"scale={W}:{H}:force_original_aspect_ratio=increase", f"crop={W}:{H}", f"fps={FPS}", "setsar=1"]
+    vf = []
+    if p.get("kirp"):  # yakınlaştırma: kaynağın 1/k'sı, merkez oranı (fx, fy) etrafında
+        k = p["kirp"]
+        fx, fy = p.get("kirp_merkez", [0.5, 0.5])
+        vf.append(f"crop=iw/{k}:ih/{k}:'min(max(0,iw*{fx}-iw/{k}/2),iw-iw/{k})':'min(max(0,ih*{fy}-ih/{k}/2),ih-ih/{k})'")
+    if hiz != 1.0:
+        vf.append(f"setpts=PTS/{hiz}")
+    vf += [f"scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos", f"crop={W}:{H}", f"fps={FPS}", "setsar=1"]
     if p.get("gecis") == "punch":
         k = p.get("punch", 1.15) - 1
         z = f"(1+{k}*max(0\\,1-t/0.15))"
         vf += [f"scale=w='2*trunc({W / 2}*{z})':h='2*trunc({H / 2}*{z})':eval=frame", f"crop={W}:{H}"]
     if p.get("gecis") == "flas":
         vf.append("fade=t=in:st=0:d=0.07:color=white")
-    girdiler, overlay = ["-ss", f"{p['bas']:.3f}", "-t", f"{sure:.3f}", "-i", klip], []
+    girdiler = ["-ss", f"{p['bas']:.3f}", "-t", f"{kaynak:.3f}", "-i", klip]
     pngler = []
     if p.get("yazi"):
         if p.get("kelime_kelime"):
@@ -122,7 +131,7 @@ def plan_isle(ff, p, i, kok, tmp, a):
     if cta and i >= cta["plan"]:
         yol = os.path.join(tmp, f"cta{i}.png")
         yazi_png(yol, [(cta["satir1"], 100, cta.get("vurgu"), cta.get("renk", "#FFE600")),
-                       (cta["satir2"], 52, None, None)], a["font"], a.get("font_agirlik"), cta.get("konum", 0.16))
+                       (cta["satir2"], 58, None, None)], a["font"], a.get("font_agirlik"), cta.get("konum", 0.16))
         pngler.append((yol, 0, sure))
     zincir = f"[0:v]{','.join(vf)}[v0]"
     son = "v0"
@@ -130,7 +139,12 @@ def plan_isle(ff, p, i, kok, tmp, a):
         girdiler += ["-loop", "1", "-t", f"{sure:.3f}", "-i", yol]
         zincir += f";[{son}][{j + 1}:v]overlay=0:0:enable='between(t,{bas:.3f},{bit:.3f})'[v{j + 1}]"
         son = f"v{j + 1}"
-    af = f"aresample=48000,aformat=channel_layouts=stereo,afade=t=in:d=0.008,afade=t=out:st={max(0, sure - 0.008):.3f}:d=0.008"
+    af = "aresample=48000,aformat=channel_layouts=stereo"
+    if hiz != 1.0:
+        af += f",atempo={max(0.5, min(2.0, hiz))}"
+    if p.get("ses_db"):
+        af += f",volume={p['ses_db']}dB"
+    af += f",afade=t=in:d=0.008,afade=t=out:st={max(0, sure - 0.008):.3f}:d=0.008"
     cikti = os.path.join(tmp, f"p{i:02d}.mp4")
     r = subprocess.run([ff, "-v", "error", "-y", *girdiler, "-filter_complex", zincir, "-map", f"[{son}]", "-map", "0:a?",
                         "-af", af, "-t", f"{sure:.3f}", "-c:v", "libx264", "-preset", "medium", "-crf", "17",
@@ -160,12 +174,12 @@ def main():
                         "-movflags", "+faststart", cikti])
     if r.returncode:
         sys.exit("birleştirme başarısız")
-    toplam = sum(p["bit"] - p["bas"] for p in a["planlar"])
+    toplam = sum((p["bit"] - p["bas"]) / p.get("hiz", 1.0) for p in a["planlar"])
     print(f"tamam: {cikti}  ·  {len(parcalar)} plan  ·  {toplam:.2f} sn")
     sinirlar, t = [], 0.0
     for p in a["planlar"]:
         sinirlar.append(round(t, 2))
-        t += p["bit"] - p["bas"]
+        t += (p["bit"] - p["bas"]) / p.get("hiz", 1.0)
     print("plan başlangıçları:", sinirlar)
     shutil.rmtree(tmp, ignore_errors=True)
 
