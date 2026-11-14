@@ -36,3 +36,10 @@ yükleme/üretim kontrollerini kullan.
 `klip_qc.py` çıkış 0 + 4 fps panoda her kare: ürün kendi kendine çalışıyor/büyüyor/renk değiştiriyor mu · sonuç yanlış
 yerden/patiden çıkıyor mu · hayvan cins değiştiriyor mu · ışınlanma/kaybolma · fazladan pati. Hata uçtaysa KIRP
 (kredi yok). Ortadaysa kök sebebi (kare / prompt / AUDIO satırı) düzelt, tavan içinde yeniden üret. "Yeterince iyi" yok.
+
+## Flow ajanı ile üretim (ölçülmüş dersler)
+- Ajan klibi dosya ADIYLA değil, mesaja EKLENMİŞ görsellerle eşler; ek yoksa son yüklenenleri alır. Kareleri sohbet kutusuna sürükle-bırakla ekle ve promptta her klibin görselini İÇERİĞİYLE tarif et ("genç ayakta, amblem siyah" gibi). Ek sırasına güvenme; ters görünebilir.
+- Onay kartı 1–2 dk içinde onaylanmazsa üretim iptal olur (kredi düşmez): "Tekrar dene" de ve hemen onayla.
+- Flow içindeki görsel düzenleme (Nano Banana) 0 kredi; kare düzeltmesi orada bedava yapılabilir.
+- Model "SCREEN LOCK"a rağmen ekran rengini değiştirebilir ya da ikinci (hayalet) bir ürün çizebilir: ekran içeriği her zaman kurguda bindirilir; sabit kamerada hayalet nesne, ilk karenin temiz bölgesiyle (çevreye göre parlaklık eşlemeli, geniş yumuşak kenar) silinir.
+- İndirme: "Videolar" görünümünde karo → sağ tık → İndir → 720p (Orijinal boyut, ücretsiz). 1080p/4K yükseltmedir.
