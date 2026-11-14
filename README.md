@@ -13,7 +13,7 @@ damıtılmış bir bilgi bankası var.
 
 ## A. Claude Code kurulumu (5 adım)
 
-Ön koşul: Claude Pro, Max veya Ultra planı · Mac için `brew install ffmpeg` ve `python3 -m pip install --user openpyxl pillow imageio-ffmpeg` · Google Chrome · Mac (Windows'ta iPhone modu yok, tarayıcı modu çalışır).
+Ön koşul: Claude Pro, Max veya Ultra planı · Mac için `brew install ffmpeg` ve `python3 -m pip install --user openpyxl pillow imageio-ffmpeg numpy` · Google Chrome · Mac (Windows'ta iPhone modu yok, tarayıcı modu çalışır).
 
 1. **Claude Code'u kur** ve claude.ai hesabınla giriş yap (`claude` → `/login`).
 2. **Depoya erişim:** sana paylaşılan GitHub deposuna davet linkinden katıl. Gerekirse `gh auth login`.
@@ -27,7 +27,7 @@ damıtılmış bir bilgi bankası var.
    - Chrome'a "Claude" eklentisini kur, Claude Code'da `/chrome` ile bağla.
    - Mac + iPhone modu için: `/mcp` → computer-use → Enable; Sistem Ayarları'nda Erişilebilirlik ve Ekran Kaydı izni; iPhone Yansıtma'yı bir kez elle aç.
    - Windows: PowerShell'de sırayla `winget install Git.Git`, `winget install Python.Python.3.12`,
-     `winget install Gyan.FFmpeg`, sonra `py -m pip install --user openpyxl pillow imageio-ffmpeg`.
+     `winget install Gyan.FFmpeg`, sonra `py -m pip install --user openpyxl pillow imageio-ffmpeg numpy`.
      Komutlarda `python3` yerine `py -3` kullanılır (`python3` yazmak Microsoft Store'u açar).
 5. **Başlat:** boş bir klasör aç, içinde `claude` çalıştır ve yaz:
    ```

@@ -34,6 +34,12 @@ Python komutu: macOS/Linux `python3`, Windows `py -3` (Windows'ta `python3` yazm
 Aşama 1'de kartı **gerçek fotoğraf ve satıcı açıklamasından** yaz (AI görselden değil). Mekanizmanın bilinmeyen kısmını
 gösterme; o anı atlayan sahne kur ve `[DOĞRULA]` etiketle. Kilit metni bir kez yazılır, her promptu betik üretir.
 
+**Viral referans (Aşama 1 sonu, atlanamaz):** ürünün en çok izlenen 5 videosunu kendin İZLE. Chrome'da
+`tiktok.com/search/video?q=<ürün>` açılır, kartlardaki izlenme okunur, en yükseğinden başlanır; video oynarken 2 sn'de bir
+`zoom` karesi alınır. `is/NN/viral-referans.md`: hesap, izlenme, süre, kanca yazısı, plan sırası, ürünün ekranda/elde nasıl
+göründüğü, ses. Ortak desen (5'in ≥3'ünde) senaryoların iskeleti olur. Alt ajan izlenme okuyamaz; bu iş liderde.
+Referans izlenmeden senaryo ve kare üretilmez.
+
 Aşama 3 ağır iştir: `icerik-stratejisti` alt ajanına ver. Brief'te: `is/NN/kart.md`, `kilit.txt`, pazar, CTA kelimesi,
 dağılım kuralları (`asamalar.md` §3), çıktı biçimi `${CLAUDE_SKILL_DIR}/referans/senaryo-formati.md`, betik klasörü
 `${CLAUDE_SKILL_DIR}/scripts/` (ajan değişkeni bilmez, yolu açık yaz), durma ölçütü "`senaryo_kontrol.py` çıkış 0". Ana oturuma yalnız özet + dosya yolu döner. Sonra betiği **sen de** koştur (ajan çıktısı sınanır).
@@ -54,8 +60,13 @@ Betik DUR/❌ verirse düzelt ve tekrar koştur; geçmeden sonraki aşamaya geç
 - Her kareyi isteğe karşı **ölçerek** kontrol et: ürün parça/renk/yazı, 4 bacak/5 parmak, aynı hayvan, etkileşim noktası
   karede hazır, olmamış olayın izi yok, logo/poster yok. Göz kararı ✅ yazma; ölçüm/pano dosyası yoksa ✅ geçersiz.
   ❌ olanı ORİJİNAL referanstan tek düzeltmeyle yeniden üret, en fazla 2 deneme; tutmazsa sonraki uygun senaryoya geç.
-- AI ekran, yazı, logo, parmak ve ince geometriyi bozar: ürün üstü ekran içeriği ve yazı **kurguda bindirilir**
-  (karede ekran kapalı ya da düz tek renk; `kilit.txt` içinde `SCREEN:` satırı).
+- **Ürün ekranı/ışığı karenin İÇİNDE üretilir** (görsel model hale, cam yansıması ve perspektifi kendisi yapar); klip
+  promptunda `SCREEN LOCK` ile sabit tutulur, içerik değişimi **kesimde** olur (aynı kadraj, yeni içerik = önce/sonra).
+  Sonradan düz daire bindirme sahte durur (perspektif taşması, yansımasız cam) — yalnız karede üretilemeyen hareket için,
+  `video-kurgu` ekran bindirme kurallarıyla. Basit hareket (radar dönmesi) Flow'da istenebilir; 4 fps panoyla sına.
+- **Gerçek bağlam:** ürün bir araca/eşyaya takılıyorsa o nesne gerçekçi ve tanınır olmalı (araçta model rozeti, gerçekçi
+  plaka + uydurma numara). Boş plaka, logosuz/markasız sahne, plastik yüz AI işaretidir.
+- Ekran içeriği gerçek kullanıcıların koyduğu tarzda olur (viral referanstan): çoğunlukla siyah zemin, sade parlak ikon.
 - Kare tipi, kamera, kanca, şablon kararları için: `referans/baslangic-karesi.md`, `sahne-sablonlari.md`,
   `kanca-kutuphanesi.md`, `kreatif-mantigi.md`, `pazar-katmani.md`; yasaklar `kurgu-ve-yasaklar.md` §7; tamamı tek blokta
   `sistem-promptu.md`; gerçek plan çıktısı biçimi `ornek-plan.md`; test/devam-öldür eşikleri `olcum-ve-test-plani.md`.
@@ -73,6 +84,8 @@ Betik DUR/❌ verirse düzelt ve tekrar koştur; geçmeden sonraki aşamaya geç
 ## Sınırlar
 - Uydurma yok: ürünün yapmadığını gösterme; sayı, yorum, indirim, stok, fiyat uydurma. Emin değilsen `[DOĞRULA]`.
 - Başka markanın logosu/ürün adı, lisanslı karakter/müzik, ünlü yüzü, sağlık/güvenlik iddiası, sahte otorite yok.
+  İstisna: ürün belirli bir markanın aracına/ürününe takılan aksesuarsa (ör. araç amblemi) marka görünürlüğünü kullanıcı
+  karar verir; risk ona söylenir ve karar KARARLAR.md'ye yazılır.
 - Google/ChatGPT girişinde dur, kullanıcıya devret; şifre isteme, yazma. Ödeme ekranında dur.
 - Kullanıcı ChatGPT'de kendi başına yapmak isterse: `${CLAUDE_PLUGIN_ROOT}/ekler/chatgpt/ai-video-kreatif.md`
   (Chrome eklentisi modunda ChatGPT Flow'a dosya yükleyemez; bulut tarayıcısında Google girişi kullanıcıdadır).

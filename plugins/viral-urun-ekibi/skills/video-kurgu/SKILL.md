@@ -44,12 +44,27 @@ her karede bindirme ekranın içinde mi. Yöntem ve ayarlar: `${CLAUDE_SKILL_DIR
 3. Çıktı satırını oku: süre 8–15 sn, 1080×1920, −14 ±1 LUFS. Değilse düzelt.
 4. `VNN_kontrol.jpg`'ye bak (her planın ortası + son kare): yazı okunuyor mu, ürünü/çıkış noktasını örtüyor mu,
    CTA son ≥ 3 sn'de ve kancanın hemen altında mı. Örtüyorsa `yazi_konum` ya da `kanca_gizle` ile yeniden koştur.
+**Viral (hızlı) kurgu — varsayılan reklam kurgusu:** `hizli_kurgu.py ayar.json` (alanlar betiğin başında).
+- Kanca = videonun **en güçlü anı ilk karede** (alev, değişim, sonuç); olayın ortasından aç, ilk karede ses de olsun.
+  Ölü/kapalı ürünle ya da sessiz açma. Kanca yazısı ilk karede tam görünür (kelime kelime değil).
+- Planlar müziğin vuruşuna oturur: plan = 2 ya da 4 vuruş (140 BPM'de 0,857 / 1,714 sn); toplam 9–12 sn.
+  "Önce/sonra" geçişi beyaz flaşla, yakın plan girişleri zoom punch ile. Son plan ilk plana bağlanır (döngü).
+- Yazı: BÜYÜK HARF, kalın sans (Montserrat ExtraBold, OFL), kanca 112 px, ara yazı 96–104 px, kontur ≈%8,5,
+  cümlede tek vurgu kelimesi renkli. Konum plan başına: ürünü örtmez; alt %20 ve sağ %15 boş.
+- "Polisten sakla" gibi yasa dışı kullanımı ima eden yazı yok.
+- Teslimden önce `video-elestirmen` ajanı (soğuk izleyici) videoyu puanlar; düzeltmeler uygulanmadan teslim yok.
+
 Kurallar (ayrıntı `referans/kurgu-kurallari.md`):
 - Kanca beyaz kalın, siyah konturlu, 1–3 satır; konum "oto" en boş bandı seçer (alt %20 ve sağ %15 hariç).
 - Emoji videoya girmez (betik çıkarır, uyarır) → caption'a taşı. Türkçe büyük harfi elle yaz; kodda `upper()` kullanma.
 - Font: betik Türkçe harfleri (çğıİöşü) ölçerek seçer; ilk kurulumda font test karesine bak.
 - Ses: klibin gerçek sesi + gerekirse kullanıcının **kendi telifsiz** efekt dosyası (`sfx`, `hizala: true` efekti
-  klipteki gerçek ses anına oturtur). Lisanslı müzik yok. Hedef −14 LUFS, ölç-düzelt döngüsüyle.
+  klipteki gerçek ses anına oturtur). Hedef −14 LUFS, ölç-düzelt döngüsüyle.
+- **Müzik videoda olmalı** (müziksiz teslim yok). Kaynak: kullanıcının kendi dosyası ya da açık lisanslı parça
+  (Pixabay vb.; lisans/Content ID notu teslim raporuna). Telifli şarkı internetten indirilmez; yayın sırasında platformun
+  kendi ses kütüphanesinden eklenebilir. Drop'u ölç (0,1 sn enerji sıçraması) ve "önce/sonra" kesimine hizala.
+- Ana ses anı (egzoz, tık, patlama) müziğin üstüne çıkar: `ses_tasarla.py` (sidechain ile müziği o anda kısar,
+  bas + doygunluk + mekân yankısı; tepe −1 dBTP). Abartı gerçekçiliği bozmamalı: clipping yok.
 - Toplam 10–15 sn; tek sahne şablonunda kesme yok; son kare ilk kareye bağlanabiliyorsa döngü kur.
 
 ## Aşama 9 — Teslim
@@ -60,6 +75,6 @@ Sesi dinleyemediysen bunu açıkça yaz.
 
 ## Sınırlar
 - Kontrol etmediğin klibi "temiz" ilan etme; "bitti" = dosya + ölçüm satırı + kontrol karesine bakıldı.
-- Başka markanın logosu, lisanslı müzik/karakter, sahte fiyat/yorum/indirim videoya girmez.
+- Başka markanın logosu, lisanslı karakter, sahte fiyat/yorum/indirim videoya girmez (aksesuar istisnası: kullanıcı kararı, KARARLAR.md).
 - Yeniden üretim kredi harcar: `ai-video-kreatif` kredi kuralı geçerli (tek seferlik tavan onayı, KARARLAR.md).
 - ChatGPT'de tek başına kurgu isteyen kullanıcıya: `${CLAUDE_PLUGIN_ROOT}/ekler/chatgpt/video-kurgu.md`.

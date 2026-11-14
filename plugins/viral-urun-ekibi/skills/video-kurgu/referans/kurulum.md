@@ -6,6 +6,7 @@
 | Python 3.8+ | çoğu Mac'te `python3` var; yoksa `xcode-select --install` | `winget install Python.Python.3.12` → komut `py -3` | `python3 --version` / `py -3 --version` |
 | Pillow | `python3 -m pip install pillow` | `py -3 -m pip install pillow` | `python3 -c "import PIL"` |
 | ffmpeg | `brew install ffmpeg` ya da `python3 -m pip install imageio-ffmpeg` | `winget install Gyan.FFmpeg` ya da `py -3 -m pip install imageio-ffmpeg` | betikler kendisi bulur |
+| numpy (ses_tasarla.py) | `python3 -m pip install numpy` | `py -3 -m pip install numpy` | `python3 -c "import numpy"` |
 
 ffmpeg bulma sırası: PATH → `imageio-ffmpeg` paketi → kurulum talimatıyla durur. `imageio-ffmpeg` ffprobe içermez;
 betikler ölçümü `ffmpeg -i` çıktısından yapar. winget sonrası yeni bir terminal aç (PATH yenilenir).

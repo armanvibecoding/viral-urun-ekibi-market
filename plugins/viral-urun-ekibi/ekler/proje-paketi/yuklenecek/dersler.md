@@ -84,3 +84,12 @@ Yeni iş başlamadan ilgili bölümü oku; aynı hatayı ikinci kez yapmak yasak
 66. **"Bilmiyorum / doğrulanamadı" geçerli sonuçtur;** ajan CAPTCHA'da durup sayı uydurmadığında doğru davrandı.
 67. **Her kayıt eklemesinde sayımları yeniden hesapla** (desen n'i = kanıt listesi uzunluğu) — elle tutulan sayılar eskidi.
 68. **Uzun çıktı dosyaya, sohbete 5–10 satır özet.** Kullanıcı beğenmediği ilk versiyonu reddederse milyonluk videoların karelerine bakarak yeniden yaz (köpekbalığı v1 → v2).
+
+## H. Ekranlı/ışıklı ürün videoları (dijital amblem deneyimi)
+69. **Üretmeden önce ürünün en çok izlenen 5 videosunu izle** (TikTok arama, izlenme sırası; tarayıcıda oynatıp 2 sn'de kare al). Kanıt: izlemeden yapılan 3 video "fake, ilgisiz" diye reddedildi; izledikten sonra yapılan pilot kabul edildi.
+70. **Ekran içeriğini sonradan düz daire olarak bindirme sahte durur:** açılı kadrajda elips taşması, camda yansıma yok, hale yok. İçeriği görsel modele karenin İÇİNDE ürettir; klipte sabit tut; değişimi kesimde göster.
+71. **Gerçek bağlam şarttır:** araç ürünü videosunda tanınır araç, model rozeti ve gerçekçi plaka (uydurma numara). Boş siyah plaka en güçlü AI işaretiydi.
+72. **Ekranlı ürünlerde kullanıcı içerikleri sade:** siyah zemin, ince parlak halka, tek ikon; viral açılış "normal görünüyor → değişiyor".
+73. **Kanca = en güçlü an ilk karede.** Kapalı ürünle ve sessiz açılış 2 sn'de kaydırılır (ölçüm: ilk 2 sn −43 dB, 20 karede değişim yok). Alev/değişim ilk kareye alındı.
+74. **Müziksiz teslim yok;** telifli şarkı indirilmez, açık lisanslı parça ya da kullanıcının dosyası. Drop'u ölçüp değişim kesimine hizala; ana ses anında müziği sidechain ile kıs.
+75. **Teslimden önce soğuk izleyici eleştirisi** (`video-elestirmen`): ilk turda iki ajan, sahibin fark etmediği kusurları kare kanıtıyla buldu (taşan renk, döngüsüz son, P5'te nedensiz değişim).
