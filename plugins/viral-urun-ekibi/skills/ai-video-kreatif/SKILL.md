@@ -66,6 +66,9 @@ Betik DUR/❌ verirse düzelt ve tekrar koştur; geçmeden sonraki aşamaya geç
   `video-kurgu` ekran bindirme kurallarıyla. Basit hareket (radar dönmesi) Flow'da istenebilir; 4 fps panoyla sına.
 - **Gerçek bağlam:** ürün bir araca/eşyaya takılıyorsa o nesne gerçekçi ve tanınır olmalı (araçta model rozeti, gerçekçi
   plaka + uydurma numara). Boş plaka, logosuz/markasız sahne, plastik yüz AI işaretidir.
+- **Klip kütüphanesi:** seri (ör. 30 video) için videoya değil SAHNEYE klip üret: sahne başına ~8 klip (elde ürün,
+  normal hal, değişim, 2–3 içerik, dokun→değiş tek çekim, geniş plan); videolar kütüphaneden kurgulanır (kredi ≈ 6× az).
+  Plaka/etiket/araç detayı prompta yazılı sabitlenir. "Dokun → değiş" için başlangıç + bitiş karesi kullan.
 - Ekran içeriği gerçek kullanıcıların koyduğu tarzda olur (viral referanstan): çoğunlukla siyah zemin, sade parlak ikon.
 - Kare tipi, kamera, kanca, şablon kararları için: `referans/baslangic-karesi.md`, `sahne-sablonlari.md`,
   `kanca-kutuphanesi.md`, `kreatif-mantigi.md`, `pazar-katmani.md`; yasaklar `kurgu-ve-yasaklar.md` §7; tamamı tek blokta

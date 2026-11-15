@@ -199,6 +199,9 @@ def main():
     ap.add_argument("--hedef_lufs", type=float, default=-14.0)
     ap.add_argument("--tepe", type=float, default=-1.0, help="tavan dBTP")
     ap.add_argument("--stem_klasoru", help="ara stem'leri buraya kopyala")
+    ap.add_argument("--sfx", help="sentetik efekt: 'tik@8.24,vurus@8.57' (tik = ekrana dokunma, vurus = değişim darbesi)")
+    ap.add_argument("--sfx_db", type=float, default=-9.0, help="efekt tepe seviyesi (dBFS, son seviyeden önce)")
+    ap.add_argument("--son_fade", type=float, default=0.8, help="müzik sonu kararma (döngülü videoda 0.12)")
     a = ap.parse_args()
 
     if os.path.abspath(a.cikti) == os.path.abspath(a.video):
@@ -299,7 +302,7 @@ def main():
         fade_in = "afade=t=in:d=0.05," if ofs < 0 else ""
         mgraf = (f"[0:a]aresample={SR},aformat=sample_fmts=flt:channel_layouts=stereo,{hiza}{fade_in}"
                  "highpass=f=30,equalizer=f=80:t=q:w=1.0:g=-3,apad,"
-                 f"atrim=end={sure:.4f},afade=t=out:st={max(0,sure-0.8):.3f}:d=0.8[m]")
+                 f"atrim=end={sure:.4f},afade=t=out:st={max(0,sure-a.son_fade):.3f}:d={a.son_fade}[m]")
         kos(["-i", a.muzik, "-filter_complex", mgraf, "-map", "[m]", "-f", "f32le", "-ar", str(SR),
              "-ac", "2", P("muz.f32")])
         I_m, _, _ = olc(raw_giris(P("muz.f32")))
@@ -329,6 +332,28 @@ def main():
     else:
         kos(raw_giris(P("egz.f32")) + ["-af", f"volume={egz_kaz:.2f}dB", "-f", "f32le", "-ar", str(SR),
                                        "-ac", "2", P("mix.f32")])
+
+    # 7b) sentetik efektler (telifsiz, kodla üretilir): dokunma "tik" ve değişim "vuruş"
+    if a.sfx:
+        mix = raw_oku(P("mix.f32")).copy()
+        rng = np.random.default_rng(7)
+        for parca in a.sfx.split(","):
+            tur, sn = parca.split("@")
+            i0 = int(float(sn) * SR)
+            if tur == "tik":  # 25 ms: 3,2 kHz tını + kısa gürültü, hızlı sönüm
+                t = np.arange(int(0.025 * SR)) / SR
+                x = (np.sin(2 * np.pi * 3200 * t) * 0.6 + rng.standard_normal(len(t)) * 0.4) * np.exp(-t / 0.004)
+            else:  # vuruş: 60 Hz'e inen bas darbe + 120 ms hava, 0,35 sn
+                t = np.arange(int(0.35 * SR)) / SR
+                f = 60 + 90 * np.exp(-t / 0.03)
+                x = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t / 0.12)
+                x += rng.standard_normal(len(t)) * np.exp(-t / 0.04) * 0.25
+            x = x / np.max(np.abs(x)) * 10 ** (a.sfx_db / 20)
+            j = min(len(mix), i0 + len(x)) - i0
+            if j > 0:
+                mix[i0:i0 + j] += x[:j, None]
+        mix.astype(np.float32).tofile(P("mix.f32"))
+        rapor["sfx"] = a.sfx
 
     # 8) son seviye: -14 LUFS / -1 dBTP; AAC sonrası ölçerek en çok 4 tur düzelt
     I_mix, _, _ = olc(raw_giris(P("mix.f32")))

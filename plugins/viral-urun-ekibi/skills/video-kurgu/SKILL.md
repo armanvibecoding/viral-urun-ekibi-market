@@ -56,6 +56,9 @@ her karede bindirme ekranın içinde mi. Yöntem ve ayarlar: `${CLAUDE_SKILL_DIR
   (büyük harf değil), 96–104 px, ince kontur (`kontur_oran` 0,06) + yumuşak gölge, cümlede tek vurgu kelimesi renkli.
   Montserrat ExtraBold büyük harf "reklam gibi" bulunup beğenilmedi. Konum plan başına: ürünü örtmez; alt %20 ve sağ %15 boş.
 - "Polisten sakla" gibi yasa dışı kullanımı ima eden yazı yok.
+- Satış iskeleti (örüntü kırma → merak → ödül → kişiselleştirme → kontrol → kimlik+CTA): `referans/noropazarlama.md`.
+- Kontrol/uygulama planı neden-sonuç gösterir: önceki hal → dokunuş → sonuç; dokunuş öncesinde sonucun izi olan kesit
+  kullanılmaz, kırpım sonucu kadraj dışında bırakmaz. Dokunuşa ve sonuca ses: `ses_tasarla.py --sfx tik@sn,vurus@sn`.
 - Teslimden önce `video-elestirmen` ajanı (soğuk izleyici) videoyu puanlar; düzeltmeler uygulanmadan teslim yok.
 
 Kurallar (ayrıntı `referans/kurgu-kurallari.md`):

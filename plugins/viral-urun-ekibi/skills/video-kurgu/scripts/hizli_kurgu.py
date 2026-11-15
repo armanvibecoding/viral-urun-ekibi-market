@@ -171,8 +171,8 @@ def yazilari_bindir(ff, video, yazilar, a, tmp, cikti):
         yazi_png(yol, satirlar, a["font"], a.get("font_agirlik"), y.get("konum", 0.16))
         girdiler += ["-loop", "1", "-i", yol]
         bas, bit = y["bas"], y["bit"]
-        zincir.append(f"[{j + 1}:v]format=rgba,fade=t=in:st={bas:.3f}:d=0.12:alpha=1,"
-                      f"fade=t=out:st={bit - 0.06:.3f}:d=0.06:alpha=1[y{j}]")
+        giris = f"fade=t=in:st={bas:.3f}:d=0.12:alpha=1," if bas > 0.01 else ""  # kanca yazısı ilk karede TAM görünür
+        zincir.append(f"[{j + 1}:v]format=rgba,{giris}fade=t=out:st={bit - 0.06:.3f}:d=0.06:alpha=1[y{j}]")
         zincir.append(f"[{son}][y{j}]overlay=0:0:shortest=1:enable='between(t,{bas:.3f},{bit:.3f})'[o{j}]")
         son = f"o{j}"
     r = subprocess.run([ff, "-v", "error", "-y", *girdiler, "-filter_complex", ";".join(zincir), "-map", f"[{son}]",
