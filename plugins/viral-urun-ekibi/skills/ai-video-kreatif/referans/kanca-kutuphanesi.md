@@ -6,7 +6,7 @@ Kanca = ilk karede ekrana yazılan (çoğu videoda sonuna kadar sabit kalan) cü
 Kanıt = saha veri seti `milyon: true` kayıtlarının **milyon alan videosundaki** kanca (profildeki diğer milyonlar ayrıca belirtilir).
 Etiket: **KURAL** ≥3 · **ADAY** 2 · **GÖZLEM** 1. Gerçek marka/karakter adı geçen kancalar `[köşeli]` ile maskelendi (yasak #1–2).
 
-> Kaynak 97 milyon kayıt (130–132 dahil).
+> Kaynak 104 milyon kayıt (001–139; 133–139 son eklenen). Aşağıdaki oran ölçümleri ilk 97 kayıtla yapıldı.
 > **Önce oku — N2:** Kanca tek başına milyon getirmiyor. 9 hesapta aynı ürünün yasak/zorunluluk kancalı versiyonu 565–35,8B'de kaldı,
 > milyonu görüntü (tepki, dönüşüm, gag) getirdi [063, 064, 071, 081, 085, 087, 088, 127, 128]. Kanca = paylaşım çarpanı; durduran şey görüntü.
 >
@@ -18,11 +18,12 @@ Etiket: **KURAL** ≥3 · **ADAY** 2 · **GÖZLEM** 1. Gerçek marka/karakter ad
 
 ## 1. Kanca aileleri
 
-### K1. Yasak — "DO NOT show this to a [KİMLİK]…" — KURAL (13)
+### K1. Yasak — "DO NOT show this to a [KİMLİK]…" — KURAL (15)
 Kanıt (milyon video): "DO NOT show this to a car guy…🤫" [037] · "Do not let an ADULT with money see this…👀😭" [040] · "DON'T let baby MOM see this… 🥹🍼" [056] ·
 "DO NOT show this to a DOG Mom… 🥰🐶🎁" [064] · "Don't let Italy fans see this.. 😳🇮🇹" [067] · "DO NOT show this to a [oyun] fan.. 🧟" [072] ·
 "DON'T show this to a DOG MOM... 🫣🐶" [081] · "Don't show this to a DOG Mom 🐶❤️" [082] · "Do NOT send this to a [karakter] lover.. 🤣💚" [088] ·
-"DON'T show this to a new MOM... 🥺🐢💚" [096] · "Do NOT let DINOSAUR parents see this 🦕🥹" [103] · "DO NOT let a [araba markası] lover see this..." [106] · "DO NOT watch this if you're a DOG MOM...🐶🤩" [132]
+"DON'T show this to a new MOM... 🥺🐢💚" [096] · "Do NOT let DINOSAUR parents see this 🦕🥹" [103] · "DO NOT let a [araba markası] lover see this..." [106] · "DO NOT watch this if you're a DOG MOM...🐶🤩" [132] ·
+"DO NOT let an 80's kid see this 🫣☎️" [136, nesil kimliği] · "DON'T let your mom see this... 😳🎄🎁" [139, hediye + sezon]
 Altyazı olarak da: "Don't show this to a book lover cat mom 📚🐉" [131].
 Altyazıda: 070, 071, 087. Profilde ayrıca milyon: 020 (13,1MN), 073 (7,5MN), 085 (2,7MN), 112 (21MN), 091 Ek (2,4MN).
 Şablon: `DO NOT show this to a [KİMLİK]… [👀/🫣/🥹]` · `Don't let [KİMLİK] see this…` · `Do NOT send this to a [KİMLİK]..`
@@ -35,25 +36,28 @@ Kanıt: "All cats need this for Christmas… 🥹" [005] · "Every moon lover ne
 Şablon: `Every [KİMLİK] NEEDS this! [emoji]` · sezon eki `…for [SEZON]` [005].
 Düşük: 'EVERY Christmas LOVER Needs One' 2.266 [127] · 'If you're a [karakter] lover you NEED this' 3.821 [088].
 
-### K3. Hediye-yok kesik — "The perfect gift for [X] doesn't exi-" — KURAL (4)
+### K3. Hediye-yok kesik — "The perfect gift for [X] doesn't exi-" — KURAL (5)
 Kanıt: "The perfect Halloween dog costume doesn't exist-" 😳🤩 [058] · "The perfect gift doesn't exist..." 😳 [073] ·
-"The perfect gift for your husband doesn't exist-" 😭🎁 [115] · "Perfect gift for bathing you dog doesn't exi… 😱🥺" [128]
+"The perfect gift for your husband doesn't exist-" 😭🎁 [115] · "Perfect gift for bathing you dog doesn't exi… 😱🥺" [128] ·
+"The perfect gift for your passenger princess doesn't exi-" 👸💅🤯 [133, argo kimlik; profilde 6,4MN]
 Şablon: `"The perfect [SEZON] gift for your [KİŞİ] doesn't exi-" [😭🎁]` — ürün cümleyi bitirir.
 Düşük: 075 'The perfect Halloween dog mask doesn't exist' 5,6B; 123 '…for your husband doesn't exi-' (AI kamusal) 18,2B → görüntü zayıfsa taşımıyor.
 
-### K4. Bağlamlı hediye / tavsiye — KURAL (4)
+### K4. Bağlamlı hediye / tavsiye — KURAL (5)
 Kanıt: "The best gift for a runner 🤯💦" [003] · "POV: you found the perfect gift for a dog mom 😳" [066] · "Best gift I've bought for my kid 🎁🥊" [105] ·
-"Secret Santa idea for a cheese lover in the US...🇺🇸🎁🧀" → "Just kidding, we make them! Link in bio" [110]
+"Secret Santa idea for a cheese lover in the US...🇺🇸🎁🧀" → "Just kidding, we make them! Link in bio" [110] ·
+"The perfect gift for your travel buddy ✈️🎁" [138, ikili kimlik: iki kişi aynı karede ürünü kullanıyor]
 Şart: kimlik + somut bağlam (koşucu, Secret Santa, "for my kid"). Bağlamsız düz hediye düşük: 'The perfect gift for your dog' 802 [075], 'perfect gift for your passenger queen' 2.068 [099], 'Gift idea for a cheese lover' 31,4B [110], 'The perfect gift for small dog owners' 45,6B [132] → N4.
 
-### K5. Alıntı-ironi — KURAL (6)
+### K5. Alıntı-ironi — KURAL (7)
 Kanıt: "\"Muslims are too hard to gift\" 👎😭" [054] · "🧑 \"Cat moms are hard to gift\" / Me: 🤩🐈" [086] · "👱‍♀️: Babe, quit buying sh*t, you're 35! / Me: 🔫" [098] ·
-"Them: \"I don't have space for an office.\" / Me:" [113] · "\"Babe, we DON'T need that\" 😒 / Me: 🤩" [122, 4 video 1,2–2,2MN] · "\"It's just a fridge magnet...\" 😤" [127, ayrıca 067 notu]
+"Them: \"I don't have space for an office.\" / Me:" [113] · "\"Babe, we DON'T need that\" 😒 / Me: 🤩" [122, 4 video 1,2–2,2MN] · "\"It's just a fridge magnet...\" 😤" [127, ayrıca 067 notu] ·
+"'My wife: Stop buying nonsense..' / Me 🤭:" [135, örtü altından reveal; 36,1MN]
 Şablonlar: `"[KİMLİK]s are hard to gift" / Me: 🤩` · `Them: "I don't have space for [X]." / Me:` · `"Babe, we DON'T need that" 😒 / Me: 🤩` · `"It's just a [sıradan nesne]..." 😤`
 Ölçülen üstünlük: 127'de 3,5MN vs zorunluluk kancası 2.266.
 
-### K6. Yetişkin parası ironisi — KURAL (3)
-Kanıt: "Do not let an ADULT with money see this…" [040] · "POV: You have adult money 🤣😭" [087] · "\"The best thing I've bought with my adult money\" 🤣🤣" [100]
+### K6. Yetişkin parası ironisi — KURAL (4)
+Kanıt: "Do not let an ADULT with money see this…" [040] · "POV: You have adult money 🤣😭" [087] · "\"The best thing I've bought with my adult money\" 🤣🤣" [100] · "The best thing I've spent my adult money on...😭" [134, 20,9MN]
 Yakın: "My new office investment 😭😂" [129]. Düşük: 088'de aynı kanca 32,1B (ürün/görüntü belirledi).
 Şablon: `POV: You have adult money 🤣😭` · `"The best thing I've bought with my adult money" 🤣`
 Uygun ürün: şaka, oyuncak gibi yetişkin ürünü, gag.
@@ -79,7 +83,7 @@ Kanıt: "CAR GIRLS This is for you…🫣🚘🐶" [083] · "[FANDOM] FANS, don'
 Şablon: `[HOBİ] GIRLS This is for you…` · `[KİMLİK], we found your next grail 🏆` · `[KİMLİK], don't hate me for this… 😂`
 
 ### K11. Akış kartları (sahne grubuna göre 3 yazı) — KURAL
-- **The problem → Vs… → The solution** (7): 044, 047, 074, 077, 084, 112, 120
+- **The problem → Vs… → The solution** (8): 044, 047, 074, 077, 084, 112, 120, 137 (AI yolculuk, "The problem" 15,3MN)
 - **The Concept → VS… → The Result** (4): 036, 075, 080, 131 (+112 profilde 26,3MN; 131 yeni hesapta 3. denemede: 29,4B · 4.129 · 1,4MN)
 - **Karşılaştırma varyantı** (3): "The making vs… → Result ✨" [076] · "Travel bottles in 2025 → Vs… → 2026 🤩" [116] · "Normal office chair vs... → The [marka] ☁️😌" [126]
 Kartlar: `The problem 😭` → `Vs…` → `The solution 🤩` · `The Concept 🤢` → `Vs…` → `The Result 😭❤️` · `Normal [ürün] vs...` → `The [marka]`
@@ -113,11 +117,12 @@ Kanıt: "Watch what happens when the handle gets close to the magnetic drain" [0
 | Evcil hayvan ebeveyni | dog mom, cat mom, small dog mom, cat parent | 057, 064, 066, 071, 081, 082, 086, 120, 128 |
 | Ebeveyn | new mom, baby mom, dinosaur parents, kid | 056, 069, 096, 103, 105 |
 | Hobi / tutku | car guy, car lover, car girls, moon lover, collectors, runner | 003, 020, 037, 070, 083, 101, 106 |
+| Argo / nesil | passenger princess, 80's kid, travel buddy | 133, 136, 138 |
 | Kültür / topluluk | Italy fans, Muslims, diaspora | 054, 067, 076 |
 | Meslek / alışkanlık | teacher, organized person, office | 121, 124, 129 |
-| İlişki | husband, babe, them | 098, 113, 115, 122 |
+| İlişki | husband, babe, them, wife, mom | 098, 113, 115, 122, 135, 139 |
 | İronik | adult with money | 040, 087, 100 |
-| Fandom | oyun/çizgi film hayranı | 072, 088, 097 → **lisanslı karakter yasak**; kendi uydurduğun karakter/nesil kimliği ("90s kids", "gamers") kullan (sahada ölçülmedi) |
+| Fandom | oyun/çizgi film hayranı | 072, 088, 097 → **lisanslı karakter yasak**; nesil kimliği kullan ("80's kid" [136]; "gamers" sahada ölçülmedi) |
 
 Kural: kimlik = ürünü **isteyecek ya da hediye alacak** grup; kullanıcı olması şart değil [020 'your girlfriend' 13,1MN, 115 husband].
 

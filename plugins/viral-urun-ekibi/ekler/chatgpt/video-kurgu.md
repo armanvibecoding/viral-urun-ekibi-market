@@ -46,8 +46,8 @@ AŞAMA 8 — KURGU (ffmpeg)
 - Font: `fc-list ':charset=11e 130 131 15e' file` ile Türkçe harfleri içeren kalın font bul. Önce "çğıİöşü ÇĞÖŞÜ
   IĞDIR İSTANBUL" test karesi üret ve BAK. Türkçe büyük harfi elle yaz; kodda upper() kullanma ("KEDI" olur).
   Emoji videoya girmez (kutucuk olur) → caption'a taşı. Yazı katmanı için Pillow ile saydam PNG + overlay en güvenlisi.
-- Ürün üstü ekran/yazı içeriği (varsa): klipte ekran düz tek renkse animasyonu dairesel/dikdörtgen maskeyle (alphamerge)
-  ekranın içine bindir; konum/boyut ilk ve son karede ölçülür, aradaki kareler doğrusal. Taşma 4 fps panoda kontrol edilir.
+- Ürün üstü ekran içeriği (varsa) karede üretilmiştir; değişim iki klip arasındaki kesimde olur. Bindirme yalnız istisna
+  (karede üretilemeyen hareket): perspektife uyan elips/dikdörtgen maske, cam yansıması, kumlanma; taşma 4 fps panoda kontrol edilir.
 - SES: klibin gerçek sesi + kullanıcının telifsiz efekti (efekt, klip sesindeki gerçek olay anına: ±1,2 sn içindeki en
   belirgin ses yükselişi). Lisanslı müzik yok. Hedef −14 LUFS: ölç (ebur128) → volume kazancı + alimiter → tekrar ölç;
   ±0,5'e gelene kadar en fazla 4 tur (tek geçiş loudnorm videolar arasında 8 dB fark bıraktı). Sonucu sayıyla yaz.

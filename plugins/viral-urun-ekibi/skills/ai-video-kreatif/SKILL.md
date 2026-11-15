@@ -22,36 +22,51 @@ Python komutu: macOS/Linux `python3`, Windows `py -3` (Windows'ta `python3` yazm
 ## Aşamalar (ayrıntı: `${CLAUDE_SKILL_DIR}/referans/asamalar.md`)
 | No | Aşama | Bitiş durumu (dosya) |
 |---|---|---|
-| 0 | Girdi | ürün fotoğrafı `referans/` içinde; pazar KARARLAR'da; link/fiyat varsa `kart.md`'de |
-| 1 | Araştırma + ürün kartı | `kart.md` (mekanizma kartı) + `kilit.txt` (PRODUCT / MECHANISM / SCREEN / WRONG) |
+| 0 | Girdi + kapılar | ürün fotoğrafı `referans/` içinde; pazar, kredi tavanı, müzik izni, Flow hakları, Chrome indirme, logo/IP KARARLAR'da |
+| 1 | Araştırma + ürün kartı | `kart.md` (sektör satırı + mekanizma kartı) + `kilit.txt` + `viral-referans.md` |
 | 2 | Temiz ürün görselleri | `referans/paket_*.png` + aynı-ürün panosu ve ölçüm tablosu |
 | 3 | 30 senaryo | `senaryolar.json` + `senaryolar.md/.csv`, `senaryo_kontrol.py` çıkış 0 |
 | 4 | Kare planı + promptlar | ilk 5 videonun `promptlar/VNN_SK_gorsel.txt` ve `_flow.txt` dosyaları |
-| 5 | Başlangıç kareleri | `kareler/VNN_SK.png` (1080×1920), kabul tablosu |
+| 5 | Başlangıç kareleri + ön-üretim eleştirisi | `kareler/VNN_SK.png` (1080×1920), kabul tablosu, `elestiri/ELESTIRI-on-uretim-*.md` GEÇTİ |
 | 6 | Flow klipleri | `klipler/VNN_SK.mp4` (720p), harcanan kredi DURUM'da |
 | 7–9 | Klip kontrolü, kurgu, teslim | `video-kurgu` becerisi |
+
+**Aşama 0 tek turdur:** kullanıcıya gidecek bütün kapılar (pazar, kredi tavanı, müzik kaynağı izni, Flow "kullanım
+hakları" onayı, Chrome çoklu indirme izni, logo/IP) burada tek mesajda sorulur ve KARARLAR.md'ye yazılır; sonrası
+sorusuz akar (liste ve istisnalar: `asamalar.md` Aşama 0).
 
 Aşama 1'de kartı **gerçek fotoğraf ve satıcı açıklamasından** yaz (AI görselden değil). Mekanizmanın bilinmeyen kısmını
 gösterme; o anı atlayan sahne kur ve `[DOĞRULA]` etiketle. Kilit metni bir kez yazılır, her promptu betik üretir.
 
-**Viral referans (Aşama 1 sonu, atlanamaz):** ürünün en çok izlenen 5 videosunu kendin İZLE. Chrome'da
-`tiktok.com/search/video?q=<ürün>` açılır, kartlardaki izlenme okunur, en yükseğinden başlanır; video oynarken 2 sn'de bir
-`zoom` karesi alınır. `is/NN/viral-referans.md`: hesap, izlenme, süre, kanca yazısı, plan sırası, ürünün ekranda/elde nasıl
-göründüğü, ses. Ortak desen (5'in ≥3'ünde) senaryoların iskeleti olur. Alt ajan izlenme okuyamaz; bu iş liderde.
-Referans izlenmeden senaryo ve kare üretilmez.
+**Viral referans (Aşama 1 sonu, atlanamaz; alt ajan izlenme okuyamaz, bu iş liderde):**
+1. **TikTok, ≥ 5 sorgu:** ürün adı + rakip marka/model adları + kategori sorguları ("<kategori> accessories you need",
+   "<kategori> mod reveal"). `tiktok.com/search/video?q=<sorgu>`. Kart verisi toplanır (ölçülmüş yöntem): sayfada
+   `a[href*="/video/"]` öğesinin 4 üst ebeveyninin `innerText`'i okunur; tarih satırından bir önceki değer izlenme,
+   sonraki % değer izlenme oranıdır; her sorgunun satırları localStorage'da tek anahtarda biriktirilir (sayfa değişince kaybolmaz).
+2. **En az 10 video İZLENİR** (izlenme sırasıyla, sorgulara dağıtarak); oynarken 2 sn'de bir `zoom` karesi.
+3. **Meta Reklam Kütüphanesi satırı:** ürünün aktif reklam sayısı + en uzun süredir yayındaki 3 kreatifin kancası ve ilk
+   karesi (uzun yayın = kârlı varsayımı ölçülmedi, "deneme" diye yaz).
+`is/NN/viral-referans.md`: sorgular, toplanan kart sayısı, izlenen her video için hesap, izlenme, süre, kanca yazısı, plan
+sırası, ürünün ekranda/elde nasıl göründüğü, ses; `Meta: N aktif, en uzun M gün` satırı. ≥3 videoda görülen desen
+senaryoların iskeleti olur (KANITSIZ SEKTÖR'de senaryoların ≥ %50'si). Referans izlenmeden senaryo ve kare üretilmez.
 
 Aşama 3 ağır iştir: `icerik-stratejisti` alt ajanına ver. Brief'te: `is/NN/kart.md`, `kilit.txt`, pazar, CTA kelimesi,
 dağılım kuralları (`asamalar.md` §3), çıktı biçimi `${CLAUDE_SKILL_DIR}/referans/senaryo-formati.md`, betik klasörü
 `${CLAUDE_SKILL_DIR}/scripts/` (ajan değişkeni bilmez, yolu açık yaz), durma ölçütü "`senaryo_kontrol.py` çıkış 0". Ana oturuma yalnız özet + dosya yolu döner. Sonra betiği **sen de** koştur (ajan çıktısı sınanır).
 
+**Ön-üretim eleştirisi (Aşama 5 sonu, kredi onayından önce):** ilk 5 senaryo ve kareleri `video-elestirmen` ajanına
+"ön-üretim" moduyla verilir; eşiği geçmeyen video Flow'a gitmez (eşikler ajan dosyasında).
+
 Örnek video için en güçlü ve AI riski en düşük senaryoyu (mekanizması `[DOĞRULA]` olmayan) seç, gerekçeyi tek satır yaz.
 
 ## Betikler (`${CLAUDE_SKILL_DIR}/scripts/`)
-- `senaryo_kontrol.py is/NN/senaryolar.json` — sebep→sonuç, tekrar, benzerlik (difflib > 0,8), dağılım, TR kanca kuralları; tablo yazar.
+- `senaryo_kontrol.py is/NN/senaryolar.json` — sebep→sonuç, tekrar, benzerlik (difflib > 0,8), dağılım, TR kanca kuralları,
+  giriş/ortam/özne çeşitliliği; tablo yazar.
 - `prompt_uret.py is/NN/senaryolar.json is/NN/kilit.txt --video 1 2 3` — görsel + Flow promptları; kilit sayımı ve
   AUDIO ⊆ ACTION kapısı. Tek promptu panoya: `--kopyala 1 2 flow`.
 - `kare_hazirla.py <indirilen.png> is/NN/kareler/V01_S1.png --referans <orijinal>` — 9:16 kırp, 1080×1920, md5 kontrolü.
   `--yan-yana orijinal uretilen pano.jpg --bolge x0,y0,x1,y1` — aynı ürün mü panosu.
+- `ekran_tasi.py k2.png k3.png CX CY R k3_hizali.png` — "sonra" karesinin ekran bölgesini "önce" karesine taşır (kadraj sabit).
 - `chatgpt_indir.js`, `flow_yukle.js` — Claude in Chrome `javascript_tool` için (kullanım: `referans/flow-ve-chatgpt.md`).
 Betik DUR/❌ verirse düzelt ve tekrar koştur; geçmeden sonraki aşamaya geçme.
 
@@ -66,9 +81,13 @@ Betik DUR/❌ verirse düzelt ve tekrar koştur; geçmeden sonraki aşamaya geç
   `video-kurgu` ekran bindirme kurallarıyla. Basit hareket (radar dönmesi) Flow'da istenebilir; 4 fps panoyla sına.
 - **Gerçek bağlam:** ürün bir araca/eşyaya takılıyorsa o nesne gerçekçi ve tanınır olmalı (araçta model rozeti, gerçekçi
   plaka + uydurma numara). Boş plaka, logosuz/markasız sahne, plastik yüz AI işaretidir.
-- **Klip kütüphanesi:** seri (ör. 30 video) için videoya değil SAHNEYE klip üret: sahne başına ~8 klip (elde ürün,
-  normal hal, değişim, 2–3 içerik, dokun→değiş tek çekim, geniş plan); videolar kütüphaneden kurgulanır (kredi ≈ 6× az).
-  Plaka/etiket/araç detayı prompta yazılı sabitlenir. "Dokun → değiş" için başlangıç + bitiş karesi kullan.
+- **Seri üretim (30 video): videoya değil sahneye klip üret.** Özneye (araç, hayvan, kişi) bağlı sahne yeniden
+  kullanılamaz; her özne için ~5 klip: k1 kahraman giriş · k2 önce/stok · k3 sonra (k2 ile AYNI kadraj) · k4 başka açı,
+  içerik 2 · k5 geniş kimlik planı. Özneden bağımsız sahneler (telefon dokunuşu, kutu açılışı, elde ürün, söküm/montaj
+  makro, konnektör) **ortak klip**tir: 2–3 varyant (farklı el/kılıf/zemin), her biri ≤ 4 videoda, ardışık iki videoda değil.
+  Her videoda özne, renk, ortam, giriş türü, kanca ve müzik türü farklı. Giriş türleri: egzoz/ses · söküm makro ·
+  concept→result · hikâye POV yazısı · elde ürün/kutu · kapı/örtü reveal · sonuç önce. Plaka/etiket prompta yazılı
+  sabitlenir; "dokun → değiş" için başlangıç + bitiş karesi. Örnek tablo: `referans/flow-ve-chatgpt.md` "Seri üretim".
 - Ekran içeriği gerçek kullanıcıların koyduğu tarzda olur (viral referanstan): çoğunlukla siyah zemin, sade parlak ikon.
 - Kare tipi, kamera, kanca, şablon kararları için: `referans/baslangic-karesi.md`, `sahne-sablonlari.md`,
   `kanca-kutuphanesi.md`, `kreatif-mantigi.md`, `pazar-katmani.md`; yasaklar `kurgu-ve-yasaklar.md` §7; tamamı tek blokta
@@ -76,9 +95,8 @@ Betik DUR/❌ verirse düzelt ve tekrar koştur; geçmeden sonraki aşamaya geç
 
 ## Flow ve kredi (ölçülmüş)
 - Model **Omni 1.2 Flash**, 9:16, x1, 4 sn, **720p = 12 kredi/klip**. 360p kullanılmaz. Pahalı model ayrı onay ister.
-- Kredi harcayan her üretimden önce **tek seferlik tavan onayı** al: "N klip + en fazla R yeniden deneme = toplam en fazla
-  X kredi (720p klip başı 12, ekranda okudum). Onaylıyor musun?" Onayı tutarıyla KARARLAR.md'ye yaz. Tavan içinde tekrar
-  sorma; aşacaksan DUR. Kredi bilgisini her üretimde ekrandan da oku.
+- **Tavan onayı Aşama 0'da bir kez** alınır: "N klip + en fazla R yeniden deneme = toplam en fazla X kredi (720p klip
+  başı 12)". Tutarıyla KARARLAR.md'ye yazılır. Tavan içinde tekrar sorma; aşacaksan DUR. Kredi bilgisini her üretimde ekrandan da oku.
 - Klip başına en fazla 3 deneme, her denemede tek değişiklik. İndirilen dosya adı sırayı taşımaz: klibi ilk karesine bakarak eşle.
 - Yükleme yöntemi, giriş, kullanım hakları onayı, indirme: `${CLAUDE_SKILL_DIR}/referans/flow-ve-chatgpt.md`.
   Tarayıcı aracı yoksa promptları dosyadan kullanıcıya ver; o üretir, sen klipleri kontrol edersin.

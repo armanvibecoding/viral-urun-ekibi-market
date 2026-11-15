@@ -43,8 +43,8 @@ Konuşma yok: milyonlarda konuşan tek video GERÇEK-MARKA kurucu anlatımı [03
 
 ---
 
-## S1 — Tek sahne gag / mekanizma — KURAL (14)
-Kanıt: 014, 038, 060, 063, 066, 072, 085, 089, 090, 097, 105, 114, 117, 123. Örnek sayılar: 085 30,2MN · 063 15MN · 114 6,1MN (profilde 20,1MN) · 123 4,8MN · 117 4MN.
+## S1 — Tek sahne gag / mekanizma — KURAL (17)
+Kanıt: 014, 038, 060, 063, 066, 072, 085, 089, 090, 097, 105, 114, 117, 123, 134 (AI market kuyruğu, kimse fark etmiyor, 20,9MN), 135 (örtü reveal, gerçek), 138 (AI uçak, iki kişi uyuyor). Örnek sayılar: 085 30,2MN · 063 15MN · 114 6,1MN (profilde 20,1MN) · 123 4,8MN · 117 4MN.
 Hesap-içi: aynı ürünün AI kamusal sahneli versiyonları 16,5B–52,4B [123]; yazılı versiyon 983–2.275 [102].
 Yapı: **1 sahne, kesmesiz, 6–10 sn döngü.** Gerekirse aynı kadrajdan ikinci klip (devam) — kurguda birleştir. Yazı yok ya da tek satır.
 Kanca: K13 yazısız / K8 POV keşif / K9 sonuç cümlesi.
@@ -76,8 +76,8 @@ Yazı: yok ya da `POV: you found the perfect gift for a DOG MOM 😳` [066]. Cap
 
 ---
 
-## S2 — Problem → Vs… → Çözüm (+ gece kamerası varyantı) — KURAL (15; gece kamerası 3 + 2 Ek)
-Kanıt D12: 036, 040, 044, 047, 074, 075, 076, 077, 080, 084, 100, 112, 116, 120, 126. Gece kamerası: 074 1,1MN · 084 1MN · 120 5MN · Ek 047 hesabı 5,5MN · Ek 084 kedi 2,8MN.
+## S2 — Problem → Vs… → Çözüm (+ gece kamerası varyantı) — KURAL (16; gece kamerası 3 + 2 Ek)
+Kanıt D12: 036, 040, 044, 047, 074, 075, 076, 077, 080, 084, 100, 112, 116, 120, 126, 137 (AI tren/uçak: problem ve yan koltukta zorlanan başka ebeveyn aynı karede). Gece kamerası: 074 1,1MN · 084 1MN · 120 5MN · Ek 047 hesabı 5,5MN · Ek 084 kedi 2,8MN.
 Problem şartı (eski "komik-tehlike şart" kuralı daraltıldı): **tanıdık + tek bakışta anlaşılır** yeterli — üşüyen köpek [084], yatağı kapan kedi [120], kıllı lavabo [077], sıkıcı duş başlığı [112], dar ofis koltuğu [126], tehlikeli-komik kedi [047].
 
 | Sahne | Klip | Kurguda | Görüntü | Yazı |
@@ -220,8 +220,8 @@ Yazı: `Every little DOG OWNER NEEDS this! 🫣🎅` [071] ya da `"Dog moms are 
 
 ---
 
-## S7 — Ürünün kendisi dönüşüyor (reveal / ışık / tamamlanma) — KURAL (24)
-Kanıt D15: 030, 038, 053, 057, 058, 065, 069, 075, 080, 081, 083, 085, 087, 089, 090, 093, 096, 101, 103, 113, 115, 123, 127, 128.
+## S7 — Ürünün kendisi dönüşüyor (reveal / ışık / tamamlanma) — KURAL (26)
+Kanıt D15: 030, 038, 053, 057, 058, 065, 069, 075, 080, 081, 083, 085, 087, 089, 090, 093, 096, 101, 103, 113, 115, 123, 127, 128, 134, 135.
 Alt tipler: sıradan görünüm → sürpriz işlev ("It's just a …" 127 3,5MN; Ek 067 aynı ürün 2,3MN) · katlı → açık (113 5,2MN, 128 1,1MN) · parça parça tamamlanma (093 13,3MN) · ışık kapanınca parlama (057 33,3MN).
 Gerçek görünüm yeterli (bunların çoğu gerçek çekim); AI yalnız ürün hareketi için.
 
@@ -256,8 +256,8 @@ Yazı: `DO NOT let a CAR GUY see this...` (K1) · CTA `Comment "JACKET"`.
 
 ---
 
-## S9 — POV sorun anı → idealize sonuç (AI-5) — KURAL (4 AI-5; K7 kancası 5)
-Kanıt: 099 3,2MN (uçakta 15 saat) · 094 1,1MN (çözülmüş aile anı) · 119 5,1MN (titreyen köpek → huzur) · 078 1,4MN (oda dönüşümü) · K7: 053, 092, 099.
+## S9 — POV sorun anı → idealize sonuç (AI-5) — KURAL (6 AI-5; K7 kancası 5)
+Kanıt: 099 3,2MN (uçakta 15 saat) · 094 1,1MN (çözülmüş aile anı) · 119 5,1MN (titreyen köpek → huzur) · 078 1,4MN (oda dönüşümü) · 133 araç yolcu koltuğunda yastıkla uyuyan kadın (profil 6,4MN) · 138 4,1MN (uçakta iki kişi uyuyor) · 139 1,2MN (masa altı ısıtıcı POV, gerçek-görünümlü AI) · K7: 053, 092, 099.
 Hesap-içi: 094 gerçek yorgun-anne videoları 2–3,6B, AI huzur sahnesi 1,1MN. Sağlık durumu söyleyen POV yok (059/109 kit dışı).
 **AI etiketi:** duygusal içerikte etiket etkileşimi düşürüyor (ARAŞTIRMA madde 3), ama 094 hesap-içi kanıtı ters yönde (AI huzur karesi 1,1MN, gerçek videolar 2–3,6B → ~300–550×) → karar verilmedi; tam AI ve S10 versiyonu A/B.
 

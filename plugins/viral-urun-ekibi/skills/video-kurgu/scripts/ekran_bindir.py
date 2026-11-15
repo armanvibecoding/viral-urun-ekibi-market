@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Ürün üstündeki ekran/yazı/logo içeriğini kurguda bindirir (AI'a ÇİZDİRİLMEZ; AI ekranı 4 sn içinde bozar).
+"""İSTİSNA aracı: karede üretilemeyen hareketli ekran içeriğini kurguda bindirir.
 
-Başlangıç karesinde ekran kapalı siyah cam ya da düz tek renk üretilir; Flow promptunda "SCREEN LOCK"
-(renk 4 sn sabit) yazılır. Bu betik animasyonu (video ya da görsel) daire/dikdörtgen maskeyle ekranın içine koyar.
+Varsayılan kural: ekran içeriği başlangıç karesinde üretilir, klipte SCREEN LOCK ile sabit kalır, değişim kesimde
+(referans/ekran-bindirme.md). Bu betik animasyonu (video ya da görsel) daire/elips/dikdörtgen maskeyle ekranın içine
+koyar; cam yansıması eklemez (ayrı katman gerekir).
 Kamera yalnız sabit / yavaş doğrusal hareket olmalı: konum ve boyut ilk kare -> son kare arasında doğrusal
 enterpolasyonla izlenir. Koordinatlar KLİBİN kendi pikselinde (ilk/son kareyi PNG çıkarıp ölç).
 

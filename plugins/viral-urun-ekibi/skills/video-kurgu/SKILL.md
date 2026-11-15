@@ -31,8 +31,9 @@ python3 "${CLAUDE_SKILL_DIR}/scripts/klip_qc.py" is/NN/klipler/V01_S*.mp4 --pano
   AUDIO satırı) yaz, `ai-video-kreatif` aşama 6'ya dön (kredi tavanı içinde). "Yeterince iyi" yok.
 - Ölçüm işaretledi ama panoda doğal hareket görüyorsan (hızlı kafa çevirme) plan numarasını `qc_izin`'e ekle ve gerekçeyi yaz.
 
-## Ekran / yazı içeren ürünler (gerekirse, kurgudan önce)
-AI ekran, yazı, logo ve ince geometriyi bozar; bu içerik kurguda bindirilir:
+## Ekran / yazı içeren ürünler (istisna, kurgudan önce)
+Ekran içeriği karede üretilir, değişim kesimdedir (`ai-video-kreatif` "Kare ve klip kuralları"). Bindirme yalnız karede
+üretilemeyen hareketli içerik içindir ve elips/perspektif, cam yansıması, kumlanma eşlemesi ister:
 `ekran_bindir.py klip --kareler` ile ilk/son kareyi çıkar, ekran merkezini ve iç genişliğini ölç, sonra
 `ekran_bindir.py klip anim.mp4 cikti.mp4 --x0 --y0 --d0 [--x1 --y1 --d1]`. Ardından çıktıya tekrar `klip_qc.py --pano`:
 her karede bindirme ekranın içinde mi. Yöntem ve ayarlar: `${CLAUDE_SKILL_DIR}/referans/ekran-bindirme.md`.
@@ -56,20 +57,22 @@ her karede bindirme ekranın içinde mi. Yöntem ve ayarlar: `${CLAUDE_SKILL_DIR
   (büyük harf değil), 96–104 px, ince kontur (`kontur_oran` 0,06) + yumuşak gölge, cümlede tek vurgu kelimesi renkli.
   Montserrat ExtraBold büyük harf "reklam gibi" bulunup beğenilmedi. Konum plan başına: ürünü örtmez; alt %20 ve sağ %15 boş.
 - "Polisten sakla" gibi yasa dışı kullanımı ima eden yazı yok.
-- Satış iskeleti (örüntü kırma → merak → ödül → kişiselleştirme → kontrol → kimlik+CTA): `referans/noropazarlama.md`.
+- Çok sahneli videoda isteğe bağlı satış iskeleti (GÖZLEM, tek ürün): `referans/noropazarlama.md`. Tek sahne ve yazısız videolar iskeletsiz.
 - Kontrol/uygulama planı neden-sonuç gösterir: önceki hal → dokunuş → sonuç; dokunuş öncesinde sonucun izi olan kesit
   kullanılmaz, kırpım sonucu kadraj dışında bırakmaz. Dokunuşa ve sonuca ses: `ses_tasarla.py --sfx tik@sn,vurus@sn`.
-- Teslimden önce `video-elestirmen` ajanı (soğuk izleyici) videoyu puanlar; düzeltmeler uygulanmadan teslim yok.
+- Teslimden önce `video-elestirmen` ajanı (soğuk izleyici, teslim modu) videoyu puanlar; ≥ 7/10 olmadan teslim yok.
 
 Kurallar (ayrıntı `referans/kurgu-kurallari.md`):
 - Kanca beyaz kalın, siyah konturlu, 1–3 satır; konum "oto" en boş bandı seçer (alt %20 ve sağ %15 hariç).
 - Emoji videoya girmez (betik çıkarır, uyarır) → caption'a taşı. Türkçe büyük harfi elle yaz; kodda `upper()` kullanma.
 - Font: betik Türkçe harfleri (çğıİöşü) ölçerek seçer; ilk kurulumda font test karesine bak.
-- Ses: klibin gerçek sesi + gerekirse kullanıcının **kendi telifsiz** efekt dosyası (`sfx`, `hizala: true` efekti
-  klipteki gerçek ses anına oturtur). Hedef −14 LUFS, ölç-düzelt döngüsüyle.
-- **Müzik videoda olmalı** (müziksiz teslim yok). Kaynak: kullanıcının kendi dosyası ya da açık lisanslı parça
-  (Pixabay vb.; lisans/Content ID notu teslim raporuna). Telifli şarkı internetten indirilmez; yayın sırasında platformun
-  kendi ses kütüphanesinden eklenebilir. Drop'u ölç (0,1 sn enerji sıçraması) ve "önce/sonra" kesimine hizala.
+- Ses: klibin gerçek sesi + sentetik efekt: `ses_tasarla.py --sfx tik@sn,vurus@sn` (tık = dokunuş, vuruş = değişim);
+  **efekt dosyası istenmez.** Kullanıcı kendi efektini verirse `sfx` + `hizala: true` gerçek ses anına oturtur. Hedef −14 LUFS.
+- **Müzik videoda olmalı** (müziksiz teslim yok). Kaynak (Aşama 0'da izni alınmış): kullanıcının dosyası ya da Pixabay.
+  Pixabay (ölçülmüş): arama sayfasını `fetch` et (`pixabay.com/music/search/<tür>/`) → ilk parça sayfasını `fetch` et →
+  içindeki `cdn.pixabay.com/download/audio/...mp3` bağlantısını al → `curl -L -o is/NN/muzik/<ad>.mp3 <bağlantı>`.
+  Parça adı, sanatçı, sayfa linki ve lisans notu (Content ID riski) teslim raporuna. Telifli şarkı indirilmez; yayında
+  platformun kendi ses kütüphanesinden eklenebilir. Drop'u ölç (0,1 sn enerji sıçraması) ve "önce/sonra" kesimine hizala.
 - Ana ses anı (egzoz, tık, patlama) müziğin üstüne çıkar: `ses_tasarla.py` (sidechain ile müziği o anda kısar,
   bas + doygunluk + mekân yankısı; tepe −1 dBTP). Abartı gerçekçiliği bozmamalı: clipping yok.
 - Toplam 10–15 sn; tek sahne şablonunda kesme yok; son kare ilk kareye bağlanabiliyorsa döngü kur.

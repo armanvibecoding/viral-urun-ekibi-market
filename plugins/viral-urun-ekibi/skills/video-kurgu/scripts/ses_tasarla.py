@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Araba videosu ses tasarımı: abartılı ama gerçekçi egzoz + (isteğe bağlı) müzik.
 
+ARAÇ PROFİLİ: varsayılan ayarlar egzoz içindir. Başka ürünlerde --patlama_db 0 --crackle_db 0 ile yalnız
+müzik + sentetik efekt (--sfx tik@sn,vurus@sn) öne çıkar. Not: EQ, doygunluk ve garaj yankısı
+klip sesine yine uygulanır; yankıyı --yankı_db ile kıs.
+
 Kullanım:
   python3 ses_tasarla.py --video PILOT.mp4 --cikti Y.mp4
   python3 ses_tasarla.py --video PILOT.mp4 --muzik A.mp3 --muzik_bas 8.0 \

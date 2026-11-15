@@ -17,10 +17,15 @@ is/NN-urun-adi/
   kurgu/  teslim/     video-kurgu becerisi
 ```
 
-## Aşama 0 — Girdi (tek soru turu)
-Tek mesajda sor: 1) ürün fotoğrafı (yoksa bekle) 2) pazar (KARARLAR'da yoksa: Türkiye mi, yurt dışı/hangi ülke mi)
-3) varsa ürün linki ve satış fiyatı. Link/fiyat yoksa onlarsız devam et; varsayımı tek satır yaz.
-Kararları KARARLAR.md'ye yaz. Fotoğrafları `is/NN/referans/` altına kopyala.
+## Aşama 0 — Girdi ve kapılar (tek soru turu)
+Tek mesajda, yalnız KARARLAR'da cevabı olmayanları sor: 1) ürün fotoğrafı (yoksa bekle) 2) pazar 3) varsa ürün linki
+ve satış fiyatı 4) kredi tavanı (seri için N klip + R yeniden deneme = X kredi) 5) müzik kaynağı izni (açık lisanslı
+parça indirilsin mi / kullanıcının dosyası) 6) Flow "kullanım hakları" onayını bir kez kendisi tıklayacak mı
+7) Chrome'da çoklu indirme izni 8) logo/IP: ürün başka markanın ürününe takılıyorsa marka görünürlüğü.
+Link/fiyat yoksa onlarsız devam et; varsayımı tek satır yaz. Cevapların hepsi KARARLAR.md'ye; fotoğraflar `is/NN/referans/`.
+**Sonrası sorusuz akar:** araştırma, kart, sektör sayımı, viral referans, senaryolar + `senaryo_kontrol.py`, promptlar,
+kareler ve ölçüm, ön-üretim eleştirisi, tavan içinde Flow üretimi, `klip_qc.py`, kurgu, eleştirmen döngüsü, caption.
+Yeni soru yalnız: tavan aşılacaksa, giriş/ödeme ekranında, ön-üretim eleştirisi eşiği 2 turda geçilemezse.
 
 ## Aşama 1 — Araştırma + ürün kartı + kilit
 - Web: ne işe yarar, kim alır / kime hediye alınır, benzer viral videolar ne gösteriyor. Viral videodaki ürün bizimkiyle
@@ -28,10 +33,13 @@ Kararları KARARLAR.md'ye yaz. Fotoğrafları `is/NN/referans/` altına kopyala.
 - **Mekanizma kartı** (atlanamaz): görünüm (renk, malzeme, parça sayısı, üzerindeki yazı birebir, boyut — ele/hayvana göre) ·
   etkileşim noktası (tuş, delik, kapak, sap) · sonuç TAM OLARAK nereden çıkar/nerede görünür · gerçek ses · ürünün
   YAPMADIKLARI (kendi kendine hareket etmez, büyümez…). Görseller çelişirse en sık görüleni seç, "varsayım" yaz.
+- **Sektör satırı** (kartın ilk satırı): `Sektör: <ad> · not N · AI gövde A · ürün tipi <modül>` (`kreatif-mantigi.md` §6,
+  `baslangic-karesi.md` §6). A < 3 ise satıra `KANITSIZ SEKTÖR` yazılır; sonuçları `kreatif-mantigi.md` §6'da.
 - `kilit.txt` (İngilizce):
   - `PRODUCT:` tek paragraf, her promptta birebir (betik sayar).
   - `MECHANISM:` sonuç YALNIZ nereden, hangi eylemle çıkar; eylem yoksa sonuç yok. Belirsiz yön (under/near) yazma, yeri adıyla.
-  - `SCREEN:` ekranlı/yazılı üründe: "the screen shows one flat uniform [renk] color - no image, no icon, no text, no flicker".
+  - `SCREEN:` ekranlı/ışıklı üründe karedeki içerik sabit kalır: "the screen keeps exactly the content shown in the start
+    frame - same icon, same colors, same brightness; no new image, no text, no flicker". İçerik değişimi = yeni kare + kesim.
   - `WRONG:` ürünün yanlış davranışları (Flow AVOID'a eklenir). `AVOID:` görsel için ek yasaklar.
 
 ## Aşama 2 — Temiz ürün görselleri (ChatGPT)
@@ -46,7 +54,7 @@ Kararları KARARLAR.md'ye yaz. Fotoğrafları `is/NN/referans/` altına kopyala.
 ## Aşama 3 — 30 senaryo (alt ajan: icerik-stratejisti)
 **Bilgi tabanı**
 - Görüntü izlenmeyi, kanca paylaşımı taşır; zayıf görüntüyü kanca kurtarmaz. İlk saniyede ürün çalışıyor ya da problem
-  görünüyor. 8–15 sn, konuşma yok, gerçek ürün sesi + telifsiz efekt. Kopya ölür: aynı fikir, YENİ an.
+  görünüyor. 8–15 sn, konuşma yok, gerçek ürün sesi + sentetik efekt + açık lisanslı müzik. Kopya ölür: aynı fikir, YENİ an.
 - AI'ın KAZANDIĞI: çekilemeyen hayvan/bebek anı · hayvanın ürünle "şakanın kendisi" olduğu an · gece kamerası problem
   karesi · yabancı tepkisi · reveal. KAYBETTİĞİ: mağaza rafı, kalabalık, önlüklü uzman, AI kurucu yüzü.
 - Mekanizmalar: M1 anlık dönüşüm · M2 canlı karaktere dönüşür · M3 başka şeye benzeyen ürün · M4 görünmeyen kir görünür ·
@@ -73,7 +81,8 @@ yalnız GERÇEK fiyatla.
 
 **Kurallar**
 - Dağılım: ≥ 8 mekanizma, ≥ 6 şablon, ≥ 6 kanca ailesi; ürüne uymayan kota için kullanılmaz (uyan azsa söyle);
-  hiçbir şablon > 6; aynı aile art arda yok; ≥ 3 yazısız (K13); kimlik kelimeli kanca ≤ 15.
+  hiçbir şablon > 6; aynı aile art arda yok; ≥ 3 yazısız (K13); kimlik kelimeli kanca ≤ 15; aynı giriş ≤ 2 video,
+  aynı ortam ≤ 6 video, aynı özne art arda yok (`giris`, `ortam`, `ozne` alanları; betik sayar).
 - Her video 3–4 sahne × 4 sn, her sahne TEK eylem (tek klipte eylem zinciri AI'da bozulur). Son sahnede CTA ≥ 3 sn.
   S1 tek sahne gag: 2–3 klip aynı kadrajda kesmesiz.
 - SEBEP → SONUÇ: etkileşim (basma, takma, açma) sonuçtan ÖNCE ya da AYNI klipte. "Vs…" sonrası da bu sıra korunur.

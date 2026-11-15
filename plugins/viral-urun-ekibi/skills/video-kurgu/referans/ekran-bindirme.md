@@ -1,9 +1,11 @@
-# Ekran / yazı içeriğini kurguda bindirme
+# Ekran içeriğini kurguda bindirme (istisna)
 
-**İlke:** AI'a ekranda, tabelada, ambalaj yazısında görüntü çizdirilmez; 4 sn içinde değişir, harf/şekil bozulur.
-Başlangıç karesinde ekran **kapalı siyah cam** ya da **düz tek renk** (bindirilecek animasyonun baskın rengi) üretilir;
-Flow promptunda `SCREEN LOCK` (renk 4 sn sabit, desen/ikon/titreme yok — `kilit.txt` `SCREEN:` satırından betik ekler).
-Animasyon kurguda maskeyle ekranın içine konur. Aynı klip seti farklı animasyonla yeniden kullanılabilir (aynı set, çok varyasyon).
+**Kural:** ekran içeriği başlangıç karesinde üretilir (görsel model hale, cam yansıması ve perspektifi kendisi yapar),
+klipte `SCREEN LOCK` ile sabit kalır, değişim kesimde olur (`ai-video-kreatif` "Kare ve klip kuralları").
+Düz renge sonradan daire bindirme reddedildi: açılı kadrajda elips taşması, yansımasız cam, yanlış hale rengi.
+**Bindirme yalnız istisna:** karede üretilemeyen hareketli içerik (döngü animasyonu) gerektiğinde ve şu üç şartla:
+maske ekranın perspektifine uyar (açılı kadrajda elips/dikdörtgen `--en-boy`), cam yansıması katmanı eklenir,
+kumlanma ve parlaklık kareye eşlenir. Biri sağlanmazsa bindirme yapılmaz, içerik karede üretilir.
 Kamera yalnız **sabit / yavaş itme / yavaş yana kayma** (doğrusal hareket iki ölçümle izlenir); elde tutulan sahnede el "perfectly still".
 
 ## Adımlar (her klip)

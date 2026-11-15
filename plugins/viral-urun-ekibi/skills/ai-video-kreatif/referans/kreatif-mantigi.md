@@ -2,7 +2,7 @@
 
 > Kaynak notu: bu dosya ~100 milyon izlenen ürün videosunun saha incelemesinden (kayıt numaraları köşeli parantezde, ör. [058]) ve bir dış araştırmadan derlendi. Ham veri seti eklentiye dahil değildir; sayılar o ölçümün sonucudur.
 
-Kaynak: saha veri setinde **`milyon: true` olan 97 kayıt** + saha notları.
+Kaynak: saha veri setinde **`milyon: true` olan 104 kayıt** (001–139) + saha notları. §1 ve oran ölçümleri ilk 97 kayıtla yapıldı; 133–139 kural kanıtlarına işlendi.
 `milyon: false` kayıtlar (011, 012, 035, 039, 041, 042, 043, 045, 046, 048, 049, 050) **kural kaynağı değildir**; yalnız karşı-örnek olarak anılır.
 Köşeli parantez = kayıt numarası. Etiket: **KURAL** ≥3 milyon kayıt · **ADAY** 2 · **GÖZLEM** 1.
 Sayılar notlardan aynen alındı (B = bin, MN/M = milyon).
@@ -36,16 +36,16 @@ Sayıyla: 12 milyon-altı kaydın yalnız 2'sinde etkileşimle eşleşen izlenme
 | R4 | **Kısa:** 8–15 sn. İlk saniyede ürün ya da problem görünür. | KURAL (83/97) | `sure_sn` |
 | R5 | **Ürünün kendisi dönüşüyor / karakter gibi davranıyor** (katlı→açık, peluş↔bebek, ışık yanıyor, parça parça tamamlanıyor). | KURAL (25) | D15: 030, 038, 053, 057, 058, 065, 069, 075, 080, 081, 083, 085, 087, 089, 090, 093, 096, 101, 103, 113, 115, 123, 127, 128, 131 |
 | R6 | **Yazısız da milyon olur:** görüntü 2 sn'de anlaşılıyorsa ekran yazısı gerekmez, problem/CTA caption'da. | KURAL (20) | D7: 004, 006, 038, 053, 057, 060, 062, 065, 085, 089, 090, 093, 094, 095, 101, 102, 114, 117, 123, 130 |
-| R7 | **Tek sahne, kesmesiz** 8–12 sn döngü — gag ya da mekanizma ürünlerinde. | KURAL (14) | 014, 038, 060, 063, 066, 072, 085, 089, 090, 097, 105, 114, 117, 123 |
-| R8 | **Problem/Concept → Vs… → Sonuç** üç kartlı akış. | KURAL (16) | D12: 036, 040, 044, 047, 074, 075, 076, 077, 080, 084, 100, 112, 116, 120, 126, 131 |
-| R9 | **Kimlik kancası** (yasak / zorunluluk / hitap) — ama tek başına yetmiyor (R13). | KURAL (41) | D3: 001, 003, 006, 020, 037, 040, 047, 053–057, 059, 064, 066, 067, 070–073, 078, 079, 081–083, 086–088, 096–098, 103, 106, 107, 112, 113, 121, 122, 124, 131, 132 |
-| R10 | **Alıntı-ironi kancası** ('Them/Babe: …' → 'Me:', '[X] are hard to gift', 'It's just a …'). | KURAL (6) | 054, 086, 098, 113, 122, 127 |
+| R7 | **Tek sahne, kesmesiz** 8–12 sn döngü — gag ya da mekanizma ürünlerinde. | KURAL (17) | 014, 038, 060, 063, 066, 072, 085, 089, 090, 097, 105, 114, 117, 123, 134, 135, 138 |
+| R8 | **Problem/Concept → Vs… → Sonuç** üç kartlı akış. | KURAL (17) | D12: 036, 040, 044, 047, 074, 075, 076, 077, 080, 084, 100, 112, 116, 120, 126, 131, 137 |
+| R9 | **Kimlik kancası** (yasak / zorunluluk / hitap) — ama tek başına yetmiyor (R13). | KURAL (44) | D3: 001, 003, 006, 020, 037, 040, 047, 053–057, 059, 064, 066, 067, 070–073, 078, 079, 081–083, 086–088, 096–098, 103, 106, 107, 112, 113, 121, 122, 124, 131, 132, 133, 136, 139 |
+| R10 | **Alıntı-ironi kancası** ('Them/Babe: …' → 'Me:', '[X] are hard to gift', 'It's just a …'). | KURAL (7) | 054, 086, 098, 113, 122, 127, 135 |
 | R11 | **Yorum-kelime CTA** ('Comment "KELİME"'), çoğu DM otomasyonlu. Ölçüm: yorum oranını artırmıyor (yorum/izlenme 1,01×, n=37/50) → işlevi link dağıtımı, erişim değil. | KURAL (36) | D5 (bkz. `kurgu-ve-yasaklar.md` §4) |
-| R12 | **Bağlam dışı / kamusal yerde kullanım** (ürün beklenmedik yerde: direksiyon, trafik, kasa, ofis, AVM). | KURAL (15) | D9: 006, 063, 069, 073, 075, 081, 087, 088, 091, 097, 098, 100, 115, 123, 129 |
+| R12 | **Bağlam dışı / kamusal yerde kullanım** (ürün beklenmedik yerde: direksiyon, trafik, kasa, ofis, AVM). | KURAL (16) | D9: 006, 063, 069, 073, 075, 081, 087, 088, 091, 097, 098, 100, 115, 123, 129, 134 |
 | R13 | **Kanıt deneyi / işkence testi:** görünmez faydayı abartılı testle göster. Ölçüm: paylaşım/izlenme %0,32 vs %1,15 — izletir, paylaştırmaz; kimlik kancasıyla eşle. | KURAL (13) | D14: 014, 052, 061, 066, 077, 092, 102, 104, 106, 108, 111, 114, 118 |
 | R14 | **Paylaşım istenir:** 'Send this to a [KİMLİK]' CTA'lı videolarda paylaşım beğeniye yakın ya da fazla. | KURAL (8) | 078, 080, 081, 082, 083, 084, 086, 120 (086: 1MN paylaşım / 954B beğeni) |
 | R15 | **Topluluk / kültür kimliği** (diaspora, fandom, meslek, hobi). | KURAL (15) | D11: 051, 054, 055, 059, 067, 068, 072, 076, 083, 097, 101, 106, 112, 124, 127 |
-| R16 | **Sezon çerçevesi** (Noel, Cadılar Bayramı, havai fişek). | KURAL (10) | D8: 005, 064, 071, 081, 088, 110, 119, 122, 127, 129 |
+| R16 | **Sezon çerçevesi** (Noel, Cadılar Bayramı, havai fişek). | KURAL (11) | D8: 005, 064, 071, 081, 088, 110, 119, 122, 127, 129, 139 |
 | R17 | **Kurulum/montaj demosu** (sök→tak→çalıştır). | ADAY (2) | 111, 118 (ikisi de GERÇEK-MARKA) |
 | R18 | **Kurucu anlatımı.** | GÖZLEM (1) | 033 (GERÇEK-MARKA) — kit önermez |
 
@@ -129,7 +129,7 @@ Aynı hesap, aynı ürün (B tablosunda: aynı set, farklı ürün). Sayılar no
 
 Sınıflama `format`/`akis` alanından; "muhtemel AI" göz yargısıdır (şüpheli nokta).
 
-**AI ağırlıklı gövdeyle milyon (24):** 058, 064, 065, 071, 074, 075, 079, 080, 081, 082, 083, 086, 087, 089, 091, 094, 099, 103, 115, 119, 120, 124, 131, 132
+**AI ağırlıklı gövdeyle milyon (29):** 058, 064, 065, 071, 074, 075, 079, 080, 081, 082, 083, 086, 087, 089, 091, 094, 099, 103, 115, 119, 120, 124, 131, 132, 133, 134, 137, 138, 139
 **Gerçek + AI/VFX karışık milyon (7):** 040, 056, 078, 084, 096, 107, 128
 
 ### Milyon alan AI sahne tipleri
@@ -139,14 +139,14 @@ Sınıflama `format`/`akis` alanından; "muhtemel AI" göz yargısıdır (şüph
 | AI-2 | **Yabancıların tepkisi gag'i onaylıyor:** insanlar korkup kaçıyor, gülüyor, polis/K9 şüpheyle bakıyor, kalabalık telefonla çekiyor. Tepki kısa, ürün her karede. | KURAL (6) | 064 2,2MN · 075 3,1MN · 081 3,7MN · 087 7,7MN · 091 14,7MN · 115 2MN |
 | AI-3 | **Gece / güvenlik kamerası estetiğinde problem karesi** (REC, IR gri) → çözüm. | KURAL (3 + 2 Ek) | 074 1,1MN · 084 1MN · 120 5MN · Ek: 047 hesabı tünel yatak 5,5MN, 084 kedi 2,8MN |
 | AI-4 | **Giyilen/taşınan ürünün 3–4 mekânda kullanım montajı** (park, ev, kafe, yolculuk). | KURAL (6) | 056 2,3MN · 071 1,2MN · 079 1,1MN · 086 32,8MN · 124 1,4MN · 132 2,6MN (havuz, nehir) |
-| AI-5 | **İdealize sonuç / huzur karesi** (aile dinleniyor, uçakta derin uyku, oda gökyüzüne dönmüş). | KURAL (4) | 078 1,4MN · 094 1,1MN · 099 3,2MN · 119 5,1MN |
+| AI-5 | **İdealize sonuç / huzur karesi** (aile dinleniyor, uçakta/araçta derin uyku, oda gökyüzüne dönmüş). | KURAL (6) | 078 1,4MN · 094 1,1MN · 099 3,2MN · 119 5,1MN · 133 6,4MN (araç içi, tek AI araç kanıtı) · 138 4,1MN |
 | AI-6 | Gerçek çekim üstüne VFX katmanı (hologram, patlama). | GÖZLEM (1) | 040 1,6MN |
 
 ### Düşük kalan AI sahne tipleri
 | Tip | Ne | Kanıt |
 |---|---|---|
 | AI-X1 | Mağaza açılışı / raf / ekip / kalabalık kuyruğu baskın | N1: 047, 070, 071, 080, 083, 086, 107, 120, 123, 132 |
-| AI-X2 | Ürünü kamusal alanda göstermek, ama ürün kendi başına zaten komikse | 123 (gerçek POV 4,8MN vs AI 16,5B–52,4B) |
+| AI-X2 | Ürünü kamusal alanda göstermek, ama ürün kendi başına zaten komikse | 123 (gerçek POV 4,8MN vs AI 16,5B–52,4B) · **karşı-kanıt** 134: aynı jenerik ürün, AI market kuyruğu, kimse fark etmiyor 20,9MN → kesin değil, ADAY |
 | AI-X3 | Sahte uzman / kurucu yüzü | 059 (2,3–17,3B), 072 (1,8–2B) |
 | AI-X4 | Aynı AI dünyası, morph/tepki anı olmadan | 065 (diğerleri 21B–223B), akış [hesap], [hesap] |
 
@@ -171,3 +171,37 @@ Not: DERSLER 2026-11-04 KARŞI-KANIT maddesi (058 gövdesi AI, 17,5MN) bu tabloy
 - **Mağaza dar:** 39/65 mağazada ≤5 ürün, 13'ünde tek ürün.
 - **Uygulamalar:** Kaching (paket/bundle) 20 · ReConvert 9 · Zendrop 8 · UpCart 8 · yorum uygulaması Loox 18, Judge.me 10, Trustoo 3.
 Bu alanın anlamı `excel betiği` sütun başlıklarından alındı (n = mağaza ürün sayısı, tar = ürün eklenme).
+
+---
+
+## 6. Sektör kanıt tablosu — bu ürünün sektöründe ne kadar kanıt var
+
+Sayım: saha notlarının tamamı (114 not, 001–139), her nota TEK ana sektör; "AI gövde" = AI ağırlıklı gövde, "karma" = gerçek + AI/VFX.
+Yeni not eklenince tablo yeniden sayılır (elle güncellenen sayı eskir, `ortak/bilgi/dersler.md` #67).
+
+| Sektör | Not | AI gövde / karma | Örnek | Durum |
+|---|---|---|---|---|
+| Evcil hayvan | 30 | 17 / 2 | 058, 063, 081, 086, 120, 131 | kanıtlı |
+| Bebek (giyim/bakım/taşıma) | 10 | 6 / 2 | 004, 065, 089, 094, 096, 103 | kanıtlı |
+| Giyim/ayakkabı (yetişkin) | 8 | 3 / 0 | 062, 106, 123, 134 | kanıtlı (AI sınırda) |
+| Ev/yatak odası/dekor | 7 | 0 / 1 | 020, 053, 061, 078 | KANITSIZ SEKTÖR |
+| Araç/motosiklet aksesuarı | 7 | 1 / 0 | 037, 070, 088, 100, 133 | KANITSIZ SEKTÖR |
+| Banyo/kişisel bakım | 6 | 0 / 0 | 001, 036, 055, 111 | KANITSIZ SEKTÖR |
+| Teknoloji/gadget | 6 | 0 / 1 | 095, 107, 114, 118, 136 | KANITSIZ SEKTÖR |
+| Sağlık/ortopedi | 6 | 2 / 0 | 059, 109, 117, 139 | KANITSIZ SEKTÖR (sağlık POV'u zaten yasak) |
+| Mutfak | 5 | 0 / 0 | 060, 067, 110, 121, 127 | KANITSIZ SEKTÖR |
+| Aksesuar/cüzdan/takı | 5 | 0 / 0 | 085, 097, 101, 130, 135 | KANITSIZ SEKTÖR |
+| Oyuncak/şaka (yetişkin) | 5 | 0 / 1 | 040, 073, 098, 129 | KANITSIZ SEKTÖR |
+| Fitness/spor | 5 | 0 / 0 | 003, 035, 092, 105 | KANITSIZ SEKTÖR |
+| Mobilya (büyük) | 3 | 0 / 0 | 108, 113, 126 | KANITSIZ SEKTÖR |
+| Çocuk oyuncak/aktivite | 3 | 1 / 0 | 012, 069, 122 | KANITSIZ SEKTÖR |
+| Seyahat | 3 | 2 / 0 | 099, 116, 138 | KANITSIZ SEKTÖR |
+| Hediye/kişiye özel | 3 | 0 / 1 | 041, 042, 090 | KANITSIZ SEKTÖR |
+| Kültür/din topluluğu | 2 | 0 / 0 | 051, 054 | KANITSIZ SEKTÖR |
+| Kozmetik, bahçe/kamp, temizlik | 0 | — | — | KANITSIZ SEKTÖR (sıvı/doku: gerçek çekim, `baslangic-karesi.md` §6) |
+
+**KANITSIZ SEKTÖR** = sektörde AI gövdeli not < 3. AI kanıtının 23/32'si evcil + bebekten geliyor; buradaki şablonlar
+(S4, S5, S6, M7–M9) başka sektöre taşındığında tutup tutmadığı ölçülmedi. Sonuçları:
+1. Viral referans 5 değil **10 video** izlenir (`SKILL.md` "Viral referans").
+2. Senaryoların **≥ %50'si** viral referansta ≥3 videoda görülen desenden kurulur; evcil/bebek kökenli şablon tek başına iskelet olmaz.
+3. İlk parti küçük (`olcum-ve-test-plani.md` §7); kazanan oranı bu tabloya not olarak geri yazılır.

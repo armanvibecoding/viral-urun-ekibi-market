@@ -13,7 +13,7 @@ Uyarı: belirsiz yön kelimesi (under, near, around) — yeri adıyla tarif et.
 Girdi: senaryolar.json (referans/senaryo-formati.md) + kilit.txt:
     PRODUCT: <İngilizce tek paragraf ürün kilidi>
     MECHANISM: <isteğe bağlı: sonuç YALNIZ nereden çıkar, neye basılmazsa olmaz>
-    SCREEN: <isteğe bağlı: ekranlı üründe "screen stays one flat uniform color, no image/icon/text, no flicker">
+    SCREEN: <isteğe bağlı: ekranlı üründe "screen keeps exactly the start-frame content, no new image/text, no flicker">
     AVOID: <isteğe bağlı ek yasaklar, virgülle>
     WRONG: <isteğe bağlı: ürünün yanlış davranışı, Flow AVOID'a eklenir>
 Kullanım:

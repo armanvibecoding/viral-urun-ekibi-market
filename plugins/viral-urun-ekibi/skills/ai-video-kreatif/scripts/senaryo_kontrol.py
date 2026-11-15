@@ -15,6 +15,8 @@ Kontroller:
     aynı aile art arda yok, >= 3 yazısız (K13)
  7) sahne sayısı 3-4 (S1 tek sahne gag: 2-3)
  8) TR pazarında kanca <= 8 kelime ve kalıp yasakları; K13'te kanca boş
+ 9) çeşitlilik: `giris` (ilk klip/ilk kare kimliği) ve `ortam` her videoda zorunlu; aynı giriş > 2 videoda = ❌,
+    aynı ortam > 6 videoda = ❌; `ozne` (araç/renk/hayvan gibi) varsa aynı özne ardışık iki videoda = ❌
 Kullanım: python3 senaryo_kontrol.py is/04-urun/senaryolar.json
 """
 import csv
@@ -122,10 +124,29 @@ def main():
     if ard:
         hata.append("aynı kanca ailesi art arda: " + ", ".join(ard))
 
+    # ---- çeşitlilik: giriş, ortam, özne ----
+    for alan in ("giris", "ortam"):
+        eksik = [f"V{v.get('no')}" for v in V if not norm(v.get(alan))]
+        if eksik:
+            hata.append(f"'{alan}' alanı boş: " + ", ".join(eksik[:10]))
+    for alan, sinir_ in (("giris", 2), ("ortam", 6)):
+        say = Counter(norm(v.get(alan)) for v in V if norm(v.get(alan)))
+        for deger, c in say.items():
+            if c > sinir_:
+                hata.append(f"aynı {alan} {c} videoda (en fazla {sinir_}): '{deger[:50]}'")
+    oz = [(v.get("no"), norm(v.get("ozne"))) for v in V]
+    for (n1, o1), (n2, o2) in zip(oz, oz[1:]):
+        if o1 and o1 == o2:
+            hata.append(f"aynı özne art arda: V{n1}-V{n2} '{o1[:40]}'")
+    giris_n = len({norm(v.get("giris")) for v in V if norm(v.get("giris"))})
+    ortam_n = len({norm(v.get("ortam")) for v in V if norm(v.get("ortam"))})
+
     # ---- tablo ----
     kok = os.path.splitext(yol)[0]
-    bas = ["No", "Mekanizma", "Şablon", "An", "Kanca", "Aile", "Sahneler", "Etkileşim", "Sonuç", "CTA", "Neden çalışır"]
-    satirlar = [[v.get("no"), v.get("mekanizma"), v.get("sablon"), v.get("an"), v.get("kanca") or "(yazısız)",
+    bas = ["No", "Mekanizma", "Şablon", "Giriş", "Ortam", "Özne", "An", "Kanca", "Aile", "Sahneler", "Etkileşim", "Sonuç",
+           "CTA", "Neden çalışır"]
+    satirlar = [[v.get("no"), v.get("mekanizma"), v.get("sablon"), v.get("giris"), v.get("ortam"), v.get("ozne"),
+                 v.get("an"), v.get("kanca") or "(yazısız)",
                  v.get("aile"), " → ".join(s.get("eylem", "") for s in v.get("sahneler", [])),
                  v.get("etkilesim_sahne"), v.get("sonuc_sahne"), v.get("cta"), v.get("neden")] for v in V]
     with open(kok + ".md", "w", encoding="utf-8") as f:
@@ -139,7 +160,8 @@ def main():
         w.writerows(satirlar)
 
     print(f"{n} senaryo · mekanizma {len(mek)} · şablon {len(sab)} (en çok {max(sab.values()) if sab else 0}) · "
-          f"aile {len(aile)} · K13 {aile.get('K13', 0)} · kimlik kancası {kimlik}/{sinir} · benzer çift {benzer}")
+          f"aile {len(aile)} · K13 {aile.get('K13', 0)} · kimlik kancası {kimlik}/{sinir} · benzer çift {benzer} · "
+          f"giriş {giris_n} · ortam {ortam_n}")
     print(f"tablo: {kok}.md  ve  {kok}.csv")
     for u in uyari:
         print("UYARI:", u)

@@ -84,3 +84,9 @@ Hesap: `pay/iz = 48s paylaşım ÷ 48s izlenme`; `hesap-içi kat = video 48s izl
 - Satış: organik izlenmeden siparişe dönüşüm sahada yok. DM link tıklaması + mağaza oturumu ayrıca kaydedilmeli (eşik: **ilk testten sonra kalibre et**).
 - Ücretli reklam: CTR/CPA eşikleri bu veriden çıkmaz (saha organik Reels).
 - Paylaşım CTA'sı (V9) ve ≤8 sn (V8) kanıtları n=6 — sonuçları "deneme" olarak okunur.
+
+## 7. KANITSIZ SEKTÖR — küçük ilk parti
+Kartta `KANITSIZ SEKTÖR` yazan üründe (`kreatif-mantigi.md` §6) 30'luk seriye doğrudan girilmez: ilk parti **5–10 video**,
+en az biri S10 (AI kanca + gerçek kanıt) ve biri gerçek görünümlü S1 (tek sahne). Kredi tavanı bu partiye göre istenir.
+§3 eşikleriyle en az bir DEVAM çıkınca (aynı kalıp) 30'a çıkılır; hiçbiri çıkmazsa §3 "Parti kararı" uygulanır.
+Sonuç (parti kredisi, 48. saat DEVAM sayısı) sektör tablosuna not olarak geri yazılır; sektörün AI gövde sayısı yalnız milyon notla artar.

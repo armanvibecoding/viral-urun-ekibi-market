@@ -34,12 +34,12 @@ bloğu) · 4 ekran animasyonu stratejisi · 5 üretim sırası ve kredi · 6 ris
 | 12 | Kedi neden kaçtı | K12 | Why did the cat run? | AI hayvan anı + gece kamerası + M14 | S2 |
 
 **Video bloğu biçimi:** kanca (≤ 8 kelime) · aile/mekanizma/şablon · CTA (ekranda son 3 sn, caption ilk satırı) · ses notu
-(klibin sesi + telifsiz efekt, lisanslı müzik yok) · **riskli nokta** (ör. "ekran yeşili karede parlama halesi üretebilir;
-bindirme rengi kareyle uyuşmazsa yapıştırma gibi durur → bindirmeden önce kare ışığına göre renk eşle") · sahne tablosu
-(Sahne | Ne olur, 4 sn tek eylem | Ekran bindirmesi) · her sahne için görsel promptu + Flow promptu (betik üretir).
+(klibin sesi + sentetik efekt + açık lisanslı müzik, lisans notuyla) · **riskli nokta** (ör. "model SCREEN LOCK'a rağmen ikonu değiştirebilir → 4 fps
+panoyla bak, değişen ucu kırp") · sahne tablosu
+(Sahne | Ne olur, 4 sn tek eylem | Ekran içeriği) · her sahne için görsel promptu + Flow promptu (betik üretir).
 
-**Ekran ilkesi:** AI'a ekranda hiçbir görüntü çizdirilmez; karede ekran kapalı siyah cam ya da düz tek renk; Flow'da
-SCREEN LOCK; animasyon kurguda maskeyle bindirilir (`video-kurgu/referans/ekran-bindirme.md`). Kamera yalnız sabit /
+**Ekran ilkesi:** içerik karede üretilir (sade parlak ikon, siyah zemin; yazı/rakam yok); Flow'da SCREEN LOCK ile sabit;
+yeni içerik = aynı kadrajın yeni karesi + kesim. Bindirme yalnız istisna (`video-kurgu/referans/ekran-bindirme.md`). Kamera yalnız sabit /
 yavaş itme / yavaş kayma. Animasyonda kırmızı-mavi dönüşümlü yanıp sönme yok (polis ışığı çağrışımı), hız ≤ 2 Hz,
 parlaklık karedeki ışıkla uyumlu (abartı = yanıltıcı görüntü).
 

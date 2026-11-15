@@ -45,7 +45,7 @@ Yeni iş başlamadan ilgili bölümü oku; aynı hatayı ikinci kez yapmak yasak
 35. **Görsel düzenleme ürün yazısını bozabilir** ("FEDER") → her düzenlemeden sonra yazıyı kırpıp yakından oku.
 36. **Ürün fotoğrafını görmeden ürün kilidi yazma.** Tahmini tarif (kuyruk yüzgeci) yanlış çıktı; tedarikçi fotoğrafıyla düzeltildi.
 37. **Logo/başka marka taşıyan referans görseli modele yükleme** — sızdırır; metinden temiz paket çekimi üret. ChatGPT arka plana kendiliğinden lisanslı oyun posteri koydu → AVOID listesine "licensed characters or posters".
-38. **Ekran içeren ürünlerde ekran içeriğini AI'a çizdirme** — 4 sn içinde değişir, harf/şekil bozulur. Ekran kapalı/düz renk üret, animasyonu kurguda maskeyle bindir.
+38. **Ekranlı üründe içerik karede üretilir, klipte sabit tutulur, değişim kesimde olur** (`SCREEN LOCK`) — klip içinde içerik değiştirmeye çalışınca 4 sn içinde harf/şekil bozuldu; sonradan düz renge bindirme ise sahte durdu (#70). Yazı/rakam içeriği yok, sade ikon.
 39. **Tekrar eden karakter için önceki karenin görselini ekle** ("Image 3 = the SAME animal"); gece kamerası karesi referanssa "normal renkte göster" yaz.
 40. **Kamera dili:** iPhone, doğal gürültü, her şey netlikte; AVOID: bokeh, sığ alan derinliği, sinematik/stüdyo ışığı, anamorfik parlama, CGI görünümü. Ana öğe ortadaki %70'te, üst üçte bir yazıya boş, alt %20 ve sağ %15 boş.
 41. **El sahneleri:** tek basit tutuş, el büyük, temas ilk karede; ilk karede el bozuksa animasyona geçme. ≤3 özne.
@@ -86,7 +86,7 @@ Yeni iş başlamadan ilgili bölümü oku; aynı hatayı ikinci kez yapmak yasak
 68. **Uzun çıktı dosyaya, sohbete 5–10 satır özet.** Kullanıcı beğenmediği ilk versiyonu reddederse milyonluk videoların karelerine bakarak yeniden yaz (köpekbalığı v1 → v2).
 
 ## H. Ekranlı/ışıklı ürün videoları (dijital amblem deneyimi)
-69. **Üretmeden önce ürünün en çok izlenen 5 videosunu izle** (TikTok arama, izlenme sırası; tarayıcıda oynatıp 2 sn'de kare al). Kanıt: izlemeden yapılan 3 video "fake, ilgisiz" diye reddedildi; izledikten sonra yapılan pilot kabul edildi.
+69. **Üretmeden önce viral referansı izle:** TikTok'ta ≥5 sorgu (ürün, rakip markalar, kategori), en az 10 video izlenme sırasıyla oynatılıp 2 sn'de kare alınır; Meta Reklam Kütüphanesi satırı eklenir. İkinci turdaki 6 sorgu, ilk 5 videonun hiç göstermediği giriş türlerini (söküm makro, concept→result, hikâye yazısı) buldu. Kanıt: izlemeden yapılan 3 video "fake, ilgisiz" diye reddedildi; izledikten sonra yapılan pilot kabul edildi.
 70. **Ekran içeriğini sonradan düz daire olarak bindirme sahte durur:** açılı kadrajda elips taşması, camda yansıma yok, hale yok. İçeriği görsel modele karenin İÇİNDE ürettir; klipte sabit tut; değişimi kesimde göster.
 71. **Gerçek bağlam şarttır:** araç ürünü videosunda tanınır araç, model rozeti ve gerçekçi plaka (uydurma numara). Boş siyah plaka en güçlü AI işaretiydi.
 72. **Ekranlı ürünlerde kullanıcı içerikleri sade:** siyah zemin, ince parlak halka, tek ikon; viral açılış "normal görünüyor → değişiyor".
@@ -95,4 +95,4 @@ Yeni iş başlamadan ilgili bölümü oku; aynı hatayı ikinci kez yapmak yasak
 75. **Teslimden önce soğuk izleyici eleştirisi** (`video-elestirmen`): ilk turda iki ajan, sahibin fark etmediği kusurları kare kanıtıyla buldu (taşan renk, döngüsüz son, P5'te nedensiz değişim).
 76. **Tempo okunabilirlikten hızlı olmaz:** 0,43 sn'lik plan ve kesimle değişen yazı "geçişler çok hızlı, yazı okunmuyor" diye reddedildi. Plan ≥ 2 vuruş; yazı kesimden bağımsız, ≥ 0,5 sn + 0,25 sn/kelime. Font platformun yerlisi (TikTok Sans), cümle düzeni.
 77. **Kontrol planı neden-sonuç göstermeli:** telefon klibinde amblem dokunuştan önce zaten değişmişti ve kırpım sonucu kadraj dışında bırakıyordu → "telefon kısmı kötü". Sıra: önceki durum → dokunuş (tık sesi) → sonuç (darbe sesi); dokunmadan önce sonucun izi olmamalı (karo rengini ölçerek dokunuş anını bul).
-78. **Klip kütüphanesi:** her videoya ayrı klip üretmek yerine sahne başına 8 klip üret, 30 videoyu farklı kanca, sıra ve yazıyla kurgula (kredi ≈ 6 kat düşer). Her sahnede plaka ve etiket prompta yazılı sabitlenir.
+78. **Seri üretimde videoya değil sahneye klip üret:** özne başına ~5 klip (giriş, önce, aynı kadrajda sonra, başka açı, geniş) + özneden bağımsız ortak klipler (her biri ≤4 videoda, ardışık değil); 30 videoyu farklı özne, ortam, giriş, kanca ve müzikle kurgula. Aynı set + yalnız kanca değişen seri "tekrar" diye reddedildi. Plaka ve etiket prompta yazılı sabitlenir.

@@ -21,7 +21,7 @@ Kare modeli seçimi belirsiz: ürün fotoğrafında Nano Banana Pro, logo/yazıd
 | İ4 Cansız → canlı | peluş sanılan şey bebek/hayvan çıkıyor (ilk kare arkadan peluş) | KURAL | 065, 096, 103 |
 | İ5 Karanlık + ürün ışığı | karanlık odada ürünün kendi ışığı en parlak nokta | KURAL | 020, 036, 057, 062, 072, 078 |
 | İ6 Gece / güvenlik kamerası | gri IR görüntü, köşede REC; problem karesi "gerçek" görünür | KURAL | 074, 084, 120 |
-| İ7 Örtü / kapı / paket açılışı | battaniye altı, kapı kolu POV, poşetten/paketten çıkarma | KURAL | 062, 064, 077, 078, 088, 106 |
+| İ7 Örtü / kapı / paket açılışı | battaniye altı, kapı kolu POV, poşetten/paketten çıkarma, bez altından reveal | KURAL | 062, 064, 077, 078, 088, 106, 135, 136 |
 
 Kaçınılan ilk kare: **mağaza rafı / kalabalık kuyruğu / ekip** (N1: 047, 070, 071, 080, 083, 086, 107, 120, 123, 132; 132'de milyon olan video 2 sn jenerik rafla açılıyor ama gövde kullanım — GÖZLEM) ve **beyaz önlüklü "uzman"** (059: 2,3–17,3B).
 
@@ -78,3 +78,14 @@ SCENE: [...]
 - Görselde harf/yazı/tabela var mı → yeniden üret.
 - İlk kare 1 sn'de "ne oluyor"u anlatıyor mu? (Anlatmıyorsa İ1 ya da İ3'e geç.)
 - Mağaza/kalabalık/uzman görünümü sızdı mı → çıkar.
+
+## 6. Ürün tipi modülleri (kartın sektör satırında seçilir; kareye §5'e ek olarak uygulanır)
+Kaynak: ekranlı ürün serisinin ret eleştirileri (ekran/telefon) ve sektör sayımı (`kreatif-mantigi.md` §6). Diğer tiplerde AI kanıtı yok → GÖZLEM.
+
+| Modül | Bilinen hata | Kare RED ölçütü |
+|---|---|---|
+| **Ekranlı / ışıklı** | düz renge bindirilen içerik perspektiften taştı, camda yansıma yoktu, hale rengi içerikle uyuşmadı; aşırı parlak ekran gerçeğinden farklı | içerik karede değil · hale rengi ≠ içerik rengi · camda yansıma çizgisi yok · ekranda yazı/rakam · çevre ışığında patlama (kırpılmış beyaz) |
+| **Uygulamalı (telefondan kontrol)** | dokunuştan önce sonuç zaten değişmişti; telefon ekranı hiç görünmedi; kırpım sonucu kadraj dışında bıraktı | telefon ekranı ve seçilen karo görünmüyor · "önce" karesinde sonucun izi var · dokunuş ve sonuç aynı karede değil ya da kesimle bağlı değil |
+| **Giyilebilir (insan)** | AI kanıtı çoğu hayvan/bebek taşıyan giysi; yetişkin modada beden oturuşu ölçülmedi | kumaş vücuda oturmuyor (havada duran kol/yaka) · kırışık yok, plastik doku · beden oranı ürün fotoğrafından >%10 sapıyor · fazladan cep/fermuar |
+| **Mobilya / oda ölçeği** | oda ölçeği ve katlanma mekaniği için AI kanıtı yok | insan-boy ölçeği yok ya da tutarsız (kapı ~2 m referansıyla ölç) · eğri duvar/kapı çizgisi · katlı/açık hal parça sayısı farklı |
+| **Sıvı / kozmetik / doku** | AI sıvı fiziği test edilmedi; "sıvı + cam" zaten veto | AI karesi kullanılmaz: gövde gerçek çekim (S10 hibrit: AI yalnız kanca); krem/köpük dokusu AI'da üretilmez |

@@ -1,6 +1,9 @@
 # Satış videosu iskeleti (nöropazarlama) — 13–15 sn, 140 BPM
 
-Her video bu altı vuruşu sırayla taşır. Saniyeler 140 BPM ızgarasındadır (1 vuruş 0,4286 sn).
+> **GÖZLEM (tek ürün):** ekranlı araç ürünü serisinden; milyon kayıt kanıtı yok. Çok sahneli kurguda seçeneklerden biridir,
+> zorunlu değil. Seride ≥ 3 video tek sahne (S1, kesmesiz) ya da yazısız (K13) olabilir; bunlar iskeleti taşımaz.
+
+Kullanıldığında altı vuruş bu sırayla gelir. Saniyeler 140 BPM ızgarasındadır (1 vuruş 0,4286 sn).
 
 | Saniye | Beyin | Görüntü | Ses |
 |---|---|---|---|
@@ -16,4 +19,4 @@ Kurallar:
 - Merak sorusu ("Is this legal?") videoda cevaplanmaz; yorumu tetikler, cevap DM'de ürün sayfasına göre verilir.
 - Uydurulmaz: fiyat, indirim, stok, yorum, tepki, kurulum süresi, yasallık. Polis/sigorta/"gizle" ima eden kanca yok.
 - Dokunuş anını gözle değil ölçerek bul (ör. seçilen karonun renk pikseli sayısı kare kare).
-- Klip kütüphanesi: sahne başına 8 klip; 30 video bu kütüphaneden farklı kanca, sıra, yazı ve müzikle kurgulanır.
+- Seri: sahneye klip üretilir (`ai-video-kreatif` SKILL "Seri üretim"); her videoda özne, ortam, giriş, kanca ve müzik farklı.

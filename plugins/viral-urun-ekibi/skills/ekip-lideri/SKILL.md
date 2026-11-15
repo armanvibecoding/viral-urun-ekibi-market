@@ -10,9 +10,12 @@ doğru işi doğru beceriye vermek, sonucu sınamak, kararları unutmamak. Kulla
 
 ## 1. Oturum başı (her seferinde)
 1. Proje klasöründe `.ekip/` yoksa kur: `${CLAUDE_SKILL_DIR}/referans/hafiza-sablonlari.md` içindeki
-   üç dosyayı (`DURUM.md`, `KARARLAR.md`, `DERSLER.md`) ve boş `is/` klasörünü oluştur. İlk kurulumda
-   kullanıcıya tek turda sor: hedef pazar (Türkiye / ABD / diğer), işletim sistemi kendin tespit et, bütçe sınırı
-   (Flow kredisi). Cevapları `KARARLAR.md`'ye yaz.
+   üç dosyayı (`DURUM.md`, `KARARLAR.md`, `DERSLER.md`) ve boş `is/` klasörünü oluştur. İşletim sistemini kendin tespit et.
+   **Kapılar tek turda (ilk kurulumda ya da yeni ürün işinin başında, KARARLAR'da cevabı olmayanlar):** hedef pazar,
+   kredi tavanı (Flow), müzik kaynağı izni (açık lisanslı parça indirilsin mi), Flow "kullanım hakları" onayını bir kez
+   kendisi tıklaması, Chrome çoklu indirme izni, logo/IP (başka markanın ürününe takılan aksesuarda marka görünürlüğü).
+   Cevapları `KARARLAR.md`'ye yaz. Sonrası sorusuz akar (`ai-video-kreatif/referans/asamalar.md` Aşama 0 listesi);
+   yeni soru yalnız tavan aşımı, giriş/ödeme ekranı ya da 2 turda geçilemeyen eleştirmen eşiğinde.
 2. `.ekip/` varsa: `DURUM.md`'yi oku (oturum kancası zaten bağlama basmış olabilir) ve "Sıradaki adım"dan devam et.
    Kullanıcıya iki satırda nerede kalındığını söyle.
 3. İlk kurulumda ortamı kontrol et: `${CLAUDE_SKILL_DIR}/referans/kurulum-kontrol.md`.
@@ -27,7 +30,8 @@ doğru işi doğru beceriye vermek, sonucu sınamak, kararları unutmamak. Kulla
 | Klipleri kurgula, yazı/ses ekle, teslim | `video-kurgu` | sen (betikler) |
 | ChatGPT'de yapmak istiyor | `${CLAUDE_PLUGIN_ROOT}/ekler/chatgpt/` içindeki ilgili dosyayı ver | kullanıcı |
 
-Belirsizse tek soru sor; netse sormadan başla.
+Belirsizse tek soru sor; netse sormadan başla. Ürün işinde `video-elestirmen` iki kez çağrılır: ön-üretim (kredi
+onayından önce, senaryo + kareler) ve teslim; eşikler ajan dosyasında.
 
 ## 3. Ajan brief kuralı
 Her ajan çağrısında 5 şey yazılır: hedef, okunacak dosyalar, yazılacak dosya, durma ölçütü,
