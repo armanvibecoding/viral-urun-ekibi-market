@@ -1,8 +1,29 @@
 # Viral Ürün Ekibi
 
 Instagram'da viral ürünleri bulan, AliExpress'te henüz viral olmamış benzerlerini avlayan, ChatGPT + Google Flow ile
-ürün videosu üreten ve videoları kurgulayan Türkçe bir Claude ekibi. İçinde yüzlerce ürün ve viral video analizinden
-damıtılmış bir bilgi bankası var.
+ürün videosu üreten ve videoları kurgulayan Türkçe bir Claude Code eklentisi (skill + ajan ekibi). İçinde yüzlerce ürün
+ve viral video analizinden damıtılmış bir bilgi bankası var.
+
+Bu depo **açık kaynaktır** (MIT). Hata bildirimi, yeni skill, bilgi bankasına katkı — hepsi Pull Request ile kabul edilir.
+Katkı kuralları: [CONTRIBUTING.md](CONTRIBUTING.md) · Geliştirici şartnamesi: [docs/SARTNAME.md](docs/SARTNAME.md)
+
+## İçindekiler
+
+**Skill'ler** (`plugins/viral-urun-ekibi/skills/`)
+
+| Skill | Ne yapar |
+|---|---|
+| `ekip-lideri` | Ekibi yönetir, `.ekip/` hafızasını kurar ve tutar, eksik araçları kontrol eder. Her oturumun girişi. |
+| `kesfet-urun-avi` | Instagram Reels/Keşfet'te viral ürün videolarını izler, ölçütlerle ayıklar, tabloya ve Excel'e kaydeder (Mac: iPhone Yansıtma; her yerde: Chrome). |
+| `aliexpress-firsat` | Viral ürünlerin ortak DNA'sından arama terimi üretir, AliExpress'te henüz viral olmamış adayları bulur ve "zaten viral mi" kontrolü yapar. |
+| `ai-video-kreatif` | Ürün kartı, 30 senaryo, ChatGPT ile başlangıç kareleri ve Google Flow ile klip üretimi. |
+| `video-kurgu` | ffmpeg ile kurgu: klip kalite kontrolü, ekran üstü yazı, efekt, ses normalizasyonu, teslim. |
+
+**Ajanlar** (`plugins/viral-urun-ekibi/agents/`): `firsat-avcisi`, `kanit-savcisi`, `icerik-stratejisti`,
+`kreatif-analisti`, `video-elestirmen`.
+
+**Ortak bilgi** (`plugins/viral-urun-ekibi/ortak/`): marka skoru, viral DNA, sözlük ve `bilgi/` altında ürün kataloğu,
+kreatif notlar, fırsat geçmişi, üretim deneyimi, dersler.
 
 ## Hangi yolu seçmeliyim?
 
@@ -16,7 +37,7 @@ damıtılmış bir bilgi bankası var.
 Ön koşul: Claude Pro, Max veya Ultra planı · Mac için `brew install ffmpeg` ve `python3 -m pip install --user openpyxl pillow imageio-ffmpeg numpy` · Google Chrome · Mac (Windows'ta iPhone modu yok, tarayıcı modu çalışır).
 
 1. **Claude Code'u kur** ve claude.ai hesabınla giriş yap (`claude` → `/login`).
-2. **Depoya erişim:** sana paylaşılan GitHub deposuna davet linkinden katıl. Gerekirse `gh auth login`.
+2. **Depo:** herkese açık; ayrı erişim gerekmez. Kendi çatalını (fork) kurmak istersen aşağıdaki yolu kendininkiyle değiştir.
 3. **Ekibi kur** (Claude Code içinde):
    ```
    /plugin marketplace add armanvibecoding/viral-urun-ekibi-market
@@ -57,3 +78,28 @@ yeniden okutulur; yeni oturumda kaldığı yerden devam eder. Ürün çıktılar
 - iPhone modu yalnız Mac (macOS 15+, iPhone Yansıtma). Ekran noktaları ilk kullanımda kalibrasyon ister.
 - Google Flow arayüzü değişirse otomatik yükleme bozulabilir; o durumda ekip senden tek bir sürükle-bırak ister.
 - ChatGPT, kendi tarayıcı eklentisi modunda dosyaları Flow'a yükleyemez; ChatGPT ile video üretiminde bulut tarayıcıda Google girişi gerekir.
+
+## Katkı
+Yeni skill eklemek, mevcut olanı düzeltmek ya da bilgi bankasına ürün/ders eklemek için [CONTRIBUTING.md](CONTRIBUTING.md)'yi oku.
+PR öncesi kısaca: `claude plugin validate plugins/viral-urun-ekibi` geçmeli, kişisel bilgi (ad, e-posta, mağaza, hesap,
+mutlak yol, API anahtarı) içermemeli.
+
+## Lisans
+[MIT](LICENSE) — © viral-urun-ekibi contributors.
+
+---
+
+## English summary
+**Viral Ürün Ekibi** ("Viral Product Team") is a Turkish-language Claude Code plugin: a team of skills and sub-agents that
+(1) scouts viral product videos on Instagram Reels/Explore, (2) finds not-yet-viral look-alikes on AliExpress using the
+shared "viral DNA" of winners, (3) plans and generates AI product videos with ChatGPT (start frames) and Google Flow
+(clips), and (4) edits them with ffmpeg (QC, captions, SFX, loudness). It ships with a knowledge base distilled from
+hundreds of analysed products and videos, and keeps per-project memory in a `.ekip/` folder.
+
+Install inside Claude Code:
+```
+/plugin marketplace add armanvibecoding/viral-urun-ekibi-market
+/plugin install viral-urun-ekibi@viral-urun-market
+```
+Then run `/viral-urun-ekibi:ekip-lideri` in an empty folder. User-facing text is Turkish; contributions in English are
+welcome too. See [CONTRIBUTING.md](CONTRIBUTING.md). License: MIT.
