@@ -8,7 +8,8 @@ Müzik ve egzoz tasarımı ayrı adımdır (ses_tasarla.py). Ses −14 LUFS'a o 
 Kullanım:  python3 hizli_kurgu.py ayar.json
 ayar.json (yollar ayar dosyasına göre göreli):
 {
-  "font": "font/Montserrat.ttf", "font_agirlik": "ExtraBold",      # değişken fontsa ağırlık adı
+  "font": "font/TikTokSans.ttf", "font_agirlik": "Bold", "kontur_oran": 0.06,   # TikTok Sans (OFL)
+  "yazilar": [{"bas": 0.0, "bit": 1.71, "yazi": "Is this even legal?", "vurgu": "legal?", "konum": 0.13}],  # kesimden bağımsız
   "planlar": [
     {"klip": "klipler/P3.mp4", "bas": 1.20, "bit": 2.06, "gecis": "kesim",
      "yazi": "IS THIS EVEN LEGAL?", "vurgu": "LEGAL?", "renk": "#FF2D2D", "konum": 0.16, "kelime_kelime": false},
@@ -28,9 +29,10 @@ import subprocess
 import sys
 import tempfile
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 W, H, FPS = 1080, 1920, 30
+KONTUR_ORAN = 0.085
 
 
 def ffmpeg():
@@ -66,7 +68,7 @@ def yazi_png(cikti, satirlar, font_yol, agirlik, ust_oran):
     y = int(H * ust_oran)
     for metin, boyut, vurgu, renk in satirlar:
         f = font_yukle(font_yol, boyut, agirlik)
-        kontur = max(4, int(boyut * 0.085))
+        kontur = max(4, int(boyut * KONTUR_ORAN))
         bosluk = d.textlength(" ", font=f)
         # satırlara böl (en fazla 900 px)
         kelimeler, satir, liste = metin.split(), [], []
@@ -88,7 +90,11 @@ def yazi_png(cikti, satirlar, font_yol, agirlik, ust_oran):
                 x += d.textlength(k, font=f) + bosluk
             y += int(boyut * 1.12)
         y += int(boyut * 0.15)
-    im.save(cikti)
+    golge = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    golge.putalpha(im.getchannel("A").point(lambda v: int(v * 0.55)))
+    golge = golge.transform((W, H), Image.AFFINE, (1, 0, -6, 0, 1, -8)).filter(ImageFilter.GaussianBlur(10))
+    golge.alpha_composite(im)
+    golge.save(cikti)
 
 
 def plan_isle(ff, p, i, kok, tmp, a):
@@ -154,12 +160,36 @@ def plan_isle(ff, p, i, kok, tmp, a):
     return cikti
 
 
+def yazilari_bindir(ff, video, yazilar, a, tmp, cikti):
+    """Kesimden bağımsız yazılar: her biri videonun kendi zamanında (bas–bit sn), 0,12 sn yumuşak giriş."""
+    girdiler, zincir, son = ["-i", video], [], "0:v"
+    for j, y in enumerate(yazilar):
+        satirlar = [(y["yazi"], y.get("boyut", 96), y.get("vurgu"), y.get("renk", "#FF2D2D"))]
+        if y.get("satir2"):
+            satirlar.append((y["satir2"], y.get("boyut2", 60), None, None))
+        yol = os.path.join(tmp, f"z{j}.png")
+        yazi_png(yol, satirlar, a["font"], a.get("font_agirlik"), y.get("konum", 0.16))
+        girdiler += ["-loop", "1", "-i", yol]
+        bas, bit = y["bas"], y["bit"]
+        zincir.append(f"[{j + 1}:v]format=rgba,fade=t=in:st={bas:.3f}:d=0.12:alpha=1,"
+                      f"fade=t=out:st={bit - 0.06:.3f}:d=0.06:alpha=1[y{j}]")
+        zincir.append(f"[{son}][y{j}]overlay=0:0:shortest=1:enable='between(t,{bas:.3f},{bit:.3f})'[o{j}]")
+        son = f"o{j}"
+    r = subprocess.run([ff, "-v", "error", "-y", *girdiler, "-filter_complex", ";".join(zincir), "-map", f"[{son}]",
+                        "-map", "0:a?", "-c:v", "libx264", "-preset", "medium", "-crf", "17", "-pix_fmt", "yuv420p",
+                        "-r", str(FPS), "-c:a", "copy", "-movflags", "+faststart", cikti])
+    if r.returncode:
+        sys.exit("yazı bindirme başarısız")
+
+
 def main():
     if len(sys.argv) < 2:
         sys.exit(__doc__)
     ayar = os.path.abspath(sys.argv[1])
     kok = os.path.dirname(ayar)
     a = json.load(open(ayar, encoding="utf-8"))
+    global KONTUR_ORAN
+    KONTUR_ORAN = a.get("kontur_oran", KONTUR_ORAN)
     a["font"] = os.path.join(kok, a["font"]) if not os.path.isabs(a["font"]) else a["font"]
     ff = ffmpeg()
     tmp = tempfile.mkdtemp(prefix="hizli_")
@@ -170,10 +200,17 @@ def main():
             f.write(f"file '{p}'\n")
     cikti = os.path.join(kok, a["cikti"])
     os.makedirs(os.path.dirname(cikti), exist_ok=True)
+    ara = os.path.join(tmp, "birlesik.mp4") if a.get("yazilar") else cikti
     r = subprocess.run([ff, "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", liste, "-c", "copy",
-                        "-movflags", "+faststart", cikti])
+                        "-movflags", "+faststart", ara])
     if r.returncode:
         sys.exit("birleştirme başarısız")
+    if a.get("yazilar"):
+        yazilari_bindir(ff, ara, a["yazilar"], a, tmp, cikti)
+    for y in a.get("yazilar", []):  # okunma kapısı: kelime başına 0,25 sn + 0,5 sn tepki
+        gerek = 0.5 + 0.25 * len((y["yazi"] + " " + y.get("satir2", "")).split())
+        if y["bit"] - y["bas"] < gerek:
+            print(f"UYARI okunmaz: '{y['yazi']}' {y['bit'] - y['bas']:.2f} sn ekranda, en az {gerek:.2f} sn gerekir")
     toplam = sum((p["bit"] - p["bas"]) / p.get("hiz", 1.0) for p in a["planlar"])
     print(f"tamam: {cikti}  ·  {len(parcalar)} plan  ·  {toplam:.2f} sn")
     sinirlar, t = [], 0.0

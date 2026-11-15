@@ -47,10 +47,14 @@ her karede bindirme ekranın içinde mi. Yöntem ve ayarlar: `${CLAUDE_SKILL_DIR
 **Viral (hızlı) kurgu — varsayılan reklam kurgusu:** `hizli_kurgu.py ayar.json` (alanlar betiğin başında).
 - Kanca = videonun **en güçlü anı ilk karede** (alev, değişim, sonuç); olayın ortasından aç, ilk karede ses de olsun.
   Ölü/kapalı ürünle ya da sessiz açma. Kanca yazısı ilk karede tam görünür (kelime kelime değil).
-- Planlar müziğin vuruşuna oturur: plan = 2 ya da 4 vuruş (140 BPM'de 0,857 / 1,714 sn); toplam 9–12 sn.
+- Planlar müziğin vuruşuna oturur: plan = 2 ya da 4 vuruş (140 BPM'de 0,857 / 1,714 sn), **2 vuruştan kısa plan yok**
+  (0,43 sn'lik montaj "çok hızlı" bulundu); toplam 12–15 sn.
+- Yazılar planlara değil zaman çizelgesine bağlanır (`yazilar`: bas/bit sn): bir yazı birkaç kesim boyunca kalır.
+  Ekranda en az 0,5 sn + kelime başına 0,25 sn (betik uyarır); en fazla 5 kelime, CTA ikinci satırı ≤ 5 kelime.
   "Önce/sonra" geçişi beyaz flaşla, yakın plan girişleri zoom punch ile. Son plan ilk plana bağlanır (döngü).
-- Yazı: BÜYÜK HARF, kalın sans (Montserrat ExtraBold, OFL), kanca 112 px, ara yazı 96–104 px, kontur ≈%8,5,
-  cümlede tek vurgu kelimesi renkli. Konum plan başına: ürünü örtmez; alt %20 ve sağ %15 boş.
+- Yazı: platformun yerli görünümü — **TikTok Sans Bold** (OFL, Google Fonts `ofl/tiktoksans`), cümle düzeni
+  (büyük harf değil), 96–104 px, ince kontur (`kontur_oran` 0,06) + yumuşak gölge, cümlede tek vurgu kelimesi renkli.
+  Montserrat ExtraBold büyük harf "reklam gibi" bulunup beğenilmedi. Konum plan başına: ürünü örtmez; alt %20 ve sağ %15 boş.
 - "Polisten sakla" gibi yasa dışı kullanımı ima eden yazı yok.
 - Teslimden önce `video-elestirmen` ajanı (soğuk izleyici) videoyu puanlar; düzeltmeler uygulanmadan teslim yok.
 
