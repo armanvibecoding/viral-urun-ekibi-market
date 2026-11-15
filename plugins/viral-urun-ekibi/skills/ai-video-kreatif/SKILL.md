@@ -92,6 +92,9 @@ Betik DUR/❌ verirse düzelt ve tekrar koştur; geçmeden sonraki aşamaya geç
 - Kare tipi, kamera, kanca, şablon kararları için: `referans/baslangic-karesi.md`, `sahne-sablonlari.md`,
   `kanca-kutuphanesi.md`, `kreatif-mantigi.md`, `pazar-katmani.md`; yasaklar `kurgu-ve-yasaklar.md` §7; tamamı tek blokta
   `sistem-promptu.md`; gerçek plan çıktısı biçimi `ornek-plan.md`; test/devam-öldür eşikleri `olcum-ve-test-plani.md`.
+- Meme formatlı video (seride ≤ %30): `referans/meme-formatlari.md` — meme yalnız yazı/ritim/kavram olarak kendi klibimizle
+  kurulur; film/şarkı/kişiye bağlı olan ve başka marka logosu yasak. Kullanmadan önce dosyadaki güncellik kontrolünü
+  (§2: KYM son tarih + TikTok son 90 gün) uygula; ölü meme'i yalnız evrensel kalıp olarak kullan.
 
 ## Flow ve kredi (ölçülmüş)
 - Model **Omni 1.2 Flash**, 9:16, x1, 4 sn, **720p = 12 kredi/klip**. 360p kullanılmaz. Pahalı model ayrı onay ister.
