@@ -192,6 +192,9 @@ def main():
     ap.add_argument("--cikti", required=True)
     ap.add_argument("--duck_db", type=float, default=5.0, help="egzoz anında müzik kısma (4-6)")
     ap.add_argument("--muzik_db", type=float, default=-3.0, help="müzik/egzoz LUFS farkı")
+    ap.add_argument("--drop_oncesi_db", type=float, default=-8.0,
+                    help="drop'tan önceki 1,7 sn'de klip sesini kısma (drop kontrastı); 0 = kapalı")
+    ap.add_argument("--drop_esik_db", type=float, default=6.0, help="drop anında ölçülen en az ses artışı (kapı)")
     ap.add_argument("--rt60", type=float, default=1.5, help="garaj kuyruğu (1.2-1.8 sn)")
     ap.add_argument("--yankı_db", dest="yanki_db", type=float, default=-13.0, help="yankı dönüş seviyesi")
     ap.add_argument("--patlama_db", type=float, default=6.0, help="patlama anı tam-bant vurgu")
@@ -294,6 +297,19 @@ def main():
                                     "-t", f"{sure:.4f}", "-f", "f32le", "-ar", str(SR), "-ac", "2", P("egz.f32")])
     I_e, _, _ = olc(raw_giris(P("egz.f32")))
     rapor["egz_stem_lufs_ham"] = I_e
+    # 6b) drop kontrastı: klip sesi drop'tan hemen önce kısılır, drop anında tam döner (ölçülen sorun:
+    # rölanti/söküm sesi drop öncesi yüksek kalınca müzik drop'u karışımda duyulmuyordu)
+    if a.muzik and a.drop_video_sn > 0 and a.drop_oncesi_db < 0:
+        eg = raw_oku(P("egz.f32")).copy()
+        z = np.arange(len(eg)) / SR
+        b0, b1 = max(0.0, a.drop_video_sn - 1.714), a.drop_video_sn
+        g = np.ones(len(eg))
+        ic = (z >= b0) & (z < b1)
+        g[ic] = 10 ** (a.drop_oncesi_db / 20)
+        g = np.convolve(g, np.ones(int(0.04 * SR)) / int(0.04 * SR), mode="same")  # 40 ms yumuşak geçiş
+        g[z >= b1] = 1.0
+        (eg * g[:, None]).astype(np.float32).tofile(P("egz.f32"))
+        rapor["drop_oncesi_db"] = a.drop_oncesi_db
     egz_kaz = -17.0 - I_e
 
     # 7) müzik stem'i
@@ -384,6 +400,18 @@ def main():
     shutil.copy(P("cikti.mp4"), a.cikti)
     rapor.update({"cikti": a.cikti, "I_lufs": I, "LRA": LRA, "true_peak_dbtp": TP,
                   "hedef_tuttu": bool(ok_I and ok_T)})
+    # drop kapısı: drop anındaki ses artışı karışımda ÖLÇÜLÜR (müzik dosyasındaki drop yetmez)
+    if a.muzik and a.drop_video_sn > 0:
+        son = raw_oku(P("son.f32")).mean(1)
+        d = int(a.drop_video_sn * SR)
+        rr = lambda v: np.sqrt(np.mean(v ** 2) + 1e-20)
+        artis = 20 * np.log10(rr(son[d:d + int(0.43 * SR)]) / rr(son[max(0, d - int(0.6 * SR)):d - int(0.05 * SR)]))
+        rapor["drop_artis_db"] = round(float(artis), 1)
+        rapor["drop_tuttu"] = bool(artis >= a.drop_esik_db)
+        if not rapor["drop_tuttu"]:
+            print(f"UYARI drop duyulmuyor: {artis:+.1f} dB < {a.drop_esik_db} dB — --drop_oncesi_db'yi düşür, "
+                  "drop öncesi planların ses_db'sini kıs ya da --muzik_db'yi artır", file=sys.stderr)
+            rapor["hedef_tuttu"] = False
     if a.stem_klasoru:
         os.makedirs(a.stem_klasoru, exist_ok=True)
         for ad in ["egz.f32", "muz.f32", "muz_duck.f32", "mix.f32", "olay.f32"]:
