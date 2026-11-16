@@ -5,6 +5,17 @@ ARAÇ PROFİLİ: varsayılan ayarlar egzoz içindir. Başka ürünlerde --patlam
 müzik + sentetik efekt (--sfx tik@sn,vurus@sn) öne çıkar. Not: EQ, doygunluk ve garaj yankısı
 klip sesine yine uygulanır; yankıyı --yankı_db ile kıs.
 
+EFEKT KATMANI (ses tasarımcısı, 2026-11-16; hepsi isteğe bağlı, verilmezse çıktı eskisiyle aynı):
+  --sfx tik@8.24,vurus@8.57,boom@3.43,whoosh@1.70   sentetik türler: tik · vurus · boom (vine-boom
+                                                    benzeri bas darbe) · whoosh (gürültü süpürmesi)
+  --sfx_dosya "whoosh.mp3@3.20:-6,boom.mp3@3.43:-3:0-0.8"  dosya@saniye[:tepe_dB[:kırp_bas-kırp_bit]];
+                                                    yol yoksa --sfx_klasor altında aranır (lisans: klasörün LISANS.md'si)
+  --riser 3.429:1.2:-10                             drop'ta BİTEN sentetik yükseliş (bit_sn:süre[:dB])
+  --sessizlik_vurusu 0.2                            drop'tan önce 0,15-0,25 sn müzik+klip kesmesi (kontrast)
+  --sessizlik "1.70-1.80"                           elle kesme aralıkları (komedi duraklaması vb.)
+  --sfx_max_10sn 5                                  yoğunluk kapısı: 10 sn'de bundan çok efekt -> hedef_tuttu false
+Efektler müzik+klip karışımına son seviyeden önce eklenir; drop kapısı (drop_artis_db) efektler dahil ölçülür.
+
 Kullanım:
   python3 ses_tasarla.py --video PILOT.mp4 --cikti Y.mp4
   python3 ses_tasarla.py --video PILOT.mp4 --muzik A.mp3 --muzik_bas 8.0 \
@@ -210,6 +221,13 @@ def main():
     ap.add_argument("--sfx", help="sentetik efekt: 'tik@8.24,vurus@8.57' (tik = ekrana dokunma, vurus = değişim darbesi)")
     ap.add_argument("--sfx_db", type=float, default=-9.0, help="efekt tepe seviyesi (dBFS, son seviyeden önce)")
     ap.add_argument("--son_fade", type=float, default=0.8, help="müzik sonu kararma (döngülü videoda 0.12)")
+    ap.add_argument("--sfx_dosya", help="dosya efektleri: 'yol@sn[:dB[:bas-bit]]' virgüllü; dB = tepe (varsayılan --sfx_db)")
+    ap.add_argument("--sfx_klasor", help="--sfx_dosya'da yalın ad verilirse aranacak klasör (ör. uretim-4/sfx)")
+    ap.add_argument("--riser", help="sentetik yükseliş 'bit_sn:sure[:dB]' — drop'ta biter (ör. 3.429:1.2:-10)")
+    ap.add_argument("--sessizlik_vurusu", type=float, default=0.0,
+                    help="drop'tan önce bu kadar sn (0.15-0.25) müzik+klip kesilir; --drop_video_sn gerekir")
+    ap.add_argument("--sessizlik", help="elle kesme aralıkları 'bas-bit,bas-bit' (sn); efektler kesmeden etkilenmez")
+    ap.add_argument("--sfx_max_10sn", type=int, default=5, help="herhangi 10 sn penceresinde en çok efekt (kapı)")
     a = ap.parse_args()
     if a.duck_db is None:  # egzozsuz videoda rölanti/söküm sesi "olay" sanılıp müzik kısılıyordu (ölçülen ses delikleri)
         a.duck_db = 0.0 if (a.patlama_db == 0 and a.crackle_db == 0) else 5.0
@@ -356,27 +374,123 @@ def main():
         kos(raw_giris(P("egz.f32")) + ["-af", f"volume={egz_kaz:.2f}dB", "-f", "f32le", "-ar", str(SR),
                                        "-ac", "2", P("mix.f32")])
 
-    # 7b) sentetik efektler (telifsiz, kodla üretilir): dokunma "tik" ve değişim "vuruş"
-    if a.sfx:
+    # 7b) efekt katmanı: sessizlik vuruşu -> sentetik efektler -> riser -> dosya efektleri -> yoğunluk kapısı
+    efektler = []  # {"tur","sn","db"} — yoğunluk kapısı ve rapor için
+    yeni_katman = any([a.sfx, a.sfx_dosya, a.riser, a.sessizlik, a.sessizlik_vurusu > 0])
+    if yeni_katman:
         mix = raw_oku(P("mix.f32")).copy()
         rng = np.random.default_rng(7)
-        for parca in a.sfx.split(","):
-            tur, sn = parca.split("@")
-            i0 = int(float(sn) * SR)
-            if tur == "tik":  # 25 ms: 3,2 kHz tını + kısa gürültü, hızlı sönüm
+
+        def ekle(x, sn, db, tur):
+            """x: mono (n,) ya da stereo (n,2), tepe 1'e normalize edilir, dB tepe seviyesiyle karışıma eklenir."""
+            x = np.asarray(x, np.float64)
+            if x.ndim == 1:
+                x = np.stack([x, x], 1)
+            x = x / (np.abs(x).max() + 1e-12) * 10 ** (db / 20)
+            i0 = int(round(sn * SR))
+            j = min(len(mix), i0 + len(x)) - i0
+            if j > 0:
+                mix[i0:i0 + j] += x[:j]
+                efektler.append({"tur": tur, "sn": round(sn, 3), "db": db})
+
+        # sessizlik: müzik+klip kesilir (10 ms çıkış, 5 ms giriş); efektler bundan SONRA eklenir, etkilenmez
+        aralik = []
+        if a.sessizlik_vurusu > 0 and a.drop_video_sn > 0:
+            aralik.append((a.drop_video_sn - a.sessizlik_vurusu, a.drop_video_sn))
+        if a.sessizlik:
+            aralik += [tuple(float(v) for v in r.split("-")) for r in a.sessizlik.split(",")]
+        for b0, b1 in aralik:
+            i0, i1 = max(0, int(b0 * SR)), min(len(mix), int(b1 * SR))
+            if i1 <= i0:
+                continue
+            f_out, f_in = int(0.010 * SR), int(0.005 * SR)
+            if i0 - f_out >= 0:
+                mix[i0 - f_out:i0] *= np.cos(np.linspace(0, np.pi / 2, f_out))[:, None] ** 2
+            mix[i0:i1] = 0
+            if i1 + f_in <= len(mix):
+                mix[i1:i1 + f_in] *= np.sin(np.linspace(0, np.pi / 2, f_in))[:, None] ** 2
+        if aralik:
+            rapor["sessizlik"] = [[round(b0, 3), round(b1, 3)] for b0, b1 in aralik]
+
+        # sentetik efektler (telifsiz, kodla üretilir)
+        def sentez(tur):
+            if tur == "tik":  # 25 ms: 3,2 kHz tını + kısa gürültü, hızlı sönüm (ekrana dokunma)
                 t = np.arange(int(0.025 * SR)) / SR
-                x = (np.sin(2 * np.pi * 3200 * t) * 0.6 + rng.standard_normal(len(t)) * 0.4) * np.exp(-t / 0.004)
-            else:  # vuruş: 60 Hz'e inen bas darbe + 120 ms hava, 0,35 sn
+                return (np.sin(2 * np.pi * 3200 * t) * 0.6 + rng.standard_normal(len(t)) * 0.4) * np.exp(-t / 0.004)
+            if tur == "vurus":  # 60 Hz'e inen bas darbe + 120 ms hava, 0,35 sn (değişim)
                 t = np.arange(int(0.35 * SR)) / SR
                 f = 60 + 90 * np.exp(-t / 0.03)
                 x = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t / 0.12)
-                x += rng.standard_normal(len(t)) * np.exp(-t / 0.04) * 0.25
-            x = x / np.max(np.abs(x)) * 10 ** (a.sfx_db / 20)
-            j = min(len(mix), i0 + len(x)) - i0
-            if j > 0:
-                mix[i0:i0 + j] += x[:j, None]
+                return x + rng.standard_normal(len(t)) * np.exp(-t / 0.04) * 0.25
+            if tur == "boom":  # vine-boom BENZERİ (sentetik): 45 Hz'e inen doygun bas darbe + 0,9 sn oda kuyruğu
+                t = np.arange(int(0.9 * SR)) / SR
+                f = 45 + 110 * np.exp(-t / 0.05)
+                x = np.tanh(1.8 * np.sin(2 * np.pi * np.cumsum(f) / SR)) * np.exp(-t / 0.22)
+                x += rng.standard_normal(len(t)) * np.exp(-t / 0.012) * 0.5          # vuruş transienti
+                x += bant(rng.standard_normal(len(t)), 80, 900) * np.exp(-t / 0.28) * 0.12  # kuyruk
+                return x
+            if tur == "whoosh":  # 0,45 sn gürültü süpürmesi: 300 Hz->5 kHz bant, tepe %60'ta
+                L = int(0.45 * SR)
+                t = np.arange(L) / SR
+                g = np.sin(np.pi * np.clip(t / 0.45, 0, 1) ** 0.7) ** 2
+                parcalar = np.array_split(rng.standard_normal(L), 9)
+                x = np.concatenate([bant(p, 300 * 1.4 ** k, 1200 * 1.25 ** k) for k, p in enumerate(parcalar)])
+                return yumusat(x, 48) * g
+            sys.exit(f"bilinmeyen sentetik efekt: {tur} (tik|vurus|boom|whoosh)")
+
+        if a.sfx:
+            for parca in a.sfx.split(","):
+                tur, sn = parca.split("@")
+                ekle(sentez(tur), float(sn), a.sfx_db, tur)
+            rapor["sfx"] = a.sfx
+
+        if a.riser:  # drop'ta biten yükseliş: gürültü (200 Hz->6 kHz) + 180->1400 Hz sinüs, üstel zarf, drop'ta kesilir
+            kis = a.riser.split(":")
+            bit, sure = float(kis[0]), float(kis[1])
+            db = float(kis[2]) if len(kis) > 2 else a.sfx_db - 3
+            L = int(sure * SR)
+            t = np.arange(L) / SR
+            u = t / sure
+            parcalar = np.array_split(rng.standard_normal(L), 12)
+            gur = np.concatenate([bant(p, 200 * 1.3 ** k, 1500 * 1.15 ** k) for k, p in enumerate(parcalar)])
+            ton = np.sin(2 * np.pi * np.cumsum(180 * (1400 / 180) ** u) / SR)
+            x = (yumusat(gur, 48) * 0.8 + ton * 0.35) * u ** 2.2
+            x[:int(0.01 * SR)] *= np.linspace(0, 1, int(0.01 * SR))
+            ekle(x, bit - sure, db, "riser")
+            rapor["riser"] = a.riser
+
+        if a.sfx_dosya:  # dosya tabanlı efektler (lisansı klasörün LISANS.md'sinde kayıtlı olmalı)
+            for parca in a.sfx_dosya.split(","):
+                yol, kalan = parca.split("@")
+                alan = kalan.split(":")
+                sn = float(alan[0])
+                db = float(alan[1]) if len(alan) > 1 and alan[1] != "" else a.sfx_db
+                kirp = alan[2] if len(alan) > 2 else None
+                if not os.path.exists(yol) and a.sfx_klasor:
+                    yol = os.path.join(a.sfx_klasor, yol)
+                if not os.path.exists(yol):
+                    sys.exit(f"efekt dosyası yok: {parca}")
+                ek = []
+                if kirp:
+                    k0, k1 = kirp.split("-")
+                    ek = ["-ss", k0] + (["-to", k1] if k1 else [])
+                hedef = P(f"sfx_{len(efektler)}.f32")
+                kos(ek + ["-i", yol, "-vn", "-ac", "2", "-ar", str(SR), "-af", "afade=t=in:d=0.005", "-f", "f32le", hedef])
+                x = raw_oku(hedef)
+                f_out = min(len(x), int(0.02 * SR))
+                x[-f_out:] *= np.cos(np.linspace(0, np.pi / 2, f_out))[:, None] ** 2  # 20 ms çıkış, tık olmasın
+                ekle(x, sn, db, os.path.basename(yol))
+            rapor["sfx_dosya"] = a.sfx_dosya
+
         mix.astype(np.float32).tofile(P("mix.f32"))
-        rapor["sfx"] = a.sfx
+        rapor["efektler"] = efektler
+        rapor["efekt_sayisi"] = len(efektler)
+        zamanlar = sorted(e["sn"] for e in efektler)
+        yog = max((sum(1 for z in zamanlar if t0 <= z < t0 + 10) for t0 in zamanlar), default=0)
+        rapor["efekt_yogunlugu_10sn"] = yog
+        yogunluk_asildi = yog > a.sfx_max_10sn
+    else:
+        yogunluk_asildi = False
 
     # 8) son seviye: -14 LUFS / -1 dBTP; AAC sonrası ölçerek en çok 4 tur düzelt
     I_mix, _, _ = olc(raw_giris(P("mix.f32")))
@@ -403,6 +517,10 @@ def main():
     shutil.copy(P("cikti.mp4"), a.cikti)
     rapor.update({"cikti": a.cikti, "I_lufs": I, "LRA": LRA, "true_peak_dbtp": TP,
                   "hedef_tuttu": bool(ok_I and ok_T)})
+    if yogunluk_asildi:  # efekt yoğunluğu kapısı: 10 sn'de > --sfx_max_10sn efekt "ucuz" hissi verir
+        print(f"UYARI efekt yoğunluğu: 10 sn'de {rapor['efekt_yogunlugu_10sn']} efekt > {a.sfx_max_10sn} — "
+              "efekt sil ya da --sfx_max_10sn'yi gerekçesiyle yükselt", file=sys.stderr)
+        rapor["hedef_tuttu"] = False
     # drop kapısı: drop anındaki ses artışı karışımda ÖLÇÜLÜR (müzik dosyasındaki drop yetmez)
     if a.muzik and a.drop_video_sn > 0:
         son = raw_oku(P("son.f32")).mean(1)

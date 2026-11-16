@@ -1,0 +1,78 @@
+# Ses tasarımı — araştırma özeti, kurallar, efekt kartları
+
+> 2026-11-16 araştırması (ses tasarımcısı üyesi için). Kaynaklar §6. Ölçümler dijital amblem serisi (30 video) üzerinde;
+> hiçbir yargı kulakla verilmedi, hepsi `ses_tasarla.py` / `ses_olc.py` çıktısı.
+
+## 1. Araştırma bulguları (kaynaklı)
+1. **Ses açık izleniyor, ses satıyor.** TikTok/Kantar: kullanıcıların %88'i sesi deneyimin merkezi sayıyor; sesli reklamda "durup
+   bakma" %73 ve yalnız TikTok'ta sesli reklam hem satın alma niyetini hem marka beğenisini kaldırıyor [K1, K2]. Ama tasarım
+   **önce sessizde çalışır** (yazı + görüntü), ses destektir [B1].
+2. **Kanca sesi ilk 1–2 sn'de.** Örüntü kıran efekt ilk 2 sn'de (whoosh/darbe/scratch); reklam kılavuzu bunu ~%12 kanca
+   artışına bağlıyor (kendi verisi, kontrollü değil) [B1]. Sessiz açılış yok.
+3. **Efekt yerleşimi = anlatı dönüm noktası:** problem→çözüm, fayda, CTA; her kesime değil [B1, F1]. Whoosh görsel hareketi olan
+   geçişte, darbe jump-cut'ta, bas drop vurguda [F1]. Yoğunluk: 10 sn'de ≤ 4–5; "üçüncü-dördüncü tekrar"dan sonra ses
+   bayatlar, "bir makine yapmış" hissi [A1].
+4. **Drop öncesi boşluk (the cut):** drop'tan önce 1–2 vuruş sessizlik ya da yalnız riser/reverb kuyruğu; "sessizlik anında
+   dikkatin %100'ü sende" [M1, M2, M3]. Ölçüldü: 0,2 sn kesme drop kontrastını +5,5 → +7,0 dB (yalnız kesme), darbeyle +14 dB'ye
+   çıkarıyor. **Riser, drop'a kadar sürerse kontrastı siler** (+1,2 dB); kesmeden önce bitse bile −18 dB'de 4,6, −22 dB'de ≈ −1,5 dB bedel.
+5. **Seviye:** hedef −14 LUFS; efektler ana ses/konuşmaya göre −5…−10 dB; telefon hoparlöründe test; clipping yok [B1].
+6. **Meme sesleri:** Vine Boom 2012 Bluezone örnek kütüphanesinden, Vine'da 2014 (King Bach) yayıldı, 2020–22 ironik "loud =
+   funny" kodu, "aşırı kullanım" algısı var [V1]; açık lisansı yok, Remotion bile "CC0 gibi serbest bir lisansla yayımlanmamış"
+   diyor [V2]. Record scratch "Yep, that's me" kalıbı The Who "Baba O'Riley" ile anılır → şarkı yok, jenerik scratch var [R1].
+   Meme sesi tek klipte 1–2 kez; "yığmak şakayı zayıflatır" [V3].
+7. **Lisans ve platform:** TikTok işletme hesabı yalnız Ticari Müzik Kütüphanesi'ni (1 M+ parça ve efekt) görür; trend sesler
+   tanıtım içeriğinde kullanılamaz; Temmuz 2025'te şartlar sıkılaştı; Sony–DSW davası (2025) emsal [T1, T2, T3]. Instagram
+   işletme hesabı Meta Sound Collection ile sınırlı; efektler de orada [I1]. Serbest kaynak: Mixkit SFX Free (ticari + atıfsız)
+   [L1], Freesound CC0 [L2], Pixabay Content License [L3]. **Yol:** dosya olarak yalnız açık lisanslı/sentetik; trend ses
+   gerekiyorsa yayın anında platform kütüphanesinden eklenir (kurucu kararı).
+8. **Araç videolarında kalıp:** motor + lastik + hava-whoosh katmanları; whoosh araç kameraya en yakınken tepe yapar; bas
+   gürleme tiz lastik sesinden önce gelir [C1, C2]; en güçlü an (alev) drop'tan 0,5 sn sonra düşerse "kayık" hissi [C3].
+
+## 2. Kurallar (ses tasarımcısı bunlara göre plan yazar)
+- 10 sn'de ≤ 5 efekt (betik kapısı); 12–15 sn videoda 4–6. Kanca ilk 0,5 sn'de ses olayı. Delik yok (`ses_olc.py delikler: []`).
+- Hiyerarşi (tepe, son seviyeden önce): drop darbesi −3…−6 · ikincil −6…−9 · UI/scratch −10…−14 · riser ≤ −22 (ya da yok).
+- Drop reçetesi: `--sessizlik_vurusu 0.2` + drop'ta darbe (`boom@` ya da bas-drop dosyası). Riser isteğe bağlı, kesmeden önce biter.
+- Meme darbesi punchline'la aynı karede; komedi dışı videoda yok. Komedi duraklaması: scratch + 0,1–0,2 sn müzik kesme (`--sessizlik`).
+- Gerçekçi efekt görüntüye bağlı: dokunuş yoksa tık yok; whoosh yalnız hareketli geçiş/punch'ta.
+- Müzik drop'u bastırılmaz: `drop_tuttu: true` ve önce/sonra `drop_artis_db` yazılır; en yüksek an (`tepe_anlari`) punchline/drop olmalı.
+
+## 3. Efekt kartları (kütüphane: ürün klasörü `sfx/kaynak/`, lisans `sfx/LISANS.md`)
+| Efekt | Dosya / sentetik | Ne zaman | Seviye | Dikkat |
+|---|---|---|---|---|
+| Whoosh (hızlı) | mixkit_1490, 1492 | hareketli geçiş, zoom punch; kesimden 0,10–0,15 sn önce başlar | −12 | durağan kesimde kullanma |
+| Swoosh (kısa) | mixkit_1461, 166 | yazı/CTA girişi | −13 | |
+| Boom (vine-boom benzeri) | `--sfx boom@` sentetik · CC0 alternatif freesound_826217 (kırp 0–1,2) | punchline, 1–2 kez | −6 | ironi bilinçli, yetişkin alıcıya 1 kez |
+| Bas drop | freesound_475005 | müzik drop'u + flaş | −6 | sessizlik vuruşuyla birlikte |
+| Büyük darbe | mixkit_788 (kırp 0–1,2), 1143 (whoosh→darbe) | sinematik reveal | −6 | kuyruğu uzun, 10 sn'de 1 |
+| Record scratch | mixkit_704 (kırp 0–0,9), 710; freesound_431780 | "dur, ne?" anı, kanca | −8…−12 | müziği 0,1–0,2 sn kes |
+| UI tık | mixkit_2577, 3124; sentetik `tik@` | telefon/ekran dokunuşu | −12 | ekranda dokunuş yoksa yok |
+| Kamera | mixkit_1133 | "kaydet / fotoğraf" anı | −12 | |
+| Bildirim | mixkit_2354 | yorum/CTA vurgusu | −14 | reklamda "sahte bildirim" hissi riski |
+| Riser | `--riser bit:1.0:-22`; freesound_832275 (son 1–2 sn) | drop öncesi | ≤ −22 | kontrast bedeli ölçülü (§1.4) |
+| Kalabalık "ooh" | freesound_264376 (CC0) | reveal tepkisi | −14 | sahte izleyici tepkisi gibi durur; seyrek |
+| Vuruş | sentetik `vurus@` | rozet/ekran değişimi | −6…−9 | |
+
+## 4. Kullanılamayan popüler meme sesleri
+Vine Boom orijinali (lisanssız örnek) · "Oh no no no" (Capone şarkısı) · Bruh · Emotional damage · Sad violin · Curb Your
+Enthusiasm · Directed by Robert B. Weide · Taco Bell bong · FBI open up · Windows XP · Metal Gear alert · Dramatic sting
+(film kaydı) — telif/marka/kişilik hakkı. Yalnız platform kütüphanesinden, yayın anında.
+
+## 5. Araç komutları (özet; tam liste `ses_tasarla.py --help`)
+`--sfx tik|vurus|boom|whoosh@sn` · `--sfx_dosya "ad.mp3@sn:dB[:bas-bit]" --sfx_klasor sfx/kaynak` · `--riser bit:sure:dB` ·
+`--sessizlik_vurusu 0.2` · `--sessizlik "a-b"` · `--sfx_max_10sn 5` · ölçüm `ses_olc.py VIDEO --drop sn`.
+Geri uyumluluk ölçüldü: eski komut eski/yeni betikte **bit-bit aynı** ses (md5 1bab00e90c73). Örnek dosyalar ve önce/sonra:
+`~/Documents/insta-kesfet/icerik/04-dijital-amblem/TESLIM-30/ses-ornek/SES-ORNEK.md`.
+
+## 6. Kaynaklar
+- K1 https://ads.tiktok.com/business/en-US/blog/kantar-report-how-brands-are-making-noise-and-driving-impact-with-sound-on-tiktok
+- K2 https://www.socialmediatoday.com/news/tiktok-shares-new-insights-into-the-importance-of-sound-for-marketing-promo/601569
+- B1 https://benly.ai/learn/ad-creative/sound-design-video-ads · F1 https://fish.audio/blog/using-sound-effects-for-short-form-content
+- A1 https://futuregoldmedia.com/goldmineblog/annoying-tiktok-trends
+- M1 https://blog.faderpro.com/creativity/silence-in-music-production/ · M2 https://medium.com/betterism/8-simple-tricks-edm-artists-use-to-make-their-drops-sound-more-powerful-79b50413fb75 · M3 https://theghostproduction.com/how-to-build-drops
+- V1 https://knowyourmeme.com/memes/vine-boom-sound-effect · V2 https://www.remotion.dev/docs/sfx/vine-boom · V3 https://voxbooster.com/blog/soundboard-meme-audios-vine-boom-sfx/
+- R1 https://knowyourmeme.com/memes/record-scratch-freeze-frame
+- T1 https://www.soundstripe.com/blogs/tiktok-music-library-explained · T2 https://legismusic.com/tiktoks-july-2025-music-licensing-changes · T3 https://www.foximusic.com/blog/commercial-music-licensing-tiktok-guide/
+- I1 https://www.soundstripe.com/blogs/instagram-music-library
+- L1 https://mixkit.co/llm-info/ (Free License: ticari, atıfsız; yeniden satış yok) · L2 https://freesound.org/help/faq/ · L3 https://pixabay.com/service/license-summary/
+- C1 https://krotos.studio/blog/car-driving-sfx · C2 https://sfxengine.com/blog/car-driving-by-sound-effect · C3 https://resources.oreateai.com/resources/how-to-create-high-energy-car-edits-that-actually-go-viral
+- Nörosinema (kesme-dikkat; ses bulgusu zayıf/karışık): https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2025.1719407/full

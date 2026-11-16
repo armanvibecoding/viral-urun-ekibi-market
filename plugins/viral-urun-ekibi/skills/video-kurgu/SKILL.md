@@ -68,6 +68,10 @@ Kurallar (ayrıntı `referans/kurgu-kurallari.md`):
 - Font: betik Türkçe harfleri (çğıİöşü) ölçerek seçer; ilk kurulumda font test karesine bak.
 - Ses: klibin gerçek sesi + sentetik efekt: `ses_tasarla.py --sfx tik@sn,vurus@sn` (tık = dokunuş, vuruş = değişim);
   **efekt dosyası istenmez.** Kullanıcı kendi efektini verirse `sfx` + `hizala: true` gerçek ses anına oturtur. Hedef −14 LUFS.
+- **Ses tasarımcısı (ses_tasarla'dan önce):** `ses-tasarimcisi` ajanı ayar dosyasından efekt planı (sn · efekt · dB · neden)
+  çıkarır ve komutu üretir: dosya efekti `--sfx_dosya "ad.mp3@sn:dB" --sfx_klasor is/NN/sfx/kaynak` (lisans `sfx/LISANS.md`'de),
+  sentetik `boom/whoosh`, drop reçetesi `--riser <drop−0,2>:1.0:-18 --sessizlik_vurusu 0.2`. Kapılar: 10 sn'de ≤ 5 efekt,
+  `drop_tuttu`. Önce/sonra `ses_olc.py VIDEO --drop sn`. Yöntem: `referans/ses-tasarimi.md`.
 - **Drop karışımda ölçülür:** müzik dosyasındaki drop yetmez; klip sesi (rölanti, söküm) drop'u bastırır. `ses_tasarla.py`
   drop'tan önceki 1,7 sn'de klip sesini `--drop_oncesi_db` (varsayılan −8) kadar kısar ve drop anındaki artışı ölçer;
   < `--drop_esik_db` (6 dB) ise `hedef_tuttu: false`. Geçmezse −12/−16 dene ya da drop öncesi planların `ses_db`'sini kıs.
