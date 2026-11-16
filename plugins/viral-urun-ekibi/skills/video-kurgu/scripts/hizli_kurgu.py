@@ -19,7 +19,7 @@ ayar.json (yollar ayar dosyasına göre göreli):
           "plan": 7, "konum": 0.16},
   "cikti": "kurgu/V01_hizli.mp4"
 }
-gecis: kesim | flas (2 kare beyaz) | punch (ilk 0,15 sn'de punch katsayısından 1'e ölçek).
+gecis: kesim | flas (0,12 sn parlama, tam beyaz değil) | punch (ilk 0,15 sn'de punch katsayısından 1'e ölçek).
 konum: yazının üst kenarı, kare yüksekliğinin oranı (0,15–0,17 üst; 0,68–0,74 alt). Alt %20'ye ve ürüne koyma.
 """
 import json
@@ -115,7 +115,8 @@ def plan_isle(ff, p, i, kok, tmp, a):
         z = f"(1+{k}*max(0\\,1-t/0.15))"
         vf += [f"scale=w='2*trunc({W / 2}*{z})':h='2*trunc({H / 2}*{z})':eval=frame", f"crop={W}:{H}"]
     if p.get("gecis") == "flas":
-        vf.append("fade=t=in:st=0:d=0.07:color=white")
+        # tam beyaz kare "ucuz" bulundu (eleştirmen, 5 video): görüntüyü silmeden parlat, 0,12 sn'de sön
+        vf.append("eq=brightness='0.45*max(0\\,1-t/0.12)':contrast='1-0.25*max(0\\,1-t/0.12)':eval=frame")
     girdiler = ["-ss", f"{p['bas']:.3f}", "-t", f"{kaynak:.3f}", "-i", klip]
     pngler = []
     if p.get("yazi"):
