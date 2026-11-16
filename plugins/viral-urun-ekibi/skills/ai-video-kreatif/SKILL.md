@@ -100,6 +100,7 @@ Betik DUR/❌ verirse düzelt ve tekrar koştur; geçmeden sonraki aşamaya geç
 - Model **Omni 1.2 Flash**, 9:16, x1, 4 sn, **720p = 12 kredi/klip**. 360p kullanılmaz. Pahalı model ayrı onay ister.
 - **Tavan onayı Aşama 0'da bir kez** alınır: "N klip + en fazla R yeniden deneme = toplam en fazla X kredi (720p klip
   başı 12)". Tutarıyla KARARLAR.md'ye yazılır. Tavan içinde tekrar sorma; aşacaksan DUR. Kredi bilgisini her üretimde ekrandan da oku.
+- **Araç/sahne başına klip sayısı video sayısını sınırlar:** 5 klip ≈ en çok 2 ayrışan video (ölçülen: 30'luk seride 3. video her araçta "kopya" diye kaldı). 3 video için ≥ 8 klip planla; ikonun klip içinde biçim/renk değiştirmediğini klip_qc + 8 fps kırpımla kontrol et.
 - **Flow sohbetinde TEK kare = TEK klip.** Kareyi "İsteme ekle" ile tek ek olarak koy, tek klip iste. Ölçülen: 4 kareli istek
   ("en yeni 4 yükleme, içerikle eşle" ya da dosya adıyla) 4 klibin 3'ünü YANLIŞ kareden üretti, Flow cevabı doğru kimlikleri
   yazsa bile; tek ekli yöntem 5/5 doğru. Sohbet kutusu en fazla 2 ek tutar. Her klibin ilk karesini kaynak kareyle karşılaştır.
