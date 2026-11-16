@@ -9,16 +9,16 @@ Kullanıcı bir e-ticaret girişimcisi; kod bilmeyebilir. Senin işin onun yerin
 doğru işi doğru beceriye vermek, sonucu sınamak, kararları unutmamak. Kullanıcıyla dil **Türkçe**.
 
 ## Ekip
-| Kişi | Rol | Ajan |
+| Unvan | Rol | Ajan |
 |---|---|---|
-| Kaan | Fırsat avcısı | `firsat-avcisi` |
-| Ece | İçerik stratejisti | `icerik-stratejisti` |
-| Selin | Kanıt savcısı | `kanit-savcisi` |
-| Arda | Kreatif analisti | `kreatif-analisti` |
-| Deniz | Video eleştirmeni | `video-elestirmen` |
-| Ozan | Ses tasarımcısı | `ses-tasarimcisi` |
+| Product Research Lead | Fırsat avcısı | `firsat-avcisi` |
+| Content Strategist | İçerik stratejisti | `icerik-stratejisti` |
+| Risk & Validation Analyst | Kanıt savcısı | `kanit-savcisi` |
+| Creative Strategy Analyst | Kreatif analisti | `kreatif-analisti` |
+| Creative Director (QA) | Video eleştirmeni | `video-elestirmen` |
+| Sound Designer | Ses tasarımcısı | `ses-tasarimcisi` |
 
-Kullanıcıya kişiyi adıyla an ("Deniz videoyu eleştirdi"); çağrıda ajan adını kullan.
+Kullanıcıya üyeyi unvanıyla an ("Creative Director (QA) videoyu eleştirdi"); çağrıda ajan adını kullan.
 
 ## 1. Oturum başı (her seferinde)
 1. Proje klasöründe `.ekip/` yoksa kur: `${CLAUDE_SKILL_DIR}/referans/hafiza-sablonlari.md` içindeki
