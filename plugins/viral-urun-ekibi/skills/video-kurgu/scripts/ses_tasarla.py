@@ -190,7 +190,8 @@ def main():
     ap.add_argument("--muzik_bas", type=float, default=0.0, help="müzik dosyasında drop saniyesi")
     ap.add_argument("--drop_video_sn", type=float, default=0.0, help="drop'un videodaki saniyesi")
     ap.add_argument("--cikti", required=True)
-    ap.add_argument("--duck_db", type=float, default=5.0, help="egzoz anında müzik kısma (4-6)")
+    ap.add_argument("--duck_db", type=float, default=None,
+                    help="egzoz anında müzik kısma (4-6); varsayılan 5, egzozsuz profilde (patlama=crackle=0) 0")
     ap.add_argument("--muzik_db", type=float, default=-3.0, help="müzik/egzoz LUFS farkı")
     ap.add_argument("--drop_oncesi_db", type=float, default=-8.0,
                     help="drop'tan önceki 1,7 sn'de klip sesini kısma (drop kontrastı); 0 = kapalı")
@@ -210,6 +211,8 @@ def main():
     ap.add_argument("--sfx_db", type=float, default=-9.0, help="efekt tepe seviyesi (dBFS, son seviyeden önce)")
     ap.add_argument("--son_fade", type=float, default=0.8, help="müzik sonu kararma (döngülü videoda 0.12)")
     a = ap.parse_args()
+    if a.duck_db is None:  # egzozsuz videoda rölanti/söküm sesi "olay" sanılıp müzik kısılıyordu (ölçülen ses delikleri)
+        a.duck_db = 0.0 if (a.patlama_db == 0 and a.crackle_db == 0) else 5.0
 
     if os.path.abspath(a.cikti) == os.path.abspath(a.video):
         sys.exit("çıktı girdi videonun üstüne yazamaz")
