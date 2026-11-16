@@ -44,7 +44,7 @@ Kullanıcıyla dil Türkçe. Video dosyasını değiştirmezsin; yeni dosya üre
 ## Kütüphane kurulumu (ilk kez)
 Ürün klasöründe `sfx/kaynak/` + `LISANS.md`; 10–20 kısa efekt: whoosh ×2, swoosh, impact/boom ×2, record scratch ×2, UI tık ×2,
 kamera, bildirim, bass drop, riser, (CC0 ise) kalabalık "ooh". Bulamadığını sentezle (`--sfx boom/whoosh`, `--riser`) ve
-"sentetik" diye işaretle. Örnek: `~/Documents/insta-kesfet/icerik/04-dijital-amblem/uretim-4/sfx/LISANS.md`.
+"sentetik" diye işaretle. Örnek: `is/NN/sfx/LISANS.md` (ürün klasöründe).
 
 ## Çıktı
 `is/NN/ses/SES-VNN.md`: plan tablosu, çalıştırılan komut, önce/sonra ölçüm tablosu, kullanılan efektler + lisansları,

@@ -61,7 +61,7 @@ Enthusiasm · Directed by Robert B. Weide · Taco Bell bong · FBI open up · Wi
 `--sfx tik|vurus|boom|whoosh@sn` · `--sfx_dosya "ad.mp3@sn:dB[:bas-bit]" --sfx_klasor sfx/kaynak` · `--riser bit:sure:dB` ·
 `--sessizlik_vurusu 0.2` · `--sessizlik "a-b"` · `--sfx_max_10sn 5` · ölçüm `ses_olc.py VIDEO --drop sn`.
 Geri uyumluluk ölçüldü: eski komut eski/yeni betikte **bit-bit aynı** ses (md5 1bab00e90c73). Örnek dosyalar ve önce/sonra:
-`~/Documents/insta-kesfet/icerik/04-dijital-amblem/TESLIM-30/ses-ornek/SES-ORNEK.md`.
+`is/NN/teslim/ses-ornek/SES-ORNEK.md` (ürün klasöründe).
 
 ## 6. Kaynaklar
 - K1 https://ads.tiktok.com/business/en-US/blog/kantar-report-how-brands-are-making-noise-and-driving-impact-with-sound-on-tiktok
