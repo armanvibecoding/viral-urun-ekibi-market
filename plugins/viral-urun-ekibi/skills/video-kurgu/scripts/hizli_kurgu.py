@@ -5,7 +5,7 @@ Klasik kurgu.py'nin yapamadıkları için: 0,4–1,7 sn'lik planlar, plan başı
 kelime kelime çıkan yazı, CTA ikinci satırı. Çıktı 1080x1920, 30 fps, H.264 + AAC 48 kHz stereo (klip sesi).
 Müzik ve egzoz tasarımı ayrı adımdır (ses_tasarla.py). Ses −14 LUFS'a o adımda çekilir.
 
-Kullanım:  python3 hizli_kurgu.py ayar.json
+Kullanım:  python3 hizli_kurgu.py ayar.json [--katı]   (--katı: okunma UYARI'sı varsa çıkış 1; varsayılan 0)
 ayar.json (yollar ayar dosyasına göre göreli):
 {
   "font": "font/TikTokSans.ttf", "font_agirlik": "Bold", "kontur_oran": 0.06,   # TikTok Sans (OFL)
@@ -61,6 +61,25 @@ def font_yukle(yol, boyut, agirlik):
     return f
 
 
+def satirlara_bol(d, metin, f, genislik=900):
+    """Metni en fazla `genislik` px'lik satırlara böler (kurgu_kontrol.py de bu fonksiyonu kullanır)."""
+    satir, liste = [], []
+    for k in metin.split():
+        if satir and d.textlength(" ".join(satir + [k]), font=f) > genislik:
+            liste.append(satir)
+            satir = [k]
+        else:
+            satir.append(k)
+    if satir:
+        liste.append(satir)
+    return liste
+
+
+def okunma_gerek(y):
+    """Okunma kapısı: 0,5 sn tepki + kelime başına 0,25 sn (yazı + satir2)."""
+    return 0.5 + 0.25 * len((y["yazi"] + " " + y.get("satir2", "")).split())
+
+
 def yazi_png(cikti, satirlar, font_yol, agirlik, ust_oran):
     """satirlar: [(metin, boyut, vurgu_kelime, vurgu_renk)] — ortalı, siyah konturlu, tek kelime renkli."""
     im = Image.new("RGBA", (W, H), (0, 0, 0, 0))
@@ -70,18 +89,7 @@ def yazi_png(cikti, satirlar, font_yol, agirlik, ust_oran):
         f = font_yukle(font_yol, boyut, agirlik)
         kontur = max(4, int(boyut * KONTUR_ORAN))
         bosluk = d.textlength(" ", font=f)
-        # satırlara böl (en fazla 900 px)
-        kelimeler, satir, liste = metin.split(), [], []
-        for k in kelimeler:
-            dene = " ".join(satir + [k])
-            if satir and d.textlength(dene, font=f) > 900:
-                liste.append(satir)
-                satir = [k]
-            else:
-                satir.append(k)
-        if satir:
-            liste.append(satir)
-        for s in liste:
+        for s in satirlara_bol(d, metin, f):
             gen = sum(d.textlength(k, font=f) for k in s) + bosluk * (len(s) - 1)
             x = (W - gen) / 2
             for k in s:
@@ -184,9 +192,11 @@ def yazilari_bindir(ff, video, yazilar, a, tmp, cikti):
 
 
 def main():
-    if len(sys.argv) < 2:
+    argv = [x for x in sys.argv[1:] if x not in ("--katı", "--kati")]
+    kati = len(argv) != len(sys.argv) - 1
+    if not argv:
         sys.exit(__doc__)
-    ayar = os.path.abspath(sys.argv[1])
+    ayar = os.path.abspath(argv[0])
     kok = os.path.dirname(ayar)
     a = json.load(open(ayar, encoding="utf-8"))
     global KONTUR_ORAN
@@ -208,9 +218,11 @@ def main():
         sys.exit("birleştirme başarısız")
     if a.get("yazilar"):
         yazilari_bindir(ff, ara, a["yazilar"], a, tmp, cikti)
+    uyari = 0
     for y in a.get("yazilar", []):  # okunma kapısı: kelime başına 0,25 sn + 0,5 sn tepki
-        gerek = 0.5 + 0.25 * len((y["yazi"] + " " + y.get("satir2", "")).split())
+        gerek = okunma_gerek(y)
         if y["bit"] - y["bas"] < gerek:
+            uyari += 1
             print(f"UYARI okunmaz: '{y['yazi']}' {y['bit'] - y['bas']:.2f} sn ekranda, en az {gerek:.2f} sn gerekir")
     toplam = sum((p["bit"] - p["bas"]) / p.get("hiz", 1.0) for p in a["planlar"])
     print(f"tamam: {cikti}  ·  {len(parcalar)} plan  ·  {toplam:.2f} sn")
@@ -220,6 +232,8 @@ def main():
         t += (p["bit"] - p["bas"]) / p.get("hiz", 1.0)
     print("plan başlangıçları:", sinirlar)
     shutil.rmtree(tmp, ignore_errors=True)
+    if kati and uyari:
+        sys.exit(f"--katı: {uyari} okunma UYARI'sı → çıkış 1")
 
 
 if __name__ == "__main__":

@@ -40,7 +40,13 @@ Kullanıcıya kişiyi adıyla an ("Deniz videoyu eleştirdi"); çağrıda ajan a
 | AliExpress'ten henüz viral olmamış ürün | `aliexpress-firsat` | `firsat-avcisi`, sonra `kanit-savcisi` |
 | Bir ürün için 30 video / senaryo / kare | `ai-video-kreatif` | `icerik-stratejisti` |
 | Klipleri kurgula, yazı/ses ekle, teslim | `video-kurgu` | sen (betikler) |
+| Yayınla / 48. saat ölç | `sablon/yayin-PLAN.md` + `sablon/olcum.csv` → `scripts/yayin_olc.py` | sen (veriyi kurucu girer) |
 | ChatGPT'de yapmak istiyor | `${CLAUDE_PLUGIN_ROOT}/ekler/chatgpt/` içindeki ilgili dosyayı ver | kullanıcı |
+
+**Yayın döngüsü:** teslimde `${CLAUDE_SKILL_DIR}/sablon/` içindeki iki şablonu `is/NN/yayin/`'a kopyala, `PLAN.md`'yi
+doldur (aynı özne ardışık değil, giriş türleri dağıtık). Kurucu 48. saatte `olcum.csv`'ye içgörü sayılarını girer (uydurma yok);
+`python3 "${CLAUDE_SKILL_DIR}/scripts/yayin_olc.py" is/NN/yayin/olcum.csv --plan is/NN/yayin/PLAN.md` → DEVAM/BEKLE/ÖLDÜR +
+kanca/giriş ortalaması. Basılan ders önerisini kurucu onaylarsa `ortak/bilgi/dersler.md` H'ye ekle; ≥5 video ölçülmediyse tek soru sor.
 
 Belirsizse tek soru sor; netse sormadan başla. Ürün işinde `video-elestirmen` iki kez çağrılır: ön-üretim (kredi
 onayından önce, senaryo + kareler) ve teslim; eşikler ajan dosyasında.

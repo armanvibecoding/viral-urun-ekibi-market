@@ -60,6 +60,10 @@ her karede bindirme ekranın içinde mi. Yöntem ve ayarlar: `${CLAUDE_SKILL_DIR
 - Çok sahneli videoda isteğe bağlı satış iskeleti (GÖZLEM, tek ürün): `referans/noropazarlama.md`. Tek sahne ve yazısız videolar iskeletsiz.
 - Kontrol/uygulama planı neden-sonuç gösterir: önceki hal → dokunuş → sonuç; dokunuş öncesinde sonucun izi olan kesit
   kullanılmaz, kırpım sonucu kadraj dışında bırakmaz. Dokunuşa ve sonuca ses: `ses_tasarla.py --sfx tik@sn,vurus@sn`.
+- **Ön-kontrol kapısı (kurgudan sonra, eleştirmenden önce):** `hizli_kurgu.py ayar.json --katı` (okunma UYARI'sı = çıkış 1),
+  sonra `kurgu_kontrol.py ayar.json --video VIDEO.mp4` → çıkış 0 olmadan eleştirmene gönderme. Klip içerikleri
+  `klipler/klip_etiket.json`dan okunur (biçim betiğin başında; yeni klip = yeni etiket satırı, bilinmeyen "bilinmiyor").
+  Betik ölçülebilir kuralları alır; kanca gücü, gerçekçilik, ritim yargısı eleştirmende kalır.
 - Teslimden önce `video-elestirmen` ajanı (soğuk izleyici, teslim modu) videoyu puanlar; ≥ 7/10 olmadan teslim yok.
 
 Kurallar (ayrıntı `referans/kurgu-kurallari.md`):
