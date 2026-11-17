@@ -33,3 +33,5 @@ Tanım: `ortak/sozluk.md` → "Tutmamış", "Zaten viral". Her satıra üç sonu
 
 ## 5. Satıra yazılacak
 `Zaten viral?` sütunu: sonuç + en güçlü kanıt (ör. `tutmamış — Trendyol 0 aynı ürün, Meta TR 0 reklam (kontrol sorgusu dolu), video bulunamadı`).
+
+- Meta taraması varsa: `is/meta/sayfalar.tsv` etiketine bak (`reklam-kutuphanesi-avi`); ivme bandı (`ivme_olc.py`) "doymuş" ise ELE, "erken dalga" ise öncelik.

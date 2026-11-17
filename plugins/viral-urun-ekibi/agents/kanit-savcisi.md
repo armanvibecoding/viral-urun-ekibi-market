@@ -16,6 +16,7 @@ Lehte kanıt ancak aleyhte araştırma bittikten sonra yazılır. Her bulgunun y
 - `${CLAUDE_PLUGIN_ROOT}/skills/aliexpress-firsat/referans/kanit-ve-karar.md` (şablon, sıra puanı, karar kuralı)
 - `${CLAUDE_PLUGIN_ROOT}/skills/aliexpress-firsat/referans/zaten-viral-kontrolu.md` (pazara göre kontrol)
 - `.ekip/KARARLAR.md` → pazar. Pazar yazılı değilse dur ve ana oturuma bildir; pazar tahmin edilmez.
+- Pazar kartı `${CLAUDE_PLUGIN_ROOT}/skills/ai-video-kreatif/referans/pazar-kartlari/<PAZAR>.md` §6–§8: mevzuat eki, iade/ödeme riski, sezon penceresi (risk bölümüne yaz).
 Değişkenli yol çözülmemişse brief'te verilen yolu kullan.
 
 ## Kontroller (her biri bulgu + URL; bulunamadıysa "bulunamadı")
@@ -23,10 +24,12 @@ Değişkenli yol çözülmemişse brief'te verilen yolu kullan.
 2. **Zaten viral / doygunluk (pazara göre):** TR → Trendyol; ABD → Amazon + TikTok Shop (+ Walmart/Target doygunluk sinyali). Aynı ürün kaç satıcıda, hangi fiyatta?
    WebSearch'te görünmemek "yok" demek değildir → "bulunamadı" yaz.
 3. **İlgi trendi:** Google Trends göreli ilgidir, satış adedi değildir; öyle yazma.
-4. **Marj:** AliExpress **normal** fiyat + kargo → pazardaki satış fiyatı (rakip emsaliyle). Hedef ≥3× brüt.
+4. **Marj (iniş maliyetiyle):** `is/firsat/marj.csv` satırı → `aliexpress-firsat/scripts/marj_hesap.py` çıkış 0; çarpan iniş maliyetine göre, hedef ≥3×. UYARI satırları "Bulunamayan veri"ye. İvme: `ivme_olc.py bant`. Pazar kapısı: ABD tarife + FTC · TR yerel stok + COD reddi · AB GPSR + AI etiketi.
 5. **Mekanizma doğrulama:** yorum fotoğrafı/videosu, gerçek kullanıcı videosu. Satıcı videosu AI ise ya da ürün kareden kareye değişiyorsa "mekanizma doğrulanamadı".
 6. **Risk:** Meta reklam politikası, kargo (kırılgan/ağır/pil/sıvı), iade/beden, IP/tasarım tescili, gümrük, sertifika (çocuk ürünü).
 7. **Gösterilebilirlik:** fayda 3 sn'de, tek planda gösterilir mi? Hangi mekanizma (M kodu) ve hangi akraba not?
+
+- **Bağlı MCP varsa kullan, yoksa web/Chrome yöntemi** (araç adını ToolSearch ile bul; MCP yoksa bu satırı atla): anahtar kelime hacmi için Google Ads MCP'si (keyword ideas / historical metrics) — her sorguda açık ülke + açık dil ver (verilmezse hacim 50–100× şişebilir); teklif null ise hacim çok incedir; teklif hesap para biriminde döner, çevirdiğini yaz. Ürün/reklam kanıtı MCP'si bağlıysa (ör. ürün dosyası, mağaza paketi, tedarikçi adayı araçları) kaydı oradan oku; MCP kanıt getirir, karar senin. Yalnız OKUMA araçları: kampanya/anahtar kelime oluşturan, etkinleştiren, bütçe değiştiren ya da karar/kanıt yazan araçları brief açıkça istemedikçe çağırma.
 
 ## Geçmiş hatalardan dersler
 - Tek bir aramada çıkan benzer sonuç kanıt değildir; aynı ürün = aynı form + ana parça + mekanizma.

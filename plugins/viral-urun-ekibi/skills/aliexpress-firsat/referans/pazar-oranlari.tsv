@@ -1,0 +1,32 @@
+pazar	anahtar	deger	durum	tarih	kaynak	not
+US	para	USD	model	2026-11-17	-	satir para birimi bununla ayni olmali (betik kur cevirmez)
+US	kdv_yuzde	0	model	2026-11-17	-	ABD satis vergisi fiyatin ustune eklenir, satici geliri degildir; eyalete gore degisir
+US	esik_deger		ikincil	2026-11-17	https://kpmg.com/us/en/taxnewsflash/news/2025/08/us-cbp-implements-eo-suspending-duty-free-de-minimis-treatment.html	800 $ de minimis 29.08.2025'te tum ulkeler icin askiya alindi (EO 14324) -> esik yok, her satirda gumruk_orani_yuzde zorunlu. Posta gonderisi sabit ucret secenegi (80/160/200 $) ve suresi dogrulanmadi
+US	gumruk_matrahi_kargo_dahil	0	dogrulanmadi	2026-11-17	-	ABD gumruk degeri genelde FOB (uluslararasi navlun haric) kabul edilir; bu turda resmi kaynak acilmadi
+TR	para	TRY	model	2026-11-17	-	-
+TR	kdv_yuzde	20	dogrulanmadi	2026-11-17	-	genel KDV orani; bu turda resmi kaynak acilmadi, urun grubuna gore farkli olabilir
+TR	esik_deger		dogrulanmadi	2026-11-17	https://www.teknoblog.com/yurt-disi-alisveriste-30-euro-muafiyeti-kalkti/	30 EUR bireysel muafiyetin kalktigi IDDIASI (haberler: Resmi Gazete 7 Oca 2026, karar 10813, yururluk 6 Sub 2026); resmi metin acilmadi -> DOGRULANMADI. Esik yok kabul edildi; yerel stokta gumruk_orani_yuzde=0 yaz
+TR	gumruk_matrahi_kargo_dahil	1	dogrulanmadi	2026-11-17	-	27 Ara 2024'ten beri kargo bedelinin limite dahil edildigi haberlerde geciyor; oran icin resmi kaynak acilmadi
+UK	para	GBP	model	2026-11-17	-	-
+UK	kdv_yuzde	20	dogrulanmadi	2026-11-17	-	standart VAT; <=135 GBP gonderide VAT satis aninda satici tarafindan tahsil edilir (2021 kurali, bu turda kaynak acilmadi)
+UK	esik_deger	135	ikincil	2026-11-17	https://globalimportblog.bakermckenzie.com/2026/07/24/uk-low-value-import-relief-to-be-removed-by-october-2028/	<=135 GBP gumruk vergisi muafiyeti suruyor; en gec Ekim 2028'de kalkacak (Reuters/hukuk burolari). Karsilastirma urun degeriyle (kargo haric)
+UK	esik_alti_gumruk_yuzde	0	ikincil	2026-11-17	https://globalimportblog.bakermckenzie.com/2026/07/24/uk-low-value-import-relief-to-be-removed-by-october-2028/	-
+UK	gumruk_matrahi_kargo_dahil	1	dogrulanmadi	2026-11-17	-	-
+DE	para	EUR	model	2026-11-17	-	-
+DE	kdv_yuzde	19	ikincil	2026-11-17	https://www.europa.eu/youreurope/business/taxation/vat/vat-rules-rates	standart oran. <=150 EUR gonderide KDV satista IOSS ile tahsil edilir; 22 EUR KDV muafiyeti 2021'de kalkti (bu turda kaynak acilmadi)
+DE	esik_deger	150	ikincil	2026-11-17	https://euperspectives.eu/2026/02/council-removes-customs-exemption/	150 EUR gumruk vergisi muafiyeti 1 Tem 2026'da kalkti; yerine gecici sabit ucret (Customs Data Hub ~2028'e kadar). Karsilastirma urun degeriyle (kargo haric)
+DE	esik_alti_gumruk_yuzde	0	ikincil	2026-11-17	https://euperspectives.eu/2026/02/council-removes-customs-exemption/	esik altinda oransal vergi yok, sabit ucret var
+DE	esik_alti_sabit_kalem	3	ikincil	2026-11-17	https://euperspectives.eu/2026/02/council-removes-customs-exemption/	3 EUR / tarife alt basligi (urun basi degil; kaynaklar celisik -> resmi Konsey metni acilmadi)
+DE	gumruk_matrahi_kargo_dahil	1	dogrulanmadi	2026-11-17	-	AB gumruk degeri genelde CIF (navlun dahil); bu turda resmi kaynak acilmadi
+FR	para	EUR	model	2026-11-17	-	-
+FR	kdv_yuzde	20	ikincil	2026-11-17	https://www.europa.eu/youreurope/business/taxation/vat/vat-rules-rates	standart oran; IOSS notu DE ile ayni
+FR	esik_deger	150	ikincil	2026-11-17	https://euperspectives.eu/2026/02/council-removes-customs-exemption/	DE notu
+FR	esik_alti_gumruk_yuzde	0	ikincil	2026-11-17	https://euperspectives.eu/2026/02/council-removes-customs-exemption/	-
+FR	esik_alti_sabit_kalem	3	ikincil	2026-11-17	https://euperspectives.eu/2026/02/council-removes-customs-exemption/	DE notu
+FR	gumruk_matrahi_kargo_dahil	1	dogrulanmadi	2026-11-17	-	-
+ES	para	EUR	model	2026-11-17	-	-
+ES	kdv_yuzde	21	ikincil	2026-11-17	https://www.europa.eu/youreurope/business/taxation/vat/vat-rules-rates	standart oran; IOSS notu DE ile ayni
+ES	esik_deger	150	ikincil	2026-11-17	https://euperspectives.eu/2026/02/council-removes-customs-exemption/	DE notu
+ES	esik_alti_gumruk_yuzde	0	ikincil	2026-11-17	https://euperspectives.eu/2026/02/council-removes-customs-exemption/	-
+ES	esik_alti_sabit_kalem	3	ikincil	2026-11-17	https://euperspectives.eu/2026/02/council-removes-customs-exemption/	DE notu
+ES	gumruk_matrahi_kargo_dahil	1	dogrulanmadi	2026-11-17	-	-

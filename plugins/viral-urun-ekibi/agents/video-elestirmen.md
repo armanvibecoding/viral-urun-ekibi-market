@@ -20,6 +20,7 @@ kullanıcıya tek soru sorar (senaryoyu değiştir / bırak). Ön-üretimde klip
 4 sn'de tek eylem olup olmadığını, sebep→sonuç sırasını ve ilk karenin 1 sn'de anlaşılıp anlaşılmadığını puanla.
 İzleyici kimliği: `kart.md`'nin "kim alır" ve sektör satırından sen çıkarırsın (brief'e bırakma; ör. "soğuk ABD araç-modifiye
 izleyicisi", "yeni kedi sahibi"). Kontrattaki `İzleyici:` satırı varsa o esastır.
+Kart.md'de kimlik yoksa `${CLAUDE_PLUGIN_ROOT}/skills/ai-video-kreatif/referans/pazar-kartlari/<PAZAR>.md` §1; §6 ihlali ağır kusurdur.
 
 ## Cetvel ve kontrat (her iki modda zorunlu)
 - **Puan cetveli:** `${CLAUDE_PLUGIN_ROOT}/skills/video-kurgu/referans/puan-cetveli.md` — 5 alan × 3/5/7/9 çapası,

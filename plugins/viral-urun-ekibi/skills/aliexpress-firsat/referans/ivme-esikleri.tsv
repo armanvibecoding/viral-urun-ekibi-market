@@ -1,0 +1,7 @@
+anahtar	deger	durum	tarih	not
+min_gun	7	model	2026-11-17	t0 ile t7 arasi en az gun
+max_gun	14	model	2026-11-17	daha uzun aralik "7 gunluk ivme" sayilmaz -> hata
+erken_reklam_min	1	oneri-olculmedi	2026-11-17	ARASTIRMA-YONTEMI 2.1: hedef pazarda 1-10 aktif reklam; ilk 3 urunden sonra kalibre
+erken_reklam_max	10	oneri-olculmedi	2026-11-17	-
+doymus_reklam_min	30	oneri-olculmedi	2026-11-17	t7 aktif reklam bu sayi ve ustu -> DOYMUS (tahmini esik)
+doymus_satici_min	5	oneri-olculmedi	2026-11-17	buyuk perakendecide (Amazon/Walmart/Trendyol) ayni urunu satan satici sayisi; kaynak dersi: >=5 satici maliyet fiyatina yakin -> marj yok

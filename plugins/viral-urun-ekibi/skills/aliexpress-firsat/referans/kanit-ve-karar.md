@@ -39,8 +39,12 @@ Pazar: <TR/ABD/…> · Tarih: YYYY-AA-GG · Aday satırı: is/firsat/adaylar.md 
 7. Mekanizma doğrulama: gerçek alıcı fotoğrafı/videosu linki — yoksa "doğrulanamadı"
 
 ## Lehte kanıt (çürütme bittikten sonra)
-## Marj tablosu
-| Normal maliyet | Kargo | Toplam | Hedef satış | Çarpan | Rakip fiyatı (URL) |
+## Marj tablosu (iniş maliyetiyle — `marj_hesap.py` çıktısından kopyala; `referans/marj-ivme-puan.md` §1)
+| Pazar | Ürün | Kargo | Gümrük/tarife | Aracı | Ödeme | İade/COD reddi | İniş | Satış (net) | Kâr | Çarpan | Teslim (gün) | Rakip fiyatı (URL) |
+UYARI satırları (doğrulanmamış oran) "Bulunamayan veri"ye aynen yazılır.
+## İvme (t0 → t7, `ivme_olc.py bant`)
+| Sinyal | t0 (tarih) | t7 (tarih) | Bant |
+## Ürün puanı (P1–P10, 0–20; eşik deneme)
 ## Riskler
 ## Nasıl viral olur: en uygun 3 kanca + format (mekanizma kodu ve akraba not no ile)
 ## Bulunamayan veri

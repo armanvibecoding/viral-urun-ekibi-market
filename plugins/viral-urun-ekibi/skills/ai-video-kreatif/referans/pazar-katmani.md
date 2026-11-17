@@ -1,5 +1,7 @@
 # Pazar katmanı — ABD / AB / TR
 
+Kültür, mizah, duygu, takvim: `pazar-kartlari/` (bu dosya mevzuat + kanca dili).
+
 > Kaynak notu: bu dosya ~100 milyon izlenen ürün videosunun saha incelemesinden (kayıt numaraları köşeli parantezde, ör. [058]) ve bir dış araştırmadan derlendi. Ham veri seti eklentiye dahil değildir; sayılar o ölçümün sonucudur.
 
 Kaynak: saha veri seti milyon kayıtları (97, 130–132 dahil) + mağaza fiyat verisi (site fiyatı/uygulama). Etiket: KURAL ≥3 · ADAY 2 · GÖZLEM 1.

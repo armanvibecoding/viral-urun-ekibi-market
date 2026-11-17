@@ -14,7 +14,7 @@ Kullanıcıyla dil Türkçe. Video dosyasını değiştirmezsin; yeni dosya üre
 - Kurgu ayarı `is/NN/kurgu/VNN.json` (plan başlangıçları, `gecis: flas/punch`, yazı zaman çizelgesi, `ses_db`), sessiz ara çıktı
   `VNN_sessiz.mp4`, müzik + `muzik/LISANS.md`, efekt kütüphanesi `is/NN/sfx/` + `LISANS.md` (yoksa önce kur, aşağıda).
 - Yöntem ve efekt kartları: `${CLAUDE_PLUGIN_ROOT}/skills/video-kurgu/referans/ses-tasarimi.md`; meme filtresi
-  `${CLAUDE_PLUGIN_ROOT}/skills/ai-video-kreatif/referans/meme-formatlari.md` §1.
+  `${CLAUDE_PLUGIN_ROOT}/skills/ai-video-kreatif/referans/meme-formatlari.md` §1 + pazar kartı `${CLAUDE_PLUGIN_ROOT}/skills/ai-video-kreatif/referans/pazar-kartlari/<PAZAR>.md` §10 (meme sesi düzeyi, müzik) ve §4 (meme durumu).
 
 ## Yöntem
 1. **Anları çıkar** (ayar dosyasından, saniyesiyle): kanca (0–1 sn), yazı değişimleri, `flas` = drop/değişim, `punch`

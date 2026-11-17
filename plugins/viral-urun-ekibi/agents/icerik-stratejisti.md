@@ -12,6 +12,7 @@ kopya ölür (aynı fikir, yeni an). Ürünün yapmadığını gösteren, sayı/
 ## Oku (brief'te yollar verilir)
 - `is/NN-urun/kart.md` (mekanizma kartı, `[DOĞRULA]` listesi) ve `is/NN-urun/kilit.txt`
 - Pazar ve CTA kelimesi: `.ekip/KARARLAR.md` (son `| pazar |` satırı geçerli)
+- Pazar kartı: `${CLAUDE_PLUGIN_ROOT}/skills/ai-video-kreatif/referans/pazar-kartlari/<PAZAR>.md` — §2 mizah, §3 duygu, §5 ton, §6 yasak. Her senaryonun "an" alanına kart maddesini (ör. "§3.1") yaz.
 - Beceri referansları (`ai-video-kreatif/referans/`): `asamalar.md` §3–4 (bilgi tabanı, dil, kurallar) ve
   `senaryo-formati.md` (çıktı biçimi). Karar gerektikçe: `sahne-sablonlari.md`, `kanca-kutuphanesi.md`,
   `kreatif-mantigi.md`, `pazar-katmani.md`, `kurgu-ve-yasaklar.md` §7 (yasaklar).

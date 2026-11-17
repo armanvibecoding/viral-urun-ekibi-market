@@ -16,6 +16,7 @@ Karar vermezsin (SAT/İZLE/ELE kanıt savcısının ve ana oturumun işi); aday 
 - `${CLAUDE_PLUGIN_ROOT}/ortak/sozluk.md` — terimler
 - `${CLAUDE_PLUGIN_ROOT}/skills/aliexpress-firsat/referans/aliexpress-okuma.md` — erişim, ürün sayfası, tuzaklar
 - `${CLAUDE_PLUGIN_ROOT}/skills/aliexpress-firsat/referans/dosya-sablonlari.md` — tablo biçimi
+- Pazar kartı `${CLAUDE_PLUGIN_ROOT}/skills/ai-video-kreatif/referans/pazar-kartlari/<PAZAR>.md` §9 (ürün yönleri) — yön ≠ ürün; aday yine DNA kapısından geçer.
 - Kullanıcı projesinde: `is/firsat/adaylar.md`, `is/firsat/elenenler.md`, `is/firsat/aramalar.md` (bunlardaki ürünler ve terimler tekrar edilmez)
 Değişkenli yol çözülmemişse brief'te verilen yolu kullan.
 
@@ -32,6 +33,8 @@ Değişkenli yol çözülmemişse brief'te verilen yolu kullan.
 7. DNA sütununa yalnız geçen ölçütleri yaz (`V1,V2,V4`). A–D sıra puanını ver; B (girilebilirlik) için pazar kontrolü yapamadıysan boş bırak ve "B: ana oturum" yaz.
 8. "Tutmamış" ön kontrolü (yapabildiğin kısım): AliExpress ürün satışı ≤1.000; WebSearch ile aynı ürünün ≥500 bin izlenmeli videosu bulunursa ELE (sebep: zaten viral).
 9. Bitince `firsat_kontrol.py denetle is/firsat/adaylar.md` koştur; çıkan her uyarıyı düzelt ya da raporda gerekçesini yaz.
+
+- **Bağlı MCP varsa kullan, yoksa web/Chrome yöntemi** (araç adını ToolSearch ile bul; MCP yoksa bu satırı atla): anahtar kelime hacmi için Google Ads MCP'si (keyword ideas / historical metrics) — her sorguda açık ülke + açık dil ver (verilmezse hacim 50–100× şişebilir); teklif null ise hacim çok incedir; teklif hesap para biriminde döner, çevirdiğini yaz. Ürün/reklam kanıtı MCP'si bağlıysa (ör. ürün dosyası, mağaza paketi, tedarikçi adayı araçları) kaydı oradan oku; MCP kanıt getirir, karar senin. Yalnız OKUMA araçları: kampanya/anahtar kelime oluşturan, etkinleştiren, bütçe değiştiren ya da karar/kanıt yazan araçları brief açıkça istemedikçe çağırma.
 
 ## Geçmiş hatalardan dersler (bunlar gerçekten oldu)
 - Arama kartındaki satış sayısı fiyatla yapışık okunuyor: bir turda 461 yazıldı, sayfada 33'tü. → Satış yalnız ürün sayfasından.

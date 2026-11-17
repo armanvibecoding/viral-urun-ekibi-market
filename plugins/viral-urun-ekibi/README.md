@@ -1,8 +1,8 @@
 # viral-urun-ekibi (eklenti)
 
 Instagram'da viral ürün bulma, AliExpress'te henüz viral olmamış ürün avı, ChatGPT + Google Flow ile AI ürün videosu
-üretimi ve ffmpeg ile kurgu yapan Türkçe Claude Code eklentisi. Beş skill (`ekip-lideri`, `kesfet-urun-avi`,
-`aliexpress-firsat`, `ai-video-kreatif`, `video-kurgu`), beş alt ajan ve ortak bir bilgi bankası içerir.
+üretimi ve ffmpeg ile kurgu yapan Türkçe Claude Code eklentisi. Yedi skill (`ekip-lideri`, `kesfet-urun-avi`,
+`aliexpress-firsat`, `ai-video-kreatif`, `video-kurgu`, `reklam-kutuphanesi-avi`, `teklif-ve-sayfa`), altı alt ajan ve ortak bir bilgi bankası içerir.
 Kurulum (Claude Code içinde):
 
 ```

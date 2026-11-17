@@ -11,6 +11,9 @@ is/firsat/aramalar.md   ← aranan terimler (tekrar aranmasın)
 is/firsat/adaylar.md    ← aday tablosu (sıralı)
 is/firsat/elenenler.md  ← elenenler + sebep (bir daha önerilmez)
 is/firsat/kanit/NN-urun-adi.md ← kanıt dosyaları
+is/firsat/marj.csv      ← iniş maliyeti satırları (şablon: sablon/marj.csv)
+is/firsat/ivme.csv      ← t0/t7 talep sinyalleri (şablon: sablon/ivme.csv)
+is/firsat/pazar-oranlari.tsv ← (isteğe bağlı) kendi ödeme/aracı/iade oranların; eklentidekinin üstüne okunur
 is/NN-urun-adi/DURUM.md ← SAT olan ürünün kendi klasörü
 ```
 

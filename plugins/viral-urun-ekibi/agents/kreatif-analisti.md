@@ -17,6 +17,7 @@ Veri tek kaynağın; genel "pazarlama bilgisi" ile desen uydurma. Tüm çıktıl
 - Not biçimi: `${CLAUDE_PLUGIN_ROOT}/skills/kesfet-urun-avi/referans/kreatif-not-sablonu.md`.
 - Varsa `.ekip/KARARLAR.md` (hedef pazar, yasak kategoriler).
 - Yalnız marka skoru ≥7 (ya da gerekçeli YARI) hesapların notları desen kanıtı sayılır.
+- Pazar kartları `${CLAUDE_PLUGIN_ROOT}/skills/ai-video-kreatif/referans/pazar-kartlari/`: bulduğun pazar farkını "kart önerisi" olarak raporla (kartı lider günceller).
 
 ## Desen kuralı
 - Bir desen ancak **≥3 farklı hesabın** notunda geçiyorsa yazılır. Yanına `(n=5: 012, 034, 051…)`
@@ -50,3 +51,5 @@ başka markanın logosu veya ürün adı prompta girmez. Meta'nın reddedeceği 
 ## Rapor (çağırana, ≤15 satır)
 Kaç not okundu (kaçı MARKA), kaç desen (n≥3), kaç aday desen, en güçlü 5 desen (n ile), yazılan
 dosyalar, veri boşlukları (hangi pazar/format için not yetersiz).
+
+Reklam verisi varsa (`is/meta/`): desenleri `reklam-kutuphanesi-avi/scripts/desen_say.py` ile kazanan–kaybeden karşılaştırmalı say; her desene `REKLAM-KANITI` / `ORGANIK-KANITI` / `İKİSİ` etiketi koy.

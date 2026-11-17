@@ -16,6 +16,7 @@ Terimler (aday, kanıt, tutmamış, tutabilir, SAT/İZLE/ELE) yalnız sözlükte
 | Ne zaman | Ne yapılır |
 |---|---|
 | Başlarken | `.ekip/DURUM.md` ve `.ekip/KARARLAR.md` okunur. `is/firsat/` yoksa `${CLAUDE_SKILL_DIR}/referans/dosya-sablonlari.md`'ye göre kurulur. |
+| Başlarken (ivme) | `is/firsat/ivme.csv` varsa `python3 "${CLAUDE_SKILL_DIR}/scripts/ivme_olc.py" bekleyen is/firsat/ivme.csv` → t7 günü gelen ürünler önce ölçülür. |
 | Pazar | KARARLAR.md'de `\| pazar \|` satırı varsa o kullanılır. Yoksa kullanıcıya **bir kez** sorulur (TR / ABD / diğer: hangi ülke) ve `- YYYY-AA-GG \| pazar \| <cevap>` eklenir. |
 | Her terim aranmadan önce | `is/firsat/aramalar.md`'de var mı bakılır; aranan terim aynı satıra sonucuyla yazılır. |
 | Her ürün önerilmeden önce | Tekrar kontrolü (aşağıdaki komut). "DAHA ONCE GORULDU" çıkan ürün önerilmez. |
@@ -40,6 +41,10 @@ Uzun tablo sohbete yazılmaz, dosyaya yazılır. Sohbete yalnız özet + dosya y
 6. **Denetim + sınama** — `firsat_kontrol.py denetle is/firsat/adaylar.md` hatasız dönmeli; sonra `sinama` ile rastgele 3 satır
    ürün sayfasından açılıp kontrol edilir (`${CLAUDE_SKILL_DIR}/referans/kanit-ve-karar.md` §4).
 7. **Kanıt dosyası** — sıra puanı en yüksek ≤5 aday `kanit-savcisi` ajanına; `is/firsat/kanit/NN-urun-adi.md`.
+   Kısa listeye giren her aday için aynı gün: `is/firsat/marj.csv` satırı (iniş maliyeti: gümrük/tarife, aracı, ödeme,
+   iade/COD reddi, teslim günü) ve `is/firsat/ivme.csv` `t0` satırı. `marj_hesap.py` çıkış 0 olmadan marj yazılmaz;
+   7 gün sonra `t7` ölçülür, `ivme_olc.py bant` → ERKEN DALGA / BOŞ / DOYMUŞ. Kanıt dosyasına 10 ölçütlü puan (0–20) tablosu
+   girer: `${CLAUDE_SKILL_DIR}/referans/marj-ivme-puan.md`.
 8. **Karar** — SAT / İZLE / ELE (`kanit-ve-karar.md` §2). ELE olanlar sebebiyle `is/firsat/elenenler.md`'ye.
    SAT olan ürün için `is/NN-urun-adi/DURUM.md` açılır; kullanıcı onaylarsa KARARLAR.md'ye yazılır.
 
@@ -58,6 +63,8 @@ veri ver. Aynı anda en fazla 2 ajan. Ajan çıktısı sınamadan geçmeden kull
 - Sayı uydurmak yasak. Okunamayan her alan `doğrulanamadı` yazılır; bu geçerli bir sonuçtur.
 - Ürün satışı yalnız ürün sayfasının başlık satırından okunur; mağaza toplamı ("5,000+") ve arama kartı sayısı ürün satışı değildir.
 - Marj normal fiyattan hesaplanır; yeni-müşteri/erken-kuş fiyatı ayrıca not edilir.
+- Marj **iniş maliyetiyle** (`marj_hesap.py`) hesaplanır; oran bilinmiyorsa satır hesaplanmaz, "doğrulanamadı" yazılır.
+  Betik değişirse önce `python3 "${CLAUDE_SKILL_DIR}/scripts/kirma_testi.py"` (16 test) çıkış 0 vermeli.
 - Benzer ürün aynı ürün değildir: form + ana parça + mekanizma fotoğrafla eşleşmeden satış/video/yorum aktarılmaz.
 - Mekanizma gerçek alıcı fotoğrafı/videosuyla doğrulanmadan SAT verilmez.
 - Veto (lisans/marka görünümü, sağlık iddiası, bebek güvenliği iddiası, riskli kargo) olan ürün puanlanmaz.
@@ -72,6 +79,8 @@ veri ver. Aynı anda en fazla 2 ajan. Ajan çıktısı sınamadan geçmeden kull
 | `${CLAUDE_SKILL_DIR}/referans/zaten-viral-kontrolu.md` | Pazara göre mağaza, video, reklam kontrolü |
 | `${CLAUDE_SKILL_DIR}/referans/kanit-ve-karar.md` | Sıra puanı, kanıt dosyası şablonu, SAT/İZLE/ELE, sınama |
 | `${CLAUDE_SKILL_DIR}/referans/dosya-sablonlari.md` | `is/firsat/` ve `.ekip/` dosya biçimleri |
+| `${CLAUDE_SKILL_DIR}/referans/marj-ivme-puan.md` | İniş maliyeti (marj.csv), 7 günlük ivme (ivme.csv), 10 ölçütlü puan |
+| `${CLAUDE_SKILL_DIR}/referans/pazar-oranlari.tsv` | Pazar başına gümrük eşiği/KDV — tarihli, kaynaklı; değişince güncelle |
 | `${CLAUDE_PLUGIN_ROOT}/ortak/marka-skoru.md` | Akraba ürün hesabının örnek alınabilir marka olup olmadığı |
 
 ## Kullanıcıya özet (her tur sonunda, ≤10 satır)
