@@ -33,7 +33,7 @@
   (kutu tık, telefon titreşimi); müzik 0. sn'de −30 dB'den başlar ve 1,5–2 sn'de dB-doğrusal rampayla yatak seviyesine
   çıkar (`ses_tasarla.py --muzik_fade_in 1.75`, varsayılan). "Kısık/boğuk
   (alçak geçiren) yatak + drop'ta tam müzik" YASAK — ölçüldü: 3 sn pencerede +22,2 dB basamak, kurucu reddetti. Kapı:
-  `ses_olc.py VIDEO --muzik_stem muz.wav --kapi` çıkış 0 (başlangıç ≤ −20 dB · rampa 1,2–3,0 sn · ilk 1 sn ≥ −30 dB · 3 sn basamak ≤ +10 dB · açılış olayı ≥ −6 dB).
+  `ses_olc.py VIDEO --muzik_stem muz.wav --kapi` çıkış 0 (başlangıç ≤ −20 dB · rampa 1,5–3,0 sn (fade 1,5–2 sn; parçanın kendi girişi ölçümü 3 sn'ye kadar uzatabilir) · ilk 1 sn ≥ −30 dB · 3 sn basamak ≤ +10 dB · açılış olayı ≥ −6 dB).
   Elle miks betiği yazan kurgucu müzik stem'ini ayrı dosyaya yazar (yoksa ölçülemez → eleştirmen ses ≤ 5).
 - 10 sn'de ≤ 5 efekt (betik kapısı); 12–15 sn videoda 4–6. Kanca ilk 0,5 sn'de ses olayı (diegetik efekt; müzik altta −30 dB rampada). Delik yok (`ses_olc.py delikler: []`).
 - Hiyerarşi (tepe, son seviyeden önce): drop darbesi −3…−6 · ikincil −6…−9 · UI/scratch −10…−14 · riser ≤ −22 (ya da yok).

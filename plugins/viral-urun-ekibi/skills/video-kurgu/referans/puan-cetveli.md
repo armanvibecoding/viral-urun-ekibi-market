@@ -27,7 +27,7 @@ yalnız dokunuş gösteren videoda) · uydurma/doğrulanmamış iddia (fiyat, ya
 Ağır DEĞİL (gerçekçilik 5, kontrat K7/K8): video seçilmemiş içerikle bitiyor ya da seçilmeden yeni içerik beliriyor.
 
 **Ağır kusurlar — 2026-11-17 kurucu geri bildiriminden (otomatik KALIR, kontrat sormaz):**
-- **Ani müzik girişi:** `ses_olc.py --muzik_stem … --kapi` çıkış 3 — kural: açılış diegetik ses olayıyla (kutu tık, telefon titreşimi), müzik 0. sn'de −30 dB'den başlar, 1,5–2 sn'de yatak seviyesine çıkar; kapı (başlangıç ≤ −20 dB · rampa 1,2–3,0 sn · ilk 1 sn ≥ −30 dB · 3 sn basamak ≤ +10 dB · açılış olayı ≥ −6 dB). "Kısık/boğuk yatak, drop'ta tam müzik" tarifi bu kusurdur (ölçüldü: +22,2 dB).
+- **Ani müzik girişi:** `ses_olc.py --muzik_stem … --kapi` çıkış 3 — kural: açılış diegetik ses olayıyla (kutu tık, telefon titreşimi), müzik 0. sn'de −30 dB'den başlar, 1,5–2 sn'de yatak seviyesine çıkar; kapı (başlangıç ≤ −20 dB · rampa 1,5–3,0 sn · ilk 1 sn ≥ −30 dB · 3 sn basamak ≤ +10 dB · açılış olayı ≥ −6 dB). "Kısık/boğuk yatak, drop'ta tam müzik" tarifi bu kusurdur (ölçüldü: +22,2 dB).
 - **Organik videoda fiyat:** organik (ücretsiz paylaşım) kreatifin ekranında fiyat, "$", "TL", indirim yüzdesi. Fiyat
   caption/bio/ürün sayfasındadır. Reklam kreatifinde karar pazar kartına bağlıdır (`pazar-katmani.md` §4).
 - **İşlev hissedilmiyor:** "2. izleme testi" (İkna alanı) 3 çıkıyor — izleyici iki izlemede ürünün NE İŞE YARADIĞINI
@@ -69,7 +69,7 @@ Ağır DEĞİL (gerçekçilik 5, kontrat K7/K8): video seçilmemiş içerikle bi
 | 9 | Her plan ≥ 2 vuruş (140 BPM'de ≥ 0,85 sn, ayar dosyasından), önce/sonra kesimi drop'ta (flaşla), aynı klip aralığı iki kez kullanılmıyor, son kare ilk kareye bağlanıyor (döngü). |
 | 7 | 9'dan bir ölçüt eksik (ör. döngü yok ya da bir plan tekrarı var); önce/sonra drop'ta. |
 | 5 | Önce/sonra drop'a oturmuyor **ya da** < 2 vuruşluk plan var **ya da** aynı iki planın gidip gelmesi (A-B-A-B) videonun yarısını kaplıyor **ya da** yapı seride başka videonun kopyası. |
-| 3 | 2 sn'den uzun durağan plan + önce/sonra anı yok; ya da toplam süre 8–15 sn dışında. |
+| 3 | 2 sn'den uzun durağan plan + önce/sonra anı yok; ya da toplam süre kontratın K1 aralığı dışında (kontrat yoksa: ürün-gösterim/amblem 8–15 sn, hikâye 20–30 sn). |
 
 ## Ses (`ses_olc.py` ile ölçülür; dinlenemez — yalnız ölçüleni yaz)
 | Puan | Gözlenebilir ölçüt |

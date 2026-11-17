@@ -19,7 +19,7 @@ Efektler müzik+klip karışımına son seviyeden önce eklenir; drop kapısı (
 MÜZİK GİRİŞİ KAPISI (2026-11-17 kurucu: "müzik bir anda açılıyor"): açılış diegetik ses olayıyla (klip sesi/efekt);
 müzik videonun 0. saniyesinde −30 dB'den başlar ve --muzik_fade_in (varsayılan 1,75 sn) içinde dB-doğrusal rampayla yatak
 seviyesine çıkar. Yerleştirilmiş müzik stem'i + son karışım ses_olc.muzik_giris ile ölçülür (başlangıç ≤ −20 dB · rampa
-1,2–3,0 sn · ilk 1 sn ≥ −20 dB · 3 sn pencerede basamak ≤ +10 dB · açılış olayı ≥ −6 dB); tutmazsa hedef_tuttu false, çıkış 2.
+1,5–3,0 sn · ilk 1 sn ≥ −20 dB · 3 sn pencerede basamak ≤ +10 dB · açılış olayı ≥ −6 dB); tutmazsa hedef_tuttu false, çıkış 2.
 --muzik_bas > --drop_video_sn olmalı (müzik videodan önce başlar); tersi müziği geç başlatır ve kapıdan kalır.
 
 Kullanım:
@@ -225,7 +225,7 @@ def main():
     ap.add_argument("--yatak", help="rölanti boşluk doldurma kaynağı 'BAS-BIT' (videodaki saniye)")
     ap.add_argument("--hedef_lufs", type=float, default=-14.0)
     ap.add_argument("--tepe", type=float, default=-1.0, help="tavan dBTP")
-    ap.add_argument("--stem_klasoru", help="ara stem'leri buraya kopyala")
+    ap.add_argument("--stem_klasoru", help="ara stem'leri buraya yaz: sessizlik/sessizlik_vurusu ve son_fade UYGULANMIŞ hâlleri (muz.wav = karışımda duyulan müzik)")
     ap.add_argument("--sfx", help="sentetik efekt: 'tik@8.24,vurus@8.57' (tik = ekrana dokunma, vurus = değişim darbesi)")
     ap.add_argument("--sfx_db", type=float, default=-9.0, help="efekt tepe seviyesi (dBFS, son seviyeden önce)")
     ap.add_argument("--son_fade", type=float, default=0.8, help="müzik sonu kararma (döngülü videoda 0.12)")
@@ -426,6 +426,16 @@ def main():
                 mix[i1:i1 + f_in] *= np.sin(np.linspace(0, np.pi / 2, f_in))[:, None] ** 2
         if aralik:
             rapor["sessizlik"] = [[round(b0, 3), round(b1, 3)] for b0, b1 in aralik]
+            # müzik stem'leri karışımda DUYULAN müziği taşısın: aynı kesmeler stem'e de uygulanır
+            # (muzik_giris ölçümü ve --stem_klasoru çıktısı bu dosyaları okur)
+            for st in ["muz.f32", "muz_duck.f32"]:
+                if os.path.exists(P(st)):
+                    sx = raw_oku(P(st)).copy()
+                    for b0, b1 in aralik:
+                        i0, i1 = max(0, int(b0 * SR)), min(len(sx), int(b1 * SR))
+                        if i1 > i0:
+                            sx[i0:i1] = 0
+                    raw_yaz(P(st), sx)
 
         # sentetik efektler (telifsiz, kodla üretilir)
         def sentez(tur):

@@ -11,7 +11,7 @@ muzik_giris (yalnız --muzik_stem ile; stem = müziğin VİDEO ZAMAN ÇİZGİSİ
 Kural (2026-11-17 kurucu): açılış diegetik ses olayıyla; müzik −30 dB'den başlar, 1,5–2 sn'de yatak seviyesine çıkar,
 ortada "bir anda açılma" yok. yatak = stem'in 1 sn pencere RMS medyanı.
   baslangic_db   : ilk 0,1 sn RMS − yatak. Eşik ≤ −20 (hedef −30; parçanın güçlü notası için 10 dB pay).
-  rampa_sn       : 0,5 sn pencere RMS'in ilk kez (yatak − 3 dB)'e ulaştığı an (pencere ortası). Eşik 1,2–3,0 sn.
+  rampa_sn       : 0,5 sn pencere RMS'in ilk kez (yatak − 3 dB)'e ulaştığı an (pencere ortası). Eşik 1,5–3,0 sn.
                    Ölçüldü: dB-doğrusal 1,5/1,75/2,0 sn rampa → 1,3–1,6 sn; rampasız 0,25; doğrusal genlik 1,5 sn → 0,65–1,4.
   ilk_sn_db      : ilk 1 sn RMS − yatak. Eşik ≥ −30 → ilk saniye sessiz değil (−30 dB rampanın ortalaması ≈ −20).
   maks_basamak_db: RMS[t, t+3] − RMS[t−3, t] en büyüğü (0,05 sn adım). Eşik ≤ +10.
@@ -40,7 +40,7 @@ def ffmpeg_yolu():
     return yol
 
 
-GIRIS_ESIK = {"baslangic_db": -20.0, "rampa_min_sn": 1.2, "rampa_max_sn": 3.0, "ilk_sn_db": -30.0,
+GIRIS_ESIK = {"baslangic_db": -20.0, "rampa_min_sn": 1.5, "rampa_max_sn": 3.0, "ilk_sn_db": -30.0,
               "maks_basamak_db": 10.0, "acilis_olayi_db": -6.0}
 
 

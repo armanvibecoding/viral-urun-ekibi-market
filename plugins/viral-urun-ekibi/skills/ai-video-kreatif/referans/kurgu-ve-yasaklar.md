@@ -136,7 +136,7 @@ izleyici ürünün NE OLDUĞUNU çıkaramazsa video ürün satmaz (2026-11-17: t
 okundu; kurucu: "ürünün asıl işlevi hissedilmiyor"). Kural: **açık söylenemeyen işlev, en az iki kanaldan imâ edilir.**
 1. **Ses — vızıltıya İZİN VAR (kurucu talimatı 2026-11-17; "titreşim sesi asla" türü eski kural bunun yerine geçer):**
    platform görüntü+ses+metni birlikte değerlendirir, bu yüzden üç koşul zorunlu: (a) ses ekranda görünen masum bir
-   nesneden gelir (ör. masadaki telefon), (b) motif videoda en fazla 3 kez, (c) vızıltı ürün yakın planıyla aynı anda olmaz.
+   nesneden gelir (ör. masadaki telefon), (b) motif videoda en fazla 3 kez, (c) vızıltı ürün yakın planıyla aynı anda olmaz; (d) imâ taşıyan son vızıltıda önceki vızıltıların kaynağı (telefon) kadrajda olmaz ve kaynak gösterilen kutu, ürünün göründüğü kutuyla aynı biçimdedir (içi görünürse ürün içindedir).
    Titreşim ürününde kısa buzz motifi (`video-kurgu/referans/ses-tasarimi.md` efekt kartı "Buzz"), 1–3 kez, ilk 5 sn'de bir
    kez, müziğin vuruşuna kilitli. Kaynak örnekleri: masadaki telefon, saat, kapalı kutu. Vızıltı + nefes/inleme/fısıltı
    ya da yatakta beden YOK.
