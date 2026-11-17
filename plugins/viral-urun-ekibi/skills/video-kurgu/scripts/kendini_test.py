@@ -4,7 +4,8 @@
 Yapar: 3 adet 4 sn 720x1280 renkli test klibi (ses tonlu) + 1 sıçramalı klip üretir -> klip_qc'nin temizleri
 geçirip sıçramayı YAKALADIĞINI ölçer -> Türkçe kanca + pazara göre CTA + efektle kurgular -> süre/çözünürlük/LUFS
 ölçer -> ara kareyi PNG olarak çıkarır (Türkçe harflere gözle bak) -> müzik girişi kapısını kırarak sınar
-(0'dan fade-in'li müzik GEÇER; geç başlayan müzik, kısık/boğuk yatak + tam drop ve tam seviyeyle açılış KALIR).
+(−30 dB'den 1,75 sn rampalı müzik GEÇER; geç başlayan müzik, kısık yatak + tam drop, rampasız açılış KALIR;
+ses_tasarla uçtan uca: müzik 0'dan → 0, müzik 4. sn'de → 2, açılışta diegetik ses yok → 2).
 
 Kullanım: python3 kendini_test.py [--klasor <çıktı_klasörü>]   (varsayılan: geçici klasör)
 Çıkış kodu 0 = hepsi geçti.
@@ -91,22 +92,27 @@ def main():
         sr = 48000
         t = np.arange(int(14 * sr)) / sr
         muz = 0.3 * np.sin(2 * np.pi * 220 * t) * (0.6 + 0.4 * np.sin(2 * np.pi * 2 * t))
-        fade = np.minimum(1, t / 1.5)
+        fade = np.where(t < 1.75, 10 ** ((-30 + 30 * t / 1.75) / 20), 1.0)  # −30 dB -> yatak, dB-doğrusal
         gec = muz.copy(); gec[t < 5] = 0                                    # 5. sn'ye kadar müzik yok
         yatak = muz * np.where(t < 7, 10 ** (-20 / 20), 1)                  # kısık yatak, 7. sn'de tam (drop)
-        for ad, x, bek in (("0'dan 1,5 sn fade-in", muz * fade, True), ("5. sn'de başlayan müzik", gec, False),
-                           ("kısık yatak + 7. sn'de tam drop", yatak * fade, False), ("fade-in'siz tam açılış", muz, False)):
+        for ad, x, bek in (("−30 dB'den 1,75 sn rampa", muz * fade, True), ("5. sn'de başlayan müzik", gec, False),
+                           ("kısık yatak + 7. sn'de tam drop", yatak * fade, False), ("rampasız tam açılış", muz, False)):
             r = muzik_giris(x, sr)
             sonuc.append((f"müzik girişi kapısı: {ad} -> {'tuttu' if bek else 'KALDI'} ({r.get('neden', 'temiz')})",
                           r["tuttu"] == bek))
         mp = os.path.join(d, "muzik.wav")
         F.calistir([F.ffmpeg_bul(), "-v", "error", "-y", "-f", "lavfi", "-i",
                     "aevalsrc=0.3*sin(2*PI*220*t)*(0.6+0.4*sin(2*PI*2*t)):s=48000:d=20", mp])
-        for ad, bas, drop, bek in (("ses_tasarla müzik 0'dan", 6.0, 3.0, 0), ("ses_tasarla müzik 4. sn'de başlıyor", 0.0, 4.0, 2)):
-            r = subprocess.run([py, os.path.join(BURASI, "ses_tasarla.py"), "--video", cikti, "--muzik", mp,
+        sessiz = os.path.join(d, "kurgu", "V01_sessiz.mp4")
+        F.calistir([F.ffmpeg_bul(), "-v", "error", "-y", "-i", cikti, "-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo",
+                    "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-shortest", sessiz])
+        for ad, vid, bas, drop, bek in (("ses_tasarla müzik 0'dan", cikti, 6.0, 3.0, 0),
+                                        ("ses_tasarla müzik 4. sn'de başlıyor", cikti, 0.0, 4.0, 2),
+                                        ("ses_tasarla açılışta diegetik ses yok (sessiz klip)", sessiz, 6.0, 3.0, 2)):
+            r = subprocess.run([py, os.path.join(BURASI, "ses_tasarla.py"), "--video", vid, "--muzik", mp,
                                 "--muzik_bas", str(bas), "--drop_video_sn", str(drop), "--drop_esik_db", "-99",
                                 "--patlama_db", "0", "--crackle_db", "0", "--kesmeler", "yok",
-                                "--cikti", os.path.join(d, "kurgu", f"ses_{bek}.mp4")], capture_output=True, text=True)
+                                "--cikti", os.path.join(d, "kurgu", f"ses_{len(sonuc)}.mp4")], capture_output=True, text=True)
             sonuc.append((f"{ad} -> çıkış {bek}", r.returncode == bek))
     for ad, ok in sonuc:
         print(("GEÇTİ " if ok else "KALDI ") + ad)

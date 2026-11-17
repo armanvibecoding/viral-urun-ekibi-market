@@ -83,7 +83,7 @@ Kart.md'de kimlik yoksa `${CLAUDE_PLUGIN_ROOT}/skills/ai-video-kreatif/referans/
 ## REÇETE (her kusur bir satır; en fazla 10, öncelik sırasıyla)
 | # | Kusur (alan · sn · kanıt) | Bu videoda düzeltme (dosya/klip/saniye/ayar) | Kalıcı mı | Değişecek eklenti kuralı (dosya:bölüm) | Önerilen yeni metin (eski cümle → yeni cümle) |
 |---|---|---|---|---|---|
-| 1 | ses · 12,6 sn · stem basamağı +22 dB | müziği 0. sn'den 1,5 sn fade-in ile başlat, `ses_tasarla.py --muzik_bas > --drop_video_sn` | KALICI | skills/video-kurgu/referans/ses-tasarimi.md:§2 | "Drop reçetesi: …" → "Müzik ilk kareden …" |
+| 1 | ses · 12,6 sn · stem basamağı +22 dB | açılışa diegetik ses koy, müziği 0. sn'de −30 dB'den 1,75 sn rampayla başlat, `ses_tasarla.py --muzik_bas > --drop_video_sn` | KALICI | skills/video-kurgu/referans/ses-tasarimi.md:§2 | "Drop reçetesi: …" → "Müzik ilk kareden …" |
 ```
 - **KALICI** = aynı kusur başka videoda da çıkabilir (kural/şablon/ajan talimatı yanlış ya da eksik). Yanlış yönlendiren
   cümleyi bul ve "eski → yeni" yaz; yalnız yeni kural eklemek yetmez. Eklentideki yolu grep'le doğrula.

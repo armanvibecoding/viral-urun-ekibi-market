@@ -7,7 +7,7 @@ Kullanıldığında altı vuruş bu sırayla gelir. Saniyeler 140 BPM ızgarası
 
 | Saniye | Beyin | Görüntü | Ses |
 |---|---|---|---|
-| 0–0,9 | Örüntü kırma | hareket + ürünün en güçlü anı; kanca yazısı ilk karede tam | kanca efekti videonun en yüksek anı; müzik altta 0. sn'den fade-in (kısık başlayıp sonra "açılmaz") |
+| 0–0,9 | Örüntü kırma | hareket + ürünün en güçlü anı; kanca yazısı ilk karede tam | kanca efekti videonun en yüksek anı; açılış diegetik ses; müzik 0. sn'de −30 dB'den 1,5–2 sn rampa (kısık başlayıp sonra "açılmaz") |
 | 0,9–3,4 | Merak boşluğu | normal/eski hal (beklenti) + elde ürün (gerçeklik kanıtı) | müzik tam seviyede, kendi akışında |
 | 3,4 | Ödül | değişim, beyaz flaş | müzik drop'u tam kesimde |
 | 3,4–7,7 | Kişiselleştirme | 3 farklı sonuç, 0,86'şar sn | vuruşta kesim |

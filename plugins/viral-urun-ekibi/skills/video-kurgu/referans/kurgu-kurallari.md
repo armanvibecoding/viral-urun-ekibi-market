@@ -48,7 +48,7 @@ Gerekçeler ve kanıt numaraları: `<eklenti kökü>/skills/ai-video-kreatif/ref
 ## Ses
 - Klibin kendi gerçek sesi esas. Efekt: kullanıcının kendi telifsiz dosyası; ürün sesi gerçek basış/olay anına (hizala).
 - Lisanslı popüler müzik yok. Konuşma/seslendirme yok (kurallar ses düzeyinde dinlenebilir videoya göre).
-- Müzik ilk kareden düşük seviyede başlar, ≥ 1 sn fade-in; ortada "bir anda açılma" yok (`ses_olc.py --muzik_stem --kapi`).
+- Açılış diegetik ses olayıyla; müzik 0. sn'de −30 dB'den başlar, 1,5–2 sn'de yatak seviyesine çıkar; ortada "bir anda açılma" yok (`ses_olc.py --muzik_stem --kapi`).
 - Hedef −14 LUFS; tek geçişli normalleştirme videolar arasında 8 dB fark bıraktı → betik ölç-kazanç-ölç döngüsü yapar.
 - Seri halinde videoları art arda dinlemek mümkün değilse LUFS satırlarını karşılaştır (±1 içinde olmalı).
 

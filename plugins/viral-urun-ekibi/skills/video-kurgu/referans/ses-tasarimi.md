@@ -29,12 +29,13 @@
    gürleme tiz lastik sesinden önce gelir [C1, C2]; en güçlü an (alev) drop'tan 0,5 sn sonra düşerse "kayık" hissi [C3].
 
 ## 2. Kurallar (ses tasarımcısı bunlara göre plan yazar)
-- **Müzik ilk kareden, ani giriş yok (2026-11-17 kurucu: "müzik bir anda açılıyor"; ağır kusur).** Müzik videonun 0. sn'sinden
-  düşük seviyede başlar ve ≥ 1 sn fade-in ile yükselir (`ses_tasarla.py --muzik_fade_in 1.5`, varsayılan). "Kısık/boğuk
+- **Müzik ilk kareden, ani giriş yok (2026-11-17 kurucu: "müzik bir anda açılıyor"; ağır kusur).** Açılış diegetik ses olayıyla
+  (kutu tık, telefon titreşimi); müzik 0. sn'de −30 dB'den başlar ve 1,5–2 sn'de dB-doğrusal rampayla yatak seviyesine
+  çıkar (`ses_tasarla.py --muzik_fade_in 1.75`, varsayılan). "Kısık/boğuk
   (alçak geçiren) yatak + drop'ta tam müzik" YASAK — ölçüldü: 3 sn pencerede +22,2 dB basamak, kurucu reddetti. Kapı:
-  `ses_olc.py VIDEO --muzik_stem muz.wav --kapi` çıkış 0 (ilk 1 sn ≥ medyan −20 dB · ilk 0,25 sn ≤ −6 dB · basamak ≤ +10 dB).
+  `ses_olc.py VIDEO --muzik_stem muz.wav --kapi` çıkış 0 (başlangıç ≤ −20 dB · rampa 1,2–3,0 sn · ilk 1 sn ≥ −30 dB · 3 sn basamak ≤ +10 dB · açılış olayı ≥ −6 dB).
   Elle miks betiği yazan kurgucu müzik stem'ini ayrı dosyaya yazar (yoksa ölçülemez → eleştirmen ses ≤ 5).
-- 10 sn'de ≤ 5 efekt (betik kapısı); 12–15 sn videoda 4–6. Kanca ilk 0,5 sn'de ses olayı (efekt; müzik altta fade-in'de). Delik yok (`ses_olc.py delikler: []`).
+- 10 sn'de ≤ 5 efekt (betik kapısı); 12–15 sn videoda 4–6. Kanca ilk 0,5 sn'de ses olayı (diegetik efekt; müzik altta −30 dB rampada). Delik yok (`ses_olc.py delikler: []`).
 - Hiyerarşi (tepe, son seviyeden önce): drop darbesi −3…−6 · ikincil −6…−9 · UI/scratch −10…−14 · riser ≤ −22 (ya da yok).
 - Drop (vurgu) reçetesi: müzik zaten çalarken `--sessizlik_vurusu 0.2` + drop'ta darbe (`boom@` ya da bas-drop dosyası);
   vurguyu efekt ve 0,2 sn boşluk taşır, müziğin seviyesi değil. `drop_artis_db` 6–10. Riser isteğe bağlı, kesmeden önce biter.
@@ -86,10 +87,10 @@ Enthusiasm · Directed by Robert B. Weide · Taco Bell bong · FBI open up · Wi
 
 ## 5. Araç komutları (özet; tam liste `ses_tasarla.py --help`)
 `--sfx tik|vurus|boom|whoosh@sn` · `--sfx_dosya "ad.mp3@sn:dB[:bas-bit]" --sfx_klasor sfx/kaynak` · `--riser bit:sure:dB` ·
-`--sessizlik_vurusu 0.2` · `--sessizlik "a-b"` · `--sfx_max_10sn 5` · `--muzik_fade_in 1.5` · `--stem_klasoru` ·
+`--sessizlik_vurusu 0.2` · `--sessizlik "a-b"` · `--sfx_max_10sn 5` · `--muzik_fade_in 1.75` · `--stem_klasoru` ·
 ölçüm `ses_olc.py VIDEO --drop sn --muzik_stem muz.wav --kapi`.
 Geri uyumluluk (2026-11-16): eski komut **bit-bit aynı** sesti (md5 1bab00e90c73). 2026-11-17'den beri müzikli komutlar
-varsayılan 1,5 sn fade-in alır ve müzik girişi kapısından geçer → müzikli eski çıktılar artık birebir aynı değildir (bilinçli). Örnek dosyalar ve önce/sonra:
+varsayılan −30 dB'den 1,75 sn rampa alır ve müzik girişi kapısından geçer → müzikli eski çıktılar artık birebir aynı değildir (bilinçli). Örnek dosyalar ve önce/sonra:
 `is/NN/teslim/ses-ornek/SES-ORNEK.md` (ürün klasöründe).
 
 ## 6. Kaynaklar

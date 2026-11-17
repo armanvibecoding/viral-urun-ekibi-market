@@ -16,9 +16,10 @@ EFEKT KATMANI (ses tasarımcısı, 2026-11-16; hepsi isteğe bağlı, verilmezse
   --sfx_max_10sn 5                                  yoğunluk kapısı: 10 sn'de bundan çok efekt -> hedef_tuttu false
 Efektler müzik+klip karışımına son seviyeden önce eklenir; drop kapısı (drop_artis_db) efektler dahil ölçülür.
 
-MÜZİK GİRİŞİ KAPISI (2026-11-17 kurucu: "müzik bir anda açılıyor"): müzik videonun 0. saniyesinden başlar ve
---muzik_fade_in (varsayılan 1,5 sn) ile yükselir. Yerleştirilmiş müzik stem'i ses_olc.muzik_giris ile ölçülür
-(ilk 1 sn ≥ medyan −20 dB · ilk 0,25 sn ≤ −6 dB · 3 sn pencerede basamak ≤ +10 dB); tutmazsa hedef_tuttu false, çıkış 2.
+MÜZİK GİRİŞİ KAPISI (2026-11-17 kurucu: "müzik bir anda açılıyor"): açılış diegetik ses olayıyla (klip sesi/efekt);
+müzik videonun 0. saniyesinde −30 dB'den başlar ve --muzik_fade_in (varsayılan 1,75 sn) içinde dB-doğrusal rampayla yatak
+seviyesine çıkar. Yerleştirilmiş müzik stem'i + son karışım ses_olc.muzik_giris ile ölçülür (başlangıç ≤ −20 dB · rampa
+1,2–3,0 sn · ilk 1 sn ≥ −20 dB · 3 sn pencerede basamak ≤ +10 dB · açılış olayı ≥ −6 dB); tutmazsa hedef_tuttu false, çıkış 2.
 --muzik_bas > --drop_video_sn olmalı (müzik videodan önce başlar); tersi müziği geç başlatır ve kapıdan kalır.
 
 Kullanım:
@@ -235,7 +236,8 @@ def main():
                     help="drop'tan önce bu kadar sn (0.15-0.25) müzik+klip kesilir; --drop_video_sn gerekir")
     ap.add_argument("--sessizlik", help="elle kesme aralıkları 'bas-bit,bas-bit' (sn); efektler kesmeden etkilenmez")
     ap.add_argument("--sfx_max_10sn", type=int, default=5, help="herhangi 10 sn penceresinde en çok efekt (kapı)")
-    ap.add_argument("--muzik_fade_in", type=float, default=1.5, help="müzik videonun 0. sn'sinden bu sürede yükselir")
+    ap.add_argument("--muzik_fade_in", type=float, default=1.75,
+                    help="müzik 0. sn'de −30 dB'den bu sürede (dB-doğrusal) yatak seviyesine çıkar (1,5–2)")
     a = ap.parse_args()
     if a.duck_db is None:  # egzozsuz videoda rölanti/söküm sesi "olay" sanılıp müzik kısılıyordu (ölçülen ses delikleri)
         a.duck_db = 0.0 if (a.patlama_db == 0 and a.crackle_db == 0) else 5.0
@@ -348,16 +350,20 @@ def main():
     if muzik:
         ofs = a.drop_video_sn - a.muzik_bas
         hiza = f"adelay={int(ofs*1000)}|{int(ofs*1000)}," if ofs >= 0 else f"atrim=start={-ofs:.4f},asetpts=PTS-STARTPTS,"
-        fade_in = f"afade=t=in:st=0:d={a.muzik_fade_in}," if a.muzik_fade_in > 0 else ""
+        fade_in = ""  # rampa aşağıda numpy ile (−30 dB -> 0 dB, dB-doğrusal)
         mgraf = (f"[0:a]aresample={SR},aformat=sample_fmts=flt:channel_layouts=stereo,{hiza}{fade_in}"
                  "highpass=f=30,equalizer=f=80:t=q:w=1.0:g=-3,apad,"
                  f"atrim=end={sure:.4f},afade=t=out:st={max(0,sure-a.son_fade):.3f}:d={a.son_fade}[m]")
         kos(["-i", a.muzik, "-filter_complex", mgraf, "-map", "[m]", "-f", "f32le", "-ar", str(SR),
              "-ac", "2", P("muz.f32")])
+        if a.muzik_fade_in > 0:
+            mz = raw_oku(P("muz.f32")).copy()
+            tz = np.arange(len(mz)) / SR
+            mz *= np.where(tz < a.muzik_fade_in, 10 ** ((-30 + 30 * tz / a.muzik_fade_in) / 20), 1.0)[:, None]
+            raw_yaz(P("muz.f32"), mz)
         I_m, _, _ = olc(raw_giris(P("muz.f32")))
         rapor["muzik_stem_lufs_ham"] = I_m
         rapor["muzik_ofset_sn"] = round(ofs, 3)
-        rapor["muzik_giris"] = muzik_giris(raw_oku(P("muz.f32")).mean(1), SR)
         muz_kaz = -17.0 + a.muzik_db - I_m
         oran = 1 / (1 - a.duck_db / 20.0)  # anahtar 0 dBFS, eşik -20 dB -> GR = duck_db
         karisim = (
@@ -542,9 +548,12 @@ def main():
             print(f"UYARI drop duyulmuyor: {artis:+.1f} dB < {a.drop_esik_db} dB — --drop_oncesi_db'yi düşür, "
                   "drop öncesi planların ses_db'sini kıs ya da --muzik_db'yi artır", file=sys.stderr)
             rapor["hedef_tuttu"] = False
+    if muzik:
+        rapor["muzik_giris"] = muzik_giris(raw_oku(P("muz.f32")).mean(1), SR, karisim=raw_oku(P("son.f32")).mean(1))
     if "muzik_giris" in rapor and not rapor["muzik_giris"]["tuttu"]:
         print("UYARI müzik girişi: " + rapor["muzik_giris"]["neden"] + " — müziği 0. sn'den başlat "
-              "(--muzik_bas > --drop_video_sn), --muzik_fade_in ≥ 1,0; kısık/boğuk yatak + tam drop tarifi YASAK",
+              "(--muzik_bas > --drop_video_sn), --muzik_fade_in 1,5–2; açılışa diegetik ses (klip sesi/efekt); "
+              "kısık/boğuk yatak + tam drop tarifi YASAK",
               file=sys.stderr)
         rapor["hedef_tuttu"] = False
     if a.stem_klasoru:

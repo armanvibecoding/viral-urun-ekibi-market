@@ -75,7 +75,7 @@ Kurallar (ayrıntı `referans/kurgu-kurallari.md`):
 - **Ses tasarımcısı (ses_tasarla'dan önce):** `ses-tasarimcisi` ajanı ayar dosyasından efekt planı (sn · efekt · dB · neden)
   çıkarır ve komutu üretir: dosya efekti `--sfx_dosya "ad.mp3@sn:dB" --sfx_klasor is/NN/sfx/kaynak` (lisans `sfx/LISANS.md`'de),
   sentetik `boom/whoosh`, drop reçetesi `--riser <drop−0,2>:1.0:-18 --sessizlik_vurusu 0.2`. Kapılar: 10 sn'de ≤ 5 efekt,
-  `drop_tuttu`, **müzik girişi** (müzik 0. sn'den ≥ 1 sn fade-in; kısık yatak + drop'ta tam müzik YASAK — ağır kusur).
+  `drop_tuttu`, **müzik girişi** (açılış diegetik ses; müzik 0. sn'de −30 dB'den 1,5–2 sn rampa; kısık yatak + drop'ta tam müzik YASAK — ağır kusur).
   Önce/sonra `ses_olc.py VIDEO --drop sn --muzik_stem <stem>/muz.wav --kapi`. Yöntem: `referans/ses-tasarimi.md`.
 - **Elle miks betiği** (ses_tasarla dışı) yazılırsa müzik stem'i ayrı wav olarak kaydedilir ve aynı kapıdan geçer.
 - **Drop karışımda ölçülür:** müzik dosyasındaki drop yetmez; klip sesi (rölanti, söküm) drop'u bastırır. `ses_tasarla.py`

@@ -7,14 +7,19 @@ Kullanım:
 drop_artis_db: ses_tasarla.py ile aynı tanım — drop sonrası 0,43 sn RMS / drop öncesi (−0,6 … −0,05 sn) RMS.
 delikler: 50 ms pencerelerde RMS < delik_db olan, delik_sn'den uzun aralıklar (kanca sessizliği, kesim boşluğu).
 tepe_anlari: en yüksek 5 kısa-dönem (50 ms) RMS anı — "ana ses anı neresi" sorusuna cevap.
-muzik_giris (yalnız --muzik_stem ile; stem = müziğin VİDEO ZAMAN ÇİZGİSİNE yerleştirilmiş hâli, efektsiz):
-  ilk_sn_db      : ilk 1 sn RMS − stem medyanı (1 sn pencereler). Eşik ≥ −20 → müzik ilk kareden duyulur.
-  acilis_db      : ilk 0,25 sn RMS − ilk 3 sn'nin 1 sn medyanı. Eşik ≤ −6 → tam seviyeyle "pat" diye açılmaz (fade-in ≥ ~1 sn).
-  maks_basamak_db: RMS[t, t+3] − RMS[t−3, t] en büyüğü (0,05 sn adım). Eşik ≤ +10 → ortada "bir anda açılma" yok.
-                   Kalibrasyon (2026-11-17): kısık+boğuk yatak → drop'ta tam müzik tarifi +22,2 dB (KALDI); aynı parça
-                   0'dan 1,5 sn fade-in ile +7,2 dB (parçanın kendi dinamiği; GEÇTİ). 1 sn pencere parçanın kendi
-                   cümle dinamiğini (+10,5) yakalayıp yanlış alarm verdi → 3 sn.
-  tuttu          : üçü birden. --kapi verilirse tuttu=false → çıkış 3.
+muzik_giris (yalnız --muzik_stem ile; stem = müziğin VİDEO ZAMAN ÇİZGİSİNE yerleştirilmiş hâli, efektsiz).
+Kural (2026-11-17 kurucu): açılış diegetik ses olayıyla; müzik −30 dB'den başlar, 1,5–2 sn'de yatak seviyesine çıkar,
+ortada "bir anda açılma" yok. yatak = stem'in 1 sn pencere RMS medyanı.
+  baslangic_db   : ilk 0,1 sn RMS − yatak. Eşik ≤ −20 (hedef −30; parçanın güçlü notası için 10 dB pay).
+  rampa_sn       : 0,5 sn pencere RMS'in ilk kez (yatak − 3 dB)'e ulaştığı an (pencere ortası). Eşik 1,2–3,0 sn.
+                   Ölçüldü: dB-doğrusal 1,5/1,75/2,0 sn rampa → 1,3–1,6 sn; rampasız 0,25; doğrusal genlik 1,5 sn → 0,65–1,4.
+  ilk_sn_db      : ilk 1 sn RMS − yatak. Eşik ≥ −30 → ilk saniye sessiz değil (−30 dB rampanın ortalaması ≈ −20).
+  maks_basamak_db: RMS[t, t+3] − RMS[t−3, t] en büyüğü (0,05 sn adım). Eşik ≤ +10.
+                   Kalibrasyon: kısık+boğuk yatak → drop'ta tam müzik tarifi +22,2 dB (KALDI); aynı parça 0'dan rampayla
+                   +7,2 dB (parçanın kendi dinamiği; GEÇTİ). 1 sn pencere parçanın cümle dinamiğinde (+10,5) yanlış alarm verdi.
+  acilis_olayi_db: (VIDEO karışımında) ilk 0,5 sn'nin en yüksek 50 ms RMS'i − karışımın 1 sn medyanı. Eşik ≥ −6 →
+                   açılışta duyulur bir diegetik ses olayı var (müzik o sırada −30 dB'de).
+  tuttu          : hepsi birden. --kapi verilirse tuttu=false → çıkış 3.
 Çıktı JSON; dosya değiştirilmez.
 """
 import argparse, json, os, re, shutil, subprocess, sys, tempfile
@@ -35,37 +40,63 @@ def ffmpeg_yolu():
     return yol
 
 
-GIRIS_ESIK = {"ilk_sn_db": -20.0, "acilis_db": -6.0, "maks_basamak_db": 10.0}
+GIRIS_ESIK = {"baslangic_db": -20.0, "rampa_min_sn": 1.2, "rampa_max_sn": 3.0, "ilk_sn_db": -30.0,
+              "maks_basamak_db": 10.0, "acilis_olayi_db": -6.0}
 
 
-def muzik_giris(x, sr=SR, esik=None):
-    """x: mono müzik stem'i (video zaman çizgisinde). Dönen sözlük JSON'a yazılabilir."""
-    e = dict(GIRIS_ESIK, **(esik or {}))
+def _enerji(x, sr):
     h = int(0.05 * sr)
     n = len(x) // h
-    if n < 60:
+    return (np.asarray(x[: n * h], np.float64).reshape(n, h) ** 2).mean(1)
+
+
+def _db(v):
+    return 10 * np.log10(v + 1e-12)
+
+
+def acilis_olayi(karisim, sr=SR):
+    """Karışımın ilk 0,5 sn'sindeki en yüksek 50 ms RMS − karışımın 1 sn medyanı (dB)."""
+    en = _enerji(karisim, sr)
+    if len(en) < 20:
+        return None
+    return float(_db(en[:10]).max() - np.median(_db(np.convolve(en, np.ones(20) / 20, mode="valid"))))
+
+
+def muzik_giris(x, sr=SR, esik=None, karisim=None):
+    """x: mono müzik stem'i (video zaman çizgisinde); karisim: isteğe bağlı mono video sesi (açılış olayı için)."""
+    e = dict(GIRIS_ESIK, **(esik or {}))
+    en = _enerji(x, sr)
+    if len(en) < 60:
         return {"tuttu": False, "neden": "stem 3 sn'den kısa"}
-    en = (np.asarray(x[: n * h], np.float64).reshape(n, h) ** 2).mean(1)
-    db = lambda v: 10 * np.log10(v + 1e-12)
-    c1 = np.convolve(en, np.ones(20) / 20, mode="valid")  # 1 sn pencereler
-    med = float(np.median(db(c1)))
-    ilk = float(db(c1[0]) - med)
-    acilis = float(db(en[:5].mean()) - np.median(db(c1[:41])))
+    c1 = np.convolve(en, np.ones(20) / 20, mode="valid")  # 1 sn
+    yatak = float(np.median(_db(c1)))
+    bas = float(_db(en[:2].mean()) - yatak)
+    q = np.convolve(en, np.ones(10) / 10, mode="valid")  # 0,5 sn
+    u = np.nonzero(_db(q) >= yatak - 3)[0]
+    rampa = float(u[0] * 0.05 + 0.25) if len(u) else float(len(en) * 0.05)
+    ilk = float(_db(c1[0]) - yatak)
     W = 60  # 3 sn
     c3 = np.convolve(en, np.ones(W) / W, mode="valid")
-    bas = [(float(db(c3[i]) - db(c3[i - W])), i * 0.05) for i in range(W, len(c3))]
-    mb, mbs = max(bas) if bas else (0.0, 0.0)
-    r = {"ilk_sn_db": round(ilk, 1), "acilis_db": round(acilis, 1), "maks_basamak_db": round(mb, 1),
-         "basamak_sn": round(mbs, 2), "esik": e}
-    r["tuttu"] = bool(ilk >= e["ilk_sn_db"] and acilis <= e["acilis_db"] and mb <= e["maks_basamak_db"])
-    if not r["tuttu"]:
-        neden = []
-        if ilk < e["ilk_sn_db"]:
-            neden.append(f"ilk 1 sn müzik yok/çok kısık ({ilk:+.1f} dB < {e['ilk_sn_db']})")
-        if acilis > e["acilis_db"]:
-            neden.append(f"müzik tam seviyeyle açılıyor (ilk 0,25 sn {acilis:+.1f} dB > {e['acilis_db']}; fade-in ekle)")
-        if mb > e["maks_basamak_db"]:
-            neden.append(f"{mbs:.2f} sn'de ani açılma (+{mb:.1f} dB > +{e['maks_basamak_db']}, 3 sn pencere)")
+    adim = [(float(_db(c3[i]) - _db(c3[i - W])), i * 0.05) for i in range(W, len(c3))]
+    mb, mbs = max(adim) if adim else (0.0, 0.0)
+    r = {"baslangic_db": round(bas, 1), "rampa_sn": round(rampa, 2), "ilk_sn_db": round(ilk, 1),
+         "maks_basamak_db": round(mb, 1), "basamak_sn": round(mbs, 2), "esik": e}
+    neden = []
+    if bas > e["baslangic_db"]:
+        neden.append(f"müzik −30 dB'den başlamıyor (ilk 0,1 sn {bas:+.1f} dB > {e['baslangic_db']})")
+    if not e["rampa_min_sn"] <= rampa <= e["rampa_max_sn"]:
+        neden.append(f"rampa {rampa:.2f} sn ({e['rampa_min_sn']}–{e['rampa_max_sn']} dışında; hedef 1,5–2 sn dB-doğrusal)")
+    if ilk < e["ilk_sn_db"]:
+        neden.append(f"ilk 1 sn müzik yok/çok kısık ({ilk:+.1f} dB < {e['ilk_sn_db']})")
+    if mb > e["maks_basamak_db"]:
+        neden.append(f"{mbs:.2f} sn'de ani açılma (+{mb:.1f} dB > +{e['maks_basamak_db']}, 3 sn pencere)")
+    if karisim is not None:
+        ao = acilis_olayi(karisim, sr)
+        r["acilis_olayi_db"] = None if ao is None else round(ao, 1)
+        if ao is None or ao < e["acilis_olayi_db"]:
+            neden.append(f"açılışta diegetik ses olayı yok (ilk 0,5 sn tepe {ao if ao is None else round(ao, 1)} dB < {e['acilis_olayi_db']})")
+    r["tuttu"] = not neden
+    if neden:
         r["neden"] = "; ".join(neden)
     return r
 
@@ -128,7 +159,7 @@ def main():
             break
     rapor["tepe_anlari"] = tepe
     if a.muzik_stem:
-        rapor["muzik_giris"] = muzik_giris(oku_mono(FF, a.muzik_stem))
+        rapor["muzik_giris"] = muzik_giris(oku_mono(FF, a.muzik_stem), karisim=x)
     print(json.dumps(rapor, ensure_ascii=False, indent=1))
     if a.kapi and a.muzik_stem and not rapor["muzik_giris"]["tuttu"]:
         print("KAPI: müzik girişi tutmadı — " + rapor["muzik_giris"]["neden"], file=sys.stderr)

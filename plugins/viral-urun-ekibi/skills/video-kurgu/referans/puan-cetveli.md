@@ -27,15 +27,15 @@ yalnız dokunuş gösteren videoda) · uydurma/doğrulanmamış iddia (fiyat, ya
 Ağır DEĞİL (gerçekçilik 5, kontrat K7/K8): video seçilmemiş içerikle bitiyor ya da seçilmeden yeni içerik beliriyor.
 
 **Ağır kusurlar — 2026-11-17 kurucu geri bildiriminden (otomatik KALIR, kontrat sormaz):**
-- **Ani müzik girişi:** `ses_olc.py --muzik_stem … --kapi` çıkış 3 (ilk 1 sn'de müzik yok · ilk 0,25 sn tam seviye ·
-  3 sn pencerede > +10 dB basamak). "Kısık/boğuk yatak, drop'ta tam müzik" tarifi bu kusurdur (ölçüldü: +22,2 dB).
+- **Ani müzik girişi:** `ses_olc.py --muzik_stem … --kapi` çıkış 3 — kural: açılış diegetik ses olayıyla (kutu tık, telefon titreşimi), müzik 0. sn'de −30 dB'den başlar, 1,5–2 sn'de yatak seviyesine çıkar; kapı (başlangıç ≤ −20 dB · rampa 1,2–3,0 sn · ilk 1 sn ≥ −30 dB · 3 sn basamak ≤ +10 dB · açılış olayı ≥ −6 dB). "Kısık/boğuk yatak, drop'ta tam müzik" tarifi bu kusurdur (ölçüldü: +22,2 dB).
 - **Organik videoda fiyat:** organik (ücretsiz paylaşım) kreatifin ekranında fiyat, "$", "TL", indirim yüzdesi. Fiyat
   caption/bio/ürün sayfasındadır. Reklam kreatifinde karar pazar kartına bağlıdır (`pazar-katmani.md` §4).
 - **İşlev hissedilmiyor:** "2. izleme testi" (İkna alanı) 3 çıkıyor — izleyici iki izlemede ürünün NE İŞE YARADIĞINI
   (doğrudan ya da imâyla) çıkaramıyor. Reklamı yasak kategoride açık söylenemiyorsa alt mesaj zorunlu: ses (ör. kısa
   titreşim/buzz efekti), imâlı yazı, görüntü (`ai-video-kreatif/referans/kurgu-ve-yasaklar.md` §İmâ yolu).
 - **Hassas kategori platform kapısı** (`ai-video-kreatif/referans/kurgu-ve-yasaklar.md` §8.1): kelime kapısında tek
-  isabet · imâ seviyesi 3 · anatomik biçimli ürün kadrajda ya da çalışan ürün yakın planı · vızıltı + nefes/inleme/yatakta beden.
+  isabet · imâ seviyesi 3 · anatomik biçimli ürün kadrajda ya da çalışan ürün yakın planı · vızıltı + nefes/inleme/yatakta beden · vızıltı
+  görünür masum kaynaksız, > 3 kez ya da ürün yakın planıyla aynı anda (vızıltının kendisi serbest, kurucu talimatı).
 - **Yazının çoğu özellik listesi:** yazı kartlarının yarısından fazlası ölçü/ağırlık/renk/malzeme ("121 mm · 30 g") →
   yazı alanı 3 (alan < 5 = KALIR). Tek ölçü kartı, ancak bir merak/ikna cümlesine bağlıysa izinli.
 
@@ -74,7 +74,7 @@ Ağır DEĞİL (gerçekçilik 5, kontrat K7/K8): video seçilmemiş içerikle bi
 ## Ses (`ses_olc.py` ile ölçülür; dinlenemez — yalnız ölçüleni yaz)
 | Puan | Gözlenebilir ölçüt |
 |---|---|
-| 9 | `muzik_giris.tuttu` ✓ (müzik ilk kareden, fade-in, ani basamak yok) · I = −14 ±1 LUFS, tepe ≤ −1 dBTP, delik yok, drop kullanıldıysa `drop_artis_db` 6–10 (vurgu efekt + kısa sessizlik vuruşuyla; müzik kendisi kısılıp açılmaz), drop dışında 0,1 sn RMS'te +10 dB'den büyük sıçrama yok, ana ses anı (`tepe_anlari`) görüntüdeki olayla ±0,1 sn (ölçülmediyse en fazla 8) · müzik seçim ölçütü (`ses-tasarimi.md` §2b) dosyada gerekçeli. |
+| 9 | `muzik_giris.tuttu` ✓ (diegetik açılış, müzik −30 dB'den 1,5–2 sn rampa, ani basamak yok) · I = −14 ±1 LUFS, tepe ≤ −1 dBTP, delik yok, drop kullanıldıysa `drop_artis_db` 6–10 (vurgu efekt + kısa sessizlik vuruşuyla; müzik kendisi kısılıp açılmaz), drop dışında 0,1 sn RMS'te +10 dB'den büyük sıçrama yok, ana ses anı (`tepe_anlari`) görüntüdeki olayla ±0,1 sn (ölçülmediyse en fazla 8) · müzik seçim ölçütü (`ses-tasarimi.md` §2b) dosyada gerekçeli. |
 | 7 | `muzik_giris.tuttu` ✓, I = −14 ±1, tepe ≤ −1, delik yok, drop dışı sıçrama ≤ +10 dB; müzik seçimi gerekçesi yok ya da tür ürünle zayıf bağlı. |
 | 5 | Şunlardan biri: drop kullanılıp `drop_artis_db` < 6 · drop dışında (plan ortası ya da son 0,5 sn) > +10 dB sıçrama · I ±1 dışında (±2 içinde) · müzik stem'i ölçülemedi · "stok müzik" hissi (tür/duygu ürünle ve pazarla çelişiyor; gerekçeyle yaz). |
 | 3 | Müzik yok · `muzik_giris` KALDI (ağır kusur) · delik (`delikler` dolu) · I ±2 dışında · tepe > 0 dBTP (kırpılma). |

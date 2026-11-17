@@ -23,7 +23,8 @@ Kullanıcıyla dil Türkçe. Video dosyasını değiştirmezsin; yeni dosya üre
    - **Yoğunluk:** 10 sn'de ≤ 5 efekt (betik kapısı `--sfx_max_10sn 5`); 12–15 sn videoda toplam 4–6. Her kesime efekt YOK.
    - **Hiyerarşi:** drop anı en yüksek (−3…−6 dB tepe), ikincil darbe −6…−9, UI tık/scratch −10…−14, riser −14…−18.
      Efekt müziğin drop'unu bastırmaz: `drop_artis_db ≥ 6` korunur, önce/sonra ölç.
-   - **Müzik ilk kareden (ağır kusur kapısı):** müzik 0. sn'de başlar, ≥ 1 sn fade-in (`--muzik_fade_in 1.5`); müziği
+   - **Müzik ilk kareden (ağır kusur kapısı):** açılış diegetik ses olayı (klip sesi ya da tık/titreşim
+     efekti); müzik 0. sn'de −30 dB'den başlar, 1,5–2 sn'de yatak seviyesine çıkar (`--muzik_fade_in 1.75`); müziği
      kısıp/boğup drop'ta açmak YASAK (2026-11-17 kurucu reddi, ölçüldü +22,2 dB). `--muzik_bas` > `--drop_video_sn` olmalı.
    - **Drop (vurgu) reçetesi:** müzik zaten çalarken riser kesmeden ÖNCE biter (`--riser <drop−0,2>:1.0:-18`) →
      `--sessizlik_vurusu 0.2` → drop'ta darbe (`boom@drop` ya da bass-drop dosyası). Riser drop'a kadar sürerse ölçülen

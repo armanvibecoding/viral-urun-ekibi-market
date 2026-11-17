@@ -134,10 +134,12 @@ Yasak listesi her video promptunun AVOID satırına ve her paketin son kontrolü
 Örnek kategori: yetişkin wellness ürünü, reklamı kısıtlı kişisel bakım ürünü. Platform kelimeyi ve bedeni yasaklar ama
 izleyici ürünün NE OLDUĞUNU çıkaramazsa video ürün satmaz (2026-11-17: takı gibi görünen ürün videoda "sadece kolye"
 okundu; kurucu: "ürünün asıl işlevi hissedilmiyor"). Kural: **açık söylenemeyen işlev, en az iki kanaldan imâ edilir.**
-1. **Ses (en güçlü; metin taramasına girmez ama platform görüntü+ses+metni birlikte değerlendirir):** işlevin kendi sesi —
-   titreşim ürününde kısa buzz motifi (`video-kurgu/referans/ses-tasarimi.md` efekt kartı "Buzz"), 1–3 kez, ilk 5 sn'de bir
-   kez, müziğin vuruşuna kilitli. **Sesin görünür kaynağı masum bir nesnedir** (masadaki telefon, saat, kapalı kutu);
-   ürün yakın planı + vızıltı aynı anda YOK; vızıltı + nefes/inleme/fısıltı ya da yatakta beden YOK.
+1. **Ses — vızıltıya İZİN VAR (kurucu talimatı 2026-11-17; "titreşim sesi asla" türü eski kural bunun yerine geçer):**
+   platform görüntü+ses+metni birlikte değerlendirir, bu yüzden üç koşul zorunlu: (a) ses ekranda görünen masum bir
+   nesneden gelir (ör. masadaki telefon), (b) motif videoda en fazla 3 kez, (c) vızıltı ürün yakın planıyla aynı anda olmaz.
+   Titreşim ürününde kısa buzz motifi (`video-kurgu/referans/ses-tasarimi.md` efekt kartı "Buzz"), 1–3 kez, ilk 5 sn'de bir
+   kez, müziğin vuruşuna kilitli. Kaynak örnekleri: masadaki telefon, saat, kapalı kutu. Vızıltı + nefes/inleme/fısıltı
+   ya da yatakta beden YOK.
 2. **İmâlı yazı:** çift anlamlı ama tek başına masum cümle; yetişkin izleyici ikinci anlamı alır. Kalıplar:
    `It's not just a necklace.` · `It looks like jewelry. It isn't only jewelry.` · `Ask me what it does. 🤫` (emoji caption'da) ·
    `For the nights you…` · `Read the comments.` (yorumlarda soru → DM'de ürün sayfası). Yasak: açık kelime, beden, algospeak
