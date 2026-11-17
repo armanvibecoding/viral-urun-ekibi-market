@@ -30,6 +30,11 @@ Açılan klasörde şu yola gir: `plugins` → `viral-urun-ekibi` → `ekler` �
 - Video kurgusu için ChatGPT'nin kod/dosya özelliği (ffmpeg) kullanılır; klipleri sohbete yüklersin.
 - ChatGPT tarayıcı modunda Google Flow'a dosya yükleyemez; Flow adımını sen yaparsın, model promptu verir.
 
+## C) ADHD dostu cevap biçimi
+Proje talimatı cevapları zaten ADHD dostu biçimde verdirir (ilk satır yapılacak iş, numaralı adımlar, her mesajda durum,
+en fazla 5 öğe). Proje DIŞINDAKİ sohbetlerde de istiyorsan `ADHD-KISISELLESTIRME.md` içindeki metni ChatGPT'de
+Kişiselleştirme → Özel talimatlar'a, claude.ai'de Settings → Profile'a yapıştır. Kapatmak için sohbette "normal mod" yaz.
+
 ## İlk mesaj örnekleri (kopyala-yapıştır)
 1. `Bu ürün viral olur mu? Kedi için köpekbalığı ağzı şeklinde yuva. AliExpress linki: <link>. Benzer ürünleri ve hangi kancanın tuttuğunu da göster.`
 2. `Ekte bir Reels ekran görüntüsü var. Ürünü, hesabın marka mı deneyici mi olduğunu ve neden tuttuğunu tablo satırı olarak yaz.`
