@@ -23,7 +23,7 @@ Python komutu: macOS/Linux `python3`, Windows `py -3` (Windows'ta `python3` yazm
 | No | Aşama | Bitiş durumu (dosya) |
 |---|---|---|
 | 0 | Girdi + kapılar | ürün fotoğrafı `referans/` içinde; pazar, kredi tavanı, müzik izni, Flow hakları, Chrome indirme, logo/IP KARARLAR'da |
-| 1 | Araştırma + ürün kartı | `kart.md` (sektör satırı + mekanizma kartı) + `kilit.txt` + `viral-referans.md` |
+| 1 | Araştırma + ürün kartı + hikâye bankası | `kart.md` (sektör satırı + mekanizma kartı + işlev cümlesi) + `kilit.txt` + `viral-referans.md` + `hikaye-bankasi.md` |
 | 2 | Temiz ürün görselleri | `referans/paket_*.png` + aynı-ürün panosu ve ölçüm tablosu |
 | 3 | 30 senaryo | `senaryolar.json` + `senaryolar.md/.csv`, `senaryo_kontrol.py` çıkış 0 |
 | 4 | Kare planı + promptlar | ilk 5 videonun `promptlar/VNN_SK_gorsel.txt` ve `_flow.txt` dosyaları |
@@ -49,6 +49,13 @@ gösterme; o anı atlayan sahne kur ve `[DOĞRULA]` etiketle. Kilit metni bir ke
 `is/NN/viral-referans.md`: sorgular, toplanan kart sayısı, izlenen her video için hesap, izlenme, süre, kanca yazısı, plan
 sırası, ürünün ekranda/elde nasıl göründüğü, ses; `Meta: N aktif, en uzun M gün` satırı. ≥3 videoda görülen desen
 senaryoların iskeleti olur (KANITSIZ SEKTÖR'de senaryoların ≥ %50'si). Referans izlenmeden senaryo ve kare üretilmez.
+
+**Hikâye bankası (Aşama 1 sonu, sahne üretiminden önce; 2026-11-17 kurucu: "sahneyi sürekli yeniden üretmek yerine
+önce araştırma/hikâye bankası"):** `is/NN/hikaye-bankasi.md` — en az 10 hikâye/metafor adayı; her satır: tek cümle hikâye ·
+izleyicinin kendini gördüğü an · ürünün işlevinin nasıl hissettirileceği (açık ya da imâ: ses/yazı/görüntü) · kaynak
+(viral referans satırı ya da gerçek yorum/forum cümlesi) · pazar kültür unsuru · AI riski. Eleştirmen ön-üretimde
+bankadan en güçlü 3'ü puanlar; senaryo yalnız bankadan seçilir. Bir sahne 2 kez yeniden üretilip tutmadıysa 3. üretim
+yerine bankaya dön, başka hikâye seç (kredi ve tur israfı ölçüldü: aynı hikâyenin 5 serisi, 4 eleştiri turu).
 
 Aşama 3 ağır iştir: `icerik-stratejisti` alt ajanına ver. Brief'te: `is/NN/kart.md`, `kilit.txt`, pazar, CTA kelimesi,
 dağılım kuralları (`asamalar.md` §3), çıktı biçimi `${CLAUDE_SKILL_DIR}/referans/senaryo-formati.md`, betik klasörü
@@ -114,6 +121,8 @@ Betik DUR/❌ verirse düzelt ve tekrar koştur; geçmeden sonraki aşamaya geç
 
 ## Sınırlar
 - Uydurma yok: ürünün yapmadığını gösterme; sayı, yorum, indirim, stok, fiyat uydurma. Emin değilsen `[DOĞRULA]`.
+- **Organik videoda ekranda fiyat yok** (ağır kusur); fiyat caption/bio/ürün sayfasında. Ekran yazısı ürünü listelemez,
+  ikna eder (`kanca-kutuphanesi.md` §1b Ekran yazısı). İşlevi açık söylenemeyen ürün: `kurgu-ve-yasaklar.md` §8 İmâ yolu.
 - Başka markanın logosu/ürün adı, lisanslı karakter/müzik, ünlü yüzü, sağlık/güvenlik iddiası, sahte otorite yok.
   İstisna: ürün belirli bir markanın aracına/ürününe takılan aksesuarsa (ör. araç amblemi) marka görünürlüğünü kullanıcı
   karar verir; risk ona söylenir ve karar KARARLAR.md'ye yazılır.

@@ -115,10 +115,11 @@ AVOID: on-screen text, subtitles, watermark, store signage, brand logos, warped 
 
 === 7. PAZAR ===
 ABD (varsayılan, veri güçlü): İngilizce; kimlik BÜYÜK; "in the US 🇺🇸" / "American [KİMLİK]" eki işe yarıyor; videoda fiyat yok,
-  teklif caption/bio'da (indirim, ücretsiz kargo, paket). Kasım–Aralık: Noel, Secret Santa, stocking stuffer.
+  teklif caption/bio'da (indirim, ücretsiz kargo, paket). ABD organik keşif: her videoda ≥ 1 görünür ABD kültür unsuru (ortam,
+  nesne, gündelik an, dil, takvim; marka/logo değil) — `pazar-katmani.md` §1 "ABD kültür unsuru". Kasım–Aralık: Noel, Secret Santa, stocking stuffer.
 AB: İngilizce kanca AB hesaplarında da milyon aldı; ikinci varyant yerel dilde aynı kanca ("POV: Du findest endlich…"); üçüncü varyant
   yazısız + yerel dilde caption/CTA. Fotogerçekçi AI videoda caption'a AI ibaresi (AB AI Yasası m.50). İndirim = son 30 günün en düşüğü.
-TR (veri zayıf, tek örnek): fiyat kancası ekranda "Kargo dahil sadece [fiyat] TL!!" + "BİR [gündelik şey] FİYATINA [fayda]" + gerçek POV
+TR (veri zayıf, tek örnek): YALNIZ REKLAM kreatifinde fiyat kancası ekranda "Kargo dahil sadece [fiyat] TL!!" (organikte fiyat yok) + "BİR [gündelik şey] FİYATINA [fayda]" + gerçek POV
   problem → tek hamle çözüm; teklif ücretsiz kargo + koşulsuz iade (gerçekse). İkinci varyant ABD kancasının Türkçesi ("deneme" etiketi).
   Üçüncü varyant İngilizce. AI kullanımını reklamda belirt. İndirim = son 10 günün en düşüğü.
 

@@ -10,7 +10,8 @@
 - 4–5 hashtag (genel + ürüne özgü karışık).
 - Sonda: TR `🎥 Yapay zekâ ile üretildi` · yurt dışı `🎥 Made with AI`. Platformun AI etiketini aç (Meta, üçüncü taraf
   araçla yapılan videoya etiketi kendisi koymayabilir). AI insan görünüyorsa ibare videonun içinde de olsun (TR).
-- Fiyat: yurt dışında caption/bio'da; TR'de ekranda yalnız GERÇEK fiyatla. İndirim/stok/yorum uydurma.
+- Fiyat: **organik videoda ekranda fiyat yok (her pazar; ağır kusur)** — fiyat caption/bio/ürün sayfasında. Reklam
+  kreatifinde ekranda fiyat pazar kartı kararıyla (TR fiyat kancası GÖZLEM). İndirim/stok/yorum uydurma.
 
 ## DM otomasyonu notu (kullanıcıya)
 Instagram/Meta otomasyonunda anahtar kelime birebir ve büyük-küçük harfe duyarlı eşleşir: aynı kelimenin

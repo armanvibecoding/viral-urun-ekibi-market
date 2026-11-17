@@ -52,6 +52,9 @@ Babalar Günü (Haz) → okula dönüş (Ağu). Super Bowl (Şub) yalnız konuş
 
 ## 10 Ses
 Enerjik trend müzik; meme sesi düzeyi 1 (yalnız lisanslı efekt, `../meme-formatlari.md` §1); VO opsiyonel — öneri, KANIT YOK.
+Müzik ilk kareden, ≥ 1 sn fade-in; ani açılma ağır kusur (`video-kurgu/referans/ses-tasarimi.md` §2). Hikâye türüne göre tür
+seçimi §2b. İşletme hesabında telifli trend şarkı dosya olarak yok (platform ses koleksiyonu uygulama içinde).
+Kültür unsuru zorunlu (organik keşif): `../pazar-katmani.md` §1 "ABD kültür unsuru".
 
 ## 11 Kaynaklar
 https://system1group.com/blog/super-bowl-lix-top-ads · https://news.adobe.com/news/2025/12/adobe-cyber-monday-hits-record

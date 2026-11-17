@@ -17,6 +17,9 @@ Kontroller:
  8) TR pazarında kanca <= 8 kelime ve kalıp yasakları; K13'te kanca boş
  9) çeşitlilik: `giris` (ilk klip/ilk kare kimliği) ve `ortam` her videoda zorunlu; aynı giriş > 2 videoda = ❌,
     aynı ortam > 6 videoda = ❌; `ozne` (araç/renk/hayvan gibi) varsa aynı özne ardışık iki videoda = ❌
+10) organik seride (varsayılan; kökte "kreatif": "reklam" değilse) kanca/CTA/`yazilar` içinde fiyat ($12, 199 TL, ₺, €, "% off") = ❌
+11) ABD pazarında her videoda `kultur` (görünen ABD kültür unsuru) alanı zorunlu
+    (10–11: 2026-11-17 kurucu geri bildirimi — "organikte fiyat anlamsız", "ABD kültür unsuru zorunlu")
 Kullanım: python3 senaryo_kontrol.py is/04-urun/senaryolar.json
 """
 import csv
@@ -50,6 +53,8 @@ def main():
     with open(yol, encoding="utf-8") as f:
         d = json.load(f)
     pazar = (d.get("pazar") or "").upper()
+    organik = (d.get("kreatif") or "organik").lower() != "reklam"
+    FIYAT = re.compile(r"([$€£₺]\s?\d)|(\d[\d.,]*\s?(tl|usd|eur|dollars?)\b)|(\d+\s?%\s?off)|(\bfiyat)", re.I)
     V = d["videolar"]
     n = len(V)
     hata, uyari = [], []
@@ -64,6 +69,12 @@ def main():
         if e and s and e > s:
             hata.append(f"V{no}: etkileşim sahnesi {e} > sonuç sahnesi {s} (sonuç sebepten önce)")
         k = (v.get("kanca") or "").strip()
+        if organik:
+            for metin_ in [k, v.get("cta") or ""] + list(v.get("yazilar") or []):
+                if FIYAT.search(metin_ or ""):
+                    hata.append(f"V{no}: organik videoda fiyat: '{metin_[:50]}' (fiyat caption/bio'da; reklamsa kökte \"kreatif\": \"reklam\")")
+        if pazar in ("US", "ABD", "USA") and not norm(v.get("kultur")):
+            hata.append(f"V{no}: ABD videosunda 'kultur' alanı boş (görünen ABD kültür unsuru: ortam/an/dil/takvim)")
         if v.get("aile") == "K13" and k:
             hata.append(f"V{no}: K13 yazısız ama kanca var")
         if pazar == "TR" and k:

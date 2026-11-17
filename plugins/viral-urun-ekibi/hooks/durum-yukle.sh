@@ -17,4 +17,8 @@ if [ -f "$D/DERSLER.md" ]; then
   echo ""; echo "--- Dersler: başlıklar (tamamı .ekip/DERSLER.md) ---"
   grep '^- ' "$D/DERSLER.md" | tail -n 15
 fi
+if [ -f "$D/GERI-BILDIRIM.md" ]; then
+  ACIK=$(grep -ciE '\| *(açık|AÇIK|acik) *\|' "$D/GERI-BILDIRIM.md")
+  [ "$ACIK" -gt 0 ] && { echo ""; echo "--- GERİ BİLDİRİM: $ACIK AÇIK satır (.ekip/GERI-BILDIRIM.md) — teslimden önce eklentiye işle (ekip-lideri §5b) ---"; grep -iE '\| *(açık|acik) *\|' "$D/GERI-BILDIRIM.md"; }
+fi
 echo "=== Hafıza sonu. İşe devam etmeden önce DURUM.md'deki 'Sıradaki adım'ı oku. ==="

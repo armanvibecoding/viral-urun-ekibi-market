@@ -49,7 +49,9 @@ AŞAMA 8 — KURGU (ffmpeg)
 - Ürün üstü ekran içeriği (varsa) karede üretilmiştir; değişim iki klip arasındaki kesimde olur. Bindirme yalnız istisna
   (karede üretilemeyen hareket): perspektife uyan elips/dikdörtgen maske, cam yansıması, kumlanma; taşma 4 fps panoda kontrol edilir.
 - SES: klibin gerçek sesi + kullanıcının telifsiz efekti (efekt, klip sesindeki gerçek olay anına: ±1,2 sn içindeki en
-  belirgin ses yükselişi). Lisanslı müzik yok. Hedef −14 LUFS: ölç (ebur128) → volume kazancı + alimiter → tekrar ölç;
+  belirgin ses yükselişi). Lisanslı müzik yok. MÜZİK İLK KAREDEN: 0. sn'de düşük başlar, ≥ 1 sn fade-in; kısık/boğuk
+  başlatıp ortada "bir anda açmak" YASAK (ölç: müzik stem'inde 3 sn pencereler arası artış ≤ +10 dB). Organikte fiyat yazma.
+  Hedef −14 LUFS: ölç (ebur128) → volume kazancı + alimiter → tekrar ölç;
   ±0,5'e gelene kadar en fazla 4 tur (tek geçiş loudnorm videolar arasında 8 dB fark bıraktı). Sonucu sayıyla yaz.
 - KONTROL KARESİ: her planın ortası + son kare yan yana (270 px genişlik). Bak: yazı okunuyor mu, ürünü örtüyor mu,
   CTA son ≥ 3 sn'de mi. Ölçüm satırı: süre, çözünürlük, LUFS.

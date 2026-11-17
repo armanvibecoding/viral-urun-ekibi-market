@@ -110,6 +110,25 @@ Kanıt: "Watch what happens when the handle gets close to the magnetic drain" [0
 
 ---
 
+## 1b. Ekran yazısı — ikna eder, listelemez (2026-11-17 kurucu: "yazılar bilgi veriyor ama ikna etmiyor")
+Kanca dışındaki yazı kartları da bu kurallara uyar (yazı başına ≤ 5 kelime, `video-kurgu` biçim kuralları ayrıca).
+- **Her kart bir iş yapar:** merak (açık döngü), ikna (itiraz/arzu cevabı), kimlik (izleyici kendini görür) ya da işlev imâsı.
+  Düz bilgi kartı (ölçü, ağırlık, renk, malzeme, "USB rechargeable") en çok 1 tane ve bir ikna cümlesine bağlı.
+- **Organik videoda fiyat yok** (her pazar; ağır kusur). Ad+fiyat kartı yerine kapanışta merak/CTA.
+- Kalıplar (milyon kancalarından türetilmiş; GÖZLEM — kendi kartında kanıt yok, ölçülecek):
+  | İş | Kalıp | Kaynak aile |
+  |---|---|---|
+  | Merak | `Wait for it…` · `You need to see what this does.` · `Look closer.` | K12, K8 |
+  | İtiraz cevabı | `"It's just a [nesne]…" / It's not.` · `Them: "You don't need that." / Me:` | K5 |
+  | Kimlik | `If you're the friend who [davranış]…` · `For every [KİMLİK] who [an].` | K1, K10 |
+  | Arzu/sonuç (iddiasız) | `The upgrade you didn't know you wanted.` · `Main character energy.` (ABD) | K6, K9 |
+  | İşlev imâsı | `It's not just a [görünen şey].` · `Ask me what it does.` | `kurgu-ve-yasaklar.md` §8 |
+- **Sıra formülü (hikâye videosu; dış araştırma 2026-11-17, ölçülmedi):** GERİLİM (0–2 sn; hedef izleyicinin tanıdık durumu,
+  ör. aile sofrasında "so… are you seeing anyone?") → NESNE (ürün obje olarak + en çok 1 gerçek özellik) → ÇİFT ANLAM (son
+  3 sn; masum okumada da doğru, ikinci okumada gülümseten; ikinci anlam duygu/kimlik taşır). Kart ≤ 7 kelime (kanca ≤ 5),
+  20 sn videoda ≤ 5 kart. Para yerine zaman kelimesi ("your night", "Sunday") — fiyat hatırlatması duygusal bağı zayıflatır.
+- Eleştirmen yazıları merak / ikna / kimlik / bilgi / fiyat diye sınıflar; bilgi > yarı → yazı 3; fiyat (organik) → ağır.
+
 ## 2. Kimlik listesi — milyonlarda görülen kovalar
 
 | Kova | Örnek kimlik | Kanıt |

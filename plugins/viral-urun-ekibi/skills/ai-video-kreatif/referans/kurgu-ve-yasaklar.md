@@ -48,7 +48,10 @@ Mekanizma kilidi ÖRNEĞİ (piyano ürünü; her ürün için `kilit.txt` içind
   1. Tek cümle, video boyunca sabit — KURAL (3): 061, 125, 129 (+ kanca kancası olan çoğu kayıt).
   2. Akış kartları `The problem → Vs… → The solution` / `The Concept → VS → The Result` — KURAL (16, D12).
   3. Yazısız — KURAL (20, D7). Problem/CTA caption'da.
-- **Özellik cümlesi** ortada: "It's a life jacket with chin support...🛟🥺" [132] · özellik başına 1 yazı [001] — ADAY (2).
+- **Özellik cümlesi** yalnız İŞLEVİ söyleyen tek cümle olarak: "It's a life jacket with chin support...🛟🥺" [132] — ADAY.
+  Ölçü/ağırlık/renk/malzeme kartları ("121 mm · 30 g · Rose gold") yazı DEĞİLDİR: bilgi verir, ikna etmez (2026-11-17
+  kurucu reddi; eleştirmende yazı 3). Eski "özellik başına 1 yazı [001]" önerisi kaldırıldı. İkna kalıpları:
+  `kanca-kutuphanesi.md` §1b Ekran yazısı. **Organik videoda fiyat yok** (ağır kusur).
 - **İddia metni yazma:** yazılı teklif/"sturdy"/"fix" metinleri yazısız demoya kaybetti [102: 983–2.275 vs 5,1MN; 117: 2.461–3.590 vs 4MN] — ADAY (2).
 - **Biçim (uygulama kuralı, kanıt değil):** üst-orta üçte bir; beyaz kalın sans-serif, ince siyah kontur; 1–2 satır + 1–2 emoji; alt %20 ve sağ %15 boş (Instagram arayüzü).
 - Yazı AI'a ürettirilmez; editörde eklenir.
@@ -123,3 +126,45 @@ Caption: ilk satır CTA; ekranda yazı yoksa problem/fayda cümlesi caption'da [
 | 10 | **Kişiyi küçük düşüren / taciz eden prank** (gerçek yabancıya fiziksel şaka, kaba hareket ürünü) | 098 hava topu yabancılara, 100 trafikte orta parmak | AI-2 tepkisi zararsız ve kısa; gerçek kişiye fiziksel temas yok (kit kararı, saha kanıtı yok) |
 
 Yasak listesi her video promptunun AVOID satırına ve her paketin son kontrolüne girer.
+
+---
+
+## 8. İmâ yolu — işlevi açıkça söylenemeyen ürün (reklamı yasak / hassas kategori)
+
+Örnek kategori: yetişkin wellness ürünü, reklamı kısıtlı kişisel bakım ürünü. Platform kelimeyi ve bedeni yasaklar ama
+izleyici ürünün NE OLDUĞUNU çıkaramazsa video ürün satmaz (2026-11-17: takı gibi görünen ürün videoda "sadece kolye"
+okundu; kurucu: "ürünün asıl işlevi hissedilmiyor"). Kural: **açık söylenemeyen işlev, en az iki kanaldan imâ edilir.**
+1. **Ses (en güçlü; metin taramasına girmez ama platform görüntü+ses+metni birlikte değerlendirir):** işlevin kendi sesi —
+   titreşim ürününde kısa buzz motifi (`video-kurgu/referans/ses-tasarimi.md` efekt kartı "Buzz"), 1–3 kez, ilk 5 sn'de bir
+   kez, müziğin vuruşuna kilitli. **Sesin görünür kaynağı masum bir nesnedir** (masadaki telefon, saat, kapalı kutu);
+   ürün yakın planı + vızıltı aynı anda YOK; vızıltı + nefes/inleme/fısıltı ya da yatakta beden YOK.
+2. **İmâlı yazı:** çift anlamlı ama tek başına masum cümle; yetişkin izleyici ikinci anlamı alır. Kalıplar:
+   `It's not just a necklace.` · `It looks like jewelry. It isn't only jewelry.` · `Ask me what it does. 🤫` (emoji caption'da) ·
+   `For the nights you…` · `Read the comments.` (yorumlarda soru → DM'de ürün sayfası). Yasak: açık kelime, beden, algospeak
+   (yanlış yazılmış kelime), sağlık/etki iddiası, gizleme/sır dili (partnerden saklama).
+3. **Görüntü metaforu:** işlevin kendisini değil sonucunu/ritmini gösteren nesne/hayvan/doğa (titreşen yüzey, dalgalanan su,
+   açılan çiçek, telefonun masada titremesi). Metafor işlevle aynı fiili taşımalı; taşımıyorsa (kabuğundan çıkan hayvan =
+   "cesaret", işlev değil) ses ve yazı işlevi taşımak zorunda.
+4. **Kontrol:** eleştirmen "2. izleme testi" — ürünü bilmeyen hedef izleyici iki izlemede işlevi çıkarıyor mu. Çıkaramıyorsa
+   ağır kusur (`video-kurgu/referans/puan-cetveli.md`). Platform riski için caption'da da açık kelime yok; işlev ürün sayfasında.
+5. Ürün kartına (`kart.md`) `işlev cümlesi:` (açık, iç kullanım) ve `imâ planı:` (ses · yazı · görüntü) satırları yazılır.
+
+### 8.1 Platform sınırı (Instagram/Facebook öneri kuralları; dış araştırma 2026-11-17)
+Üç ayrı ceza basamağı: **A. gönderi öneri dışı** (takipçi görür, Keşfet/Reels önermez — yetişkin ürün/hizmet *tanıtımı* ve
+müstehcen içerik buraya düşer) · **B. hesap öneri dışı** (A'nın tekrarı ya da ad/biyografi/profil fotoğrafında uygunsuz öğe;
+hiçbir içerik takipçi dışına gitmez) · **C. kaldırma / hesap kapanması** (çıplaklık, ima edilen cinsel aktivite — çizim ve AI
+dahil, grafik cinsel dil, cinsel talep). Mizahi cinsel metafor kaldırılmaz ama 18+ ile sınırlanır (Keşfet'e gidemez).
+Kaynak: https://www.facebook.com/help/1257205004624246 · https://transparency.meta.com/policies/community-standards/sexual-solicitation/
+- **İmâ seviyesi (0–3; eleştirmen yazar):** 0 imâ yok (işlev hissedilmez → ağır kusur) · **1 obje/duygu/ilişki imâsı = hedef**
+  · 2 yatak odası/ilişki-anı imâsı = yalnız deneme gönderisi (Trial Reels, ana grid değil) · 3 cinsel karşılaşma imâsı =
+  YAYINLANMAZ (ağır kusur). Metafor ilişkiyi/duyguyu/nesneyi anlatır; yatakta ne olduğunu anlatmaz.
+- **Kelime kapısı (ekran yazısı + caption + hashtag + ses dökümü):** ürün kategorisinin açık adı, anatomik kelime, "sex/toy/
+  pleasure/NSFW/18+" ve bunların algospeak yazımları (s*x, seggs) YOK — algospeak tanınıyor ve fayda ölçülmedi. Tek isabet = KALIR.
+  Ürünün pazar kartındaki/kart.md'deki yasak listesi esastır.
+- **Biçim kapısı:** anatomik/fallik biçimli ürün kadraja hiç girmez; ürün çalışırken yakın plan yok; çıplak omuz + yatak,
+  çarşaf altı, iç çamaşırı, şeffaf kumaş, ürün + beden aynı karede yok. Takı/obje görünümlü ürün obje olarak gösterilebilir.
+- **Ana konu testi:** videonun ana konusu "ürün tanıtımı" ise Keşfet önermez (basamak A) → hikâye/durum/duygu önde, ürün
+  ipucu ikinci planda; ekranda fiyat, "shop now", indirim sayacı yok.
+- **Hesap katmanı:** biyografi, kullanıcı adı, profil fotoğrafı ve link sayfasının ilk ekranı açık kelime taşımaz.
+- **Tekrar sınırı:** 10 gönderide en çok 1 sınırda (imâ 2) deneme; hesap durumu (Account Status) haftalık kontrol; reddedilen
+  içerik düzeltilmeden yeniden yüklenmez.

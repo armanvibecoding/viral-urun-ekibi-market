@@ -23,8 +23,13 @@ Kullanıcıyla dil Türkçe. Video dosyasını değiştirmezsin; yeni dosya üre
    - **Yoğunluk:** 10 sn'de ≤ 5 efekt (betik kapısı `--sfx_max_10sn 5`); 12–15 sn videoda toplam 4–6. Her kesime efekt YOK.
    - **Hiyerarşi:** drop anı en yüksek (−3…−6 dB tepe), ikincil darbe −6…−9, UI tık/scratch −10…−14, riser −14…−18.
      Efekt müziğin drop'unu bastırmaz: `drop_artis_db ≥ 6` korunur, önce/sonra ölç.
-   - **Drop reçetesi:** riser kesmeden ÖNCE biter (`--riser <drop−0,2>:1.0:-18`) → `--sessizlik_vurusu 0.2` → drop'ta darbe
-     (`boom@drop` ya da bass-drop dosyası). Riser drop'a kadar sürerse ölçülen kontrast düşer (ölçüldü: +7,0 → +1,2 dB).
+   - **Müzik ilk kareden (ağır kusur kapısı):** müzik 0. sn'de başlar, ≥ 1 sn fade-in (`--muzik_fade_in 1.5`); müziği
+     kısıp/boğup drop'ta açmak YASAK (2026-11-17 kurucu reddi, ölçüldü +22,2 dB). `--muzik_bas` > `--drop_video_sn` olmalı.
+   - **Drop (vurgu) reçetesi:** müzik zaten çalarken riser kesmeden ÖNCE biter (`--riser <drop−0,2>:1.0:-18`) →
+     `--sessizlik_vurusu 0.2` → drop'ta darbe (`boom@drop` ya da bass-drop dosyası). Riser drop'a kadar sürerse ölçülen
+     kontrast düşer (ölçüldü: +7,0 → +1,2 dB).
+   - **İşlevin sesi (imâ):** işlevi ekranda söylenemeyen üründe işlev sesi (ör. buzz/titreşim kartı) görüntüdeki an ile ±0,1 sn,
+     1–3 kez, ilk 5 sn'de en az bir kez. Müzik seçimini `ses-tasarimi.md` §2b ile gerekçelendir (3 satır).
    - **Meme sesi:** yalnız punchline anında, videoda en çok 1–2 kez; ironi bilinçli olmalı (vine-boom benzeri = "loud =
      funny" kodu; yetişkin alıcıya 1 kez). Record scratch = "dur, ne?" anı, müziği 0,1–0,2 sn kesmekle birlikte.
      Komedi dışı ürün videosunda meme sesi yok. Telifli meme kaydı (Oh no, Bruh, dizi/şarkı) ASLA dosya olarak eklenmez.
@@ -34,8 +39,9 @@ Kullanıcıyla dil Türkçe. Video dosyasını değiştirmezsin; yeni dosya üre
 3. **Komutu üret ve koştur:** `python3 "${CLAUDE_SKILL_DIR}/scripts/ses_tasarla.py" --video VNN_sessiz.mp4 --muzik M.mp3
    --muzik_bas <drop sn> --drop_video_sn <sn> --kesmeler <plan başları> [--patlama_db 0 --crackle_db 0] --sfx tik@..,boom@..
    --sfx_dosya "ad.mp3@sn:dB[:bas-bit]" --sfx_klasor is/NN/sfx/kaynak --riser .. --sessizlik_vurusu 0.2 --son_fade 0.12 --cikti ..`
-   Çıkış 0 + `hedef_tuttu: true` + `drop_tuttu: true` şart; `efekt_yogunlugu_10sn ≤ 5`.
-4. **Ölç ve karşılaştır:** `ses_olc.py ÖNCE.mp4 --drop sn` ve `ses_olc.py SONRA.mp4 --drop sn` → LUFS, TP, drop_artis_db,
+   `--stem_klasoru is/NN/ses/stem_VNN` ver (eleştirmen müzik girişini `muz.wav` ile ölçer).
+   Çıkış 0 + `hedef_tuttu: true` + `muzik_giris.tuttu: true` + (drop varsa) `drop_tuttu: true` şart; `efekt_yogunlugu_10sn ≤ 5`.
+4. **Ölç ve karşılaştır:** `ses_olc.py ÖNCE.mp4 --drop sn` ve `ses_olc.py SONRA.mp4 --drop sn --muzik_stem .../muz.wav --kapi` → LUFS, TP, drop_artis_db,
    delikler, tepe_anlari (en yüksek an drop/punchline mi?). Tablo hâlinde yaz.
 5. **Lisans kaydı:** kullanılan her dosya `sfx/LISANS.md`'de (kaynak URL, lisans, süre, tepe). Yeni dosya indirdiysen satırını
    ekle; lisansı kaynak sayfadan doğrulamadan kullanma. Kaynaklar: Mixkit (SFX Free License), Freesound **yalnız CC0**

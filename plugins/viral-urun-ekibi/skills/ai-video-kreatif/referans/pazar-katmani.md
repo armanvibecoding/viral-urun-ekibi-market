@@ -26,8 +26,22 @@ Web bilgisi ayrı blokta, URL'li (önceki turda okundu; bu turda yeniden açılm
 **Saha:**
 - Kanca dili İngilizce; kimlik kelimesi BÜYÜK harf (K1, K2). Bütün kanca aileleri (`kanca-kutuphanesi.md`) ABD kayıtlarından.
 - **ABD işareti kancada/altyazıda** — KURAL (3): "Secret Santa idea for a cheese lover in the US...🇺🇸" [110: 4,7MN vs ülkesiz 'Gift idea…' 31,4B] · "American dog moms: Just ONE Christmas…" + ABD bayrağı [064] · ABD bayrağı tekrar eden sahne [119]. Profilde: 'Every American Cat Mom NEEDS this' [057 notu].
-- **Videoda fiyat yok**; indirim caption/bio'da: "80% OFF" [066], "30% OFF" [073, 127], "15% off rn" [061], "FREE shipping" [067, 069]. Son karede teklif kartı (Bundle deals, FREE SHIPPING, fiyatsız) [075] — GÖZLEM.
+- **Videoda fiyat yok** (organikte ağır kusur, 2026-11-17 kurucu: "organik videoda fiyat yazmak anlamsız"); indirim caption/bio'da: "80% OFF" [066], "30% OFF" [073, 127], "15% off rn" [061], "FREE shipping" [067, 069]. Son karede teklif kartı (Bundle deals, FREE SHIPPING, fiyatsız) [075] — GÖZLEM.
 - Sezon: Noel/Cadılar Bayramı/havai fişek (R16: 10 kayıt). Kasım'da Noel çerçevesi ve "Secret Santa", "stocking stuffer" kelimeleri [110].
+
+**ABD kültür unsuru — ZORUNLU (organik keşif hedefi; 2026-11-17 kurucu kararı):** her ABD videosunda izleyicinin "bu
+benim hayatım" diyeceği en az 1 görünür unsur. Marka/logo/gerçek mağaza değil (yasak #1–2), jenerik karşılığı:
+- **Ortam:** banliyö ev mutfağı/ada tezgâh, garaj, ön veranda, dorm/ilk daire, ofis kabini, araba içi drive-thru sırası.
+- **Gündelik an:** Pazar futbol maçı, Thanksgiving masası, tailgate, Friendsgiving, "girls' night", Target koşusu (adsız
+  "big box store run" yazısı), kahve bardağıyla sabah işe gidiş, Sunday reset.
+- **Dil:** ABD argo/hitap ("bestie", "girl math", "the ick", "main character"), ölçü birimi (in/lb/°F), MM/DD tarih.
+- **Takvim:** pazar kartı §8 (Noel, Sevgililer Günü, Galentine's, Black Friday) — sezona 3–4 hafta önce girilir.
+- **Mevsim/ilişki kodları (dış araştırma 2026-11-17; takvim her yıl kontrol):** cuffing season (Ekim → Sevgililer Günü) ·
+  situationship / the ick / soft launch · Thanksgiving sofrasında "are you seeing anyone?" sorusu · Friendsgiving · Small
+  Business Saturday · saat geri alındıktan sonra 16:30'da kararan akşamlar · yılın en uzun gecesi (21 Ara) · Dry January ·
+  bed rot / Sunday reset · Galentine's (13 Şub) · Sevgililer Günü + büyük maç aynı gün olduğunda "the big game" (lig/turnuva
+  adı tescilli marka → ticari içerikte jenerik ad). İş yeri Secret Santa'sı hassas kategoride YOK (taciz algısı).
+Eleştirmen ikna alanında sayar; 0 unsur → ikna ≤ 5. Unsur senaryoda `kultur:` alanına yazılır. Ayrıntı: `pazar-kartlari/US.md`.
 
 **Teklif (winner_veri, 65 milyon kayıt sitesi):**
 - USD medyan **$46,97** (50 site, $10–$349). <$30: 16 · $30–60: 19 · $60–100: 9 · ≥$100: 6.
@@ -64,14 +78,14 @@ Web bilgisi ayrı blokta, URL'li (önceki turda okundu; bu turda yeniden açılm
 
 **Saha (GÖZLEM, tek kayıt):**
 - 125 [hesap] (DROP-MARKA): motosiklet eldiveni vizör sileceği, **4,5MN** (profilde 1,9MN), paylaşım 88,3B > beğeni 69,3B.
-  - Kanca = **fiyat**: "Kargo dahil sadece 199 TL!!" sabit ekran yazısı + altyazı "BİR KAHVE FİYATINA TEMİZ GÖRÜŞ" (fiyat çapası).
+  - Kanca = **fiyat** (bu kayıt dışında organik kanıt yok; kit bunu yalnız REKLAM kreatifinde kullanır): "Kargo dahil sadece 199 TL!!" sabit ekran yazısı + altyazı "BİR KAHVE FİYATINA TEMİZ GÖRÜŞ" (fiyat çapası).
   - Görüntü: gerçek POV, yağmurlu vizör → parmakla tek hamlede silme (problem → tek hamle çözüm).
   - Teklif: Shopier linki, "Ücretsiz Kargo ve Koşulsuz İade". Aynı ekran yazısı 7 videonun tamamında (R1).
 - **Kaldırıldı:** eski "TR = duygu/özel gün dili, madde madde fayda, 2'li paket" kuralı (D17). Kanıtları 039 ve 041 milyon değil; 094 ve 104 de bu dili kullanıyor ama ABD/İtalya hesapları.
 - Akış karşı-örneği (milyon değil): TR [hesap] selülit kancası 239 beğeni — üstelik vücut özelliği ima ediyor (yasak #4).
 
 **Kit önerisi (test, kanıt zayıf):**
-1. 125 kalıbı: `Kargo dahil sadece [fiyat] TL!!` + `BİR [gündelik şey] FİYATINA [fayda]` + gerçek POV problem → tek hamle çözüm. Fiyatı ekranda veren tek milyon kayıt budur.
+1. (yalnız reklam kreatifi) 125 kalıbı: `Kargo dahil sadece [fiyat] TL!!` + `BİR [gündelik şey] FİYATINA [fayda]` + gerçek POV problem → tek hamle çözüm. Fiyatı ekranda veren tek milyon kayıt budur.
 2. ABD kalıbının Türkçesi (K1/K2/K5): "Bunu bir KEDİ ANNESİNE gösterme…", "\"Kedi anneleri için hediye bulmak zor\" / Ben: 🤩". TR'de milyon kanıtı **yok** → "deneme" etiketi.
 3. Her TR paketinde 1 İngilizce ABD varyantı (global erişim için).
 
@@ -84,8 +98,8 @@ Web bilgisi ayrı blokta, URL'li (önceki turda okundu; bu turda yeniden açılm
 
 ## 4. Tek satır özet (SISTEM-PROMPTU'na giren hâli)
 
-| | Kanca dili | Fiyat | Zorunlu |
+| | Kanca dili | Fiyat (organik / reklam) | Zorunlu |
 |---|---|---|---|
-| ABD | İngilizce, kimlik BÜYÜK, ironi/yasak/hediye; "in the US 🇺🇸" eki | videoda yok; caption/bio | sahte tanıklık yok |
-| AB | İngilizce (KURAL) + yerel dil varyantı (ADAY) + yazısız/yerel caption | videoda yok; indirim 30 gün kuralı | AI ibaresi (m.50) |
-| TR | 125 fiyat kancası (GÖZLEM) + ABD kalıbının Türkçesi (deneme) + 1 İngilizce varyant | ekranda fiyat olabilir (125); indirim 10 gün kuralı | AI kullanımını belirt; AI insan varsa ibare videonun içinde de (ARAŞTIRMA madde 18) |
+| ABD | İngilizce, kimlik BÜYÜK, ironi/yasak/hediye; "in the US 🇺🇸" eki | organik: videoda yok (ağır kusur) / reklam: videoda yok, caption/bio | sahte tanıklık yok; ≥ 1 ABD kültür unsuru |
+| AB | İngilizce (KURAL) + yerel dil varyantı (ADAY) + yazısız/yerel caption | organik: yok / reklam: videoda yok; indirim 30 gün kuralı | AI ibaresi (m.50) |
+| TR | ABD kalıbının Türkçesi (deneme) + 1 İngilizce varyant; reklamda 125 fiyat kancası (GÖZLEM) | organik: yok / reklam: ekranda gerçek fiyat olabilir (125); indirim 10 gün kuralı | AI kullanımını belirt; AI insan varsa ibare videonun içinde de (ARAŞTIRMA madde 18) |

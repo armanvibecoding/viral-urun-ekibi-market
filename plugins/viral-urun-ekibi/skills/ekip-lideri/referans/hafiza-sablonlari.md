@@ -24,6 +24,15 @@ Diğer işler: <ör. 02-x: kurgu bitti, teslim edildi>
 # DERSLER — ölçülmüş bulgular ve tekrar eden hatalar. Her satır: konu: ders (kanıt dosyası)
 ```
 
+## .ekip/GERI-BILDIRIM.md  (geri bildirim defteri; satır silinmez, durum güncellenir — SKILL §5b)
+```
+# GERİ BİLDİRİM DEFTERİ — kurucu geri bildirimi + eleştirmenin KALICI reçeteleri. Kapı: scripts/geri_bildirim_kontrol.py
+# Durum: AÇIK · İŞLENDİ · TEKRAR-DÜZELTİLDİ (aynı anahtar 2. kez → üretici ajan/beceri dosyası düzeltildi) · REDDEDİLDİ (gerekçe)
+| # | Tarih | Kaynak | Anahtar | Geri bildirim / kusur | İşlenen dosya:bölüm | Durum | Bildirildi |
+|---|---|---|---|---|---|---|---|
+| 1 | YYYY-AA-GG | kurucu | ani-muzik | "müzik bir anda açılıyor" (H1, 12,6 sn) | skills/video-kurgu/referans/ses-tasarimi.md:§2 | İŞLENDİ | evet |
+```
+
 ## is/NN-urun-adi/DURUM.md  (ürün başına aşama kaydı)
 ```
 # <ürün> — aşama kaydı

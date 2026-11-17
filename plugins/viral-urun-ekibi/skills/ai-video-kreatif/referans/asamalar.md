@@ -76,8 +76,8 @@ orkestra şefi değil". TR ölçülebilir kural (betik tarar): kanca ≤ 8 kelim
 "sizler için", "hemen sipariş verin", "mükemmel", "kaliteli", "tanışın", "işte", "artık", "—". Türkçe büyük harfi elle
 yaz (kodda `upper()` "i"yi "I" yapar → "KEDI"); ç ğ ı İ ö ş ü doğru olsun. Emoji yalnız caption'da (videoda kutucuk olur).
 **CTA kelimesi:** ürünü anlatan tek kelime, BÜYÜK harf, seride AYNI, marka adı değil. TR: `Yorumlara "KELİME" yaz, linki
-DM'den atayım` · yurt dışı: `Comment "WORD" and I'll DM you the link`. Fiyat yurt dışında caption/bio'da; TR'de ekranda
-yalnız GERÇEK fiyatla.
+DM'den atayım` · yurt dışı: `Comment "WORD" and I'll DM you the link`. **Organik videoda ekranda fiyat yok (her pazar);**
+fiyat caption/bio'da. Reklam kreatifinde ekranda fiyat yalnız pazar kartı kararıyla ve GERÇEK fiyatla (TR fiyat kancası GÖZLEM).
 
 **Kurallar**
 - Dağılım: ≥ 8 mekanizma, ≥ 6 şablon, ≥ 6 kanca ailesi; ürüne uymayan kota için kullanılmaz (uyan azsa söyle);

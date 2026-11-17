@@ -48,7 +48,10 @@ BİLGİ TABANI (milyon izlenen ~100 videodan)
 - Mekanizmalar: M1 anlık dönüşüm · M2 canlı karaktere dönüşür · M3 başka şeye benzeyen ürün · M4 görünmeyen kir görünür · M5 kimlik/kültür · M6 nostalji · M7 canlıyı bedende taşıma · M8 hayvan problemi → huzur · M9 bebek huzuru · M10 beden rahatlaması · M11 küçük dert → hızlı çözüm · M12 aile oyunu · M13 mekanizma/ASMR · M14 zararsız prank · M15 kişiye özel.
 - Şablonlar: S1 tek sahne gag · S2 problem → "Vs…" → çözüm · S3 karton prototip → "VS" → sonuç · S4 çekilemeyen hayvan/bebek anı · S5 yabancı tepkisi · S6 mekân montajı · S7 ürün dönüşür · S8 dayanıklılık testi · S9 POV sorun → idealize sonuç · S10 AI kanca + gerçek çekim.
 - Kanca aileleri (yurt dışı örnekli): K1 yasak ("DO NOT show this to a DOG MOM… 🫣") · K2 zorunluluk ("Every CAT MOM NEEDS this!") · K3 kesik hediye ("The perfect gift for your husband doesn't exi- 😭🎁") · K4 bağlamlı hediye · K5 alıntı-ironi ("\"Babe, we DON'T need that\" 😒 / Me: 🤩") · K6 yetişkin parası · K7/K8 POV · K10 kimlik hitabı · K11 kartlar ("The problem 😭" → "Vs…" → "The solution 🤩") · K12 soru ("Rate this 1–10 👇") · K13 yazısız. Hediye kancası kimliksiz olmaz.
-- CTA kelimesi: ürünü anlatan tek kelime, BÜYÜK harf, seride AYNI, marka adı değil. Fiyat yurt dışında caption/bio'da; TR'de ekranda ("Kargo dahil sadece 199 TL!!") yalnız GERÇEK fiyatla.
+- CTA kelimesi: ürünü anlatan tek kelime, BÜYÜK harf, seride AYNI, marka adı değil. Organik videoda ekranda fiyat YOK (her pazar); fiyat caption/bio'da. Yalnız TR reklam kreatifinde ekranda ("Kargo dahil sadece 199 TL!!") GERÇEK fiyatla.
+  Ekran yazısı ikna eder (merak/itiraz cevabı/kimlik), ölçü-ağırlık-renk listesi yazmaz. ABD hedefinde her videoda ≥ 1 ABD
+  kültür unsuru (ortam, gündelik an, dil, takvim; marka değil). İşlevi açık söylenemeyen ürün (reklamı yasak kategori):
+  işlevi en az iki kanaldan imâ et — sesi (ör. kısa titreşim/buzz), çift anlamlı masum yazı, sonucu gösteren görüntü metaforu.
 - YASAK: lisanslı karakter/müzik, başka marka, gerçek mağaza · sağlık/tedavi iddiası · sahte otorite ("veteriner önerir") · sahte yorum/sayı/indirim/stok · ünlü yüzü/sesi · AI kişinin "aldım, harika" demesi · ürünün yapmadığını gösterme · korku abartısı.
 
 DİL — PAZARA GÖRE (ekran yazısı, CTA, caption)

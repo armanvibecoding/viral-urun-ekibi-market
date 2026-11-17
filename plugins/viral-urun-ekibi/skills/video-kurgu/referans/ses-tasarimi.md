@@ -29,12 +29,38 @@
    gürleme tiz lastik sesinden önce gelir [C1, C2]; en güçlü an (alev) drop'tan 0,5 sn sonra düşerse "kayık" hissi [C3].
 
 ## 2. Kurallar (ses tasarımcısı bunlara göre plan yazar)
-- 10 sn'de ≤ 5 efekt (betik kapısı); 12–15 sn videoda 4–6. Kanca ilk 0,5 sn'de ses olayı. Delik yok (`ses_olc.py delikler: []`).
+- **Müzik ilk kareden, ani giriş yok (2026-11-17 kurucu: "müzik bir anda açılıyor"; ağır kusur).** Müzik videonun 0. sn'sinden
+  düşük seviyede başlar ve ≥ 1 sn fade-in ile yükselir (`ses_tasarla.py --muzik_fade_in 1.5`, varsayılan). "Kısık/boğuk
+  (alçak geçiren) yatak + drop'ta tam müzik" YASAK — ölçüldü: 3 sn pencerede +22,2 dB basamak, kurucu reddetti. Kapı:
+  `ses_olc.py VIDEO --muzik_stem muz.wav --kapi` çıkış 0 (ilk 1 sn ≥ medyan −20 dB · ilk 0,25 sn ≤ −6 dB · basamak ≤ +10 dB).
+  Elle miks betiği yazan kurgucu müzik stem'ini ayrı dosyaya yazar (yoksa ölçülemez → eleştirmen ses ≤ 5).
+- 10 sn'de ≤ 5 efekt (betik kapısı); 12–15 sn videoda 4–6. Kanca ilk 0,5 sn'de ses olayı (efekt; müzik altta fade-in'de). Delik yok (`ses_olc.py delikler: []`).
 - Hiyerarşi (tepe, son seviyeden önce): drop darbesi −3…−6 · ikincil −6…−9 · UI/scratch −10…−14 · riser ≤ −22 (ya da yok).
-- Drop reçetesi: `--sessizlik_vurusu 0.2` + drop'ta darbe (`boom@` ya da bas-drop dosyası). Riser isteğe bağlı, kesmeden önce biter.
+- Drop (vurgu) reçetesi: müzik zaten çalarken `--sessizlik_vurusu 0.2` + drop'ta darbe (`boom@` ya da bas-drop dosyası);
+  vurguyu efekt ve 0,2 sn boşluk taşır, müziğin seviyesi değil. `drop_artis_db` 6–10. Riser isteğe bağlı, kesmeden önce biter.
 - Meme darbesi punchline'la aynı karede; komedi dışı videoda yok. Komedi duraklaması: scratch + 0,1–0,2 sn müzik kesme (`--sessizlik`).
 - Gerçekçi efekt görüntüye bağlı: dokunuş yoksa tık yok; whoosh yalnız hareketli geçiş/punch'ta.
+- **Ürünün işlevi sesle hissettirilir** (imâ yolu): işlevi ekranda söylenemeyen üründe (reklamı yasak kategori) işlevin
+  sesi alt mesajdır — ör. kısa titreşim/buzz (bkz. efekt kartı "Buzz"), görüntüdeki hareketle ±0,1 sn, videoda 1–3 kez,
+  ilk 5 sn içinde en az bir kez. Ses ürünü açıkça tarif etmez; izleyici 2. izlemede çıkarır (eleştirmen "2. izleme testi").
 - Müzik drop'u bastırılmaz: `drop_tuttu: true` ve önce/sonra `drop_artis_db` yazılır; en yüksek an (`tepe_anlari`) punchline/drop olmalı.
+
+## 2b. Müzik seçim ölçütü (seçim gerekçesi `muzik/LISANS.md` altına 3 satır)
+1. **Duygu = ürünün vaadi:** ürün kartındaki "kim alır, neden" cümlesinden bir duygu kelimesi çıkar (ör. merak, rahatlama,
+   özgüven, oyunbaz, lüks, gerilim) ve parçanın tür/temposunu buna bağla. "Gizem/suspense pizzicato" gibi jenerik stok
+   kalıpları duyguyla gerekçelenmeden seçilmez (2026-11-17 kurucu: "müzik kötü").
+2. **Pazar:** hedef pazarın o kategorideki organik videolarında duyulan türe yakın (pazar kartı §10; ABD'de trend ses
+   gerekiyorsa yayın anında platform kütüphanesinden — dosya olarak yalnız açık lisanslı).
+3. **Açılış:** parçanın ilk 3 sn'si videonun duygusuna uyuyor (girişi sessiz/uzun intro olan parça ofsetle kırpılır;
+   parçanın kendi içinde +10 dB'den büyük ani bölüm geçişi varsa o bölüm videoya düşmez — kapı yakalar).
+   Hikâye türüne göre başlangıç (dış araştırma 2026-11-17, ölçülmedi): duygusal/metafor → lo-fi R&B / neo-soul, sıcak Rhodes,
+   70–90 BPM · deadpan mizah → minimal ya da sessizlik + tek darbe (espri karesinden önce 0,3–0,5 sn boşluk) · lüks/obje →
+   sultry pop / trip-hop pad, 80–95 BPM · sezon → kamu malı melodinin minör/lo-fi yorumu (kayıt değil, kendi üretimimiz).
+   Açılış: 0,0 sn'de diegetik ses olayı (kutu tık, telefon titreşimi), müzik altta rampa; bitiş: müzik kesilmez, son 1,5 sn'de iner.
+   Lisans: işletme hesabında platform ses koleksiyonu (uygulama içinde) ya da lisans belgesi klasörde duran ticari/açık
+   lisanslı parça; telifli trend şarkı dosya olarak YOK.
+4. **Stok hissi testi:** parça adında/etiketinde "corporate, upbeat background, inspiring, suspense" geçiyorsa ve 1. madde
+   gerekçesi yoksa seçilmez. En az 3 aday parça dinlenemeyeceği için tür/BPM/enstrüman satırıyla karşılaştırılır.
 
 ## 3. Efekt kartları (kütüphane: ürün klasörü `sfx/kaynak/`, lisans `sfx/LISANS.md`)
 | Efekt | Dosya / sentetik | Ne zaman | Seviye | Dikkat |
@@ -51,6 +77,7 @@
 | Riser | `--riser bit:1.0:-22`; freesound_832275 (son 1–2 sn) | drop öncesi | ≤ −22 | kontrast bedeli ölçülü (§1.4) |
 | Kalabalık "ooh" | freesound_264376 (CC0) | reveal tepkisi | −14 | sahte izleyici tepkisi gibi durur; seyrek |
 | Vuruş | sentetik `vurus@` | rozet/ekran değişimi | −6…−9 | |
+| Buzz (titreşim) | sentetik: 150–200 Hz gövde, motif kısa-kısa-uzun ≈ 0,12 · 0,12 · 0,45 sn; ya da CC0 "phone vibrate" | işlevi titreşim olan ürünün imâsı; müziğin vuruşuna kilitli, ≤ 3 kez | −10…−14 | görünür kaynağı masum nesne (masadaki telefon, kapalı kutu); ürün yakın planıyla aynı anda YOK; nefes/inleme ile YOK (`kurgu-ve-yasaklar.md` §8.1) |
 
 ## 4. Kullanılamayan popüler meme sesleri
 Vine Boom orijinali (lisanssız örnek) · "Oh no no no" (Capone şarkısı) · Bruh · Emotional damage · Sad violin · Curb Your
@@ -59,8 +86,10 @@ Enthusiasm · Directed by Robert B. Weide · Taco Bell bong · FBI open up · Wi
 
 ## 5. Araç komutları (özet; tam liste `ses_tasarla.py --help`)
 `--sfx tik|vurus|boom|whoosh@sn` · `--sfx_dosya "ad.mp3@sn:dB[:bas-bit]" --sfx_klasor sfx/kaynak` · `--riser bit:sure:dB` ·
-`--sessizlik_vurusu 0.2` · `--sessizlik "a-b"` · `--sfx_max_10sn 5` · ölçüm `ses_olc.py VIDEO --drop sn`.
-Geri uyumluluk ölçüldü: eski komut eski/yeni betikte **bit-bit aynı** ses (md5 1bab00e90c73). Örnek dosyalar ve önce/sonra:
+`--sessizlik_vurusu 0.2` · `--sessizlik "a-b"` · `--sfx_max_10sn 5` · `--muzik_fade_in 1.5` · `--stem_klasoru` ·
+ölçüm `ses_olc.py VIDEO --drop sn --muzik_stem muz.wav --kapi`.
+Geri uyumluluk (2026-11-16): eski komut **bit-bit aynı** sesti (md5 1bab00e90c73). 2026-11-17'den beri müzikli komutlar
+varsayılan 1,5 sn fade-in alır ve müzik girişi kapısından geçer → müzikli eski çıktılar artık birebir aynı değildir (bilinçli). Örnek dosyalar ve önce/sonra:
 `is/NN/teslim/ses-ornek/SES-ORNEK.md` (ürün klasöründe).
 
 ## 6. Kaynaklar

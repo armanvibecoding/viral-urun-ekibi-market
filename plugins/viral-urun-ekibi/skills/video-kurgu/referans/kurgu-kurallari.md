@@ -42,10 +42,13 @@ Gerekçeler ve kanıt numaraları: `<eklenti kökü>/skills/ai-video-kreatif/ref
 - Emoji fontta kutucuk olur → videoya koyma, caption'a taşı. Koyu emoji koyu zeminde kaybolur.
 - Türkçe büyük harf elle yazılır (`upper()` "i"yi "I" yapar); font test karesinde İ ve ı'yı kontrol et.
 - Yazısız (K13) videoda yalnız caption'da CTA.
+- **Organik videoda fiyat yok** (ağır kusur); fiyat caption/bio/ürün sayfasında. Ekran yazısı merak/ikna/kimlik taşır;
+  ölçü/ağırlık/renk listesi yazı değildir (`ai-video-kreatif/referans/kanca-kutuphanesi.md` §1b Ekran yazısı).
 
 ## Ses
 - Klibin kendi gerçek sesi esas. Efekt: kullanıcının kendi telifsiz dosyası; ürün sesi gerçek basış/olay anına (hizala).
 - Lisanslı popüler müzik yok. Konuşma/seslendirme yok (kurallar ses düzeyinde dinlenebilir videoya göre).
+- Müzik ilk kareden düşük seviyede başlar, ≥ 1 sn fade-in; ortada "bir anda açılma" yok (`ses_olc.py --muzik_stem --kapi`).
 - Hedef −14 LUFS; tek geçişli normalleştirme videolar arasında 8 dB fark bıraktı → betik ölç-kazanç-ölç döngüsü yapar.
 - Seri halinde videoları art arda dinlemek mümkün değilse LUFS satırlarını karşılaştır (±1 içinde olmalı).
 

@@ -3,21 +3,25 @@
 
 Kullanım:
   python3 puan_kaydet.py is/NN/elestiri/puanlar.jsonl --video 26 --tur 2 --mod teslim \
-      --kanca 6 --gercekcilik 3 --yazi 5 --ritim 6 --ses 8 \
+      --kanca 6 --gercekcilik 3 --yazi 5 --ritim 6 --ses 8 --ikna 4 \
       --kusur "yazi: 6,8 sn 'Heart mode' alev seçim planında" \
       --agir "secilen!=gorunen: alev seçiliyor, video kalple bitiyor" \
+      --recete "KALICI: kapanış seçilen içerikle biter -> skills/video-kurgu/referans/KURALLAR-sablon.md:K7" \
       --yeni_kural "ritim: aynı aracın 3 videosu aynı yapı" [--gerekce "..."] [--cagri 3]
 
-Toplam = beş alanın düz ortalaması, en yakın 0,5'e (ön-üretimde verilen alanların ortalaması).
+Toplam = altı alanın düz ortalaması, en yakın 0,5'e (ön-üretimde verilen alanların ortalaması).
+ikna (2026-11-17): yazının ikna gücü + ürün işlevinin hissedilmesi (cetvel "İkna ve işlev"). Teslimde zorunlu.
+--recete "KALICI|TEK: düzeltme -> dosya:bölüm": kusur ya da ağır kusur yazıldıysa en az bir reçete zorunlu (yoksa çıkış 3);
+  KALICI reçetede "->" sonrası eklenti dosyası boş olamaz (ekip lideri aynı turda işler, .ekip/GERI-BILDIRIM.md'ye satır açar).
 Ağır kusur (--agir) varsa toplam en fazla 5 ve geçti=false.
-Teslim geçer: toplam >= 7, hiçbir alan < 5, ağır kusur yok. Ön-üretim geçer: toplam >= 6, gerçekçilik >= 7, ağır yok.
+Teslim geçer: toplam >= 7, hiçbir alan < 5, ağır kusur yok. Ön-üretim geçer: toplam >= 6, gerçekçilik >= 7, ikna >= 6, ağır yok.
 --yeni_kural "alan: metin": kontrat dışı kusur; yalnız toplam_yeni'de o alanı en fazla 1 düşürür, geçti'yi etkilemez.
 Aynı video+mod için önceki satırdan |Δtoplam| > 1,5 ise --gerekce zorunlu; yoksa yazmaz, çıkış 2.
 Çıkış 0 = satır yazıldı (satır stdout'a JSON).
 """
 import argparse, datetime, json, math, os, sys
 
-ALANLAR = ["kanca", "gercekcilik", "yazi", "ritim", "ses"]
+ALANLAR = ["kanca", "gercekcilik", "yazi", "ritim", "ses", "ikna"]
 
 
 def yuvarla(x):
@@ -35,6 +39,7 @@ def main():
     ap.add_argument("--kusur", action="append", default=[])
     ap.add_argument("--agir", action="append", default=[])
     ap.add_argument("--yeni_kural", action="append", default=[])
+    ap.add_argument("--recete", action="append", default=[], help="'KALICI|TEK: düzeltme -> dosya:bölüm'")
     ap.add_argument("--gerekce", default="")
     ap.add_argument("--cagri", type=int, help="eleştirmen çağrı no")
     a = ap.parse_args()
@@ -43,11 +48,22 @@ def main():
     for k, v in puan.items():
         if v is not None and not 1 <= v <= 10:
             sys.exit(f"{k} 1–10 arası olmalı: {v}")
-    gerekli = ALANLAR if a.mod == "teslim" else ["kanca", "gercekcilik"]
+    gerekli = ALANLAR if a.mod == "teslim" else ["kanca", "gercekcilik", "ikna"]
     eksik = [k for k in gerekli if puan[k] is None]
     if eksik:
         sys.exit(f"{a.mod} modunda eksik alan: {', '.join(eksik)}")
     verilen = {k: v for k, v in puan.items() if v is not None}
+    if (a.kusur or a.agir) and not a.recete:
+        print("KAYDEDİLMEDİ: kusur var ama --recete yok. Her kusur için 'KALICI|TEK: düzeltme -> dosya:bölüm' yaz "
+              "(eleştirmen yalnız eleştirmez, düzeltmeyi de yazar).", file=sys.stderr)
+        sys.exit(3)
+    for r in a.recete:
+        tur = r.split(":", 1)[0].strip().upper()
+        if tur not in ("KALICI", "TEK"):
+            sys.exit(f"--recete 'KALICI: ...' ya da 'TEK: ...' ile başlamalı: {r}")
+        if tur == "KALICI" and ("->" not in r or not r.split("->", 1)[1].strip()):
+            print(f"KAYDEDİLMEDİ: KALICI reçetede değişecek eklenti dosyası yok ('-> dosya:bölüm'): {r}", file=sys.stderr)
+            sys.exit(3)
 
     yeni = dict(verilen)
     for y in a.yeni_kural:
@@ -64,7 +80,7 @@ def main():
     if a.mod == "teslim":
         gecti = toplam >= 7 and min(verilen.values()) >= 5 and not a.agir
     else:
-        gecti = toplam >= 6 and verilen["gercekcilik"] >= 7 and not a.agir
+        gecti = toplam >= 6 and verilen["gercekcilik"] >= 7 and verilen["ikna"] >= 6 and not a.agir
 
     onceki = None
     if os.path.exists(a.dosya):
@@ -82,7 +98,7 @@ def main():
 
     kayit = {"video": a.video, "tur": a.tur, "mod": a.mod, "puanlar": puan, "toplam": toplam,
              "toplam_yeni": toplam_yeni, "gecti": gecti, "kusurlar": a.kusur, "agir_kusurlar": a.agir,
-             "yeni_kural": a.yeni_kural, "onceki_fark": fark, "gerekce": a.gerekce, "cagri": a.cagri,
+             "yeni_kural": a.yeni_kural, "recete": a.recete, "onceki_fark": fark, "gerekce": a.gerekce, "cagri": a.cagri,
              "tarih": datetime.datetime.now().isoformat(timespec="seconds")}
     os.makedirs(os.path.dirname(os.path.abspath(a.dosya)), exist_ok=True)
     with open(a.dosya, "a", encoding="utf-8") as f:

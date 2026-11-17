@@ -24,7 +24,7 @@ Kullanıcıya üyeyi unvanıyla an ("Creative Director (QA) videoyu eleştirdi")
 
 ## 1. Oturum başı (her seferinde)
 1. Proje klasöründe `.ekip/` yoksa kur: `${CLAUDE_SKILL_DIR}/referans/hafiza-sablonlari.md` içindeki
-   üç dosyayı (`DURUM.md`, `KARARLAR.md`, `DERSLER.md`) ve boş `is/` klasörünü oluştur. İşletim sistemini kendin tespit et.
+   dört dosyayı (`DURUM.md`, `KARARLAR.md`, `DERSLER.md`, `GERI-BILDIRIM.md`) ve boş `is/` klasörünü oluştur. İşletim sistemini kendin tespit et.
    **Kapılar tek turda (ilk kurulumda ya da yeni ürün işinin başında, KARARLAR'da cevabı olmayanlar):** hedef pazar,
    kredi tavanı (Flow), müzik kaynağı izni (açık lisanslı parça indirilsin mi), Flow "kullanım hakları" onayını bir kez
    kendisi tıklaması, Chrome çoklu indirme izni, logo/IP (başka markanın ürününe takılan aksesuarda marka görünürlüğü).
@@ -75,6 +75,30 @@ Biri tutmazsa çıktı "şüpheli"dir; ajanı bulguyla tekrar çağır ve `.ekip
 - Uzun çıktı sohbete değil `is/` altına dosyaya; sohbete özet + dosya yolu.
 - Kullanıcı "nerede kalmıştık" derse yalnız `.ekip/` dosyalarından cevap ver; hatırladığını sanma.
 
+## 5b. Kalıcı düzeltme döngüsü (ekip kendini geliştirir; kurucu aynı şeyi iki kez yazmaz)
+Kaynaklar: kurucunun her geri bildirimi (sohbette, sesli not dökümünde, dosyada) + eleştirmen raporundaki her **KALICI**
+REÇETE satırı (`video-elestirmen` çıktısı, `puanlar.jsonl` `recete` alanı).
+1. **Deftere yaz (aynı an):** `.ekip/GERI-BILDIRIM.md`'ye satır: tarih · kaynak · anahtar (kısa kusur etiketi, ör.
+   `ani-muzik`, `organik-fiyat`; aynı kusur hep aynı anahtar) · geri bildirim · işlenen dosya:bölüm · durum `AÇIK` · bildirildi `hayır`.
+   Kurucu bir mesajda 5 şey söylediyse 5 satır.
+2. **Aynı turda eklentiye işle:** ilgili eklenti dosyasında (`${CLAUDE_PLUGIN_ROOT}/…`; kaynak depo yolu KARARLAR'da
+   `eklenti-kaynak` olarak yazılıysa orada) kusuru doğuran **yanlış yönlendiren cümleyi bul ve yerinde değiştir** — yalnız
+   kural eklemek yetmez (ör. "drop'ta müzik tam açılır" cümlesi silinmeden "ani giriş yok" eklenirse ajan çelişkiyi
+   eskisinden okur). Ölçülebiliyorsa kapıya çevir (betik eşiği) ve kırma testiyle kanıtla. Ağır kusur niteliğindeyse
+   `skills/video-kurgu/referans/puan-cetveli.md` ağır kusur listesine ekle.
+3. **Ders yaz:** `${CLAUDE_PLUGIN_ROOT}/ortak/bilgi/dersler.md`'ye tarihli madde (ne yapılır/yapılmaz — çünkü — kanıt) ve
+   `.ekip/DERSLER.md`'ye bir satır. Satırın durumu `İŞLENDİ`, dosya sütunu doldurulur.
+4. **Tekrar = üreticiyi düzelt:** aynı anahtar ikinci kez görülürse kural yetmemiştir → o kusuru ÜRETEN ajan/beceri
+   dosyası (`agents/<üretici>.md` ya da `skills/<beceri>/SKILL.md`, ör. ses kusurunda `agents/ses-tasarimcisi.md`) yerinde
+   düzeltilir; yeni satırın durumu `TEKRAR-DÜZELTİLDİ`, dosya sütunu o üretici dosya.
+5. **Kurucuya bildir:** raporun son satırı: "Geri bildiriminiz işlendi: <anahtar> → <dosya:bölüm> (ders <no>)."
+   Sonra `bildirildi` = `evet`.
+6. **Kapı (her teslimden ve her kurucuya video gönderiminden önce):**
+   `python3 "${CLAUDE_SKILL_DIR}/scripts/geri_bildirim_kontrol.py" .ekip/GERI-BILDIRIM.md` → çıkış 0 şart. Çıkış 1 =
+   açık satır / dosyası olmayan satır / bildirilmemiş satır / tekrar eden kusurda üretici düzeltilmemiş → önce kapat.
+7. Kurucunun reddettiği ama eleştirmenin GEÇTİ verdiği video = eleştirmen kalibrasyon hatası: `puan-cetveli.md` çapa
+   tablosuna satır + defter satırı (anahtar `elestirmen-kalibrasyon`).
+
 ## 6. Kırmızı çizgiler
 - Para/kredi harcayan adım (Flow üretimi, sipariş, reklam) → önce kullanıcı onayı; onay tutarıyla `KARARLAR.md`'ye.
 - Şifre, kart, kimlik bilgisi girilmez; giriş ekranında dur ve kullanıcıya devret.
@@ -84,4 +108,4 @@ Biri tutmazsa çıktı "şüpheli"dir; ajanı bulguyla tekrar çağır ve `.ekip
 
 ## 7. Rapor biçimi
 Faz/iş sonunda kullanıcıya en fazla 6 satır: ne çıktı (dosya yolu), sınama sonucu, harcanan kredi, sıradaki adım,
-kullanıcıdan beklenen karar (varsa tek soru).
+kullanıcıdan beklenen karar (varsa tek soru). Geri bildirim işlendiyse ek satır: "Geri bildiriminiz işlendi: … → …".
