@@ -36,6 +36,12 @@ Ağır DEĞİL (gerçekçilik 5, kontrat K7/K8): video seçilmemiş içerikle bi
 - **Hassas kategori platform kapısı** (`ai-video-kreatif/referans/kurgu-ve-yasaklar.md` §8.1): kelime kapısında tek
   isabet · imâ seviyesi 3 · anatomik biçimli ürün kadrajda ya da çalışan ürün yakın planı · vızıltı + nefes/inleme/yatakta beden · vızıltı
   görünür masum kaynaksız, > 3 kez ya da ürün yakın planıyla aynı anda (vızıltının kendisi serbest, kurucu talimatı).
+- **Olay ilk 3 sn'de anlaşılmıyor** (2026-11-17 kurucu: "ben anlamadım, olay ne?"): soğuk izleyici ilk 3 sn'de kim/ne/neden
+  gerildi sorularından birini cevaplayamıyorsa kanca alanı en fazla 4. Eleştirmen hikâyeyi TEK CÜMLEYLE yazar; yazamıyorsa kusur.
+- **Hikâyeye hizmet etmeyen obje** (2026-11-17: kupa izi, saç tokası): kadrajda hikâyede görevi olmayan, dikkat çeken obje
+  ya da AI'ın eklediği "yaşanmışlık" izi → gerçekçilik en fazla 4. Kare kabulünde temizlenir; klip üretildiyse rötuş/kırpma.
+- **Müzik kulakla seçilmedi:** müzik yalnız ölçümle seçildi ve kurucuya 3 aday dinletilmedi → ses alanı en fazla 5.
+  Duygu ürünün vaadine uymuyor (ör. yetişkin üründe "sakin lo-fi", "after dark"/arzu hissi yok) → ses alanı en fazla 4.
 - **Yazının çoğu özellik listesi:** yazı kartlarının yarısından fazlası ölçü/ağırlık/renk/malzeme ("121 mm · 30 g") →
   yazı alanı 3 (alan < 5 = KALIR). Tek ölçü kartı, ancak bir merak/ikna cümlesine bağlıysa izinli.
 

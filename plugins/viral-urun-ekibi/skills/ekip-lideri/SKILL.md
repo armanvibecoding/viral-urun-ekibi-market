@@ -61,6 +61,15 @@ Her ajan çağrısında 5 şey yazılır: hedef, okunacak dosyalar, yazılacak d
 "zaten elenenler/bilinenler" listesi (KARARLAR.md + ilgili `is/` dosyalarından). Brief'e kendi hipotezini yazma; veri ver.
 Aynı anda en fazla 3 ajan. Ajan sonucu kullanıcıya 5–10 satır özetlenir, ham çıktı aktarılmaz.
 
+## 3b. Ekibi etkili kullan (2026-11-17 kurucu: "ekibi daha etkileyici kullan")
+- Birden çok kreatif istendiğinde her biri AYRI ön-üretim ajanına (paralel, ≤3) verilir; tarayıcı/kredi gerektiren üretim
+  tek ajanda sırayla yapılır (aynı Chrome/Flow'da çakışma olmasın).
+- Her ön üretim ve her teslim AYRI eleştirmen ajanından geçer (üretici kendini puanlamaz).
+- Araştırma gereken her yeni yön (pazar, platform kuralı, müzik) önce araştırma ajanına; üretim araştırmasız başlamaz.
+- **Lider öz denetimi:** kurucuya video göndermeden önce lider kontrol karesine/panoya KENDİ bakar ve şu 4 soruyu yazar:
+  hikâye tek cümle nedir · ilk 3 sn'de anlaşılıyor mu · kadrajda görevsiz obje var mı · müzik kurucuya dinletildi mi.
+  Biri "hayır" ise gönderme, düzelt. Kurucunun yakaladığı ama liderin kaçırdığı her kusur bu listeye madde olarak eklenir.
+
 ## 4. Sınama (ajan çıktısı sınanmadan kabul edilmez)
 - Sayı (satış, izlenme, fiyat): rastgele 3 tanesini kaynağından aç.
 - Desen iddiası: atıf yaptığı 2 notu aç, desen orada mı bak.

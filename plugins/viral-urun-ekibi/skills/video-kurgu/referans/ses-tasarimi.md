@@ -60,8 +60,11 @@
    Açılış: 0,0 sn'de diegetik ses olayı (kutu tık, telefon titreşimi), müzik altta rampa; bitiş: müzik kesilmez, son 1,5 sn'de iner.
    Lisans: işletme hesabında platform ses koleksiyonu (uygulama içinde) ya da lisans belgesi klasörde duran ticari/açık
    lisanslı parça; telifli trend şarkı dosya olarak YOK.
-4. **Stok hissi testi:** parça adında/etiketinde "corporate, upbeat background, inspiring, suspense" geçiyorsa ve 1. madde
-   gerekçesi yoksa seçilmez. En az 3 aday parça dinlenemeyeceği için tür/BPM/enstrüman satırıyla karşılaştırılır.
+4. **Kurucu dinler:** her videoda 3 aday parça `muzik/aday1-3` olarak indirilir ve kurucuya dinletilir; seçimi kurucu yapar.
+   Ölçüm (tempo/spektrum) yalnız ön eleme içindir, seçim değildir. Yetişkin/arzu ürününde duygu "after dark": yavaş (60–85 BPM),
+   bas ağır, nefesli vokal dokusu, sultry R&B/pop; inleme/nefes örneği YOK (platform kapısı).
+5. **Stok hissi testi:** parça adında/etiketinde "corporate, upbeat background, inspiring, suspense" geçiyorsa ve 1. madde
+   gerekçesi yoksa seçilmez. Ön elemede tür/BPM/enstrüman satırıyla karşılaştırılır; son seçim 4. maddeye göre kurucunun kulağıyla.
 
 ## 3. Efekt kartları (kütüphane: ürün klasörü `sfx/kaynak/`, lisans `sfx/LISANS.md`)
 | Efekt | Dosya / sentetik | Ne zaman | Seviye | Dikkat |

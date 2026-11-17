@@ -49,6 +49,9 @@ Kaçınılan ilk kare: **mağaza rafı / kalabalık kuyruğu / ekip** (N1: 047, 
    tek, basit tutuş · el kadrajda büyük (küçük el bozuluyor) · ürünle temas noktası **ilk karede** açıkça görünür · elden ele verme iki ayrı sahne ·
    "ürünü göster" ve "ürünü kullan" ayrı sahne (boyut kayması) · ilk karede bozuk el varsa animasyona geçme, önce kareyi düzelt.
 10. **En fazla 3 özne** (kişi + hayvan): Omni'de 4+ özne birbirine karışıyor (https://morphic.com/resources/how-to/gemini-omni-flash-1-1-guide).
+12. **Hikâyeye hizmet etmeyen obje yok:** promptta kadrajdaki HER obje sayılır ("only these objects: …") ve
+   "no cup rings, no stains, no hair ties, no clutter" AVOID satırına yazılır. "Gerçek-telefon görünümü" (madde 2) dağınıklık
+   demek değildir. Kare kabulünde lider/eleştirmen sayılmamış objeyi arar; varsa kare yeniden üretilir (2026-11-17).
 11. **"Sinematik" görünüm yok:** sığ alan derinliği, bokeh, anamorfik parlama, stüdyo ışığı AI'ı ele veren işaretler (ARAŞTIRMA madde 10) → AVOID satırında.
 
 ## 4. Görsel prompt kalıbı (İngilizce)
