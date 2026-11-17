@@ -33,6 +33,7 @@ kreatif notlar, fırsat geçmişi, üretim deneyimi, dersler.
 |---|---|---|
 | **A. Claude Code eklentisi** (önerilen) | Dört işin tamamı: Instagram'da gezinme, AliExpress tarama, Flow'da üretim, ffmpeg ile kurgu. Hafıza kendiliğinden tutulur. | Bilgisayarında Claude Code kurabilen herkes (Mac en iyisi, Windows destekli) |
 | **B. claude.ai veya ChatGPT Projesi** | Sohbette bilgi bankasıyla ürün yorumu, viral analiz, 30 senaryo, prompt yazımı. Tarayıcı/kurgu yok veya sınırlı. | Hiç kurulum istemeyen herkes → `plugins/viral-urun-ekibi/ekler/proje-paketi/KURULUM.md` |
+| **C. ChatGPT plugin** | 14 beceri (7 iş akışı + 6 ekip rolü + bilgi bankası) ChatGPT'de; betikler kod yorumlayıcıda. Tarayıcı, telefon ve Flow adımlarını kullanıcı yapar; hafıza DURUM bloğuyla. | ChatGPT'de Plugins yükleme seçeneği olan herkes → aşağıdaki **C** bölümü (ZIP: `dist/viral-urun-ekibi-chatgpt.zip`) |
 
 ## A. Claude Code kurulumu (5 adım)
 
@@ -57,6 +58,15 @@ kreatif notlar, fırsat geçmişi, üretim deneyimi, dersler.
    /viral-urun-ekibi:ekip-lideri
    ```
    Ekip lideri hafıza klasörünü (`.ekip/`) kurar, eksik araçları kontrol eder ve sana pazarını (Türkiye/ABD) sorar.
+
+## C. ChatGPT plugin
+
+1. `dist/viral-urun-ekibi-chatgpt.zip` dosyasını indir (GitHub'da dosyaya tıkla → **Download raw file**). ZIP'i açma.
+2. ChatGPT → **Plugins** → yükleme seçeneği. İş alanında: yönetici konsolu → **Plugins** → **Add** → **Upload plugin**. Seçenek yoksa **Plugins → Skills → Create → Upload** ile `skills/` altındaki klasörleri tek tek yükle (önce `ekip-bilgi` ve `ekip-lideri`). Kişisel hesapta hangi planın gerektiği belgelerde net değil.
+3. Yeni sohbette yaz: `Ekibi başlat. Pazarım Türkiye.` → her cevabın sonunda DURUM bloğu çıkar; yeni sohbete geçerken onu yapıştır.
+
+ChatGPT'de tarayıcı, telefon ve Google Flow adımlarını sen yaparsın (ekran görüntüsü/metin yüklersin); liste `ekip-lideri` becerisinin başında.
+ZIP'i yeniden üretmek: `sh docs/chatgpt_paketi_yap.sh`. Plugin yüklenemezse B yolu (Proje + talimat) aynı bilgi bankasıyla çalışır.
 
 ## Kullanım örnekleri
 - "Instagram'dan bugün 20 viral ürün bul."

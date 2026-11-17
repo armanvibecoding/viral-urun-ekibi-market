@@ -11,7 +11,7 @@ Açılan klasörde şu yola gir: `plugins` → `viral-urun-ekibi` → `ekler` �
 ## Bu klasörde ne var
 | Dosya | Ne yapacaksın |
 |---|---|
-| `TALIMAT.md` | İçindeki metnin **tamamını** kopyalayıp Proje'nin talimat alanına yapıştıracaksın (~6.000 karakter). |
+| `TALIMAT.md` | İçindeki metnin **tamamını** kopyalayıp Proje'nin talimat alanına yapıştıracaksın (~6.800 karakter). |
 | `yuklenecek/` klasörü (9 dosya) | Hepsini Proje'ye **dosya** olarak yükleyeceksin. |
 
 ## A) claude.ai (Claude)
