@@ -82,7 +82,7 @@ gece/güvenlik kamerası · örtü/kapı/paket açılışı. Mağaza rafı, kala
 Kalıp (İngilizce):
 "Vertical 9:16 phone-video still frame, photorealistic, looks like a real Instagram Reel shot on an iPhone.
 SCENE: [...]. PRODUCT: [...] — match the attached product photo exactly (shape, color, parts, logo).
-WHO: [...] seen from [POV hands | low ground angle | top-down | security-camera corner]. WHERE: a real, slightly messy [...] with [2–3 details].
+WHO: [...] seen from [POV hands | low ground angle | top-down | security-camera corner]. WHERE: a real, ordinary [...]; only the objects listed in SCENE (no stains, no cup rings, no clutter).
 LIGHT: [single source]. FRAMING: main subject in the middle 70%, product at least one third of the frame; top third calm; nothing important in the bottom 20% or right 15%.
 TEXTURE: natural phone noise, slight motion blur.
 AVOID: any text or letters, watermark, store signage, brand logos other than ours, licensed characters, extra fingers, distorted hands or paws, plastic skin, studio backdrop, studio lighting, shallow depth of field, bokeh, anamorphic flare, warped logo, distorted label, garbled text, CGI render look."

@@ -35,14 +35,16 @@
   (alçak geçiren) yatak + drop'ta tam müzik" YASAK — ölçüldü: 3 sn pencerede +22,2 dB basamak, kurucu reddetti. Kapı:
   `ses_olc.py VIDEO --muzik_stem muz.wav --kapi` çıkış 0 (başlangıç ≤ −20 dB · rampa 1,5–3,0 sn (fade 1,5–2 sn; parçanın kendi girişi ölçümü 3 sn'ye kadar uzatabilir) · ilk 1 sn ≥ −30 dB · 3 sn basamak ≤ +10 dB · açılış olayı ≥ −6 dB).
   Elle miks betiği yazan kurgucu müzik stem'ini ayrı dosyaya yazar (yoksa ölçülemez → eleştirmen ses ≤ 5).
-- 10 sn'de ≤ 5 efekt (betik kapısı); 12–15 sn videoda 4–6. Kanca ilk 0,5 sn'de ses olayı (diegetik efekt; müzik altta −30 dB rampada). Delik yok (`ses_olc.py delikler: []`).
+- Herhangi bir 10 sn penceresinde (kayan pencere; 0–10/10–20 kovası değil) ≤ 5 efekt (betik kapısı `--sfx_max_10sn`); aynı anda
+  katmanlanan sesler tek efekt dosyasında birleştirilir; 12–15 sn videoda 4–6. Kanca ilk 0,5 sn'de ses olayı (diegetik efekt; müzik altta −30 dB rampada). Delik yok (`ses_olc.py delikler: []`).
 - Hiyerarşi (tepe, son seviyeden önce): drop darbesi −3…−6 · ikincil −6…−9 · UI/scratch −10…−14 · riser ≤ −22 (ya da yok).
 - Drop (vurgu) reçetesi: müzik zaten çalarken `--sessizlik_vurusu 0.2` + drop'ta darbe (`boom@` ya da bas-drop dosyası);
   vurguyu efekt ve 0,2 sn boşluk taşır, müziğin seviyesi değil. `drop_artis_db` 6–10. Riser isteğe bağlı, kesmeden önce biter.
 - Meme darbesi punchline'la aynı karede; komedi dışı videoda yok. Komedi duraklaması: scratch + 0,1–0,2 sn müzik kesme (`--sessizlik`).
 - Gerçekçi efekt görüntüye bağlı: dokunuş yoksa tık yok; whoosh yalnız hareketli geçiş/punch'ta.
 - **Ürünün işlevi sesle hissettirilir** (imâ yolu): işlevi ekranda söylenemeyen üründe (reklamı yasak kategori) işlevin
-  sesi alt mesajdır — ör. kısa titreşim/buzz (bkz. efekt kartı "Buzz"), görüntüdeki hareketle ±0,1 sn, videoda 1–3 kez,
+  sesi alt mesajdır — ör. kısa titreşim/buzz (bkz. efekt kartı "Buzz"), görüntüdeki hareketle ±0,1 sn (aynı klip aralığı tekrar ya da farklı hızla kullanılıyorsa olay anı yeniden hesaplanır:
+  t_çıkış = bas_çıkış + (t_kaynak − bas_kaynak)/hız; o aralıktaki görünen olaylar da sese bağlanır), videoda 1–3 kez,
   ilk 5 sn içinde en az bir kez. Ses ürünü açıkça tarif etmez; izleyici 2. izlemede çıkarır (eleştirmen "2. izleme testi").
 - Müzik drop'u bastırılmaz: `drop_tuttu: true` ve önce/sonra `drop_artis_db` yazılır; en yüksek an (`tepe_anlari`) punchline/drop olmalı.
 
@@ -53,7 +55,7 @@
 2. **Pazar:** hedef pazarın o kategorideki organik videolarında duyulan türe yakın (pazar kartı §10; ABD'de trend ses
    gerekiyorsa yayın anında platform kütüphanesinden — dosya olarak yalnız açık lisanslı).
 3. **Açılış:** parçanın ilk 3 sn'si videonun duygusuna uyuyor (girişi sessiz/uzun intro olan parça ofsetle kırpılır;
-   parçanın kendi içinde +10 dB'den büyük ani bölüm geçişi varsa o bölüm videoya düşmez — kapı yakalar).
+   parçanın kendi içinde +10 dB'den büyük ani bölüm geçişi varsa o bölüm videoya düşmez; parçanın kendi bas/bölüm girişi kullanılıyorsa o an videonun TEK drop'udur (`--drop` o saniyeye verilir), ikinci vurgu efekttir ve +6 dB'yi aşmaz — kapı yakalar).
    Hikâye türüne göre başlangıç (dış araştırma 2026-11-17, ölçülmedi): duygusal/metafor → lo-fi R&B / neo-soul, sıcak Rhodes,
    70–90 BPM · deadpan mizah → minimal ya da sessizlik + tek darbe (espri karesinden önce 0,3–0,5 sn boşluk) · lüks/obje →
    sultry pop / trip-hop pad, 80–95 BPM · sezon → kamu malı melodinin minör/lo-fi yorumu (kayıt değil, kendi üretimimiz).
@@ -81,7 +83,7 @@
 | Riser | `--riser bit:1.0:-22`; freesound_832275 (son 1–2 sn) | drop öncesi | ≤ −22 | kontrast bedeli ölçülü (§1.4) |
 | Kalabalık "ooh" | freesound_264376 (CC0) | reveal tepkisi | −14 | sahte izleyici tepkisi gibi durur; seyrek |
 | Vuruş | sentetik `vurus@` | rozet/ekran değişimi | −6…−9 | |
-| Buzz (titreşim) | sentetik: 150–200 Hz gövde, motif kısa-kısa-uzun ≈ 0,12 · 0,12 · 0,45 sn; ya da CC0 "phone vibrate" | işlevi titreşim olan ürünün imâsı; müziğin vuruşuna kilitli, ≤ 3 kez | −10…−14 | görünür kaynağı masum nesne (masadaki telefon, kapalı kutu); ürün yakın planıyla aynı anda YOK; nefes/inleme ile YOK (`kurgu-ve-yasaklar.md` §8.1) |
+| Buzz (titreşim) | sentetik: 150–200 Hz gövde + 1–3 kHz masa/kasa tıkırtısı (telefon hoparlörü 200 Hz altını zayıf verir; miks telefonda dinlenerek sınanır), motif kısa-kısa-uzun ≈ 0,12 · 0,12 · 0,45 sn; ya da CC0 "phone vibrate" | işlevi titreşim olan ürünün imâsı; müziğin vuruşuna kilitli, ≤ 3 kez | −10…−14 | görünür kaynağı masum nesne (masadaki telefon, kapalı kutu); ürün yakın planıyla aynı anda YOK; nefes/inleme ile YOK (`kurgu-ve-yasaklar.md` §8.1) |
 
 ## 4. Kullanılamayan popüler meme sesleri
 Vine Boom orijinali (lisanssız örnek) · "Oh no no no" (Capone şarkısı) · Bruh · Emotional damage · Sad violin · Curb Your

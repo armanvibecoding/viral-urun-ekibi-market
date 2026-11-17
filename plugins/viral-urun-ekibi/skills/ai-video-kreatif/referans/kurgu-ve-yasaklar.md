@@ -136,7 +136,7 @@ izleyici ürünün NE OLDUĞUNU çıkaramazsa video ürün satmaz (2026-11-17: t
 okundu; kurucu: "ürünün asıl işlevi hissedilmiyor"). Kural: **açık söylenemeyen işlev, en az iki kanaldan imâ edilir.**
 1. **Ses — vızıltıya İZİN VAR (kurucu talimatı 2026-11-17; "titreşim sesi asla" türü eski kural bunun yerine geçer):**
    platform görüntü+ses+metni birlikte değerlendirir, bu yüzden üç koşul zorunlu: (a) ses ekranda görünen masum bir
-   nesneden gelir (ör. masadaki telefon), (b) motif videoda en fazla 3 kez, (c) vızıltı ürün yakın planıyla aynı anda olmaz; (d) imâ taşıyan son vızıltıda önceki vızıltıların kaynağı (telefon) kadrajda olmaz ve kaynak gösterilen kutu, ürünün göründüğü kutuyla aynı biçimdedir (içi görünürse ürün içindedir).
+   nesneden gelir (ör. masadaki telefon), (b) motif videoda en fazla 3 kez, (c) vızıltı ürün yakın planıyla aynı anda olmaz ve ürünün göründüğü planda kontrol arayüzü kapalı/seviye 0 gösterir (yoksa seçilen ≠ görünen); yükselen seviye → sessizlik → drop doruğu ürüne bağlanmaz (imâ 2); (d) imâ taşıyan son vızıltıda önceki vızıltıların kaynağı (telefon) kadrajda olmaz ve son vızıltı, ürünün içinde durduğu kutunun (ya da ürünün orta/uzak planda) kadrajda göründüğü planın İÇİNDE başlar (kutunun içi görünürse ürün içindedir); siyah/karanlık kare kaynak sayılmaz (kaynaksız = ağır kusur).
    Titreşim ürününde kısa buzz motifi (`video-kurgu/referans/ses-tasarimi.md` efekt kartı "Buzz"), 1–3 kez, ilk 5 sn'de bir
    kez, müziğin vuruşuna kilitli. Kaynak örnekleri: masadaki telefon, saat, kapalı kutu. Vızıltı + nefes/inleme/fısıltı
    ya da yatakta beden YOK.
@@ -144,8 +144,8 @@ okundu; kurucu: "ürünün asıl işlevi hissedilmiyor"). Kural: **açık söyle
    `It's not just a necklace.` · `It looks like jewelry. It isn't only jewelry.` · `Ask me what it does. 🤫` (emoji caption'da) ·
    `For the nights you…` · `Read the comments.` (yorumlarda soru → DM'de ürün sayfası). Yasak: açık kelime, beden, algospeak
    (yanlış yazılmış kelime), sağlık/etki iddiası, gizleme/sır dili (partnerden saklama).
-3. **Görüntü metaforu:** işlevin kendisini değil sonucunu/ritmini gösteren nesne/hayvan/doğa (titreşen yüzey, dalgalanan su,
-   açılan çiçek, telefonun masada titremesi). Metafor işlevle aynı fiili taşımalı; taşımıyorsa (kabuğundan çıkan hayvan =
+3. **Görüntü metaforu:** işlevin kendisini değil sonucunu/ritmini gösteren nesne/hayvan/doğa (titreşen yüzey, telefonun masada titremesi,
+   tabakta tıkırdayan obje, açılan çiçek; dalgalanan su/sıvı+cam AI'da üretilmez → gerçek çekim, `baslangic-karesi.md` §6 Sıvı modülü). Metafor işlevle aynı fiili taşımalı; taşımıyorsa (kabuğundan çıkan hayvan =
    "cesaret", işlev değil) ses ve yazı işlevi taşımak zorunda.
 4. **Kontrol:** eleştirmen "2. izleme testi" — ürünü bilmeyen hedef izleyici iki izlemede işlevi çıkarıyor mu. Çıkaramıyorsa
    ağır kusur (`video-kurgu/referans/puan-cetveli.md`). Platform riski için caption'da da açık kelime yok; işlev ürün sayfasında.
@@ -164,7 +164,10 @@ Kaynak: https://www.facebook.com/help/1257205004624246 · https://transparency.m
   pleasure/NSFW/18+" ve bunların algospeak yazımları (s*x, seggs) YOK — algospeak tanınıyor ve fayda ölçülmedi. Tek isabet = KALIR.
   Ürünün pazar kartındaki/kart.md'deki yasak listesi esastır.
 - **Biçim kapısı:** anatomik/fallik biçimli ürün kadraja hiç girmez; ürün çalışırken yakın plan yok; çıplak omuz + yatak,
-  çarşaf altı, iç çamaşırı, şeffaf kumaş, ürün + beden aynı karede yok. Takı/obje görünümlü ürün obje olarak gösterilebilir.
+  çarşaf altı, iç çamaşırı, şeffaf kumaş, ürün + çıplak/yatakta beden aynı karede yok. Takı görünümlü ürün kapalı giysi
+  üstünde, boyunda takı olarak gösterilebilir (yüz yok, çalışırken yakın plan yok); obje görünümlü ürün obje olarak
+  gösterilebilir. Gizlenen parça örtü/kumaş altında da biçim bırakmaz (şişkinlik, uzun çıkıntı yok): promptta örtü
+  'flat and smooth', ürün yalnız görünen parçası kadar bir yuvada.
 - **Ana konu testi:** videonun ana konusu "ürün tanıtımı" ise Keşfet önermez (basamak A) → hikâye/durum/duygu önde, ürün
   ipucu ikinci planda; ekranda fiyat, "shop now", indirim sayacı yok.
 - **Hesap katmanı:** biyografi, kullanıcı adı, profil fotoğrafı ve link sayfasının ilk ekranı açık kelime taşımaz.

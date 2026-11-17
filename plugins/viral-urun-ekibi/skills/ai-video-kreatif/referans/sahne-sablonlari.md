@@ -25,7 +25,7 @@ Prompt yapısı (Veo rehberi, Omni'ye aynen geçtiği doğrulanmadı): özne + e
 ```
 Vertical 9:16, [4–6] seconds. Use the provided image as the first frame.
 CAMERA: [handheld phone POV, static | slow push-in | slow follow | locked-off top-down | fixed security-camera angle] — one camera move only.
-ACTION: [özne] [tek eylem, klip içinde başlayıp biten].
+ACTION: [özne] [tek eylem, klip içinde başlayıp biten]. Promptta saniye yazılırsa kurgu saniyesinden geri hesaplanır: ileri `t_klip = (t_video − plan_bas) × hız`, ters `t_klip = süre − (t_video − plan_bas) × hız`; ters oynatılacak klipte eylem klibin SONUNA yakın yazılır (üretilen klibin durgun kuyruğu videonun başı olur, ≤ 0,8 sn).
 PRODUCT: stays identical to the image — same shape, color, parts, logo; it does not morph or duplicate. Keep identical: [görünen parçaları tek tek say]. [Dönüşüm şablonunda: yalnız tarif edilen dönüşüm olur.] Any glow/effect matches the real product's brightness, size and speed.
 LIGHT: unchanged from the image: [ışık].
 AUDIO: [2–3 ortam sesi]. No dialogue. No music.

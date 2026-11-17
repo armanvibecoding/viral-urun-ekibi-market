@@ -52,6 +52,8 @@ Kaçınılan ilk kare: **mağaza rafı / kalabalık kuyruğu / ekip** (N1: 047, 
 12. **Hikâyeye hizmet etmeyen obje yok:** promptta kadrajdaki HER obje sayılır ("only these objects: …") ve
    "no cup rings, no stains, no hair ties, no clutter" AVOID satırına yazılır. "Gerçek-telefon görünümü" (madde 2) dağınıklık
    demek değildir. Kare kabulünde lider/eleştirmen sayılmamış objeyi arar; varsa kare yeniden üretilir (2026-11-17).
+   Ek referans görseli (karakter, kutu, el) eski bir kareden geliyorsa yalnız o nesneye KIRPILIR; 'ignore the glasses…'
+   talimatıyla kirli kare eklenmez (ek görselin objeleri ve adı geçen obje yeni kareye sızar).
 11. **"Sinematik" görünüm yok:** sığ alan derinliği, bokeh, anamorfik parlama, stüdyo ışığı AI'ı ele veren işaretler (ARAŞTIRMA madde 10) → AVOID satırında.
 
 ## 4. Görsel prompt kalıbı (İngilizce)
@@ -61,7 +63,7 @@ Vertical 9:16 phone-video still frame, photorealistic, looks like a real Instagr
 SCENE: [ilk kare tipi İ1–İ7: tek cümle, ne oluyor].
 PRODUCT: [ürün: şekil, renk, malzeme, parça] — match the attached product photo exactly (shape, color, parts, logo). Keep identical: [parça 1], [parça 2], [etiket rengi].
 WHO: [kişi/hayvan: yaş, saç, kıyafet / tür, renk], seen from [POV hands | low ground angle | top-down | security camera corner].
-WHERE: a real, slightly messy [oda/mekân] in [ülke/pazar] with [2–3 sıradan detay].
+WHERE: a real, ordinary [oda/mekân] in [ülke/pazar]; only the objects listed in SCENE (no stains, no cup rings, no clutter — §3 madde 12).
 LIGHT: [tek kaynak: ceiling lamp | window daylight | the product's own glow | grey night-vision IR].
 FRAMING: main subject in the middle 70%, product at least one third of the frame; top third calm for a caption; nothing important in the bottom 20% or right 15%.
 TEXTURE: natural phone noise, slight motion blur.
@@ -89,6 +91,6 @@ Kaynak: ekranlı ürün serisinin ret eleştirileri (ekran/telefon) ve sektör s
 |---|---|---|
 | **Ekranlı / ışıklı** | düz renge bindirilen içerik perspektiften taştı, camda yansıma yoktu, hale rengi içerikle uyuşmadı; aşırı parlak ekran gerçeğinden farklı | içerik karede değil · hale rengi ≠ içerik rengi · camda yansıma çizgisi yok · ekranda yazı/rakam · çevre ışığında patlama (kırpılmış beyaz) |
 | **Uygulamalı (telefondan kontrol)** | dokunuştan önce sonuç zaten değişmişti; telefon ekranı hiç görünmedi; kırpım sonucu kadraj dışında bıraktı | telefon ekranı ve seçilen karo görünmüyor · "önce" karesinde sonucun izi var · dokunuş ve sonuç aynı karede değil ya da kesimle bağlı değil |
-| **Giyilebilir (insan)** | AI kanıtı çoğu hayvan/bebek taşıyan giysi; yetişkin modada beden oturuşu ölçülmedi | kumaş vücuda oturmuyor (havada duran kol/yaka) · kırışık yok, plastik doku · beden oranı ürün fotoğrafından >%10 sapıyor · fazladan cep/fermuar |
+| **Giyilebilir (insan)** | AI kanıtı çoğu hayvan/bebek taşıyan giysi; yetişkin modada beden oturuşu ölçülmedi | kumaş vücuda oturmuyor (havada duran kol/yaka) · kırışık yok, plastik doku · beden oranı ürün fotoğrafından >%10 sapıyor · fazladan cep/fermuar · yüz kadraj dışıysa göğüs/kolye üst kenara kayar → yazı alanı üst üçte bir değil, kolyenin altındaki orta bant; istemde 'caption room below the pendant' yazılır |
 | **Mobilya / oda ölçeği** | oda ölçeği ve katlanma mekaniği için AI kanıtı yok | insan-boy ölçeği yok ya da tutarsız (kapı ~2 m referansıyla ölç) · eğri duvar/kapı çizgisi · katlı/açık hal parça sayısı farklı |
 | **Sıvı / kozmetik / doku** | AI sıvı fiziği test edilmedi; "sıvı + cam" zaten veto | AI karesi kullanılmaz: gövde gerçek çekim (S10 hibrit: AI yalnız kanca); krem/köpük dokusu AI'da üretilmez |
