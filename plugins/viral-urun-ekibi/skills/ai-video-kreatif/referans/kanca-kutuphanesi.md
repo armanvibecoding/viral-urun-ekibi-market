@@ -65,7 +65,7 @@ Uygun ürün: şaka, oyuncak gibi yetişkin ürünü, gag.
 ### K7. POV sorun anı — KURAL (5)
 Kanıt: "POV: A fan made for sleepers who get hot ❄️😴" [053] · "POV: you have a torn ACL 😱" [059] · "POV: No partner. No wall 🎾" [092] ·
 "POV: 15 hours on the plane and I never moved once 😮‍💨✈️" [099] · "POV: You have back pain and sciatica 👀😌" [109]
-⚠️ 059 ve 109 izleyicinin **sağlık durumunu** söylüyor → Meta kişisel özellik kuralı + yasak #4. Kit bu ikisini önermez.
+⚠️ 059 ve 109 izleyicinin **sağlık durumunu** söylüyor → reklamda Meta kişisel özellik kuralı (PLT-01, `ortak/kurallar.md`): reklam reddi riski uyarı olarak yazılır. Organikte kullanılabilir; sağlık dili yasak değil (IDD-01, bilgi notu).
 Güvenli şablon (durum, teşhis değil): `POV: [uzun süre] on the [yer] and I never [sorun] once` [099] · `POV: No [engel]. No [engel]` [092] · `POV: A [ürün] made for [davranış] who [durum]` [053]
 
 ### K8. POV keşif — KURAL (5)
@@ -153,7 +153,7 @@ Kural: kimlik = ürünü **isteyecek ya da hediye alacak** grup; kullanıcı olm
 2. **6 kimlik yaz**, en az 3 kovadan (yukarıdaki tablo).
 3. **5–10 kanca** üret, en az 4 farklı aileden: K1, K2, K5, K3/K4, K11 + bir yazısız versiyon (K13).
 4. **Aynı klip setine** her kancayı ayrı video olarak koy (R1, 58 kayıt). Kazananı `olcum-ve-test-plani.md` eşikleriyle seç (paylaşım/izlenme ≥ %0,61, beğeni/izlenme ≥ %1,01 ya da hesaptaki diğer varyantların medyanının ≥4,7 katı izlenme), kazanan kalıbı yeni sahneyle tekrar et (R2).
-5. **Yasak kontrolü:** marka/karakter/mağaza adı yok, sağlık durumu söyleyen POV yok, otorite ("vet/doctor recommended") yok.
+5. **Yasak kontrolü:** marka/karakter/mağaza adı yok, uydurma otorite ("vet/doctor recommended") yok (IDD-02). Sağlık/sonuç cümlesi varsa bilgi notu (IDD-01); reklam kancası izleyicinin sağlık durumunu söylüyorsa platform riski uyarısı (PLT-01).
 
 ### Dolu seri örneği (kurgusal ürün: kedi taşıma cepli hoodie, marka "PurrPocket")
 1. `"Cat moms are hard to gift" / Me: 🤩🐈` (K5 — kanıt 086)

@@ -132,7 +132,8 @@ Betik DUR/❌ verirse düzelt ve tekrar koştur; geçmeden sonraki aşamaya geç
 - Uydurma yok: ürünün yapmadığını gösterme; sayı, yorum, indirim, stok, fiyat uydurma. Emin değilsen `[DOĞRULA]`.
 - **Organik videoda ekranda fiyat yok** (ağır kusur); fiyat caption/bio/ürün sayfasında. Ekran yazısı ürünü listelemez,
   ikna eder (`kanca-kutuphanesi.md` §1b Ekran yazısı). İşlevi açık söylenemeyen ürün: `kurgu-ve-yasaklar.md` §8 İmâ yolu.
-- Başka markanın logosu/ürün adı, lisanslı karakter/müzik, ünlü yüzü, sağlık/güvenlik iddiası, sahte otorite yok.
+- Başka markanın logosu/ürün adı, lisanslı karakter/müzik, ünlü yüzü, sahte otorite yok. Sağlık ve sonuç dili yasak
+  değil: yazılır, yumuşatılmaz, çıktıya bilgi notu eklenir (IDD-01); platform reklam riski ayrı uyarıdır (PLT-01). Kurallar: `${CLAUDE_PLUGIN_ROOT}/ortak/kurallar.md`.
   İstisna: ürün belirli bir markanın aracına/ürününe takılan aksesuarsa (ör. araç amblemi) marka görünürlüğünü kullanıcı
   karar verir; risk ona söylenir ve karar KARARLAR.md'ye yazılır.
 - Google/ChatGPT girişinde dur, kullanıcıya devret; şifre isteme, yazma. Ödeme ekranında dur.

@@ -27,7 +27,7 @@ Kural: ürün, kategori ya da kanca sorusunda önce dosyada ara ve kod numarası
 ## 2) AliExpress fırsatı (henüz viral olmamış ürün)
 1. Mekanizmadan arama terimi üret (viral-dna.md mekanizmaları, firsat-gecmisi.md terim örnekleri) — ürün adından değil.
 2. firsat-gecmisi.md'de daha önce değerlendirildi mi bak; ELE ise gerekçesini söyle.
-3. Kapılar: tek planda gösterilebilir mi · kanıtlı akraba ürün var mı (not numarasıyla) · veto var mı (lisans/marka, sağlık iddiası, çocuk sertifikası, ağır/hacimli kargo, lityum pil, sıvı+cam, ateş).
+3. Kapılar: tek planda gösterilebilir mi · kanıtlı akraba ürün var mı (not numarasıyla) · veto var mı (lisans/marka, çocuk sertifikası, ağır/hacimli kargo, lityum pil, sıvı+cam, ateş).
 4. DNA puanı (0–7, eşik 4) + sıra puanı (mekanizma 0–3, girilebilirlik 0–3, marj 0–3, AI ile üretilebilirlik 0–2).
 5. Kanıt: satış adedi YALNIZ ürün sayfasından; "$1.09" yeni-müşteri teklifidir, marj normal fiyattan. ABD'de Walmart/Target/Amazon'da aynısı var mı, Trendyol'da var mı.
 6. Karar SAT / İZLE / ELE + ürüne özgü gerekçe. SAT için kanıt dosyası olmadan karar verme.
@@ -50,7 +50,7 @@ Kural: ürün, kategori ya da kanca sorusunda önce dosyada ara ve kod numarası
 - Para/kredi harcayan her adım (Flow kredisi, numune siparişi, reklam, ücretli araç) için ÖNCE kullanıcıdan açık onay al; onay cümlesini DURUM bloğundaki "Kararlar" satırına yaz.
 - Instagram'da takip, yorum, DM, kaydetme, satın alma yok; yalnız izle/kaydır/profil ve site oku (beğeni yalnız kullanıcı izin verirse).
 - Başka markanın logosu, adı, lisanslı karakter, gerçek mağaza sahnesi, lisanslı müzik üretilen görsel/videoda yok; jenerik karşılığını yaz.
-- Sağlık/tedavi iddiası, sahte uzman, sahte yorum/sayı/indirim/stok, ürünün yapmadığı şeyi gösteren demo yok.
+- Uydurma veri yok: sahte uzman, sahte yorum/sayı/indirim/stok, ürünün yapmadığı şeyi gösteren demo. Sağlık ve sonuç dili yasak değil: yumuşatma; cevabın sonuna "Bilgi notu (kullanıcının sorumluluğu): …" satırı ekle.
 - Sayı uydurma yok. Bilmiyorsan "doğrulanamadı" yaz; CAPTCHA/giriş duvarı varsa dur, atlatmaya çalışma.
 - Bilgi dosyalarındaki sayı ve linkleri değiştirmeden aktar; tahminini ayrı işaretle.
 - Web erişimin yoksa "zaten viral mi / pazarda doymuş mu" kontrolünü yapmış gibi davranma: "web kontrolü yapılmadı" yaz ve kullanıcıya bakacağı 2–3 arama terimini ver.

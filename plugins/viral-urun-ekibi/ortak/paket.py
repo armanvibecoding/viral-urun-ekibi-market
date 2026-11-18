@@ -15,7 +15,8 @@ Kullanım:
           [--kanit "kaynak|url|YYYY-AA-GG|ölçü"]... [--kanit-md is/firsat/kanit/NN.md] [--teklif-tsv is/NN/teklif/teklif.tsv]
   paket.py fiyat [--teklif-tsv F] [--pazar US]      teklifin TEK kaynağı (bizim satırı > sabit kural 2'li %10, 3'lü %18)
   paket.py magaza-oku MAGAZA-PAKETI.json [--cikti marka-kilidi.md] [--cikti-dizin is/NN/kurgu]
-  paket.py iddia-kontrol MAGAZA-PAKETI.json METIN_ya_da_AYAR.json [...]   onaylı listede olmayan iddia = çıkış 1
+  paket.py iddia-kontrol MAGAZA-PAKETI.json METIN_ya_da_AYAR.json [...]   listede olmayan uydurma veri (sayı, belge,
+                                       otorite) = çıkış 1; sağlık/sonuç dili = uyarı + bilgi notu, çıkış değişmez
   paket.py video-yaz TESLIM_KLASORU [--cikti is/NN/magaza/video-paketi.json] [--pdp V02]... [--hero V03]...
           [--dil tr|yok] [--olcum "V01.mp4=1080x1920:12.4"]... [--urun F] [--magaza F]
   paket.py video-sec VIDEO-PAKETI.json              mağazaya yüklenecekler (yalnız pdp-galeri ve hero)
@@ -426,12 +427,21 @@ def norm(metin):
     return re.sub(r"\s+", " ", t).strip()
 
 
-# İddia sinyali: sayı (+ birim/yüzde) ya da sonuç/üstünlük sözcüğü. Sinyalsiz satır (ör. "bunu izle") iddia sayılmaz.
-IDDIA_SINYAL = re.compile(
-    r"\d|%|\b(garanti\w*|kanıtl\w*|kanitl\w*|klinik\w*|onayl\w*|sertifika\w*|tescil\w*|patent\w*|en iyi|en hızlı|en hizli|"
-    r"en güçlü|en guclu|tek ürün|tek urun|ilk ve tek|doktor\w*|uzman\w* öner\w*|tedavi\w*|iyileştir\w*|iyilestir\w*|"
-    r"geçir\w*|gecir\w*|önle\w*|onle\w*|su geçirmez|su gecirmez|waterproof|guarantee\w*|proven|clinically|certified|"
-    r"best|fastest|strongest|cures?|heals?|prevents?|doctor\w*|#1|no\.? ?1)\b", re.I)
+# İddia sinyali iki sınıftır. Sinyalsiz satır (ör. "bunu izle") iddia sayılmaz.
+#  UYDURMA VERİ sinyali (ENGEL): sayı/yüzde/birim, belge ve otorite sözü (onaylı, klinik, sertifika, doktor, patent),
+#    ölçülebilir üstünlük (en iyi, #1, tek ürün) ve ürün özelliği (su geçirmez). Onaylı listede yoksa HATA.
+#  SAĞLIK/SONUÇ DİLİ sinyali (ENGEL DEĞİL): tedavi eder, iyileştirir, ağrıyı geçirir, önler, garanti… Metin elenmez,
+#    yumuşatılmaz; listede yoksa UYARI + "Bilgi notu (kullanıcının sorumluluğu)" satırı basılır, çıkış değişmez.
+UYDURMA_SINYAL = re.compile(
+    r"\d|%|\b(kanıtl\w*|kanitl\w*|klinik\w*|onayl\w*|sertifika\w*|tescil\w*|patent\w*|en iyi|en hızlı|en hizli|"
+    r"en güçlü|en guclu|tek ürün|tek urun|ilk ve tek|doktor\w*|uzman\w* öner\w*|"
+    r"su geçirmez|su gecirmez|waterproof|proven|clinically|certified|"
+    r"best|fastest|strongest|doctor\w*|#1|no\.? ?1)\b", re.I)
+SAGLIK_SONUC_SINYAL = re.compile(
+    r"\b(garanti\w*|tedavi\w*|iyileştir\w*|iyilestir\w*|geçir\w*|gecir\w*|gider\w*|önle\w*|onle\w*|rahatlat\w*|"
+    r"zayıflat\w*|zayiflat\w*|guarantee\w*|cures?|heals?|prevents?|relieves?)\b", re.I)
+IDDIA_SINYAL = re.compile(UYDURMA_SINYAL.pattern + "|" + SAGLIK_SONUC_SINYAL.pattern, re.I)  # eski ad (birleşik)
+BILGI_NOTU = "Bilgi notu (kullanıcının sorumluluğu):"
 
 
 def onayli_liste(paket):
@@ -447,11 +457,17 @@ def onayli_liste(paket):
 
 
 def iddia_ihlalleri(paket, satirlar):
-    """satirlar: [(kaynak, metin)]. Onaylı listede karşılığı olmayan iddia satırlarını döndürür."""
+    """satirlar: [(kaynak, metin)]. Onaylı listede karşılığı olmayan UYDURMA VERİ sinyalli satırlar (engel)."""
+    return iddia_siniflari(paket, satirlar)[0]
+
+
+def iddia_siniflari(paket, satirlar):
+    """(ihlal, bilgi_notu): ihlal = listede olmayan uydurma veri sinyali (engel); bilgi_notu = listede olmayan
+    sağlık/sonuç dili (engel değil, uyarı + bilgi notu). Bir satır ikisini de taşıyorsa ihlaldir."""
     onayli = onayli_liste(paket)
     u = paket.get("urun", {})
     serbest = [norm(v) for v in (u.get("baslik"), paket.get("marka", {}).get("ad")) if v]  # ürün/marka adı iddia değil
-    ihlal = []
+    ihlal, notlar = [], []
     fiyat_ = sayi(str(u.get("fiyat"))) if u.get("fiyat") is not None else None
     for kaynak, metin in satirlar:
         n = norm(metin)
@@ -461,12 +477,13 @@ def iddia_ihlalleri(paket, satirlar):
         if fiyat_:  # mağazadaki fiyatın birebir yazılması iddia değildir (para dosyadan taşınır)
             sinyal = "".join(p for p in re.split(r"(\d+(?:[.,]\d+)?)", metin)
                              if not (re.fullmatch(r"\d+(?:[.,]\d+)?", p) and sayi(p) == fiyat_))
-        if not IDDIA_SINYAL.search(sinyal):
+        uydurma, saglik = UYDURMA_SINYAL.search(sinyal), SAGLIK_SONUC_SINYAL.search(sinyal)
+        if not uydurma and not saglik:
             continue
         if any(n == o or n in o or o in n for o in onayli):
             continue
-        ihlal.append((kaynak, metin.strip()))
-    return ihlal
+        (ihlal if uydurma else notlar).append((kaynak, metin.strip()))
+    return ihlal, notlar
 
 
 YAZI_ANAHTAR = {"yazi", "satir1", "satir2", "altyazi", "metin", "baslik", "cta"}
@@ -505,10 +522,14 @@ def iddia_kontrol(a):
         if not os.path.exists(y):
             raise SystemExit("HATA: dosya yok: %s" % y)
         satirlar += metin_satirlari(y)
-    ihlal = iddia_ihlalleri(paket, satirlar)
+    ihlal, notlar = iddia_siniflari(paket, satirlar)
     for kaynak, metin in ihlal:
         print("HATA: [iddia] %s: \"%s\" onaylı listede yok (onayli_metinler.iddialar)" % (kaynak, metin))
-    print("iddia kontrolü: %d satır okundu, %d ihlal → %s" % (len(satirlar), len(ihlal), "KALDI" if ihlal else "GEÇTİ"))
+    for kaynak, metin in notlar:
+        print("UYARI: [saglik-sonuc] %s: \"%s\" onaylı listede yok. Metin kalır, yumuşatılmaz. %s sağlık/sonuç dili; "
+              "mevzuat ve platform reklam kuralı kullanıcının işidir." % (kaynak, metin, BILGI_NOTU))
+    print("iddia kontrolü: %d satır okundu, %d ihlal, %d bilgi notu → %s"
+          % (len(satirlar), len(ihlal), len(notlar), "KALDI" if ihlal else "GEÇTİ"))
     return 1 if ihlal else 0
 
 

@@ -46,7 +46,7 @@ Her milyonluk not tek bir birincil mekanizmaya atandı. Medyan izlenme = notun a
 | M4 | Görünmeyeni görünür yapma | 014, 052, 066, 077, 102 | 5,1 MN | 0,22 | Sonuç fiziksel yığın/iz bırakıyor; önce-sonra tek planda |
 | M5 | Jenerik ürün + kimlik/kültür/ritüel | 051, 054, 067, 068, 076, 101, 106, 127, 131 | 4,5 MN | 0,31 | Deseni/diski/baskısı değiştirilebilir gövde |
 | M13 | Mekanizma merakı (nasıl çalışıyor?) | 060, 093, 095, 111, 114, 118 | 4,5 MN | 0,27 | Görünür hareket eden parça veya akış |
-| M10 | Beden rahatlaması (POV acı/uyku/yol) | 053, 059, 061, 099, 109, 117, 124, 126, 133, 138, 139 | 4,1 MN | 0,46 | Rahatlama tek pozda görülüyor — ⚠️ sağlık iddiası yazılmaz |
+| M10 | Beden rahatlaması (POV acı/uyku/yol) | 053, 059, 061, 099, 109, 117, 124, 126, 133, 138, 139 | 4,1 MN | 0,46 | Rahatlama tek pozda görülüyor — sağlık dili yazılırsa bilgi notu (`kurallar.md` IDD-01) |
 | M11 | Küçük sürtünme → 3 saniyede çözüm | 001, 003, 055, 092, 108, 110, 116, 121, 125, 130 | 3,6 MN | **0,91** | Tek elde, tek adım; "bilmediğin ihtiyaç" |
 | M14 | Zararsız kaba şaka / prank | 088, 091, 098, 100, 129 | 2,5 MN | **1,44** | Kurbanın tepkisi görülebiliyor; zarar yok |
 | M12 | Ekransız aile oyunu hediyesi | 040, 073, 105, 122 | 2,4 MN | 0,77 | Birden çok kişi aynı anda kullanıyor |
@@ -65,7 +65,7 @@ M4 ve M13 izleniyor ama az paylaşılıyor → organik yayılım için tek baş�
 | Risk | Kanıt notları | Ne yapılır |
 |---|---|---|
 | Lisanslı karakter / marka görünümü (Batman, Porsche, BMW, Grinch, çizgi film parası, oyun silahı) | 072, 083, 085, 087, 088, 093, 097, 106, 112, 133, 135 | Ürün logosuz ve karakterden bağımsız değilse ELE. Kendi karakteriyle aynı mekanizma aranabilir. |
-| Sağlık/tedavi iddiasına dayanan fayda | 059, 109, 117, 119 | Fayda iddiasız gösterilemiyorsa ELE |
+| Sağlık/tedavi faydasına dayanan ürün | 059, 109, 117, 119 | ELENMEZ: bilgi notu (`kurallar.md` IDD-01) + platform reklam riski uyarısı (PLT-01); ELE yalnız ürün platformun yasak kategorisindeyse |
 | Bebek uyku/güvenlik iddiası | 004, 089, 094 | Güvenlik iddiası gerektiriyorsa ELE; çocuk ürünü sertifika ister |
 | Kargo riski: sıvı, cam, pil ağırlıklı, ateş, hacimli/ağır | (kaynak aday değerlendirmesi: ateş çukuru, ferrofluid şişe, squat makinesi elendi) | ELE ya da kullanıcıya açık risk olarak sor |
 

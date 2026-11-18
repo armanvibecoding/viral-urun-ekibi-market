@@ -23,7 +23,8 @@ Tüm beceriler ve ajanlar bu anlamları kullanır. Yeni terim gerekirse buraya e
 | **SAT** | Kanıt dosyası var, çürütme denemeleri tutmadı, mekanizma gerçek alıcı fotoğrafı/videosuyla doğrulandı, sıra puanı ≥8. Ürün `is/NN-urun-adi/` klasörüne geçer. |
 | **İZLE** | Güçlü ama bir koşul eksik (doğrulanamayan veri, numune şartı, sezon uzak, sıra puanı 6–7). Ne beklendiği yazılır. |
 | **ELE** | Kapıdan kalan, veto edilen, zaten viral olan ya da sıra puanı ≤5 olan aday. Sebep tek cümle, ürüne özgü yazılır; bir daha önerilmez. |
-| **Veto** | Kesin eleme sebebi: lisans/marka görünümü, sağlık/tedavi iddiası, bebek güvenliği iddiası, riskli kargo (sıvı, cam, ateş, pil ağırlıklı, ağır/hacimli). |
+| **Veto** | Kesin eleme sebebi: lisans/marka görünümü, bebek güvenliği iddiası, riskli kargo (sıvı, cam, ateş, pil ağırlıklı, ağır/hacimli). Sağlık ve sonuç dili veto değildir (bkz. Bilgi notu). |
+| **Bilgi notu** | Sağlık ya da sonuç dili geçen çıktının sonuna eklenen tek satır: "Bilgi notu (kullanıcının sorumluluğu): …". Metin elenmez, yumuşatılmaz; mevzuat ve platform reklam kuralı kullanıcının işidir (`kurallar.md` IDD-01). Uydurma veri (sahte yorum, sayı, indirim, stok) bundan ayrıdır ve yasaktır (IDD-02). |
 | **Sınama** | Ajan çıktısından rastgele 3 sayının kaynağından açılıp kontrol edilmesi. Biri tutmazsa çıktının tamamı "şüpheli" olur. |
 | **DROP-MARKA** | Tek ürün etrafında marka kimliği kurmuş dropship mağazası (jenerik tedarik, yeni/küçük hesap, logo/isim/paket). Örnek alınan hedef tip. |
 | **GERÇEK-MARKA** | Kendi üretimi/ölçeklenmiş marka. Kreatif fikir için referans, "bizim durumumuz" değildir. |

@@ -73,7 +73,8 @@ veri ver. Aynı anda en fazla 2 ajan. Ajan çıktısı sınamadan geçmeden kull
   Betik değişirse önce `python3 "${CLAUDE_SKILL_DIR}/scripts/kirma_testi.py"` (16 test) çıkış 0 vermeli.
 - Benzer ürün aynı ürün değildir: form + ana parça + mekanizma fotoğrafla eşleşmeden satış/video/yorum aktarılmaz.
 - Mekanizma gerçek alıcı fotoğrafı/videosuyla doğrulanmadan SAT verilmez.
-- Veto (lisans/marka görünümü, sağlık iddiası, bebek güvenliği iddiası, riskli kargo) olan ürün puanlanmaz.
+- Veto (lisans/marka görünümü, bebek güvenliği iddiası, riskli kargo) olan ürün puanlanmaz. Sağlık/sonuç faydası veto değildir
+  (IDD-01, `${CLAUDE_PLUGIN_ROOT}/ortak/kurallar.md`): ürün puanlanır; kanıt dosyasına bilgi notu ve platform reklam riski (PLT-01) yazılır.
 - Satın alma, sepet, numune siparişi, ücretli araç: kullanıcı onayı olmadan yok; onay KARARLAR.md'ye yazılır. TrendTrack kullanılmaz.
 - Instagram/TikTok'ta yalnız izle ve oku; takip, yorum, mesaj yok.
 - Her SAT/ELE gerekçesi ürüne özgü tek cümledir.

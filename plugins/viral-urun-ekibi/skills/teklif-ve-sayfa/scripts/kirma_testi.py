@@ -37,16 +37,16 @@ def kos(args, icerik=None, ad="teklif.tsv"):
         return p.returncode, p.stdout + p.stderr
 
 
-def bekle(ad, sonuc, beklenen_kod, icermeli=()):
+def bekle(ad, sonuc, beklenen_kod, icermeli=(), icermemeli=()):
     kod, c = sonuc
-    tamam = kod == beklenen_kod and all(x in c for x in icermeli)
+    tamam = kod == beklenen_kod and all(x in c for x in icermeli) and not any(x in c for x in icermemeli)
     SONUC.append((ad, tamam, kod, beklenen_kod))
     if not tamam:
         print(f"--- {ad}:\n{c}")
 
 
 def main():
-    bekle("gecerli tablo (rakip sahte aciliyeti gozlem) -> 0", kos(["sema", "{G}"], BASLIK + RAKIP + satir()), 0, ["TOPLAM: 1 rakip, 1 bizim, 0 hata"])
+    bekle("gecerli tablo (rakip sahte aciliyeti gozlem) -> 0", kos(["sema", "{G}"], BASLIK + RAKIP + satir()), 0, ["TOPLAM: 1 rakip, 1 bizim, 0 hata, 0 bilgi notu"])
     bekle("eksik sutun -> 1", kos(["sema", "{G}"], "tur\tfiyat\nbizim\t10\n"), 1, ["eksik sutun"])
     bekle("bizim 'son 3 urun' -> 1", kos(["sema", "{G}"], BASLIK + satir(pazar="DE", para="EUR", upsell="Son 3 ürün kaldı!")), 1, ["sahte kıtlık"])
     bekle("bizim 'Only 2 left' -> 1", kos(["sema", "{G}"], BASLIK + satir(ilk_ekran="Only 2 left in stock")), 1, ["yasak ifade"])
@@ -71,6 +71,25 @@ def main():
     bekle("tara: yer tutucu ve temiz metin -> 0",
           kos(["tara", "--pazar", "TR", "{G}"], "{GERCEK_YORUM_SAYISI} yorum · kargo dahil 599 TL · 14 gün koşulsuz iade\n", "t.md"), 0)
     bekle("tara: dosya yok -> 1", kos(["tara", "{G}"], None, "yok.md"), 1, ["dosya yok"])
+    # saglik / sonuc dili ENGEL DEGIL: metin gecer + bilgi notu satiri basilir (kurucu karari); uydurma veri yine kalir
+    NOT = "Bilgi notu (kullanıcının sorumluluğu):"
+    bekle("tara: saglik cumlesi gecer + bilgi notu -> 0",
+          kos(["tara", "--pazar", "TR", "{G}"], "Bel ağrısını giderir, duruşu iyileştirir.\nGarantili sonuç.\n", "saglik.md"), 0,
+          [NOT, "sağlık/sonuç dili", "0 bulgu, 3 bilgi notu"])
+    bekle("tara: saglik cumlesi (EN/DE) gecer + bilgi notu -> 0",
+          kos(["tara", "--pazar", "US", "{G}"], "Relieves pain in minutes. Cures snoring.\n", "health.md"), 0, [NOT, "0 bulgu"])
+    bekle("tara: bilgi notu olmayan temiz metinde not basilmaz -> 0",
+          kos(["tara", "--pazar", "TR", "{G}"], "Kargo dahil 599 TL.\n", "temiz.md"), 0, ["0 bilgi notu"], [NOT])
+    bekle("tara: saglik cumlesi + sahte indirim ayni dosyada -> 1 (indirim kalir, saglik not)",
+          kos(["tara", "--pazar", "US", "{G}"], "Relieves pain fast.\n-80% off today only\n", "karma.md"), 1,
+          [NOT, "sahte indirim", "sahte aciliyet"])
+    bekle("tara: uydurma uzman onayi ve 'klinik olarak kanitlanmis' hala engel -> 1",
+          kos(["tara", "--pazar", "TR", "{G}"], "Doktor onaylı.\nKlinik olarak kanıtlanmış.\n", "otorite.md"), 1,
+          ["uzman onayı", "düzenlenmiş iddia"])
+    bekle("sema: bizim satirinda saglik cumlesi gecer + bilgi notu -> 0",
+          kos(["sema", "{G}"], BASLIK + satir(ilk_ekran="Cures back stiffness")), 0, [NOT, "0 hata, 1 bilgi notu"])
+    bekle("sema: bizim satirinda saglik + sahte stok -> 1",
+          kos(["sema", "{G}"], BASLIK + satir(ilk_ekran="Relieves pain", upsell="Only 2 left in stock")), 1, [NOT, "sahte kıtlık"])
     # magaza site metni kelimeleri (magaza kolunun kurali tek listede) + ISO pazar kodu
     bekle("tara: magaza site kelimeleri (dogal / cok satan / N bin musteri) -> 1",
           kos(["tara", "--pazar", "TR", "{G}"], "%100 Doğal içerik\nEn çok satan model\n12 bin müşteri\n", "site.md"), 1,

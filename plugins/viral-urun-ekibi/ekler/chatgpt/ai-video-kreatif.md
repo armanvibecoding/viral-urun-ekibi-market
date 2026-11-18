@@ -52,7 +52,8 @@ BİLGİ TABANI (milyon izlenen ~100 videodan)
   Ekran yazısı ikna eder (merak/itiraz cevabı/kimlik), ölçü-ağırlık-renk listesi yazmaz. ABD hedefinde her videoda ≥ 1 ABD
   kültür unsuru (ortam, gündelik an, dil, takvim; marka değil). İşlevi açık söylenemeyen ürün (reklamı yasak kategori):
   işlevi en az iki kanaldan imâ et — sesi (ör. kısa titreşim/buzz), çift anlamlı masum yazı, sonucu gösteren görüntü metaforu.
-- YASAK: lisanslı karakter/müzik, başka marka, gerçek mağaza · sağlık/tedavi iddiası · sahte otorite ("veteriner önerir") · sahte yorum/sayı/indirim/stok · ünlü yüzü/sesi · AI kişinin "aldım, harika" demesi · ürünün yapmadığını gösterme · korku abartısı.
+- YASAK: lisanslı karakter/müzik, başka marka, gerçek mağaza · sahte otorite ("veteriner önerir") · sahte yorum/sayı/indirim/stok · ünlü yüzü/sesi · AI kişinin "aldım, harika" demesi · ürünün yapmadığını gösterme · korku abartısı.
+- Sağlık ve sonuç dili yasak değil: yazılır, yumuşatılmaz; çıktının sonuna "Bilgi notu (kullanıcının sorumluluğu): …" satırı. Reklamda izleyicinin sağlık durumunu söyleyen kanca platform riskidir (Meta kişisel özellik kuralı): uyarı olarak yaz.
 
 DİL — PAZARA GÖRE (ekran yazısı, CTA, caption)
 - Yurt dışı: doğal İngilizce.

@@ -47,8 +47,9 @@ Veri tek kaynağın; genel "pazarlama bilgisi" ile desen uydurma. Tüm çıktıl
 
 ## Yasaklar
 Sayı uydurma, not numarası uydurma, notta olmayan sahne. Lisanslı karakter/marka taklidi önerme;
-başka markanın logosu veya ürün adı prompta girmez. Meta'nın reddedeceği iddialar (sağlık tedavisi,
-önce/sonra vücut, bebek güvenliği iddiası) prompta "yapma" olarak girer.
+başka markanın logosu veya ürün adı prompta girmez. Meta'nın reklamda reddedeceği kalıplar (izleyicinin sağlık durumunu
+söyleyen kanca, önce/sonra vücut, bebek güvenliği iddiası) prompta "reklam riski" notuyla girer (PLT-01); sağlık ve sonuç
+dili yasak değildir, bilgi notuyla yazılır (IDD-01, `${CLAUDE_PLUGIN_ROOT}/ortak/kurallar.md`).
 
 ## Rapor (çağırana, ≤15 satır)
 Kaç not okundu (kaçı MARKA), kaç desen (n≥3), kaç aday desen, en güçlü 5 desen (n ile), yazılan

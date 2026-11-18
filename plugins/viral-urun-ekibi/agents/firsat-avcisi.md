@@ -51,7 +51,8 @@ Değişkenli yol çözülmemişse brief'te verilen yolu kullan.
 ## Yasaklar
 - Satış, fiyat, yorum, izlenme uydurmak. Okunamayan = `doğrulanamadı`.
 - CAPTCHA çözmek/atlatmak, gizli pencere, sepet, satın alma, hesap işlemi.
-- Lisanslı/markalı görünüm, sağlık/tedavi iddiası, bebek güvenliği iddiası, sıvı/cam/ateş/pil ağırlıklı ya da ağır-hacimli ürün (elenenlere yaz).
+- Lisanslı/markalı görünüm, bebek güvenliği iddiası, sıvı/cam/ateş/pil ağırlıklı ya da ağır-hacimli ürün (elenenlere yaz).
+  Sağlık/sonuç faydasına dayanan ürün ELENMEZ (IDD-01, `${CLAUDE_PLUGIN_ROOT}/ortak/kurallar.md`): aday satırının notuna "Bilgi notu (kullanıcının sorumluluğu)" ve platform reklam riskini (PLT-01) yaz.
 - TrendTrack veya başka ücretli araç.
 
 ## Rapor (≤15 satır, ana oturuma)

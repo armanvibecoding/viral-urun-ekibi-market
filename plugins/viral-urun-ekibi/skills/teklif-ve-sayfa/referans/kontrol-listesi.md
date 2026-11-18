@@ -8,7 +8,7 @@ Her madde `[x]` ya da `[ ] neden` ile `is/NN-urun/kontrol.md`'ye kopyalanır. Be
 - [ ] `marj_hesap.py` paket fiyatlarıyla (1x/2x/3x ayrı satır) → her pakette çarpan ≥2×
 
 ## Kanıt (uydurma yok)
-- [ ] Sayfadaki her iddianın yanında `[K: kanit/NN#…]` var; bağlanamayan iddia silindi
+- [ ] Sayfadaki her özellik/sayı iddiasının yanında `[K: kanit/NN#…]` var; bağlanamayan özellik/sayı silindi (uydurma veri). Sağlık/sonuç cümlesi silinmedi, yumuşatılmadı; `teklif_kontrol.py`nin bastığı "Bilgi notu (kullanıcının sorumluluğu)" satırı sayfa taslağının sonunda
 - [ ] Yorum/puan/sayı alanları ya gerçek kaynaklı ya `{YER_TUTUCU}`; yer tutucu yayından önce kurucu tarafından doldurulacak diye DURUM.md'de
 - [ ] Mekanizma görüntüsü gerçek (alıcı/numune); AI görüntü ise etiketli ve "aldım" diyen AI kişi yok
 - [ ] Önce-sonra, uzman/doktor, sertifika ifadesi yok (ya da belge dosyası bağlı)

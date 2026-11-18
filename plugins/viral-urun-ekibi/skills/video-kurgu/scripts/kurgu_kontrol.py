@@ -35,9 +35,11 @@ Kurallar (SKILL.md "Viral kurgu" + eleştiri turları; eşikler ESIK sözlüğü
  plan      plan ≥ 2 vuruş (0,857 sn − tolerans); toplam 10–15 sn.
  dongu     son planın ekran içeriği ilk planınkiyle aynı (son plan ilk kareye bağlanır).
  ses       (--video) ses_olc.py: drop_artis ≥ 6 dB, ≥ 0,3 sn −28 dB altı delik yok, −14 ± 1 LUFS.
- iddia     (--magaza-paketi) ayardaki her ekran yazısı: sayı ya da sonuç/üstünlük sözü taşıyorsa mağazanın onaylı
-           listesinde (onayli_metinler.iddialar/faydalar/başlık) olmalı; mağaza fiyatı birebir yazılabilir. Yoksa HATA.
-           Kural ve sinyal listesi tek yerde: ortak/paket.py (iddia_ihlalleri). --yalniz-iddia öbür kuralları atlar.
+ iddia     (--magaza-paketi) ayardaki her ekran yazısı: uydurma veri sinyali (sayı, belge/otorite, ölçülebilir üstünlük)
+           taşıyorsa mağazanın onaylı listesinde (onayli_metinler.iddialar/faydalar/başlık) olmalı; mağaza fiyatı birebir
+           yazılabilir. Yoksa HATA. Sağlık/sonuç dili (tedavi eder, ağrıyı geçirir…) ENGEL DEĞİL: listede yoksa UYARI
+           [saglik-sonuc] + "Bilgi notu (kullanıcının sorumluluğu)", çıkış değişmez.
+           Kural ve sinyal listesi tek yerde: ortak/paket.py (iddia_siniflari). --yalniz-iddia öbür kuralları atlar.
 Betik eleştirmenin yerini almaz: kanca gücü, gerçekçilik, ritim yargısı eleştirmende kalır.
 """
 import argparse
@@ -411,7 +413,7 @@ def main():
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--goruntu", help="teslim videosu: kesim dışı RGB sıçraması + son 2 sn gürültü kapısı (HATA → çıkış 3)")
     ap.add_argument("--kesimler", help="kesim saniyeleri virgüllü (yoksa AYAR planlarından)")
-    ap.add_argument("--magaza-paketi", help="magaza-paketi.json: onaylı listede olmayan iddia = HATA [iddia]")
+    ap.add_argument("--magaza-paketi", help="magaza-paketi.json: listede olmayan uydurma veri = HATA [iddia]; sağlık/sonuç dili = UYARI + bilgi notu")
     ap.add_argument("--yalniz-iddia", action="store_true", help="yalnız iddia kapısı (klip etiketi gerektirmez)")
     args = ap.parse_args()
     if args.goruntu:
@@ -459,8 +461,12 @@ def main():
         for s in sonuclar:
             s["hatalar"] += [{"kural": "iddia", "mesaj": "magaza-paketi geçersiz: " + h} for h in sema_hata]
             if not sema_hata:
+                ihlal, notlar = kopru.iddia_siniflari(mp, kopru.metin_satirlari(s["ayar"]))
                 s["hatalar"] += [{"kural": "iddia", "mesaj": f"{k}: \"{m}\" onaylı listede yok (magaza-paketi onayli_metinler)"}
-                                 for k, m in kopru.iddia_ihlalleri(mp, kopru.metin_satirlari(s["ayar"]))]
+                                 for k, m in ihlal]
+                s["uyarilar"] += [{"kural": "saglik-sonuc", "mesaj": f"{k}: \"{m}\" onaylı listede yok; metin kalır, "
+                                   f"yumuşatılmaz. {kopru.BILGI_NOTU} sağlık/sonuç dili; mevzuat ve platform reklam kuralı "
+                                   "kullanıcının işidir."} for k, m in notlar]
             s["gecti"] = not s["hatalar"]
     if args.json:
         print(json.dumps(sonuclar if len(sonuclar) > 1 else sonuclar[0], ensure_ascii=False, indent=1))

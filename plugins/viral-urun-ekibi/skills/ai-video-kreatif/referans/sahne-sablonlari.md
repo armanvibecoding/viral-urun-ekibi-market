@@ -143,7 +143,7 @@ Yazı: `The Concept 🤢` → `VS…` → `The Result 🤯🐉` · CTA `Comment 
 ## S4 — AI: gerçekte çekilemeyen hayvan/bebek anı (AI-1) — KURAL (9)
 Kanıt: 058 17,5MN · 065 22,3MN · 080 4MN · 082 3,1MN · 083 1MN · 087 7,7MN · 089 2MN · 103 1,5MN · 131 1,4MN.
 Alt tip **peluş ↔ bebek reveal** (İ4): 065, 096 (11,7MN, karışık), 103 → KURAL (3).
-Uyarı: aynı AI dünyası morph/eylem anı olmadan düşük [065 diğerleri 21B–223B]. Bebek ürünlerinde uyku güvenliği/sağlık iddiası yok (yasak #4).
+Uyarı: aynı AI dünyası morph/eylem anı olmadan düşük [065 diğerleri 21B–223B]. Bebek ürünlerinde uyku güvenliği iddiası yok (yasak #4).
 **AI etiketi (ARAŞTIRMA madde 3):** duygusal gönderide "AI ile üretildi" etiketi etkileşimi ~46 puan düşürüyor (hakemli, ~700 katılımcı). Bu şablon tam bu kategoride → aynı kancayla bir de S10 (gerçek çekim + AI an) versiyonu üret; kazananı `olcum-ve-test-plani.md` ile seç.
 
 **Örnek — dinozor bebek tulumu, "peluş sanılan bebek" (103 kalıbı)**
@@ -258,7 +258,7 @@ Yazı: `DO NOT let a CAR GUY see this...` (K1) · CTA `Comment "JACKET"`.
 
 ## S9 — POV sorun anı → idealize sonuç (AI-5) — KURAL (6 AI-5; K7 kancası 5)
 Kanıt: 099 3,2MN (uçakta 15 saat) · 094 1,1MN (çözülmüş aile anı) · 119 5,1MN (titreyen köpek → huzur) · 078 1,4MN (oda dönüşümü) · 133 araç yolcu koltuğunda yastıkla uyuyan kadın (profil 6,4MN) · 138 4,1MN (uçakta iki kişi uyuyor) · 139 1,2MN (masa altı ısıtıcı POV, gerçek-görünümlü AI) · K7: 053, 092, 099.
-Hesap-içi: 094 gerçek yorgun-anne videoları 2–3,6B, AI huzur sahnesi 1,1MN. Sağlık durumu söyleyen POV yok (059/109 kit dışı).
+Hesap-içi: 094 gerçek yorgun-anne videoları 2–3,6B, AI huzur sahnesi 1,1MN. Reklamda sağlık durumu söyleyen POV platform riskidir (PLT-01; 059/109).
 **AI etiketi:** duygusal içerikte etiket etkileşimi düşürüyor (ARAŞTIRMA madde 3), ama 094 hesap-içi kanıtı ters yönde (AI huzur karesi 1,1MN, gerçek videolar 2–3,6B → ~300–550×) → karar verilmedi; tam AI ve S10 versiyonu A/B.
 
 **Örnek — öne yaslanma seyahat yastığı (099 kalıbı)**

@@ -188,7 +188,7 @@ Yeni not eklenince tablo yeniden sayılır (elle güncellenen sayı eskir, `orta
 | Araç/motosiklet aksesuarı | 7 | 1 / 0 | 037, 070, 088, 100, 133 | KANITSIZ SEKTÖR |
 | Banyo/kişisel bakım | 6 | 0 / 0 | 001, 036, 055, 111 | KANITSIZ SEKTÖR |
 | Teknoloji/gadget | 6 | 0 / 1 | 095, 107, 114, 118, 136 | KANITSIZ SEKTÖR |
-| Sağlık/ortopedi | 6 | 2 / 0 | 059, 109, 117, 139 | KANITSIZ SEKTÖR (sağlık POV'u zaten yasak) |
+| Sağlık/ortopedi | 6 | 2 / 0 | 059, 109, 117, 139 | KANITSIZ SEKTÖR (reklamda sağlık POV'u platform riski, PLT-01) |
 | Mutfak | 5 | 0 / 0 | 060, 067, 110, 121, 127 | KANITSIZ SEKTÖR |
 | Aksesuar/cüzdan/takı | 5 | 0 / 0 | 085, 097, 101, 130, 135 | KANITSIZ SEKTÖR |
 | Oyuncak/şaka (yetişkin) | 5 | 0 / 1 | 040, 073, 098, 129 | KANITSIZ SEKTÖR |

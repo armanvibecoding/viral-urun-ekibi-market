@@ -11,7 +11,7 @@ Yeni iş başlamadan ilgili bölümü oku; aynı hatayı ikinci kez yapmak yasak
 5. **ABD büyük perakendede aynı ürünü ara** (Walmart/Target/Chewy/Amazon) — müşteri daha ucuzunu bulursa reklam "Walmart'ta daha ucuzu var" yorumuna açık. Kanıt: köpekbalığı kedi yuvası Walmart'ta 23–38$, ≥5 satıcı → çarpan ~2×, ilk ürün olmaktan çıktı.
 6. **Satış adedini yalnız AliExpress ürün sayfasından oku**; arama kartındaki sayı güvenilmez. Kanıt: kartta 461 yazan ürünün sayfasında 33 satış vardı (aynı hata iki ayrı taramada görüldü).
 7. **"$1.09" fiyatı yeni-müşteri teklifidir** — marj hep normal fiyattan hesaplanır. Fiyatlar gün içinde oynar ($5.13→$4.04, $8.15→$7.06).
-8. **Veto listesi:** lisanslı karakter/marka (Grinch, Batman, Crocs görünümü), sağlık/tıbbi iddiaya dayanan kanca (migren, traksiyon, horlama, kulak kamerası), çocuk ürünü sertifikası, ağır/hacimli kargo, lityum pil, sıvı+cam, ateş/yanma — çünkü reklam reddi, hukuk ya da kargo maliyeti. Kanıt: 80 adayın 21'i veto edildi (`firsat-gecmisi.md`).
+8. **Veto listesi:** lisanslı karakter/marka (Grinch, Batman, Crocs görünümü), çocuk ürünü sertifikası, ağır/hacimli kargo, lityum pil, sıvı+cam, ateş/yanma — çünkü reklam reddi, hukuk ya da kargo maliyeti. Kanıt: 80 adayın 21'i veto edildi (`firsat-gecmisi.md`).
 9. **Kalite puanı düşük ürünü (≤2★) mekanizması güçlü diye alma.** Kanıt: kaslı kol evcil kostümü 8/11 puan aldı ama 1,5★/5 yorum yüzünden ilk 10'a girmedi.
 10. **Trendyol'da yokluk TR talebi yok demek değildir**; TR'de Instagram/Meta talep testi gerekir. TR'de yeni girenler ABD'den günler sonra geliyor (latte damga ABD'den 1 gün sonra 1.499 TL ile Meta'da).
 11. **Fiyat bandı:** milyon getiren mağazaların ana ürün fiyatı medyan 47$ (çeyrekler 30–69), 54/70 çizili fiyat gösteriyor (medyan %40), 25 sitede paket indirimi uygulaması. 100$ üstü ürünler izlenmeyi düşürmedi (6 örnek, kesin değil).
@@ -73,7 +73,7 @@ Yeni iş başlamadan ilgili bölümü oku; aynı hatayı ikinci kez yapmak yasak
 
 ## F. Hukuk, iddia ve teklif
 59. **Başka markanın adı/logosu, lisanslı karakter, gerçek mağaza sahnesi, lisanslı müzik** milyonlarda görülse de kullanılmaz; jenerik karşılığı yazılır ("H&M x <marka>" sahte işbirliği formatı çok viral ama ihlal).
-60. **Sağlık/davranış tedavisi iddiası, sahte uzman/veteriner, sahte yorum/sayı/indirim/stok, sahte önce-sonra yazma.** Ürünün yapmadığı şeyi AI'a yaptırma (kendi kendine çalma, ağzın ısırması) — AI ibaresi yanıltıcı demoyu düzeltmez.
+60. **Sahte uzman/veteriner, sahte yorum/sayı/indirim/stok, sahte önce-sonra yazma (uydurma veri).** Sağlık ve sonuç dili bu yasağın dışında: yazılır, yumuşatılmaz, çıktıya "Bilgi notu (kullanıcının sorumluluğu)" eklenir; reklamda platform riski ayrı uyarıdır (`kurallar.md` IDD-01, IDD-02, PLT-01). Ürünün yapmadığı şeyi AI'a yaptırma (kendi kendine çalma, ağzın ısırması) — AI ibaresi yanıltıcı demoyu düzeltmez.
 61. **Çizili fiyat yalnız gerçekse**; değilse gerçek paket indirimi. TR'de önceki fiyat = son 10 günün en düşüğü.
 62. **TR'de kapıda ödeme yerel stok ister** — AliExpress'ten doğrudan gönderimle uyumsuz; bu bir para kararıdır.
 63. **Işıklı araç ürünlerinde sürüş halini gösterme**; kırmızı-mavi yanıp sönme yok; caption'a yerel ışık yasası uyarısı (ABD'de eyalete göre değişiyor).

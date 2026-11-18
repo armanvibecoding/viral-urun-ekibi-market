@@ -146,7 +146,19 @@ def yerel_testler(k):
     test("kırma: listede olmayan sayı iddiası -> 1", kod == 1 and "30 kg taşır" in c and "onaylı listede yok" in c, c)
     kotu2 = yaz(k, "altyazi.txt", "# altyazı\nCama vantuzla tutunur\nVeteriner onaylı, eklem ağrısını geçirir\n")
     kod, c = kos(PAKET, "iddia-kontrol", mp, kotu2)
-    test("kırma: listede olmayan sonuç iddiası (metin dosyası) -> 1", kod == 1 and "altyazi.txt:3" in c, c)
+    test("kırma: listede olmayan uydurma otorite (veteriner onaylı; metin dosyası) -> 1", kod == 1 and "altyazi.txt:3" in c, c)
+    # Sağlık/sonuç dili ENGEL DEĞİL (kurucu kararı): metin geçer, bilgi notu basılır; uydurma veri yine kalır.
+    NOT = "Bilgi notu (kullanıcının sorumluluğu):"
+    saglik = yaz(k, "saglik.txt", "Cama vantuzla tutunur\nEklem ağrısını geçirir, duruşu iyileştirir\n")
+    kod, c = kos(PAKET, "iddia-kontrol", mp, saglik)
+    test("iddia-kontrol: sağlık cümlesi geçer + bilgi notu -> 0",
+         kod == 0 and NOT in c and "saglik.txt:2" in c and "0 ihlal, 1 bilgi notu" in c and "GEÇTİ" in c, c)
+    kod, c = kos(PAKET, "iddia-kontrol", mp, yaz(k, "temiz.txt", "Cama vantuzla tutunur\nbunu izle\n"))
+    test("iddia-kontrol: sağlık dili yoksa bilgi notu basılmaz -> 0", kod == 0 and NOT not in c, c)
+    karma = yaz(k, "karma.txt", "Ağrıyı geçirir\n%90 daha az ağrı\n")
+    kod, c = kos(PAKET, "iddia-kontrol", mp, karma)
+    test("kırma: sağlık cümlesi + uydurma istatistik -> 1 (istatistik kalır, sağlık not)",
+         kod == 1 and "karma.txt:2" in c and "HATA: [iddia]" in c and NOT in c and "1 ihlal, 1 bilgi notu" in c, c)
     kotu3 = yaz(k, "fiyat.json", {"cta": {"satir1": "Şimdi 499"}})
     kod, c = kos(PAKET, "iddia-kontrol", mp, kotu3)
     test("kırma: mağazadakinden farklı fiyat -> 1", kod == 1 and "499" in c, c)
@@ -155,6 +167,10 @@ def yerel_testler(k):
     test("kurgu_kontrol --magaza-paketi onaylı ayar -> 0", kod == 0 and "GEÇTİ" in c, c)
     kod, c = kos(kk, kotu, "--magaza-paketi", mp, "--yalniz-iddia")
     test("kırma: kurgu_kontrol --magaza-paketi onaysız iddia -> 1", kod == 1 and "[iddia]" in c and "30 kg taşır" in c, c)
+    sagj = yaz(k, "saglik.json", {"yazilar": [{"bas": 0, "bit": 2, "yazi": "Bel ağrısını geçirir"}]})
+    kod, c = kos(kk, sagj, "--magaza-paketi", mp, "--yalniz-iddia")
+    test("kurgu_kontrol --magaza-paketi sağlık cümlesi geçer + bilgi notu -> 0",
+         kod == 0 and "[saglik-sonuc]" in c and NOT in c and "GEÇTİ" in c, c)
 
     # video-yaz --cikti + video-sec
     teslim = os.path.join(k, "teslim2")

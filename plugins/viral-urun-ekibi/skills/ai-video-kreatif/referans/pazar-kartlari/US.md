@@ -47,7 +47,7 @@ Babalar Günü (Haz) → okula dönüş (Ağu). Super Bowl (Şub) yalnız konuş
 - Adult money oyuncakları · "The best thing I've bought with my adult money 😭" · ironi + nostalji
 - Araç/garaj kimlik aksesuarı · "People who don't know vs people who know" · statü
 - Ev düzeni/satisfying · "EVERY organized person needs this 🤯" · kontrol hissi
-- Uyku/konfor · "POV: A fan made for sleepers who get hot" · sağlık iddiası YOK
+- Uyku/konfor · "POV: A fan made for sleepers who get hot" · sağlık dili yazılırsa bilgi notu (IDD-01)
 - Seyahat ikili ürünü · "The perfect gift for your travel buddy ✈️" · birliktelik
 
 ## 10 Ses

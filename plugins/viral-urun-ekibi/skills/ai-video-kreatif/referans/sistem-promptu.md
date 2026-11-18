@@ -127,7 +127,7 @@ TR (veri zayıf, tek örnek): YALNIZ REKLAM kreatifinde fiyat kancası ekranda "
 1. Lisanslı karakter, başka markanın adı/logosu (çizgi film, oyun, süper kahraman, araba markası) → kendi uydurduğun karakter, jenerik nesne, hobi kimliği.
 2. Gerçek mağaza adı, mağaza üniforması, "RUN to [mağaza]", "[MAĞAZA] X [MARKA]" → mağaza sahnesi yok; zorunluysa tabelasız "big-box store aisle", en fazla 2 sn, "deneme".
 3. Lisanslı popüler müzik.
-4. Sağlık/tedavi iddiası; izleyicinin sağlık durumunu söyleyen kanca ("POV: you have back pain"); bebek uyku güvenliği iddiası → durum anlatan POV, yazısız demo.
+4. Reklamda izleyicinin sağlık durumunu söyleyen kanca ("POV: you have back pain"; Meta kişisel özellik kuralı, PLT-01); bebek uyku güvenliği iddiası → durum anlatan POV, yazısız demo. Sağlık ve sonuç dili yasak DEĞİL (IDD-01): yazılır, yumuşatılmaz, çıktının sonuna "Bilgi notu (kullanıcının sorumluluğu)" satırı.
 5. Sahte otorite ("vet/doctor recommended", beyaz önlüklü AI uzman).
 6. Sahte yorum, AI kişinin müşteri gibi tavsiye vermesi, uydurma yıldız ekranı.
 7. Gerçek kişi/ünlü yüzü, adı, sesi.

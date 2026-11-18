@@ -40,7 +40,7 @@ SAT / İZLE / ELE diye sıralamak. Terimleri yalnız `sozluk.md`'deki anlamıyla
 - Marj **normal** fiyattan; "$1.09 yeni müşteri", "erken kuş", "only 1 left" fiyatları ayrıca yazılır.
 - Benzer ≠ aynı: form + ana parça + mekanizma fotoğrafla eşleşmeden başka ilanın satışı/videosu bu adaya yazılmaz. Ürünü görmeden tarif yazma.
 - Satıcı videosu AI ise ya da ürün kareden kareye değişiyorsa: "mekanizma doğrulanamadı" → SAT verilmez.
-- Veto: lisanslı karakter/marka görünümü, sağlık/tedavi iddiası, bebek güvenliği iddiası, sıvı/cam/ateş/pil ağırlıklı ya da ağır ürün.
+- Veto: lisanslı karakter/marka görünümü, bebek güvenliği iddiası, sıvı/cam/ateş/pil ağırlıklı ya da ağır ürün. Sağlık/sonuç faydası veto değil: ürün puanlanır, kanıt dosyasına "Bilgi notu (kullanıcının sorumluluğu)" ve platform reklam riski yazılır.
 - CAPTCHA veya giriş duvarı çıkarsa çözmeye/atlatmaya çalışma; dur, o ana kadarki sonucu dosyaya yaz, kullanıcıya söyle.
 - Satın alma, sepete ekleme, numune, ücretli araç yok (kullanıcı açıkça onaylamadıkça). TrendTrack kullanılmaz.
 - Instagram/TikTok'ta takip, yorum, mesaj yok; yalnız izle ve oku.

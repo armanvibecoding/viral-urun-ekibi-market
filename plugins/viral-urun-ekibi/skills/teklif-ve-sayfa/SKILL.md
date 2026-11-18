@@ -31,8 +31,9 @@ Sayfa **yayını, fiyat değişikliği, uygulama kurulumu, reklam** kurucu karar
    (`aliexpress-firsat` `marj_hesap.py` çıktısı: paket indirimi sonrası çarpan hâlâ ≥2× mı?). Sonuç `tur=bizim` satırı.
    Bu satır mağazanın fiyatının TEK kaynağıdır: `urun-paketi.json` `teklif` alanına birebir girer, mağaza aşaması yeniden fiyat önermez
    (`ekip-lideri` §2b). `bizim` satırı yoksa mağaza sabit kuralı kullanır (2'li %10, 3'lü %18).
-4. **Sayfa iskeleti** — `${CLAUDE_SKILL_DIR}/sablon/sayfa-iskeleti.md` → `is/NN-urun/sayfa.md`. Her iddia kanıt dosyasındaki bir satıra
-   bağlanır (`[K: kanit/NN#bölüm]`); bağlanamayan iddia sayfaya girmez.
+4. **Sayfa iskeleti** — `${CLAUDE_SKILL_DIR}/sablon/sayfa-iskeleti.md` → `is/NN-urun/sayfa.md`. Her özellik, sayı ve karşılaştırma
+   iddiası kanıt dosyasındaki bir satıra bağlanır (`[K: kanit/NN#bölüm]`); bağlanamayan özellik/sayı sayfaya girmez (IDD-02).
+   Sağlık/sonuç cümlesi kanıt bağı olmadan da kalır, bilgi notuyla (IDD-01).
    **Mağaza kolu çalışacaksa:** tema paketi olan kurulumda (tam mod) sayfa metnini `magaza-kurucu` metinler aşaması temanın bölümlerine
    göre yazar; bu beceri ona teklifi, iddia–kanıt listesini, SSS'yi ve e-postayı verir. Tema paketi yoksa (temasız mod) bu iskelet
    ürün sayfasının düzenidir. İki durumda da site metni aynı yasak-ifade kapısından geçer (`teklif_kontrol.py tara`).
@@ -43,12 +44,15 @@ Sayfa **yayını, fiyat değişikliği, uygulama kurulumu, reklam** kurucu karar
    `python3 "${CLAUDE_SKILL_DIR}/scripts/teklif_kontrol.py" sema is/NN-urun/teklif.tsv`
    `python3 "${CLAUDE_SKILL_DIR}/scripts/teklif_kontrol.py" tara --pazar <TR|US|UK|DE|FR|ES> is/NN-urun/sayfa.md is/NN-urun/itiraz-sss.md is/NN-urun/eposta-upsell.md`
    Sonra `${CLAUDE_SKILL_DIR}/referans/kontrol-listesi.md` madde madde. İsteğe bağlı: sayfa iddialarını `kanit-savcisi` ajanına
-   "çürüt" brief'iyle ver (kanıt dosyası + sayfa.md); çürütülen iddia çıkarılır.
+   "çürüt" brief'iyle ver (kanıt dosyası + sayfa.md); çürütülen özellik/sayı çıkarılır, sağlık/sonuç cümlesi bilgi notuyla kalır.
 
 ## Kurallar (pazarlıksız)
 - **Uydurma yasak:** yorum, yıldız, müşteri sayısı, satış sayısı, stok sayısı, "X kişi bakıyor", uzman/doktor onayı, önce-sonra,
   sertifika — gerçek ve belgeli değilse yazılmaz. Sayı gerekiyorsa yer tutucu: `{GERCEK_YORUM_SAYISI}`; kurucu gerçek değeri girer.
   Bu, `kanit-savcisi`'nin "sayı uydurmak yasak, bulunamayan = doğrulanamadı" kuralının sayfa karşılığıdır.
+- **Sağlık ve sonuç dili yasak değil** (IDD-01, `${CLAUDE_PLUGIN_ROOT}/ortak/kurallar.md`): "ağrıyı geçirir", "garantili sonuç" yazılabilir;
+  metin elenmez, yumuşatılmaz. `teklif_kontrol.py` bu cümlelerde `UYARI … Bilgi notu (kullanıcının sorumluluğu): …` basar (çıkış
+  değişmez); o satır sayfa taslağının ve kullanıcı özetinin sonuna aynen eklenir.
 - **Sahte aciliyet yok:** geri sayım, "son N ürün", "fiyat yarın artıyor" yok. Gerçek kampanyanın bitiş tarihi yalnız TR dışı
   pazarda ve tarihle yazılır. **TR'de baskı cümlesi hiç yok** (güven > fiyat; "son 1 ürün" dolandırıcılık işareti sayılıyor).
 - **Çizili fiyat** yalnız gerçekten uygulanmış önceki fiyatsa ve kanıtı (`karsilastirma_kaniti`) varsa. AB/UK/TR'de önceki fiyat
@@ -64,7 +68,7 @@ Sayfa **yayını, fiyat değişikliği, uygulama kurulumu, reklam** kurucu karar
 | `${CLAUDE_SKILL_DIR}/referans/pazar-teklif-kurallari.md` | pazar kartına göre teklif + mevzuat (TR, ABD, UK, AB, FR) |
 | `${CLAUDE_SKILL_DIR}/referans/itiraz-bankasi.md` | pazar başına itiraz → cevap yönü |
 | `${CLAUDE_SKILL_DIR}/referans/kontrol-listesi.md` | yayın öncesi son kontrol |
-| `${CLAUDE_SKILL_DIR}/referans/yasak-ifadeler.tsv` | tarayıcının desenleri (pazar, regex, sebep) — yeni desen buraya |
+| `${CLAUDE_SKILL_DIR}/referans/yasak-ifadeler.tsv` | tarayıcının desenleri (pazar, regex, sebep, islem: `engel` = uydurma veri, `bilgi-notu` = sağlık/sonuç dili) — yeni desen buraya |
 | `${CLAUDE_SKILL_DIR}/sablon/` | `teklif.tsv` başlığı, `sayfa-iskeleti.md`, `eposta-upsell.md` |
 
 ## Kullanıcıya özet (≤8 satır)
