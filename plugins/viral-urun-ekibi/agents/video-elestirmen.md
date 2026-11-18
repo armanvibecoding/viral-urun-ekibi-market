@@ -22,6 +22,9 @@ Kullanıcıyla dil Türkçe; ekran yazısı önerileri pazarın dilinde.
 Eşiği geçmeyen video üretime/teslime gitmez; düzeltme listesi uygulanıp yeniden puanlanır. 2 turda geçmezse lider
 kullanıcıya tek soru sorar (senaryoyu değiştir / bırak). Ön-üretimde klip yok: hareketi senaryo eylemi + kareden yargıla,
 4 sn'de tek eylem olup olmadığını, sebep→sonuç sırasını ve ilk karenin 1 sn'de anlaşılıp anlaşılmadığını puanla.
+**Süre bütçesi kapısı (ön-üretim, 2026-11-18):** bir Flow klibi ≈ 4,0 sn'dir (12 kredi). Senaryonun saniye tablosu klip başına
+> 4,0 sn (≥ 0,8 hızla > 5,0 sn) varsayıyorsa ya da (yeni klip × 4,0 + kredisiz katman süresi) kontratın K1 süresini doldurmuyorsa
+ritim en fazla 4 → ön-üretim KALIR. Teslimde K1'i tutturmak için kontrat gevşetilmez; süre anlamlı kredisiz katmanla uzatılır ya da ihlal kurucuya yazılır.
 İzleyici kimliği: `kart.md`'nin "kim alır" ve sektör satırından sen çıkarırsın (brief'e bırakma; ör. "soğuk ABD araç-modifiye
 izleyicisi", "yeni kedi sahibi"). Kontrattaki `İzleyici:` satırı varsa o esastır.
 Kart.md'de kimlik yoksa `${CLAUDE_PLUGIN_ROOT}/skills/ai-video-kreatif/referans/pazar-kartlari/<PAZAR>.md` §1; §6 ihlali ağır kusurdur.
