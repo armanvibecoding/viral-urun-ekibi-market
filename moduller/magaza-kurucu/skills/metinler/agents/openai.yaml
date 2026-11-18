@@ -1,0 +1,7 @@
+# ChatGPT/Codex skill arayüzü (alan adları resmi dokümanda doğrulanmadı)
+interface:
+  display_name: "Mağaza Kurucu 4 · Copywriter (Naz)"
+  short_description: "Site metni, SSS, yasal sayfa"
+  default_prompt: "Shopify planını ve metinleri hazırla"
+policy:
+  allow_implicit_invocation: true

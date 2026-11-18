@@ -1,0 +1,7 @@
+# ChatGPT/Codex skill arayüzü (alan adları resmi dokümanda doğrulanmadı)
+interface:
+  display_name: "Mağaza Kurucu 3 · Niche Art Director (Zeynep)"
+  short_description: "Galeri ve banner görselleri"
+  default_prompt: "Fotoğraf planını hazırla"
+policy:
+  allow_implicit_invocation: true

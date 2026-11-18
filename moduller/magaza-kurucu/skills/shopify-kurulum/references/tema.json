@@ -1,0 +1,10 @@
+{
+  "aciklama": "Tam modda yüklenecek temiz Ana Tema paketinin kaydı. Tema kodu ve zip bu depoya GİRMEZ; zip'i tema sahibi verir. Kullanıcıda bu zip yoksa kurulum TEMASIZ modda yürür (ürün, metin ve görseller mağazanın mevcut temasına yazılır; şablon yaması yapılmaz). build.py bu dosyayı skills/shopify-kurulum/references/tema.json olarak kopyalar.",
+  "dosya_adi": "Ana-Tema-temiz-2026-11-11.zip",
+  "surum": "2026-11-11",
+  "boyut_bayt": 3837269,
+  "sha256": "ce6a20ee4ca8815307603d25095615dad34b7f0062291494ed2a0d0c872a3c82",
+  "kaynak_repo": "tema sahibinin özel deposu (bu pakette yok)",
+  "dagitim": "Zip'i tema sahibi verir; dosya adı ve sha256 bu kayıtla aynı olmalı. Sarmalayıcı bir paket verildiyse ('Ana-Tema-Paketi-<tarih>.zip') Shopify'a doğrudan YÜKLENMEZ; içinden yukarıdaki temiz zip çıkarılıp yüklenir. Kayıttaki tarihten eski paketler kullanılmaz.",
+  "yukleme_yolu": "Admin › Online Mağaza › Temalar › İçe aktar › Zip dosyası yükle (YAYINLAMA)"
+}

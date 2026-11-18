@@ -10,3 +10,5 @@ __pycache__/
 .ekip/
 is/
 dist/chatgpt/
+moduller/*/dist/
+.pytest_cache/

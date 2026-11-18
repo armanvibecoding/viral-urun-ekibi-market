@@ -1,0 +1,7 @@
+# ChatGPT/Codex skill arayüzü (alan adları resmi dokümanda doğrulanmadı)
+interface:
+  display_name: "Mağaza Kurucu 5 · Store Architect (Baran)"
+  short_description: "Shopify kurulumu ve kontrol"
+  default_prompt: "Mağazayı Shopify'da kur"
+policy:
+  allow_implicit_invocation: true
