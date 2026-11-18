@@ -21,4 +21,7 @@ if [ -f "$D/GERI-BILDIRIM.md" ]; then
   ACIK=$(grep -ciE '\| *(açık|AÇIK|acik) *\|' "$D/GERI-BILDIRIM.md")
   [ "$ACIK" -gt 0 ] && { echo ""; echo "--- GERİ BİLDİRİM: $ACIK AÇIK satır (.ekip/GERI-BILDIRIM.md) — teslimden önce eklentiye işle (ekip-lideri §5b) ---"; grep -iE '\| *(açık|acik) *\|' "$D/GERI-BILDIRIM.md"; }
 fi
+for K in "${CLAUDE_PROJECT_DIR:-.}"/is/*/magaza/devam-karti.md; do
+  [ -f "$K" ] && echo "--- Mağaza DEVAM KARTI var: $K (mağaza işine dönmeden önce oku; onaylı değerler değişmez) ---"
+done
 echo "=== Hafıza sonu. İşe devam etmeden önce DURUM.md'deki 'Sıradaki adım'ı oku. ==="

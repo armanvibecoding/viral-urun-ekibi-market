@@ -29,8 +29,13 @@ Sayfa **yayını, fiyat değişikliği, uygulama kurulumu, reklam** kurucu karar
    kural yapılmaz. → `is/NN-urun/teklif-deseni.md`.
 3. **Teklif tasarımı** — desen + pazar kuralları (`${CLAUDE_SKILL_DIR}/referans/pazar-teklif-kurallari.md`) + iniş maliyeti
    (`aliexpress-firsat` `marj_hesap.py` çıktısı: paket indirimi sonrası çarpan hâlâ ≥2× mı?). Sonuç `tur=bizim` satırı.
+   Bu satır mağazanın fiyatının TEK kaynağıdır: `urun-paketi.json` `teklif` alanına birebir girer, mağaza aşaması yeniden fiyat önermez
+   (`ekip-lideri` §2b). `bizim` satırı yoksa mağaza sabit kuralı kullanır (2'li %10, 3'lü %18).
 4. **Sayfa iskeleti** — `${CLAUDE_SKILL_DIR}/sablon/sayfa-iskeleti.md` → `is/NN-urun/sayfa.md`. Her iddia kanıt dosyasındaki bir satıra
    bağlanır (`[K: kanit/NN#bölüm]`); bağlanamayan iddia sayfaya girmez.
+   **Mağaza kolu çalışacaksa:** tema paketi olan kurulumda (tam mod) sayfa metnini `magaza-kurucu` metinler aşaması temanın bölümlerine
+   göre yazar; bu beceri ona teklifi, iddia–kanıt listesini, SSS'yi ve e-postayı verir. Tema paketi yoksa (temasız mod) bu iskelet
+   ürün sayfasının düzenidir. İki durumda da site metni aynı yasak-ifade kapısından geçer (`teklif_kontrol.py tara`).
 5. **İtiraz SSS** — `${CLAUDE_SKILL_DIR}/referans/itiraz-bankasi.md` (pazar başına) + rakip reklam yorumlarında gerçekten geçen sorular.
    Cevap ürünün gerçek özelliğinden; bilinmiyorsa soru sayfaya alınmaz, `Bulunamayan veri`ye yazılır.
 6. **E-posta / upsell taslağı** — `${CLAUDE_SKILL_DIR}/sablon/eposta-upsell.md`. Gönderim/otomasyon kurulumu kurucu kararı.

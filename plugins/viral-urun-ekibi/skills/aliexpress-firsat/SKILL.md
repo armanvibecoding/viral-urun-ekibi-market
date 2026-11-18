@@ -47,6 +47,8 @@ Uzun tablo sohbete yazılmaz, dosyaya yazılır. Sohbete yalnız özet + dosya y
    girer: `${CLAUDE_SKILL_DIR}/referans/marj-ivme-puan.md`.
 8. **Karar** — SAT / İZLE / ELE (`kanit-ve-karar.md` §2). ELE olanlar sebebiyle `is/firsat/elenenler.md`'ye.
    SAT olan ürün için `is/NN-urun-adi/DURUM.md` açılır; kullanıcı onaylarsa KARARLAR.md'ye yazılır.
+   Mağaza kurulacaksa lider SAT kanıtını `urun-paketi.json`'a çevirir (`ekip-lideri` §2b adım 3, `sozlesme/paket.py urun-yaz`):
+   kanıt dosyasındaki her URL satırı `kanit[]`, `marj.csv` satırı tedarik fiyatı olur; bu yüzden kanıt satırında URL + tarih eksik bırakılmaz.
 
 ## Ajana iş verirken (brief)
 Brief'te beş şey olur: hedef, okunacak dosyalar (DNA, sözlük, adaylar, elenenler, aramalar), yazılacak dosya,

@@ -37,6 +37,10 @@ sorusuz akar (liste ve istisnalar: `asamalar.md` Aşama 0).
 
 Aşama 1'de kartı **gerçek fotoğraf ve satıcı açıklamasından** yaz (AI görselden değil). Mekanizmanın bilinmeyen kısmını
 gösterme; o anı atlayan sahne kur ve `[DOĞRULA]` etiketle. Kilit metni bir kez yazılır, her promptu betik üretir.
+**Mağaza kurulduysa** (`is/NN/magaza/magaza-paketi.json` var): önce `python3 "${CLAUDE_PLUGIN_ROOT}/sozlesme/paket.py" magaza-oku
+is/NN/magaza/magaza-paketi.json --cikti-dizin is/NN/kurgu`. Ürün referansı mağazanın yazısız G0 karesidir (`kilit.txt` ondan ve
+mağazanın ürün kilidinden yazılır, ikinci bir kilit tanımı yapılmaz); senaryoda söylenen her sayı ve sonuç cümlesi
+`onayli-iddialar.txt`'de olmalı (brief'e ekle); kapak ve son karede mağazanın renkleri ve başlık ailesi kullanılır.
 
 **Viral referans (Aşama 1 sonu, atlanamaz; alt ajan izlenme okuyamaz, bu iş liderde):**
 1. **TikTok, ≥ 5 sorgu:** ürün adı + rakip marka/model adları + kategori sorguları ("<kategori> accessories you need",

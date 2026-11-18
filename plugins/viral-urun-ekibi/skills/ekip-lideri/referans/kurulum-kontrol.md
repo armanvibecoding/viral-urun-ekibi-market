@@ -12,6 +12,8 @@ Her satırı ölç, tahmin etme. Eksik olanı kullanıcıya tek listede, kurulum
 | Bilgisayar kontrolü (yalnız Mac iPhone modu) | computer-use araçları var mı | `/mcp` → computer-use → Enable; Erişilebilirlik + Ekran Kaydı izni |
 | iPhone Yansıtma (yalnız Mac) | uygulama açılıyor mu | macOS 15+, iPhone aynı Apple hesabında; yoksa "tarayıcı" modu kullanılır |
 | Swift derleyici (yalnız Mac iPhone modu) | `swiftc --version` | `xcode-select --install` |
+| Shopify bağlantısı (yalnız mağaza kolu) | `/mcp` listesinde `shopify` bağlı mı (eklenti `.mcp.json` ile gelir) | `/mcp` → shopify → giriş; giriş ekranını kullanıcı geçer |
+| Pillow ≥ 10 (mağaza görsel betikleri) | `python3 -c "import PIL; print(PIL.__version__)"` | `python3 -m pip install --user "pillow>=10"` |
 | Node.js 22+ (hareketli tasarım, HyperFrames) | `node --version` · `npx --version` | nodejs.org'dan LTS (22+) · Mac: `brew install node` · Windows: `winget install OpenJS.NodeJS.LTS` |
 | HyperFrames CLI | `npx --no-install hyperframes --version` (paket yoksa hata verir, indirmez) | Kullanıcı onayıyla: `npx hyperframes doctor --json` (ilk çağrı CLI'yi indirir) → `.ok` true olmalı; Chrome eksikse `npx hyperframes browser ensure` |
 

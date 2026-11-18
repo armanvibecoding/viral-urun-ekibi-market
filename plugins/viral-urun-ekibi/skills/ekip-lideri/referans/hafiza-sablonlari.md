@@ -41,3 +41,15 @@ Pazar: <TR/ABD>   Kredi: harcanan X / onaylı Y
 |---|---|---|---|---|---|
 | V01 | ✅ | ✅ | 2/3 | — | — |
 ```
+
+## is/NN-urun-adi/magaza/  (mağaza kolu; ürün mağazaya gidiyorsa)
+```
+devam-karti.md        ← mağaza aşamalarının hafızası (her aşama sonunda üzerine yazılır; biçim mağaza becerisinde)
+urun-paketi.json      ← ürün kolundan (sozlesme/paket.py urun-yaz)
+magaza-paketi.json    ← kurulum sonunda (dogrula magaza → 0)
+video-paketi.json     ← teslimde (sozlesme/paket.py video-yaz)
+tur-<n>/              ← görsel üretim turları (istem/, aday/, secili/, pano/)
+CRO.md HIZ.md SEO.md ERISIM.md SES.md   ← site denetimi raporları
+```
+`.ekip/DURUM.md`'ye tek satır: `Mağaza: <aşama, ör. 3/5 görseller — G1 onayı bekleniyor> · tema modu: tam|temasız`.
+KARARLAR satırları: `- YYYY-AA-GG | tema | paket var (tam mod)` ya da `paket yok (temasız mod)` · `- YYYY-AA-GG | shopify | bağlı`.
