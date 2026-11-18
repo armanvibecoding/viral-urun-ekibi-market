@@ -43,6 +43,10 @@ Ağır DEĞİL (gerçekçilik 5, kontrat K7/K8): video seçilmemiş içerikle bi
   ya da AI'ın eklediği "yaşanmışlık" izi → gerçekçilik en fazla 4. Kare kabulünde temizlenir; klip üretildiyse rötuş/kırpma.
 - **Müzik kulakla seçilmedi:** müzik yalnız ölçümle seçildi ve kurucuya 3 aday dinletilmedi → ses alanı en fazla 5.
   Duygu ürünün vaadine uymuyor (ör. yetişkin üründe "sakin lo-fi", "after dark"/arzu hissi yok) → ses alanı en fazla 4.
+- **AI slop / tasarımsız** (2026-11-18 kurucu: "çok fake, animasyon yok, albeni yok, tipografi kötü, hook yok"): durgun AI
+  fotoğrafı + yavaş itme planları, CGI su/sıvı, düz beyaz altyazı kutusu tipografisi, ilk 0,5 sn'de örüntü kırma yok → en az
+  iki alan 4. Eleştirmen ayrıca sorar: "AI slop gibi mi duruyor? Tipografi bir tasarım ajansının işi gibi mi?" Cevap "evet/hayır"
+  değilse gerekçesiyle KALIR.
 - **Yazının çoğu özellik listesi:** yazı kartlarının yarısından fazlası ölçü/ağırlık/renk/malzeme ("121 mm · 30 g") →
   yazı alanı 3 (alan < 5 = KALIR). Tek ölçü kartı, ancak bir merak/ikna cümlesine bağlıysa izinli.
 

@@ -135,3 +135,9 @@ Betik DUR/❌ verirse düzelt ve tekrar koştur; geçmeden sonraki aşamaya geç
 
 ## Rapor (aşama sonunda, ≤6 satır)
 Ne çıktı (dosya yolu) · kontrol sonucu (sayıyla) · harcanan/onaylı kredi · kalan kusurlar · sıradaki adım · varsa tek soru.
+
+## Görüntü kaynağı önceliği (2026-11-18 kurucu geri bildirimi)
+1. İnsan, sıvı, şehir/ofis gibi gerçekçiliği zor sahnelerde önce **gerçek stok video** (ticari lisanslı, atıfsız; lisans `LISANS.md`) ya da kurucunun kendi çekimi.
+2. Ürün her zaman **gerçek ürün fotoğrafından** (kesim + hareketli tasarım) ya da ürün sadakati kanıtlı karelerden.
+3. AI klip yalnız gerçek görüntünün bulunamadığı, hikâyeye özgü sahnede. Durgun AI fotoğrafı + itme, video yerine geçmez.
+4. Her videoda hareketli tasarım katmanı zorunlu: kinetik tipografi (vuruşa oturan, hiyerarşili, vurgu kelimesi renkli), geçiş, ilerleme/sayaç ya da UI öğesi (HyperFrames registry önce aranır). Düz beyaz altyazı kutusu tipografisi kullanılmaz.
