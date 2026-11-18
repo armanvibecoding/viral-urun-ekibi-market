@@ -24,3 +24,6 @@ pazar	desen	sebep
 *	(%\s*100|\b100\s*%)\s*(garantili\s+sonuç|sonuç\s+garantisi|guaranteed\s+results|erfolgsgarantie)|garantili\s+sonuç|guaranteed\s+results	sonuç garantisi iddiası
 *	tedavi\s+eder|iyileştirir|\bcures?\b|heilt\b|guérit\b|\bcura\b	sağlık iddiası
 TR	acele\s+et|kaçırma(yın)?\b|son\s+fırsat|stoklar(la)?\s+sınırlı	TR baskı cümlesi (güven kırar)
+*	\b(doğal|organik|eco|temiz\s+içerik)\b	kanıtsız nitelik sözü (mağaza site metni kuralı; belge yoksa yazılmaz)
+*	(en\s+)?çok\s+satan|best[\s-]?sell(er|ing)	kanıtsız satış üstünlüğü
+*	\d[\d.,]*\s*(bin|k)\s+(müşteri|customers?)	uydurma müşteri sayısı (yer tutucu kullan)

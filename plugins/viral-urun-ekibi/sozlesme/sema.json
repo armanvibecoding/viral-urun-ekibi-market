@@ -1,0 +1,112 @@
+{
+  "_aciklama": "Köprü dosyalarının makine okunur şeması. Anlatım: skills/magaza-kurucu/urun-analiz/references/arayuz-sozlesmesi.md. Denetleyen: paket.py dogrula. tur: metin|sayi|tamsayi|mantik|nesne|liste. Alan silinmez; yeni alan = surum artar.",
+  "urun-paketi": {
+    "tur": "nesne",
+    "alanlar": {
+      "surum": {"tur": "metin", "zorunlu": true, "secenek": ["1", "2"]},
+      "urun": {"tur": "nesne", "zorunlu": true, "alanlar": {
+        "ad": {"tur": "metin", "zorunlu": true},
+        "nis": {"tur": "metin", "zorunlu": true, "desen": "^nis-[a-z]+$"},
+        "fotograflar": {"tur": "liste", "zorunlu": true, "en_az": 1, "oge": {"tur": "metin"}},
+        "ozellikler": {"tur": "liste", "oge": {"tur": "nesne", "alanlar": {
+          "ad": {"tur": "metin", "zorunlu": true},
+          "deger": {"tur": "metin", "zorunlu": true},
+          "birim": {"tur": "metin"},
+          "kaynak": {"tur": "metin", "desen": "^https?://"}}}},
+        "varyantlar": {"tur": "liste", "oge": {"tur": "nesne", "alanlar": {
+          "ad": {"tur": "metin", "zorunlu": true},
+          "stok": {"tur": "mantik"}}}},
+        "tedarik_fiyati": {"tur": "nesne", "alanlar": {
+          "tutar": {"tur": "sayi", "zorunlu": true, "buyuktur": 0},
+          "para": {"tur": "metin", "zorunlu": true, "desen": "^[A-Z]{3}$"}}}}},
+      "pazar": {"tur": "nesne", "zorunlu": true, "alanlar": {
+        "ulke": {"tur": "metin", "zorunlu": true, "desen": "^[A-Z]{2}$"},
+        "dil": {"tur": "metin", "zorunlu": true, "desen": "^[a-z]{2}$"},
+        "para": {"tur": "metin", "zorunlu": true, "desen": "^[A-Z]{3}$"}}},
+      "rakipler": {"tur": "liste", "oge": {"tur": "nesne", "alanlar": {
+        "marka": {"tur": "metin", "zorunlu": true},
+        "url": {"tur": "metin", "zorunlu": true, "desen": "^https?://"},
+        "fiyat": {"tur": "sayi", "buyuktur": 0}}}},
+      "kanit": {"tur": "liste", "oge": {"tur": "nesne", "alanlar": {
+        "kaynak": {"tur": "metin", "zorunlu": true},
+        "url": {"tur": "metin", "zorunlu": true, "desen": "^https?://"},
+        "tarih": {"tur": "metin", "desen": "^\\d{4}-\\d{2}-\\d{2}$"},
+        "olcu": {"tur": "metin"}}}},
+      "teklif": {"tur": "nesne", "surum": "2", "alanlar": {
+        "kaynak": {"tur": "metin", "zorunlu": true, "secenek": ["teklif.tsv", "sabit-kural"]},
+        "fiyat": {"tur": "sayi", "buyuktur": 0},
+        "para": {"tur": "metin", "desen": "^[A-Z]{3}$"},
+        "paketler": {"tur": "liste", "zorunlu": true, "en_az": 1, "oge": {"tur": "nesne", "alanlar": {
+          "adet": {"tur": "tamsayi", "zorunlu": true, "buyuktur": 0},
+          "indirim_yuzde": {"tur": "sayi", "zorunlu": true}}}},
+        "garanti": {"tur": "metin"},
+        "kargo_vaadi": {"tur": "metin"}}}
+    }
+  },
+  "magaza-paketi": {
+    "tur": "nesne",
+    "alanlar": {
+      "surum": {"tur": "metin", "zorunlu": true, "secenek": ["1", "2"]},
+      "marka": {"tur": "nesne", "zorunlu": true, "alanlar": {
+        "ad": {"tur": "metin", "zorunlu": true},
+        "slogan": {"tur": "metin"},
+        "ses": {"tur": "nesne", "alanlar": {
+          "sifatlar": {"tur": "liste", "oge": {"tur": "metin"}},
+          "degil": {"tur": "liste", "oge": {"tur": "metin"}}}}}},
+      "renkler": {"tur": "nesne", "zorunlu": true, "alanlar": {
+        "zemin": {"tur": "metin", "zorunlu": true, "desen": "^#[0-9A-Fa-f]{6}$"},
+        "metin": {"tur": "metin", "zorunlu": true, "desen": "^#[0-9A-Fa-f]{6}$"},
+        "ikincil": {"tur": "metin", "desen": "^#[0-9A-Fa-f]{6}$"},
+        "kart": {"tur": "metin", "desen": "^#[0-9A-Fa-f]{6}$"},
+        "vurgu": {"tur": "metin", "zorunlu": true, "desen": "^#[0-9A-Fa-f]{6}$"}}},
+      "tipografi": {"tur": "nesne", "zorunlu": true, "alanlar": {
+        "baslik": {"tur": "nesne", "zorunlu": true, "alanlar": {
+          "aile": {"tur": "metin", "zorunlu": true},
+          "agirlik": {"tur": "tamsayi"},
+          "handle": {"tur": "metin"},
+          "buyuk_harf": {"tur": "mantik"}}},
+        "govde": {"tur": "nesne", "zorunlu": true, "alanlar": {
+          "aile": {"tur": "metin", "zorunlu": true},
+          "handle": {"tur": "metin"}}}}},
+      "logo": {"tur": "nesne", "alanlar": {
+        "dosya": {"tur": "metin"},
+        "tur": {"tur": "metin"}}},
+      "urun": {"tur": "nesne", "zorunlu": true, "alanlar": {
+        "baslik": {"tur": "metin", "zorunlu": true},
+        "handle": {"tur": "metin"},
+        "url": {"tur": "metin", "desen": "^https?://"},
+        "fiyat": {"tur": "sayi", "buyuktur": 0},
+        "para": {"tur": "metin", "desen": "^[A-Z]{3}$"},
+        "varyantlar": {"tur": "liste", "oge": {"tur": "metin"}}}},
+      "onayli_metinler": {"tur": "nesne", "zorunlu": true, "alanlar": {
+        "faydalar": {"tur": "liste", "oge": {"tur": "metin"}},
+        "g1_baslik": {"tur": "liste", "oge": {"tur": "metin"}},
+        "b2": {"tur": "nesne", "alanlar": {}, "serbest": true},
+        "iddialar": {"tur": "liste", "zorunlu": true, "oge": {"tur": "nesne", "alanlar": {
+          "metin": {"tur": "metin", "zorunlu": true},
+          "kaynak": {"tur": "metin"},
+          "bilgi_notu": {"tur": "mantik"}}}}}},
+      "gorseller": {"tur": "liste", "oge": {"tur": "nesne", "alanlar": {
+        "kod": {"tur": "metin", "zorunlu": true},
+        "dosya": {"tur": "metin", "zorunlu": true},
+        "olcu": {"tur": "metin", "desen": "^\\d+x\\d+$"},
+        "yazisiz": {"tur": "mantik"}}}},
+      "magaza": {"tur": "nesne", "alanlar": {
+        "alan_adi": {"tur": "metin"},
+        "tema_id": {"tur": "metin"},
+        "pdp_url": {"tur": "metin", "desen": "^https?://"},
+        "utm": {"tur": "metin"},
+        "tema_modu": {"tur": "metin", "surum": "2", "secenek": ["tam", "temasiz"]}}}
+    }
+  },
+  "video-paketi": {
+    "tur": "liste",
+    "en_az": 1,
+    "oge": {"tur": "nesne", "alanlar": {
+      "dosya": {"tur": "metin", "zorunlu": true},
+      "olcu": {"tur": "metin", "zorunlu": true, "desen": "^\\d+x\\d+$"},
+      "sure_sn": {"tur": "sayi", "zorunlu": true, "buyuktur": 0},
+      "kullanim": {"tur": "metin", "zorunlu": true, "secenek": ["pdp-galeri", "hero", "reklam"]},
+      "altyazi_dili": {"tur": "metin", "desen": "^([a-z]{2}|yok)$"}}}
+  }
+}

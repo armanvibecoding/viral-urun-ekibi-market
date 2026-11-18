@@ -71,6 +71,13 @@ def main():
     bekle("tara: yer tutucu ve temiz metin -> 0",
           kos(["tara", "--pazar", "TR", "{G}"], "{GERCEK_YORUM_SAYISI} yorum · kargo dahil 599 TL · 14 gün koşulsuz iade\n", "t.md"), 0)
     bekle("tara: dosya yok -> 1", kos(["tara", "{G}"], None, "yok.md"), 1, ["dosya yok"])
+    # magaza site metni kelimeleri (magaza kolunun kurali tek listede) + ISO pazar kodu
+    bekle("tara: magaza site kelimeleri (dogal / cok satan / N bin musteri) -> 1",
+          kos(["tara", "--pazar", "TR", "{G}"], "%100 Doğal içerik\nEn çok satan model\n12 bin müşteri\n", "site.md"), 1,
+          ["kanıtsız nitelik", "kanıtsız satış üstünlüğü", "uydurma müşteri"])
+    bekle("tara: 'dogalgaz' gibi kelime ici eslesme sayilmaz -> 0",
+          kos(["tara", "--pazar", "TR", "{G}"], "Doğalgaz sobasının yanına konmaz. Ekonomik paket.\n", "site2.md"), 0)
+    bekle("tara: --pazar GB = UK (kopru dosyalari ISO yazar) -> 0", kos(["tara", "--pazar", "GB"] + [os.path.join(SABLON, "sayfa-iskeleti.md")]), 0)
     # kendi sablonlarimiz temiz olmali (her pazar)
     sablonlar = [os.path.join(SABLON, d) for d in ("sayfa-iskeleti.md", "eposta-upsell.md")]
     for p in ("TR", "US", "UK", "DE", "FR", "ES"):

@@ -175,6 +175,7 @@ def main(argv):
         if "--pazar" in args:
             i = args.index("--pazar")
             pazar = args[i + 1].upper() if i + 1 < len(args) else None
+            pazar = "UK" if pazar == "GB" else pazar  # köprü dosyaları ISO (GB) yazar; teklif tablosu UK der
             if pazar not in PARA:
                 print(f"HATA: --pazar {'/'.join(PARA)} olmali")
                 return 2

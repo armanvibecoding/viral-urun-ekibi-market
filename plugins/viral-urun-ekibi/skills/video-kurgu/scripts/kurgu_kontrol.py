@@ -4,6 +4,7 @@
 Kullanım:
   python3 kurgu_kontrol.py AYAR.json [AYAR2.json ...] [--video VIDEO.mp4] [--drop 3.429] [--etiket klip_etiket.json]
                            [--esik ad=deger ...] [--gevset KURAL ...] [--json]
+                           [--magaza-paketi is/NN-urun/magaza/magaza-paketi.json [--yalniz-iddia]]
   python3 kurgu_kontrol.py [AYAR.json] --goruntu VIDEO.mp4 [--kesimler 4.0,8.0]     (teslim öncesi görüntü kapısı)
 Çıkış: herhangi bir ayarda HATA varsa 1, yoksa 0. UYARI çıkışı değiştirmez. Görüntü kapısı HATA'sı → 3 (önceliklidir).
 
@@ -34,6 +35,9 @@ Kurallar (SKILL.md "Viral kurgu" + eleştiri turları; eşikler ESIK sözlüğü
  plan      plan ≥ 2 vuruş (0,857 sn − tolerans); toplam 10–15 sn.
  dongu     son planın ekran içeriği ilk planınkiyle aynı (son plan ilk kareye bağlanır).
  ses       (--video) ses_olc.py: drop_artis ≥ 6 dB, ≥ 0,3 sn −28 dB altı delik yok, −14 ± 1 LUFS.
+ iddia     (--magaza-paketi) ayardaki her ekran yazısı: sayı ya da sonuç/üstünlük sözü taşıyorsa mağazanın onaylı
+           listesinde (onayli_metinler.iddialar/faydalar/başlık) olmalı; mağaza fiyatı birebir yazılabilir. Yoksa HATA.
+           Kural ve sinyal listesi tek yerde: sozlesme/paket.py (iddia_ihlalleri). --yalniz-iddia öbür kuralları atlar.
 Betik eleştirmenin yerini almaz: kanca gücü, gerçekçilik, ritim yargısı eleştirmende kalır.
 """
 import argparse
@@ -407,6 +411,8 @@ def main():
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--goruntu", help="teslim videosu: kesim dışı RGB sıçraması + son 2 sn gürültü kapısı (HATA → çıkış 3)")
     ap.add_argument("--kesimler", help="kesim saniyeleri virgüllü (yoksa AYAR planlarından)")
+    ap.add_argument("--magaza-paketi", help="magaza-paketi.json: onaylı listede olmayan iddia = HATA [iddia]")
+    ap.add_argument("--yalniz-iddia", action="store_true", help="yalnız iddia kapısı (klip etiketi gerektirmez)")
     args = ap.parse_args()
     if args.goruntu:
         if args.kesimler:
@@ -437,7 +443,21 @@ def main():
         if ad not in esik:
             sys.exit(f"bilinmeyen eşik: {ad} (seçenekler: {', '.join(esik)})")
         esik[ad] = float(v)
-    sonuclar = [kontrol(y, args, esik) for y in args.ayar]
+    if args.yalniz_iddia and not args.magaza_paketi:
+        ap.error("--yalniz-iddia için --magaza-paketi gerekli")
+    sonuclar = ([{"ayar": y, "arac": "-", "sure_sn": 0, "etiket": [], "hatalar": [], "uyarilar": [], "ses": None, "gecti": True}
+                 for y in args.ayar] if args.yalniz_iddia else [kontrol(y, args, esik) for y in args.ayar])
+    if args.magaza_paketi:
+        sys.path.insert(0, os.path.join(BURASI, "..", "..", "..", "sozlesme"))
+        import paket as kopru
+        mp = kopru.oku_json(args.magaza_paketi)
+        sema_hata = kopru.dogrula("magaza", mp)
+        for s in sonuclar:
+            s["hatalar"] += [{"kural": "iddia", "mesaj": "magaza-paketi geçersiz: " + h} for h in sema_hata]
+            if not sema_hata:
+                s["hatalar"] += [{"kural": "iddia", "mesaj": f"{k}: \"{m}\" onaylı listede yok (magaza-paketi onayli_metinler)"}
+                                 for k, m in kopru.iddia_ihlalleri(mp, kopru.metin_satirlari(s["ayar"]))]
+            s["gecti"] = not s["hatalar"]
     if args.json:
         print(json.dumps(sonuclar if len(sonuclar) > 1 else sonuclar[0], ensure_ascii=False, indent=1))
     else:

@@ -1,0 +1,16 @@
+# reklam-kutuphanesi-avi niş kodu (referans/nisler.md) -> mağaza niş eki (tema templateSuffix). Eşleşmeyen kod: nis-gadget + UYARI.
+kod	nis
+evcil	nis-pet
+bebek	nis-ev
+ev-isik	nis-ev
+mutfak	nis-ev
+banyo-bakim	nis-guzellik
+arac	nis-gadget
+gadget	nis-gadget
+fitness	nis-saglik
+seyahat	nis-gadget
+hediye	nis-gadget
+eglence-saka	nis-gadget
+uyku-mobilya	nis-ev
+kozmetik-saglik	nis-guzellik
+moda	nis-moda
