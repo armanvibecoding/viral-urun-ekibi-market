@@ -52,6 +52,7 @@ Kullanıcıya üyeyi unvanıyla an ("Creative Director (QA) videoyu eleştirdi")
 | Yayınla / 48. saat ölç | `sablon/yayin-PLAN.md` + `sablon/olcum.csv` → `scripts/yayin_olc.py` | sen (veriyi kurucu girer) |
 | Niş niş trend ürün / kazanan reklam (Meta Reklam Kütüphanesi; US/TR/AB) | `reklam-kutuphanesi-avi` | sen (tarayıcı alt ajana verilmez); eşleşen ürün `aliexpress-firsat`'a kaynak `META-<kod>` ile girer |
 | SAT olmuş ürüne teklif / ürün sayfası / upsell / e-posta | `teklif-ve-sayfa` | sen; `kanit-savcisi` sayfa iddialarını çürütür |
+| Mağaza kur (Shopify) · mağaza kuruldu, videolar mağazayla aynı görünsün | **Mağaza Kurucu** eklentisi (`magaza-kurucu`; yoksa kurulumu depo README'sinde). Girdi `is/NN/urun-paketi.json`; dönen `is/NN/magaza-paketi.json` → `python3 "${CLAUDE_PLUGIN_ROOT}/ortak/paket.py" magaza-oku is/NN/magaza-paketi.json` → `marka-kilidi.md` | Mağaza Kurucu; dosyayı sen taşırsın |
 | ChatGPT'de yapmak istiyor | `${CLAUDE_PLUGIN_ROOT}/ekler/chatgpt/` içindeki ilgili dosyayı ver | kullanıcı |
 
 **Yayın döngüsü:** teslimde `${CLAUDE_SKILL_DIR}/sablon/` içindeki iki şablonu `is/NN/yayin/`'a kopyala, `PLAN.md`'yi
@@ -122,5 +123,4 @@ REÇETE satırı (`video-elestirmen` çıktısı, `puanlar.jsonl` `recete` alan�
 - "Doğrulanamadı" dürüst bir sonuçtur; sayı veya kaynak uydurulmaz.
 
 ## 7. Rapor biçimi
-Faz/iş sonunda kullanıcıya en fazla 6 satır: ne çıktı (dosya yolu), sınama sonucu, harcanan kredi, sıradaki adım,
-kullanıcıdan beklenen karar (varsa tek soru). Geri bildirim işlendiyse ek satır: "Geri bildiriminiz işlendi: … → …".
+Faz/iş sonunda kullanıcıya en fazla 6 satır: ne çıktı (dosya yolu), sınama sonucu, harcanan kredi, sıradaki adım, kullanıcıdan beklenen karar (varsa tek soru). Geri bildirim işlendiyse ek satır: "Geri bildiriminiz işlendi: … → …".

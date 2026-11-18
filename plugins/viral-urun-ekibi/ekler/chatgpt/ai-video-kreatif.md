@@ -120,3 +120,8 @@ AŞAMA 9 — TESLİM
 - Rapor: yeniden üretilen kare/klip, harcanan kredi, kalan kusurlar (saniyesiyle), varsayımlar.
 - Kullanıcıya not: 48. saatte (≥2.000 izlenme) paylaşım/izlenme ≥%0,61 ve beğeni/izlenme ≥%1,01 → kazanan; hiçbiri tutmazsa görüntüyü değiştir.
 - Son satır: "Kalan senaryoları üretmemi istersen 'devam' yaz." (yeni kredi onayıyla)
+
+MAĞAZA PAKETİ (isteğe bağlı; mağaza Mağaza Kurucu ile kurulduysa)
+- Kullanıcı `magaza-paketi.json` eklediyse önce onu oku: pazar, link ve fiyat sorulmaz; ürün referansı G0 temiz ürün karesi; senaryo, ekran yazısı ve caption'da YALNIZ `onayli_metinler` içindeki fayda ve iddialar; kapak ve son kare renkleri `renkler` HEX'leri, yazı ailesi `tipografi`; link `magaza.pdp_url` + `magaza.utm`.
+- Teslimde `video-paketi.json` ver: her video için dosya, ölçü, süre, kullanım (`reklam` | `pdp-galeri` | `hero`), altyazı dili. Mağaza Kurucu yalnız `pdp-galeri` ve `hero` olanları mağazaya yükler.
+- Biçim (alan adları değişmez): depodaki `plugins/viral-urun-ekibi/ortak/sozlesme/` klasörü — `arayuz-sozlesmesi.md` (alan tablosu), `*.schema.json` (zorunlu alan ve biçim), `ornek/` (geçerli örnek), `paket_dogrula.py` (kod yorumlayıcıda doğrulama).

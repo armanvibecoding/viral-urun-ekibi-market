@@ -1,6 +1,6 @@
 # Katkı rehberi
 
-Katkın için teşekkürler. Bu depo bir Claude Code eklenti pazarıdır; tek eklenti `plugins/viral-urun-ekibi/` altındadır.
+Katkın için teşekkürler. Bu depo bir Claude Code eklenti pazarıdır; bu depodaki eklenti `plugins/viral-urun-ekibi/` altındadır (pazar ayrıca ayrı depodaki Mağaza Kurucu'yu listeler).
 Ayrıntılı klasör sözleşmesi ve yazım kuralları: [docs/SARTNAME.md](docs/SARTNAME.md). Bu dosya kısa yoldur.
 
 ## 1. Yerelde kurulum (geliştirme için)
@@ -49,8 +49,10 @@ anlaşması bilgilerini ekleme — bu depo herkese açıktır.
    ```
    İkisi de `Validation passed` demeli.
 2. **Python betikleri** değiştiyse en az bir kez çalıştır; `video-kurgu` için `python3 plugins/viral-urun-ekibi/skills/video-kurgu/scripts/kendini_test.py`.
-3. **Anonimlik ve güvenlik kontrolü** (aşağıda).
-4. PR açıklamasına neyi neden değiştirdiğini ve nasıl denediğini yaz.
+3. **Arayüz sözleşmesi** (Mağaza Kurucu ile dosya alışverişi): `python3 docs/sozlesme_test.py` çıkış 0 vermeli.
+   `plugins/viral-urun-ekibi/ortak/sozlesme/` elle düzenlenmez (kaynağı Mağaza Kurucu deposu; `docs/SARTNAME.md` §8).
+4. **Anonimlik ve güvenlik kontrolü** (aşağıda).
+5. PR açıklamasına neyi neden değiştirdiğini ve nasıl denediğini yaz.
 
 ## 5. Anonimlik ve güvenlik
 

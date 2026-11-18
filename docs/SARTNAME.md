@@ -1,6 +1,8 @@
 # Geliştirici şartnamesi (paketi geliştirenler için — eklentiye yüklenmez)
 
-Bu depo bir Claude Code eklenti pazarıdır. Tek eklenti: `plugins/viral-urun-ekibi/`.
+Bu depo bir Claude Code eklenti pazarıdır. Bu depodaki eklenti: `plugins/viral-urun-ekibi/`. Pazar ayrıca **Mağaza Kurucu**'yu
+(`magaza-kurucu`, ayrı depo; `.claude-plugin/marketplace.json` GitHub kaynağıyla gösterir) listeler. İki eklenti yalnız dosyayla
+konuşur (§8).
 Kullanıcıya görünen her metin **Türkçe**; kod, değişken, dosya adı İngilizce veya ASCII Türkçe olabilir.
 
 ## 1. Amaç
@@ -68,3 +70,18 @@ Bilinen ChatGPT sınırları (ölçüldü):
 3. Kişisel veri grep'i boş.
 4. `ekler/chatgpt/<beceri>.md` var.
 5. Hafıza protokolü SKILL.md'de bir bölüm olarak yer alıyor (hangi aşamada neyi yazar).
+
+## 8. Mağaza Kurucu ile arayüz sözleşmesi
+```
+aliexpress-firsat (SAT) ──urun-paketi.json──▶ Mağaza Kurucu ──magaza-paketi.json──▶ ai-video-kreatif / video-kurgu
+                                                   ▲                                         │
+                                                   └────────────── video-paketi.json ────────┘
+```
+- Sözleşmenin tek kaynağı Mağaza Kurucu deposudur (`src/ortak/sozlesme/` + `src/ortak/arayuz-sozlesmesi.md`). Buradaki kopya
+  `plugins/viral-urun-ekibi/ortak/sozlesme/` elle DÜZENLENMEZ: `python3 docs/sozlesme_esitle.py <magaza-kurucu deposu>` kopyalar,
+  `--kontrol` denetler (dosya özetleri `OZET.json`).
+- Bu eklentinin tarafı `ortak/paket.py`: `urun-yaz` (SAT ürününü yazar), `magaza-oku` (mağaza paketinden `marka-kilidi.md`),
+  `video-yaz` (teslim klasöründen `video-paketi.json`). Her biri yazmadan önce şemadan geçirir; hata varsa dosya yazılmaz.
+- Test (PR öncesi zorunlu): `python3 docs/sozlesme_test.py` — kopya denetimi, örnekler, kırma testleri ve üretim yapmadan
+  uçtan uca zincir. Çıkış 0 olmalı.
+- Alan adı değişmez; yeni alan Mağaza Kurucu deposunda eklenir, `surum` artar, sonra buraya eşitlenir.

@@ -35,6 +35,10 @@ Python komutu: macOS/Linux `python3`, Windows `py -3` (Windows'ta `python3` yazm
 hakları" onayı, Chrome çoklu indirme izni, logo/IP) burada tek mesajda sorulur ve KARARLAR.md'ye yazılır; sonrası
 sorusuz akar (liste ve istisnalar: `asamalar.md` Aşama 0).
 
+**Mağaza paketi (varsa, Aşama 0):** ürün klasöründe Mağaza Kurucu'nun çıktısı `magaza-paketi.json` varsa önce
+`python3 "${CLAUDE_PLUGIN_ROOT}/ortak/paket.py" magaza-oku is/NN/magaza-paketi.json` → `is/NN/marka-kilidi.md` (çıkış 0 değilse dosya
+kullanılmaz). Kilit varken renk, yazı ailesi, link ve söylenebilecek iddialar oradan alınır: `asamalar.md` Aşama 0.
+
 Aşama 1'de kartı **gerçek fotoğraf ve satıcı açıklamasından** yaz (AI görselden değil). Mekanizmanın bilinmeyen kısmını
 gösterme; o anı atlayan sahne kur ve `[DOĞRULA]` etiketle. Kilit metni bir kez yazılır, her promptu betik üretir.
 

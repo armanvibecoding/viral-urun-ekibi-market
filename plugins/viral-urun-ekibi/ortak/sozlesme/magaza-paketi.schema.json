@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sozlesme/magaza-paketi.schema.json",
+  "title": "magaza-paketi.json (sürüm 1)",
+  "description": "Mağaza Kurucu (shopify-kurulum sonu) üretir, video yapan plugin okur. Alan açıklamaları: arayuz-sozlesmesi.md.",
+  "type": "object",
+  "required": ["surum", "marka", "renkler", "tipografi", "urun", "onayli_metinler", "gorseller", "magaza"],
+  "properties": {
+    "surum": { "const": "1" },
+    "marka": {
+      "type": "object",
+      "required": ["ad"],
+      "properties": {
+        "ad": { "type": "string", "minLength": 1 },
+        "slogan": { "type": "string" },
+        "ses": {
+          "type": "object",
+          "properties": {
+            "sifatlar": { "type": "array", "maxItems": 3, "items": { "type": "string" } },
+            "degil": { "type": "array", "maxItems": 3, "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "renkler": {
+      "type": "object",
+      "required": ["zemin", "metin", "ikincil", "kart", "vurgu"],
+      "properties": {
+        "zemin": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "metin": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "ikincil": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "kart": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "vurgu": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" }
+      }
+    },
+    "tipografi": {
+      "type": "object",
+      "required": ["baslik", "govde"],
+      "properties": {
+        "baslik": {
+          "type": "object",
+          "required": ["aile"],
+          "properties": {
+            "aile": { "type": "string", "minLength": 1 },
+            "agirlik": { "type": "integer", "minimum": 100 },
+            "handle": { "type": "string" },
+            "buyuk_harf": { "type": "boolean" }
+          }
+        },
+        "govde": {
+          "type": "object",
+          "required": ["aile"],
+          "properties": {
+            "aile": { "type": "string", "minLength": 1 },
+            "handle": { "type": "string" }
+          }
+        }
+      }
+    },
+    "logo": {
+      "type": "object",
+      "properties": {
+        "dosya": { "type": "string" },
+        "tur": { "type": "string" }
+      }
+    },
+    "urun": {
+      "type": "object",
+      "required": ["baslik", "fiyat", "para"],
+      "properties": {
+        "baslik": { "type": "string", "minLength": 1 },
+        "handle": { "type": "string" },
+        "url": { "type": "string" },
+        "fiyat": { "type": ["number", "string"] },
+        "para": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "varyantlar": { "type": "array", "items": { "type": ["string", "object"] } }
+      }
+    },
+    "onayli_metinler": {
+      "type": "object",
+      "required": ["faydalar", "iddialar"],
+      "properties": {
+        "faydalar": { "type": "array", "minItems": 1, "maxItems": 3, "items": { "type": "string", "minLength": 1 } },
+        "g1_baslik": { "type": "array", "items": { "type": "string" } },
+        "b2": { "type": "object" },
+        "iddialar": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["metin", "bilgi_notu"],
+            "properties": {
+              "metin": { "type": "string", "minLength": 1 },
+              "kaynak": { "type": "string" },
+              "bilgi_notu": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+    "gorseller": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["kod", "dosya"],
+        "properties": {
+          "kod": { "type": "string", "minLength": 1 },
+          "dosya": { "type": "string", "minLength": 1 },
+          "olcu": { "type": "string", "pattern": "^[0-9]+x[0-9]+$" },
+          "yazisiz": { "type": "boolean" }
+        }
+      }
+    },
+    "magaza": {
+      "type": "object",
+      "required": ["pdp_url"],
+      "properties": {
+        "alan_adi": { "type": "string" },
+        "tema_id": { "type": ["string", "integer"] },
+        "pdp_url": { "type": "string", "pattern": "^https://" },
+        "utm": { "type": "string", "pattern": "^utm_source=" }
+      }
+    }
+  }
+}

@@ -8,9 +8,17 @@
       "name": "viral-urun-ekibi",
       "source": "./plugins/viral-urun-ekibi",
       "description": "Viral ürün bulma, AliExpress fırsat avı, AI video üretimi ve kurgu ekibi"
+    },
+    {
+      "name": "magaza-kurucu",
+      "source": {
+        "source": "github",
+        "repo": "armanvibecoding/magaza-kurucu"
+      },
+      "description": "Ürün fotoğrafı ve ülkeden (ya da urun-paketi.json'dan) Master Tema ile Shopify mağazası kurar"
     }
   ],
   "metadata": {
-    "description": "Viral ürün bulma, AliExpress fırsat avı, AI video üretimi ve kurgu için Türkçe Claude ekibi"
+    "description": "Türkçe e-ticaret ekibi: viral ürün bulma, AliExpress fırsat avı, Shopify mağaza kurulumu (Mağaza Kurucu), AI video üretimi ve kurgu"
   }
 }

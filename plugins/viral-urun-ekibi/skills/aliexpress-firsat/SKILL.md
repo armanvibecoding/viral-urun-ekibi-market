@@ -7,7 +7,8 @@ description: Instagram'da viral olmuş ürünlerin ortak DNA'sını ölçüt yap
 
 **Amaç:** seçilen pazarda henüz kimsenin büyütmediği ama viral ürün DNA'sına uyan ürünü kanıtla bulmak.
 **Bitiş durumu:** `is/firsat/adaylar.md` sıralı ve denetimden geçmiş; kısa listedeki her ürünün
-`is/firsat/kanit/` altında kanıt dosyası var; kullanıcıya 5–10 satırlık özet verilmiş; `.ekip/DURUM.md` güncel.
+`is/firsat/kanit/` altında kanıt dosyası var; onaylanan SAT ürününün `urun-paketi.json` dosyası yazılmış; kullanıcıya
+5–10 satırlık özet verilmiş; `.ekip/DURUM.md` güncel.
 
 Önce oku: `${CLAUDE_PLUGIN_ROOT}/ortak/viral-dna.md` (ölçüt) ve `${CLAUDE_PLUGIN_ROOT}/ortak/sozluk.md` (terimler).
 Terimler (aday, kanıt, tutmamış, tutabilir, SAT/İZLE/ELE) yalnız sözlükteki anlamıyla kullanılır.
@@ -47,6 +48,9 @@ Uzun tablo sohbete yazılmaz, dosyaya yazılır. Sohbete yalnız özet + dosya y
    girer: `${CLAUDE_SKILL_DIR}/referans/marj-ivme-puan.md`.
 8. **Karar** — SAT / İZLE / ELE (`kanit-ve-karar.md` §2). ELE olanlar sebebiyle `is/firsat/elenenler.md`'ye.
    SAT olan ürün için `is/NN-urun-adi/DURUM.md` açılır; kullanıcı onaylarsa KARARLAR.md'ye yazılır.
+9. **Ürün paketi** — onaylanan SAT ürünü için `is/NN-urun-adi/urun-paketi.json` yazılır (Mağaza Kurucu'nun girdisi):
+   `python3 "${CLAUDE_PLUGIN_ROOT}/ortak/paket.py" urun-yaz --cikti is/NN-urun-adi/urun-paketi.json …` çıkış 0 olmalı. Alanlar kanıt
+   dosyasından alınır, okunamayan alan verilmez (seçenek tablosu: `dosya-sablonlari.md` sonu).
 
 ## Ajana iş verirken (brief)
 Brief'te beş şey olur: hedef, okunacak dosyalar (DNA, sözlük, adaylar, elenenler, aramalar), yazılacak dosya,
@@ -82,6 +86,7 @@ veri ver. Aynı anda en fazla 2 ajan. Ajan çıktısı sınamadan geçmeden kull
 | `${CLAUDE_SKILL_DIR}/referans/marj-ivme-puan.md` | İniş maliyeti (marj.csv), 7 günlük ivme (ivme.csv), 10 ölçütlü puan |
 | `${CLAUDE_SKILL_DIR}/referans/pazar-oranlari.tsv` | Pazar başına gümrük eşiği/KDV — tarihli, kaynaklı; değişince güncelle |
 | `${CLAUDE_PLUGIN_ROOT}/ortak/marka-skoru.md` | Akraba ürün hesabının örnek alınabilir marka olup olmadığı |
+| `${CLAUDE_PLUGIN_ROOT}/ortak/sozlesme/arayuz-sozlesmesi.md` | `urun-paketi.json` alanları (Mağaza Kurucu ile dosya sözleşmesi) |
 
 ## Kullanıcıya özet (her tur sonunda, ≤10 satır)
 Pazar · aranan terim sayısı · bakılan ürün sayfası · aday / elenen (sebep dağılımı) · sınama sonucu (3/3 tuttu mu) ·

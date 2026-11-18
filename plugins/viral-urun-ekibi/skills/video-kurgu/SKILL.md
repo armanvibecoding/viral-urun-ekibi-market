@@ -138,6 +138,8 @@ ChatGPT'de bu aşama yok (render yerel Node + Chrome ister).
 Caption, hashtag, AI etiketi, DM otomasyonu, 48. saat ölçüm eşikleri: `${CLAUDE_SKILL_DIR}/referans/teslim.md`.
 Teslim raporu: yeniden üretilen/kırpılan klipler (saniyesiyle), harcanan kredi, kalan kusurlar, varsayımlar.
 Sesi dinleyemediysen bunu açıkça yaz.
+Mağaza Kurucu ile kurulmuş mağaza varsa (`is/NN/marka-kilidi.md`): `python3 "${CLAUDE_PLUGIN_ROOT}/ortak/paket.py" video-yaz is/NN/teslim
+[--pdp VNN] [--hero VNN] --dil <tr|en|yok>` → `teslim/video-paketi.json`, çıkış 0 şart (hangi video nereye: `teslim.md`).
 
 ## Sınırlar
 - Kontrol etmediğin klibi "temiz" ilan etme; "bitti" = dosya + ölçüm satırı + kontrol karesine bakıldı.

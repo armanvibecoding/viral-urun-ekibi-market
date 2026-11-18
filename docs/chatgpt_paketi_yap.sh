@@ -11,6 +11,7 @@
 #   - ortak/ -> skills/ekip-bilgi/references/ (ayrı bilgi skill'i); ekler/chatgpt/ -> skills/ekip-bilgi/references/chatgpt/
 #   - ${CLAUDE_SKILL_DIR} / ${CLAUDE_PLUGIN_ROOT} -> paket köküne göreli yol; Claude'a özgü terimler nötr dile.
 #   - Kökte plugin.json (agent-plugins şeması) + .claude-plugin/plugin.json (aynı ad/sürüm/açıklama).
+#   - ortak/sozlesme/ (Mağaza Kurucu ile arayüz sözleşmesi) dönüştürülmeden, bayt bayt kopyalanır.
 set -e
 KOK="$(cd "$(dirname "$0")/.." && pwd)"
 KAYNAK="$KOK/plugins/viral-urun-ekibi"
@@ -123,14 +124,17 @@ OZEL = {
     "aliexpress-firsat": [
         "AliExpress / Trendyol / Amazon / Meta Reklam Kütüphanesi sayfalarını **kullanıcı açar** ve ürün sayfası metnini ya da ekran görüntüsünü yükler (ajan modu sınanmadı). Görmediğin satış sayısını yazma: `doğrulanamadı`.",
         "`firsat_kontrol.py`, `marj_hesap.py`, `ivme_olc.py`, `kirma_testi.py` kod yorumlayıcıda koşulabilir.",
+        "`urun-paketi.json` (Mağaza Kurucu'nun girdisi) `skills/ekip-bilgi/references/paket.py urun-yaz` ile kod yorumlayıcıda yazılır ve indirilebilir dosya olarak verilir; kullanıcı onu Mağaza Kurucu sohbetine ekler.",
     ],
     "ai-video-kreatif": [
         "Başlangıç karelerini ChatGPT'nin görsel üretimiyle bu sohbette üretebilirsin (kullanılabiliyorsa; her kare yine ölçülerek kontrol edilir).",
         "Google Flow klip üretimini **kullanıcı yapar** (kredi harcar → önce onay, tutar DURUM bloğundaki Kararlar satırına). Promptları dosya olarak ver; `chatgpt_indir.js`, `flow_yukle.js` tarayıcı otomasyonu içindir, burada kullanılmaz.",
+        "`magaza-paketi.json` kullanıcı tarafından sohbete eklenir; `skills/ekip-bilgi/references/paket.py magaza-oku <dosya>` kod yorumlayıcıda koşulur, çıkan marka kilidi DURUM bloğunun Kararlar satırına tek satır özetle girer.",
         "TikTok / Meta viral referansı: kullanıcı link ve ekran görüntüsü verir; izlenme sayısı görünmüyorsa `doğrulanamadı`. `senaryo_kontrol.py`, `prompt_uret.py`, `kare_hazirla.py`, `malzeme_kontrol.py` kod yorumlayıcıda koşulabilir.",
     ],
     "video-kurgu": [
         "Kurgu kod yorumlayıcıda ffmpeg ile yapılır; kullanıcı klipleri sohbete yükler. Daha önceki bir ölçümde kod ortamında ffmpeg 7.x vardı, moviepy yoktu (`skills/ekip-bilgi/references/chatgpt/video-kurgu.md`) — yine de `ffmpeg -version` ile ölç.",
+        "`video-paketi.json`: `skills/ekip-bilgi/references/paket.py video-yaz <teslim klasörü>` kod yorumlayıcıda; indirilebilir dosya olarak verilir (Mağaza Kurucu'ya geri dönüş).",
         "Müzik indirme (Pixabay `curl`) burada yok: kullanıcı müziği indirir ve yükler. Sesi dinleyemezsin: kullanıcı videoyu bir kez sesli izler.",
         "**Aşama 8b (HyperFrames hareketli katman) ChatGPT'de çalışmaz** (yerel Node + Chrome + CLI). Burada: yazıyı `hizli_kurgu.py` ile göm ve hareketli katman planını yaz (hangi saniyede hangi öğe: kinetik yazı, geçiş, sayaç, UI kartı). Render, eklentinin yerel kurulumunda (Node + Chrome olan bilgisayar) yapılır; bunu teslim raporunda \"hareketli katman yok\" diye belirt.",
     ],
@@ -284,6 +288,12 @@ for kok, dirs, files in os.walk(os.path.join(kaynak, "ortak")):
             continue
         kp = os.path.join(kok, f)
         hp = os.path.join(bilgi_h, "references", os.path.relpath(kp, os.path.join(kaynak, "ortak")))
+        if os.path.basename(kok) in ("sozlesme", "ornek") and "sozlesme" in kok.replace(os.sep, "/").split("/"):
+            # Arayüz sözleşmesi Mağaza Kurucu ile bayt bayt aynı kalır (OZET.json): terim dönüşümü yapılmaz.
+            os.makedirs(os.path.dirname(hp), exist_ok=True)
+            with open(kp, "rb") as g, open(hp, "wb") as h:
+                h.write(g.read().replace(b"\r\n", b"\n"))
+            continue
         yaz(hp, terim_cevir(yol_cevir(oku(kp), None)))
 cg = os.path.join(kaynak, "ekler", "chatgpt")
 if os.path.isdir(cg):
@@ -318,6 +328,7 @@ Tam tablo: `references/bilgi/README.md`. Kısa yol:
 | Terimler | `references/sozluk.md` |
 | Cevap biçimi | `references/adhd-kurallari.md` |
 | ChatGPT'de tek parça iş akışı metinleri | `references/chatgpt/` |
+| Mağaza Kurucu ile dosya alışverişi (`urun-paketi.json`, `magaza-paketi.json`, `video-paketi.json`) | `references/sozlesme/arayuz-sozlesmesi.md`, betik `references/paket.py` |
 
 ## Okuma kuralları
 - Kod numaraları kanıt izidir: `S063` ürün = `kreatif-notlar.md` içinde **063** notu.

@@ -23,10 +23,52 @@ Katkı kuralları: [CONTRIBUTING.md](CONTRIBUTING.md) · Geliştirici şartnames
 | `hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use` | Hareketli tasarım katmanı (HeyGen'in açık kaynak HyperFrames beceri paketi, Apache-2.0, değiştirilmeden): HTML'den video — kinetik yazı, geçiş, overlay, altyazı, ~450 hazır blok; render yerelde Node 22+ ve Chrome ister. `video-kurgu` aşama 8b'de çağrılır. |
 
 **Ajanlar** (`plugins/viral-urun-ekibi/agents/`): `firsat-avcisi`, `kanit-savcisi`, `icerik-stratejisti`,
-`kreatif-analisti`, `video-elestirmen`.
+`kreatif-analisti`, `video-elestirmen`, `ses-tasarimcisi`.
 
 **Ortak bilgi** (`plugins/viral-urun-ekibi/ortak/`): marka skoru, viral DNA, sözlük ve `bilgi/` altında ürün kataloğu,
 kreatif notlar, fırsat geçmişi, üretim deneyimi, dersler.
+
+## Birleşik kurulum: Viral Ürün Ekibi + Mağaza Kurucu (tek sayfa)
+
+Bu pazarda iki eklenti var. Her biri tek başına çalışır; birlikte kurulursa ürün bulmadan mağazaya, mağazadan videoya dosyayla bağlanır.
+
+| Eklenti | Ne yapar | Kaynak |
+|---|---|---|
+| `viral-urun-ekibi` | Viral ürün bulur, AliExpress'te fırsat avlar, AI video üretir ve kurgular | bu depo (`plugins/viral-urun-ekibi/`) |
+| `magaza-kurucu` | Ürün fotoğrafı + ülkeden (ya da `urun-paketi.json`'dan) Master Tema ile Shopify mağazası kurar | [armanvibecoding/magaza-kurucu](https://github.com/armanvibecoding/magaza-kurucu) |
+
+```
+ürün bulundu (SAT) ──urun-paketi.json──▶ Mağaza Kurucu ──magaza-paketi.json──▶ video ekibi
+                                              ▲                                    │
+                                              └───────── video-paketi.json ────────┘
+```
+
+### Claude Code (3 komut)
+```
+/plugin marketplace add armanvibecoding/viral-urun-ekibi-market
+/plugin install viral-urun-ekibi@viral-urun-market
+/plugin install magaza-kurucu@viral-urun-market
+```
+- Ön koşullar ve araç izinleri: aşağıdaki **A** bölümü. Mağaza Kurucu Shopify bağlayıcısını kendisi getirir; ilk kullanımda `/mcp` → shopify → giriş.
+- Mağaza Kurucu'yu daha önce kendi pazarından (`magaza-kurucu@magaza-kurucu`) kurduysan yeniden kurma; o kurulum aynı eklentidir ve çalışmaya devam eder.
+- Claude görsel üretmez: Mağaza Kurucu'nun görsel adımında görseller ChatGPT'de üretilip sohbete eklenir.
+
+### ChatGPT (2 dosya)
+1. **Viral Ürün Ekibi:** `dist/viral-urun-ekibi-chatgpt.zip` → **Plugins** → yükle (ayrıntı: aşağıdaki **C** bölümü).
+2. **Mağaza Kurucu:** `magaza-kurucu.zip` (sürüm 0.4.2 ve üstü; [Releases](https://github.com/armanvibecoding/magaza-kurucu/releases), orada yoksa o depoda `python tools/build.py` → `dist/chatgpt/magaza-kurucu.zip`) → **Plugins › Skills › Create › Upload from your computer**. Yalnız Çalışma (Work) modunda çalışır.
+3. **Shopify:** `chatgpt.com/plugins/shopify` → **+** → mağazayı seç, izin ver.
+
+Mağaza Kurucu'nun ayrıntılı kurulumu (Claude.ai yolu dahil): o depodaki [KURULUM.md](https://github.com/armanvibecoding/magaza-kurucu/blob/main/KURULUM.md).
+
+### Birlikte kullanım (dosya zinciri)
+1. `AliExpress'ten ürün bul` → SAT kararını onayla → ekip `is/NN-urun-adi/urun-paketi.json` yazar.
+2. `Bu ürün için mağaza kur` de ve o dosyayı ver (Claude Code: yol; ChatGPT: sohbete ekle) → Mağaza Kurucu fotoğraf + ülke sormadan başlar, sonunda `magaza-paketi.json` verir. Dosyayı ürün klasörüne koy (`is/NN-urun-adi/`).
+3. `Bu ürüne video yap` → ekip mağaza paketini okur (`marka-kilidi.md`): aynı renkler, aynı yazı ailesi, yalnız onaylı iddialar, mağaza linki. Teslimde `teslim/video-paketi.json` çıkar.
+4. `video-paketi.json` + `pdp-galeri` / `hero` işaretli videoları Mağaza Kurucu'ya ver → ürün sayfası galerisine girer. `reklam` işaretliler mağazaya yüklenmez.
+
+Dosyaların biçimi iki eklentide aynı kaynaktan gelir: `plugins/viral-urun-ekibi/ortak/sozlesme/` (alan tablosu `arayuz-sozlesmesi.md`, şemalar, örnekler, doğrulayıcı). Üretim yapmadan uçtan uca deneme: `python3 docs/sozlesme_test.py`.
+
+Doğrulanmadı: ChatGPT'de plugin ZIP'i yüklemenin kişisel hesaplarda açık olup olmadığı (C bölümündeki not) ve iki eklentinin aynı ChatGPT sohbetinde birlikte tetiklenmesi; önerilen kullanım ekip için bir sohbet, Mağaza Kurucu için ayrı bir Work sohbetidir.
 
 ## Hangi yolu seçmeliyim?
 
@@ -46,8 +88,9 @@ kreatif notlar, fırsat geçmişi, üretim deneyimi, dersler.
    ```
    /plugin marketplace add armanvibecoding/viral-urun-ekibi-market
    /plugin install viral-urun-ekibi@viral-urun-market
+   /plugin install magaza-kurucu@viral-urun-market
    ```
-   Güncellemeleri kendiliğinden almak için: `/plugin` → Marketplaces → Enable auto-update.
+   Üçüncü satır isteğe bağlıdır (Shopify mağazası da kurulacaksa). Güncellemeleri kendiliğinden almak için: `/plugin` → Marketplaces → Enable auto-update.
 4. **Araç izinleri:**
    - Chrome'a "Claude" eklentisini kur, Claude Code'da `/chrome` ile bağla.
    - Mac + iPhone modu için: `/mcp` → computer-use → Enable; Sistem Ayarları'nda Erişilebilirlik ve Ekran Kaydı izni; iPhone Yansıtma'yı bir kez elle aç.
@@ -114,6 +157,9 @@ Install inside Claude Code:
 ```
 /plugin marketplace add armanvibecoding/viral-urun-ekibi-market
 /plugin install viral-urun-ekibi@viral-urun-market
+/plugin install magaza-kurucu@viral-urun-market
 ```
+The third line is optional: `magaza-kurucu` (separate repo, listed in this marketplace) builds a Shopify store from the
+product the team found; the two plugins exchange `urun-paketi.json` / `magaza-paketi.json` / `video-paketi.json` files.
 Then run `/viral-urun-ekibi:ekip-lideri` in an empty folder. User-facing text is Turkish; contributions in English are
 welcome too. See [CONTRIBUTING.md](CONTRIBUTING.md). License: MIT.

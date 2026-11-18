@@ -22,6 +22,17 @@ Instagram/Meta otomasyonunda anahtar kelime birebir ve büyük-küçük harfe du
 kancalarla seri yap. Hiçbiri tutmazsa kancayı değil **görüntüyü** (şablon / ilk kare) değiştir.
 Eşikler ve 10 varyasyonluk test planı: `<eklenti kökü>/skills/ai-video-kreatif/referans/olcum-ve-test-plani.md`.
 
+## Mağaza Kurucu'ya geri dönüş: `teslim/video-paketi.json` (mağaza Mağaza Kurucu ile kurulduysa)
+`python3 "<eklenti kökü>/ortak/paket.py" video-yaz is/NN/teslim [--pdp VNN] [--hero VNN] --dil <tr|en|yok>` teslim
+klasöründeki her MP4'ü ölçer (ölçü, süre), `video-paketi.json` yazar ve yandaki `urun-paketi.json` + `magaza-paketi.json`
+ile zincir kontrolü yapar (para birimi, altyazı dili). Çıkış 0 olmadan dosya teslim edilmez.
+- Varsayılan kullanım `reklam`: Mağaza Kurucu bunları mağazaya YÜKLEMEZ.
+- `--pdp VNN`: ürün sayfası galerisine girecek video (ürünü net gösteren, "yorumlara yaz" CTA'sı olmayan sürüm). Galerinin
+  son sıralarına girer; ilk görselin (yazısız ürün karesi) yerini almaz.
+- `--hero VNN`: ana sayfa üst bölümü için. Hangi videonun mağazaya gireceğine kullanıcı karar verir (KARARLAR.md).
+- `--dil`: ekran yazısının dili; yazısız videoda `yok`.
+Kullanıcı `video-paketi.json` ve işaretli MP4'leri Mağaza Kurucu'ya (`shopify-kurulum`) verir.
+
 ## Teslim raporu (≤ 6 satır)
 Dosya yolları · süre/çözünürlük/LUFS (betik satırı) · kırpılan/yeniden üretilen klipler (saniyesiyle) · harcanan kredi ·
 kalan kusurlar · varsayımlar. Son satır: "Kalan senaryoları üretmemi istersen 'devam' yaz." (yeni kredi onayıyla)

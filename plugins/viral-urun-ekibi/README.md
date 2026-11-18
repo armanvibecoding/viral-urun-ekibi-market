@@ -14,6 +14,10 @@ Kurulum (Claude Code içinde):
 
 Başlamak için boş bir klasörde `/viral-urun-ekibi:ekip-lideri` çalıştır.
 
+Aynı pazardaki **Mağaza Kurucu** eklentisiyle (`/plugin install magaza-kurucu@viral-urun-market`) dosya üzerinden çalışır:
+bulunan ürün `urun-paketi.json` olarak Mağaza Kurucu'ya gider, kurulan mağaza `magaza-paketi.json` ile video ekibine döner,
+videolar `video-paketi.json` ile mağazaya girer. Sözleşme ve doğrulayıcı: `ortak/sozlesme/`, yardımcı betik: `ortak/paket.py`.
+
 Kurulum, ön koşullar ve kullanım: deponun kökündeki `README.md`. Katkı: `CONTRIBUTING.md`. Lisans: MIT. HyperFrames becerileri Apache-2.0 (© HeyGen, Inc.) — `THIRD_PARTY_NOTICES.md`, `licenses/APACHE-2.0.txt`.
 
 Turkish-language Claude Code plugin for viral product research, AliExpress sourcing, AI product video generation and

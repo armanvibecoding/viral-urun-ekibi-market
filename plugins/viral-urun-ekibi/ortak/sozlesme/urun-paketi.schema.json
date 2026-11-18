@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sozlesme/urun-paketi.schema.json",
+  "title": "urun-paketi.json (sürüm 1)",
+  "description": "Ürün bulan plugin üretir, Mağaza Kurucu okur. Alan açıklamaları: arayuz-sozlesmesi.md.",
+  "type": "object",
+  "required": ["surum", "urun", "pazar"],
+  "properties": {
+    "surum": { "const": "1" },
+    "urun": {
+      "type": "object",
+      "required": ["ad", "fotograflar"],
+      "properties": {
+        "ad": { "type": "string", "minLength": 1 },
+        "nis": { "type": "string", "pattern": "^nis-[a-z0-9-]+$" },
+        "fotograflar": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "ozellikler": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["ad", "deger"],
+            "properties": {
+              "ad": { "type": "string", "minLength": 1 },
+              "deger": { "type": ["string", "number"] },
+              "birim": { "type": "string" },
+              "kaynak": { "type": "string" }
+            }
+          }
+        },
+        "varyantlar": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["ad"],
+            "properties": {
+              "ad": { "type": "string", "minLength": 1 },
+              "stok": { "type": "boolean" }
+            }
+          }
+        },
+        "tedarik_fiyati": {
+          "type": "object",
+          "required": ["tutar", "para"],
+          "properties": {
+            "tutar": { "type": "number", "minimum": 0 },
+            "para": { "type": "string", "pattern": "^[A-Z]{3}$" }
+          }
+        }
+      }
+    },
+    "pazar": {
+      "type": "object",
+      "required": ["ulke"],
+      "properties": {
+        "ulke": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "dil": { "type": "string", "pattern": "^[a-z]{2}(-[A-Z]{2})?$" },
+        "para": { "type": "string", "pattern": "^[A-Z]{3}$" }
+      }
+    },
+    "rakipler": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["marka"],
+        "properties": {
+          "marka": { "type": "string", "minLength": 1 },
+          "url": { "type": "string" },
+          "fiyat": { "type": ["number", "string"] }
+        }
+      }
+    },
+    "kanit": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kaynak", "olcu"],
+        "properties": {
+          "kaynak": { "type": "string", "minLength": 1 },
+          "url": { "type": "string" },
+          "tarih": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+          "olcu": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

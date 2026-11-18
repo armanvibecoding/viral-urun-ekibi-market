@@ -15,6 +15,7 @@ is/firsat/marj.csv      ← iniş maliyeti satırları (şablon: sablon/marj.csv
 is/firsat/ivme.csv      ← t0/t7 talep sinyalleri (şablon: sablon/ivme.csv)
 is/firsat/pazar-oranlari.tsv ← (isteğe bağlı) kendi ödeme/aracı/iade oranların; eklentidekinin üstüne okunur
 is/NN-urun-adi/DURUM.md ← SAT olan ürünün kendi klasörü
+is/NN-urun-adi/urun-paketi.json ← onaylanan SAT ürünü; Mağaza Kurucu'nun girdisi (betik yazar)
 ```
 
 ## is/firsat/aramalar.md
@@ -61,5 +62,27 @@ Bekleyen onaylar: numune siparişi (#2) — kullanıcı onayı yok
 ```
 # NN — <ürün> — aşama: fırsat SAT
 Kanıt: is/firsat/kanit/NN-urun-adi.md
-Sıradaki beceri: ai-video-kreatif
+Ürün paketi: is/NN-urun-adi/urun-paketi.json (Mağaza Kurucu'ya verilir)
+Sıradaki beceri: ai-video-kreatif (mağaza kurulacaksa önce Mağaza Kurucu)
 ```
+
+## is/NN-urun-adi/urun-paketi.json (SAT onayından sonra; elle yazılmaz, betik yazar ve doğrular)
+```
+python3 "<eklenti kökü>/ortak/paket.py" urun-yaz --cikti is/NN-urun-adi/urun-paketi.json \
+  --ad "<ürün sayfasındaki ad>" --foto <görsel dosyası ya da URL> --ulke TR --dil tr --para TRY \
+  --tedarik "13.63 USD" --ozellik "ad|değer|birim|kaynak link" --varyant "Gri|var" \
+  --rakip "marka|link|fiyat" --kanit "kaynak|link|YYYY-AA-GG|ölçü"
+```
+| Seçenek | Nereden okunur |
+|---|---|
+| `--ad`, `--foto` (≥1), `--ulke` | zorunlu. Ad ve görseller ürün sayfasından; ilk görsel en temiz ürün karesi. Ülke KARARLAR.md pazar satırından (TR, US, DE …) |
+| `--dil`, `--para` | pazarın dili ve para birimi (tr/TRY, en/USD …) |
+| `--tedarik` | `adaylar.md` normal fiyatı (yeni müşteri fiyatı değil) |
+| `--ozellik` (tekrarlanır) | ürün sayfasında OKUNAN değer; 4. parça kaynak linki. Kaynaksız özellik "doğrulanmış" sayılmaz |
+| `--varyant` (tekrarlanır) | ürün sayfasındaki seçenekler; stok `var` / `yok` |
+| `--rakip` (tekrarlanır) | zaten-viral kontrolünde bulunan mağaza / pazar yeri satırları |
+| `--kanit` (tekrarlanır) | kanıt dosyasındaki ölçümler: kaynak, link, ölçüm günü, ölçü (ör. `ürün sayfası 57 satış`, `Meta: 0 aktif reklam`, `ivme: ERKEN DALGA`) |
+| `--nis` | bilinmiyorsa verilmez; Mağaza Kurucu seçer |
+
+Okunamayan alanın seçeneği hiç yazılmaz (uydurma yok). Çıkış 1 ise dosya yazılmamıştır: hata satırını düzelt, yeniden koştur.
+Alanların tam tanımı: `<eklenti kökü>/ortak/sozlesme/arayuz-sozlesmesi.md`.
