@@ -124,11 +124,20 @@ REÇETE satırı (`video-elestirmen` çıktısı, `puanlar.jsonl` `recete` alan�
    düzeltilir; yeni satırın durumu `TEKRAR-DÜZELTİLDİ`, dosya sütunu o üretici dosya.
 5. **Kurucuya bildir:** raporun son satırı: "Geri bildiriminiz işlendi: <anahtar> → <dosya:bölüm> (ders <no>)."
    Sonra `bildirildi` = `evet`.
-6. **Kapı (her teslimden ve her kurucuya video gönderiminden önce):**
-   `python3 "${CLAUDE_SKILL_DIR}/scripts/geri_bildirim_kontrol.py" .ekip/GERI-BILDIRIM.md` → çıkış 0 şart. Çıkış 1 =
-   açık satır / dosyası olmayan satır / bildirilmemiş satır / tekrar eden kusurda üretici düzeltilmemiş → önce kapat.
+6. **Kapı:** defter kapısı `kapi.py`nin içindedir (§5c); açık satır / dosyası olmayan satır / bildirilmemiş satır /
+   tekrar eden kusurda üretici düzeltilmemiş ya da defter hiç yoksa geçiş kalır → önce kapat.
 7. Kurucunun reddettiği ama eleştirmenin GEÇTİ verdiği video = eleştirmen kalibrasyon hatası: `puan-cetveli.md` çapa
    tablosuna satır + defter satırı (anahtar `elestirmen-kalibrasyon`).
+
+## 5c. Zorlayıcı kapı (iki geçiş, tek komut; yazıyla geçilmez)
+- **Ön-üretim → kredi** (Flow üretimi istenmeden önce): `python3 "${CLAUDE_SKILL_DIR}/scripts/kapi.py" kredi is/NN-urun --proje .`
+- **Teslim → yayın** (kurucuya video göndermeden, teslim klasörüne koymadan önce):
+  `python3 "${CLAUDE_SKILL_DIR}/scripts/kapi.py" yayin is/NN-urun --proje . --kopyala` — `teslim/` klasörüne videoyu yalnız bu betik kopyalar.
+- Çıkış 0 olmadan geçiş yok. Betik senaryo, kontrat, hüküm, kredi onayı, defter, teknik ölçüm, görüntü, ses, iddia ve
+  sözleşme kapılarını kendisi koşturur (`kapi.py liste`); dosya ya da defter yoksa "temiz" demez, KALDI der.
+- **Aşım yalnız kurucunun cümlesiyle:** kalan kapıyı kullanıcıya tek satırla söyle; "geç" derse cümlesini aynen
+  `.ekip/KARARLAR.md`'ye yaz (betiğin bastığı biçim, kapı başına bir satır: `- TARİH | kapi-asimi | <geçiş> <iş> <kapı>: "<cümle>"`)
+  ve betiği yeniden koştur. Kullanıcı söylemeden bu satırı yazmak uydurma karardır.
 
 ## 6. Kırmızı çizgiler
 - Para/kredi harcayan adım (Flow üretimi, sipariş, reklam) → önce kullanıcı onayı; onay tutarıyla `KARARLAR.md`'ye.

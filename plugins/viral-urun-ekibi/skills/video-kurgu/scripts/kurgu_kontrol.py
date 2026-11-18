@@ -5,7 +5,7 @@ Kullanım:
   python3 kurgu_kontrol.py AYAR.json [AYAR2.json ...] [--video VIDEO.mp4] [--drop 3.429] [--etiket klip_etiket.json]
                            [--esik ad=deger ...] [--gevset KURAL ...] [--json]
                            [--magaza-paketi is/NN-urun/magaza/magaza-paketi.json [--yalniz-iddia]]
-  python3 kurgu_kontrol.py [AYAR.json] --goruntu VIDEO.mp4 [--kesimler 4.0,8.0]     (teslim öncesi görüntü kapısı)
+  python3 kurgu_kontrol.py [AYAR.json] --goruntu VIDEO.mp4 [--kesimler 4.0,8.0] [--yalniz-goruntu]   (teslim öncesi görüntü kapısı)
 Çıkış: herhangi bir ayarda HATA varsa 1, yoksa 0. UYARI çıkışı değiştirmez. Görüntü kapısı HATA'sı → 3 (önceliklidir).
 
 Görüntü kapısı (2026-11-18 eleştirmen KALICI reçetesi: render hatası — son 1 sn'de tam kare kırmızı-sarı gürültü —
@@ -413,6 +413,8 @@ def main():
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--goruntu", help="teslim videosu: kesim dışı RGB sıçraması + son 2 sn gürültü kapısı (HATA → çıkış 3)")
     ap.add_argument("--kesimler", help="kesim saniyeleri virgüllü (yoksa AYAR planlarından)")
+    ap.add_argument("--yalniz-goruntu", action="store_true",
+                    help="AYAR yalnız kesim listesi için okunur; plan kuralları koşmaz (kurgu.py biçimli ayarda şart; kapi.py kullanır)")
     ap.add_argument("--magaza-paketi", help="magaza-paketi.json: listede olmayan uydurma veri = HATA [iddia]; sağlık/sonuç dili = UYARI + bilgi notu")
     ap.add_argument("--yalniz-iddia", action="store_true", help="yalnız iddia kapısı (klip etiketi gerektirmez)")
     args = ap.parse_args()
@@ -432,7 +434,7 @@ def main():
             print("UYARI [goruntu] kesim listesi yok — her sıçrama HATA sayıldı")
         if g["hatalar"]:
             sys.exit(3)
-        if not args.ayar or args.kesimler:
+        if not args.ayar or args.kesimler or args.yalniz_goruntu:
             print("özet: görüntü kapısı GEÇTİ")
             sys.exit(0)
     if not args.ayar:

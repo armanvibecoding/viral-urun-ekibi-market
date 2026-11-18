@@ -69,6 +69,8 @@ dağılım kuralları (`asamalar.md` §3), çıktı biçimi `${CLAUDE_SKILL_DIR}
 
 **Ön-üretim eleştirisi (Aşama 5 sonu, kredi onayından önce):** ilk 5 senaryo ve kareleri `video-elestirmen` ajanına
 "ön-üretim" moduyla verilir; eşiği geçmeyen video Flow'a gitmez (eşikler ajan dosyasında).
+Kredi geçişinin tek kapısı: `python3 "${CLAUDE_PLUGIN_ROOT}/skills/ekip-lideri/scripts/kapi.py" kredi is/NN --proje .` (senaryo,
+kontrat, hüküm, kredi onayı, defter). Çıkış 0 olmadan Flow'da üretim başlamaz; aşım yalnız kurucu kararıyla (`ekip-lideri` §5c).
 
 Örnek video için en güçlü ve AI riski en düşük senaryoyu (mekanizması `[DOĞRULA]` olmayan) seç, gerekçeyi tek satır yaz.
 

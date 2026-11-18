@@ -73,6 +73,8 @@ her karede bindirme ekranın içinde mi. Yöntem ve ayarlar: `${CLAUDE_SKILL_DIR
   `klipler/klip_etiket.json`dan okunur (biçim betiğin başında; yeni klip = yeni etiket satırı, bilinmeyen "bilinmiyor").
   Betik ölçülebilir kuralları alır; kanca gücü, gerçekçilik, ritim yargısı eleştirmende kalır.
 - Teslimden önce `video-elestirmen` ajanı (soğuk izleyici, teslim modu) videoyu puanlar; ≥ 7/10 olmadan teslim yok.
+  Teslim geçişinin tek kapısı: `python3 "${CLAUDE_PLUGIN_ROOT}/skills/ekip-lideri/scripts/kapi.py" yayin is/NN --proje . --kopyala`
+  (teknik, kurgu, görüntü, ses, iddia, hüküm, defter, sözleşme); çıkış 0 olmadan `teslim/` klasörüne video konmaz.
 
 Kurallar (ayrıntı `referans/kurgu-kurallari.md`):
 - Kanca beyaz kalın, siyah konturlu, 1–3 satır; konum "oto" en boş bandı seçer (alt %20 ve sağ %15 hariç).
