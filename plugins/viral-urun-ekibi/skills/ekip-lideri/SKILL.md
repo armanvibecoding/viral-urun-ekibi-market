@@ -34,6 +34,11 @@ Kullanıcıya üyeyi unvanıyla an ("Creative Director (QA) videoyu eleştirdi")
    Kullanıcıya iki satırda nerede kalındığını söyle.
 3. `is/firsat/ivme.csv` varsa: `python3 "${CLAUDE_PLUGIN_ROOT}/skills/aliexpress-firsat/scripts/ivme_olc.py" bekleyen is/firsat/ivme.csv` (7. gün ölçümü gelenler).
 4. İlk kurulumda ortamı kontrol et: `${CLAUDE_SKILL_DIR}/referans/kurulum-kontrol.md`.
+   HyperFrames ön koşulu (Node 22+, `hyperframes` CLI) da orada; CLI'nin ilk indirilmesi ve Chrome kurulumu kullanıcı onayıyla.
+   **Beceri adları:** HyperFrames becerileri bu eklentiden `viral-urun-ekibi:hyperframes`, `viral-urun-ekibi:hyperframes-cli`,
+   `viral-urun-ekibi:hyperframes-registry`, `viral-urun-ekibi:media-use` adıyla çağrılır. Kullanıcının `~/.claude/skills` altında
+   aynı adlı kişisel kopyası olabilir (öneksiz `hyperframes`); ekip işinde öneklisini kullan, ajana da öneklisini yaz.
+   Becerilerin içindeki `/hyperframes-cli` gibi atıflar = aynı paketteki öneklisi. Lisans: `${CLAUDE_PLUGIN_ROOT}/THIRD_PARTY_NOTICES.md`.
 
 ## 2. Yönlendirme
 | Kullanıcı ne istiyor | Beceri | Ağır işi kim yapar |
@@ -43,6 +48,7 @@ Kullanıcıya üyeyi unvanıyla an ("Creative Director (QA) videoyu eleştirdi")
 | AliExpress'ten henüz viral olmamış ürün | `aliexpress-firsat` | `firsat-avcisi`, sonra `kanit-savcisi` |
 | Bir ürün için 30 video / senaryo / kare | `ai-video-kreatif` | `icerik-stratejisti` |
 | Klipleri kurgula, yazı/ses ekle, teslim | `video-kurgu` | sen (betikler) |
+| Kinetik yazı, geçiş, overlay, altyazı, UI kartı (hareketli tasarım) | `video-kurgu` Aşama 8b → `viral-urun-ekibi:hyperframes` (+ `-cli`, `-registry`, `media-use`) | sen (yerel Node + Chrome) |
 | Yayınla / 48. saat ölç | `sablon/yayin-PLAN.md` + `sablon/olcum.csv` → `scripts/yayin_olc.py` | sen (veriyi kurucu girer) |
 | Niş niş trend ürün / kazanan reklam (Meta Reklam Kütüphanesi; US/TR/AB) | `reklam-kutuphanesi-avi` | sen (tarayıcı alt ajana verilmez); eşleşen ürün `aliexpress-firsat`'a kaynak `META-<kod>` ile girer |
 | SAT olmuş ürüne teklif / ürün sayfası / upsell / e-posta | `teklif-ve-sayfa` | sen; `kanit-savcisi` sayfa iddialarını çürütür |

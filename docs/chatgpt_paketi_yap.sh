@@ -4,6 +4,9 @@
 # Kullanım: sh docs/chatgpt_paketi_yap.sh   (depo kökünden ya da herhangi bir yerden)
 # Dönüşüm özeti:
 #   - hooks/, agents/, ekler/ (proje-paketi) pakete girmez; hook'un işi ekip-lideri SKILL.md başına talimat olur.
+#   - HyperFrames becerileri (hyperframes, hyperframes-cli, hyperframes-registry, media-use) pakete GİRMEZ:
+#     render yerel Node 22+ + Chrome + CLI ister (ChatGPT'de yok), iş döngüsü check/snapshot/render olmadan doğrulanamaz,
+#     ZIP'i ~0,65 MB'tan ~2,6 MB'a ve 163 dosyadan ~385'e çıkarır; terim dönüşümü Apache-2.0 dosyalarını değiştirirdi.
 #   - 6 ajan -> ayrı skill (skills/<ajan-adı>/SKILL.md), aynı sohbette uygulanan rol.
 #   - ortak/ -> skills/ekip-bilgi/references/ (ayrı bilgi skill'i); ekler/chatgpt/ -> skills/ekip-bilgi/references/chatgpt/
 #   - ${CLAUDE_SKILL_DIR} / ${CLAUDE_PLUGIN_ROOT} -> paket köküne göreli yol; Claude'a özgü terimler nötr dile.
@@ -110,6 +113,7 @@ OZEL = {
         "**Kullanıcının elle yaptığı adımlar** (ilk oturumda bir kez söyle): (1) Instagram/Reels taraması → ekran görüntüsü, link ya da hesap adı yükler · (2) AliExpress, Trendyol, Amazon, Meta Reklam Kütüphanesi, rakip mağaza → sayfayı açar, metnini ya da ekran görüntüsünü yükler · (3) Google Flow klip üretimi → kendisi üretir (kredi = önce onay), sen promptu dosya olarak verirsin · (4) müzik → kendisi indirir ve yükler · (5) yeni sohbete geçerken son DURUM bloğunu yapıştırır.",
         "**Kod yorumlayıcıda senin yaptıkların:** Python betikleri, ffmpeg kurgusu, Excel/CSV/TSV dosyaları. Tarayıcı JS betikleri (`*.js`) ve macOS/iPhone araçları (`*.swift`, iPhone `.sh` betikleri) burada çalışmaz.",
         "`scripts/yayin_olc.py` (48. saat ölçümü) kod yorumlayıcıda koşulur; içgörü sayılarını kullanıcı girer.",
+        "HyperFrames becerileri (`viral-urun-ekibi:hyperframes` vb.) bu pakette **yok**: hareketli tasarım render'ı yerel Node + Chrome ister. Yönlendirme tablosundaki hareketli tasarım satırı burada `video-kurgu` notundaki yolla yürür.",
     ],
     "kesfet-urun-avi": [
         "Instagram/telefon taramasını **kullanıcı yapar**: Reels ekran görüntüsü, video linki ya da hesap adı yükler; sen okur, ayıklar, tabloya yazarsın.",
@@ -128,6 +132,7 @@ OZEL = {
     "video-kurgu": [
         "Kurgu kod yorumlayıcıda ffmpeg ile yapılır; kullanıcı klipleri sohbete yükler. Daha önceki bir ölçümde kod ortamında ffmpeg 7.x vardı, moviepy yoktu (`skills/ekip-bilgi/references/chatgpt/video-kurgu.md`) — yine de `ffmpeg -version` ile ölç.",
         "Müzik indirme (Pixabay `curl`) burada yok: kullanıcı müziği indirir ve yükler. Sesi dinleyemezsin: kullanıcı videoyu bir kez sesli izler.",
+        "**Aşama 8b (HyperFrames hareketli katman) ChatGPT'de çalışmaz** (yerel Node + Chrome + CLI). Burada: yazıyı `hizli_kurgu.py` ile göm ve hareketli katman planını yaz (hangi saniyede hangi öğe: kinetik yazı, geçiş, sayaç, UI kartı). Render, eklentinin yerel kurulumunda (Node + Chrome olan bilgisayar) yapılır; bunu teslim raporunda \"hareketli katman yok\" diye belirt.",
     ],
     "reklam-kutuphanesi-avi": [
         "Meta Reklam Kütüphanesi taramasını **kullanıcı yapar**: sorguyu açar, sonuç sayfasının metnini ya da ekran görüntüsünü yükler. `meta_topla.js`, `meta_aktar.js`, `magaza_oku.js` tarayıcı otomasyonu içindir, burada çalışmaz.",
@@ -215,7 +220,9 @@ def fm_yaz(ad, aciklama):
 # ---------- 3) Skill'ler ----------
 skills_k = os.path.join(kaynak, "skills")
 skills_h = os.path.join(hedef, "skills")
-skill_adlari = sorted(d for d in os.listdir(skills_k) if os.path.isdir(os.path.join(skills_k, d)))
+# HyperFrames (Apache-2.0, yerel render) ChatGPT paketine girmez — gerekçe dosya başında.
+HARIC = {"hyperframes", "hyperframes-cli", "hyperframes-registry", "media-use"}
+skill_adlari = sorted(d for d in os.listdir(skills_k) if os.path.isdir(os.path.join(skills_k, d)) and d not in HARIC)
 
 for ad in skill_adlari:
     for kok, dirs, files in os.walk(os.path.join(skills_k, ad)):
@@ -236,7 +243,7 @@ for ad in skill_adlari:
                 if ad == "ekip-lideri":
                     govde = govde.replace("| Unvan | Rol | Ajan |", "| Unvan | Rol | Beceri (rol) |")
                     govde = govde.replace("çağrıda ajan adını kullan.", "role geçerken beceri adını kullan (`skills/<ad>/SKILL.md`).")
-                    govde = "\n".join(l for l in govde.split("\n") if "ChatGPT'de yapmak istiyor" not in l)
+                    govde = "\n".join(l for l in govde.split("\n") if "ChatGPT'de yapmak istiyor" not in l and "THIRD_PARTY_NOTICES" not in l)
                     ust = LIDER_BASI + "\n" + not_blogu(ad)
                 else:
                     ust = not_blogu(ad)
