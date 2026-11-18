@@ -1,7 +1,7 @@
 # Nişler ve kelime aileleri (makine okur: `nis_kelime.py`)
 
 Biçim kuralı (bozma — betik okur): `## <kod> — <ad>` başlığı, altında `| PAZAR | AİLE | ifade; ifade; ... |` satırları.
-Pazar = Meta ülke kodu: US (ABD) · TR · GB (UK) · DE · FR · ES. Aile:
+Pazar = Meta ülke kodu: US (ABD) · TR · GB (UK) · DE · FR · ES · IT · NL (IT/NL: yalnız KONTROL + S satırı var; ürün terimi yoksa `kuyruk.py` US İngilizce terimini `EN-yedek` işaretiyle kullanır — öneri, ölçülmedi). Aile:
 - **U — ürün tipi**: jenerik ürün adı, tam ifade aranır. İlk 2 terim günlük plana girer (sıra = öncelik).
 - **K — kimlik/kanca**: ürünü isteyecek ya da hediye alacak grup (`ai-video-kreatif/referans/kanca-kutuphanesi.md` §2 kovaları). İlk terim plana girer.
 - **F — süzgeç kökü**: aranmaz; S (dropship sinyali) sorgusundan gelen reklamın nişini gövde metninden bulmak için. Kök yazılır (önek eşleşir: `kedi` → `kediniz`).
@@ -20,6 +20,8 @@ Kozmetik/sağlık **ELE KAPISI**: yalnız süzgeç (sinyal olarak sayılır), so
 | DE | KONTROL | zalando |
 | FR | KONTROL | decathlon |
 | ES | KONTROL | zara |
+| IT | KONTROL | zalando |
+| NL | KONTROL | zalando |
 
 ## _sinyal — Dropship sinyali (nişten bağımsız)
 | US | S | free shipping; limited stock; 50% off; selling fast; buy 2 get 1 |
@@ -28,6 +30,8 @@ Kozmetik/sağlık **ELE KAPISI**: yalnız süzgeç (sinyal olarak sayılır), so
 | DE | S | kostenloser Versand; nur noch wenige; 50% Rabatt; Kauf auf Rechnung; free shipping |
 | FR | S | livraison gratuite; stock limité; -50%; paiement à la livraison; free shipping |
 | ES | S | envío gratis; stock limitado; 50% de descuento; pago contra reembolso; free shipping |
+| IT | S | spedizione gratuita; pagamento alla consegna; scorte limitate; free shipping |
+| NL | S | gratis verzending; op is op; free shipping |
 
 ## evcil — Evcil hayvan
 | US | U | dog bed; cat tree; dog harness; cat toy; pet hair remover; dog car seat |

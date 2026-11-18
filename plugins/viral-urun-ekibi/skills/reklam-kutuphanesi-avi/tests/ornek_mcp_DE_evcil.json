@@ -1,0 +1,25 @@
+{
+ "estimated_total_count": 7,
+ "ads": [
+  {
+   "id": "900000000000021",
+   "page_id": 100000000000021,
+   "page_name": "Ornek Tier Laden",
+   "ad_creative_link_title": "Hundebett gegen Gelenkschmerzen",
+   "ad_creation_time": 1788264000,
+   "ad_delivery_start_time": 1788264000,
+   "ad_snapshot_url": "https://www.facebook.com/ads/library/?id=900000000000021",
+   "currency": "USD"
+  },
+  {
+   "id": "900000000000022",
+   "page_id": 100000000000021,
+   "page_name": "Ornek Tier Laden",
+   "ad_creative_link_title": "Hundebett - jetzt 40% sparen",
+   "ad_creation_time": 1792065600,
+   "ad_delivery_start_time": 1792065600,
+   "ad_snapshot_url": "https://www.facebook.com/ads/library/?id=900000000000022",
+   "currency": "USD"
+  }
+ ]
+}

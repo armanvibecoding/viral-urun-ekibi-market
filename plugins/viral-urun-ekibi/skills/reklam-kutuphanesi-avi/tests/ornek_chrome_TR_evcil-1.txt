@@ -1,0 +1,4 @@
+#REKLAMAVI v1	ulke=TR	sorgu=kedi yatağı	nis=evcil	aile=U	siralama=yeni	baslangic=2026-11-18T10:00	kart=3	parca=1/1
+900000000000051	Ornek Pati Dukkani	1 Eyl 2026 tarihinde yayınlanmaya başladı	4 reklam bu kreatifi ve metni kullanıyor	1	https://l.facebook.com/l.php?u=https%3A%2F%2Fpati-ornek.example%2Fproducts%2Fkedi-yatagi	Şimdi Alışveriş Yap	video	Kediniz bu yatağa bayılacak kapıda ödeme
+900000000000052	Ornek Pati Dukkani	15 Eki 2026 tarihinde yayınlanmaya başladı		1	https://l.facebook.com/l.php?u=https%3A%2F%2Fpati-ornek.example%2Fproducts%2Fkedi-yatagi	Şimdi Alışveriş Yap	video	Kedi yatağı yeni renk
+900000000000053	Ornek Pazar Satici	10 Kas 2026 tarihinde yayınlanmaya başladı		1	https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.trendyol.com%2Fornek	Şimdi Alışveriş Yap	video	Kedi yatağı ücretsiz kargo

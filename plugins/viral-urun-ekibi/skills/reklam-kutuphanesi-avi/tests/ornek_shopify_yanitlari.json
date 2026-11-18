@@ -1,0 +1,79 @@
+{
+ "patili-ornek.example": [
+  200,
+  {
+   "Content-Type": "application/json"
+  },
+  "{\"products\": [{\"created_at\": \"2026-07-20T10:00:00-04:00\"}, {\"created_at\": \"2026-08-02T10:00:00-04:00\"}]}"
+ ],
+ "mutfak-ornek.example": [
+  200,
+  {
+   "Content-Type": "application/json"
+  },
+  "{\"products\": [{\"created_at\": \"2026-07-01T10:00:00Z\"}, {\"created_at\": \"2026-07-01T10:00:00Z\"}, {\"created_at\": \"2026-07-01T10:00:00Z\"}, {\"created_at\": \"2026-07-01T10:00:00Z\"}, {\"created_at\": \"2026-07-01T10:00:00Z\"}, {\"created_at\": \"2026-07-01T10:00:00Z\"}, {\"created_at\": \"2026-07-01T10:00:00Z\"}, {\"created_at\": \"2026-07-01T10:00:00Z\"}, {\"created_at\": \"2026-07-01T10:00:00Z\"}, {\"created_at\": \"2026-07-01T10:00:00Z\"}, {\"created_at\": \"2026-07-01T10:00:00Z\"}, {\"created_at\": \"2026-07-01T10:00:00Z\"}]}"
+ ],
+ "yasli-ornek.example": [
+  200,
+  {
+   "Content-Type": "application/json"
+  },
+  "{\"products\": [{\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}, {\"created_at\": \"2023-03-01T10:00:00Z\"}]}"
+ ],
+ "blog-ornek.example": [
+  404,
+  {
+   "Content-Type": "text/html"
+  },
+  "<html>Not found</html>"
+ ],
+ "izli-ornek.example": [
+  404,
+  {
+   "Content-Type": "text/html",
+   "X-ShopId": "1"
+  },
+  "<html><link href='//cdn.shopify.com/s/x.css'></html>"
+ ],
+ "tier-ornek.example": [
+  200,
+  {
+   "Content-Type": "application/json"
+  },
+  "{\"products\": [{\"created_at\": \"2026-08-25T10:00:00Z\"}, {\"created_at\": \"2026-08-25T10:00:00Z\"}, {\"created_at\": \"2026-08-25T10:00:00Z\"}, {\"created_at\": \"2026-08-25T10:00:00Z\"}, {\"created_at\": \"2026-08-25T10:00:00Z\"}]}"
+ ],
+ "pati-ornek.example": [
+  200,
+  {
+   "Content-Type": "application/json"
+  },
+  "{\"products\": [{\"created_at\": \"2026-08-20T10:00:00Z\"}, {\"created_at\": \"2026-08-20T10:00:00Z\"}, {\"created_at\": \"2026-08-20T10:00:00Z\"}]}"
+ ],
+ "mutfaktr-ornek.example": [
+  429,
+  {
+   "Retry-After": "3600"
+  },
+  "Too Many Requests"
+ ],
+ "sinir1-ornek.example": [
+  429,
+  {},
+  ""
+ ],
+ "sinir2-ornek.example": [
+  429,
+  {},
+  ""
+ ],
+ "sinir3-ornek.example": [
+  429,
+  {},
+  ""
+ ],
+ "korumali-ornek.example": [
+  403,
+  {},
+  "Forbidden"
+ ]
+}

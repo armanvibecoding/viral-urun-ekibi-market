@@ -60,3 +60,46 @@ Yalnız kullanıcının **ayrı Chrome profilindeki kendi hesabıyla** ve yalnı
 mesaj yok. Tek sekme, öğe başına ≥5–10 sn, oturum ≤1 saat, günde ≤2 oturum, toplu kazıma yok. Platform şartları izinsiz otomatik
 toplamayı yasaklar; giriş yapılmış hesapla otomasyon hesabı riske sokar — hangi hızın "işlem engeli"ne yol açtığı **doğrulanmadı**.
 Meta kütüphanesinde ölçeklenen reklamın kreatifi Ad Library oynatıcısında izlenir; Instagram'a gitmek gerekmez.
+
+## 6. Shopify reklam toplayıcı — iki veri yolu
+
+### 6a. Meta resmi MCP aracı (`mcp__meta-official__ads_library_search`)
+- **Kim çağırır:** lider (ana ajan). Betik çağırmaz; betik yalnız sırayı, sayacı ve kilidi tutar (`kuyruk.py al`).
+- **Ne için:** hedefli niş araştırması — niş × pazar başına 1 sorgu: tahmini toplam (`estimated_total_count`) + ≤50 örnek.
+  Aracın açıklaması "toplu veri çıkarma/kazıma için kullanma" der; bu yüzden tavan **150 çağrı/gün**, aralar **≥20 sn**.
+- **Parametre:** `countries=[<pazar>]`, `search_terms`, `ad_active_status=ACTIVE`, `ad_type=ALL`, `limit=50` (en çok 50).
+  Gerekirse `page_ids=[..]` ile tek sayfanın reklamları (aynı sayaçtan düşer).
+- **Dönen alanlar:** id · page_id · page_name · ad_creative_link_title · ad_creation_time · ad_delivery_start_time (epoch sn) ·
+  ad_snapshot_url · currency; üstte estimated_total_count. Yanıt `{"results": "<JSON metni>"}` sarmalıyla gelir — dosyaya
+  **olduğu gibi** yazılır, `toplanan_isle.py mcp` açar.
+- **Ölçülen sınırlar (2026-11-18, 3 çağrı):**
+  - Hedef link / alan adı, reklam gövdesi, kopya sayısı **dönmüyor** → Shopify kontrolü için alan adı Chrome'dan gelir (§6c).
+  - Sıralama en yeni reklam önde; gösterim sıralaması yok.
+  - Çok kelimeli jenerik terim (ABD "dog bed", tırnaklı da) ~99 bin sonuç ve ilk 50'si alakasız (kitap/roman reklamı) döndü;
+    ayırt edici tek kelime (DE "Katzenbaum") 7 sonuç, hepsi evcil hayvan. → MCP'de **ayırt edici terim** kullan; jenerik
+    terimin sayımı niş hacmi diye okunmaz. Bu, terim listesinin MCP için ayrıca ayıklanması gerektiğini gösterir (öneri).
+  - Erişim reklam hesabı ister (hesabı olmayan çağıran hata alır).
+- **Hata/engel:** yanıtta `error`, "rate limit", "too many", "try again later" vb. → çıkış 3, o gün mcp yolu kilitli.
+
+### 6b. Chrome: Reklam Kütüphanesi + TrendTrack Chrome eklentisi
+- Toplama §3'teki yöntemle (yavaş kaydırma, `localStorage`, `get_page_text`); **≤30 sorgu/gün** kuralı korunur. Kota bekçisi
+  tek: `nis_kelime.py kaydet` (`kuyruk.py al --yol chrome` onu çağırır). Bu tavanın yükseltilmesi kurucuya **öneri** olarak
+  sunulur; ölçülmeden değiştirilmez (~45 ardışık aramada sessiz kısıt ölçülmüştü).
+- **TrendTrack:** yalnız Chrome **eklentisi** kullanılır (kurucu kararı 2026-11-18). TrendTrack web sitesi ve ücretli kısmı
+  kullanılmaz. Eklentinin kartlara koyduğu Shopify işareti/filtresi varsa **ipucudur**: "Only Shopify" filtresinin eksik
+  bıraktığı daha önce ölçüldü → her alan ayrıca `shopify_kontrol.py` ile doğrulanır. Eklentinin gösterdiği satış/gelir tahmini
+  kayda sayı olarak girmez (ölçüm değil).
+- Döküm (`#REKLAMAVI v1`) hedef linki taşır → alan adı buradan gelir; `toplanan_isle.py chrome` işler.
+
+### 6c. Alan adı çözme (MCP sayfaları için)
+`shopify_kontrol.py bekleyen` en çok reklamı olan, alan adı bilinmeyen sayfaları ve birer `ad_snapshot_url` listeler.
+Lider snapshot'ı Chrome'da açar, reklamın hedef linkini **okur** (tıklamaz, satın almaz), `alan-ekle` ile yazar.
+Günde ≤60 snapshot, aralar ≥15 sn; doğrulama/giriş ekranı çıkarsa dur (`kuyruk.py engel --yol chrome`).
+
+### 6d. Shopify kontrolü
+Alan adı başına **tek** GET (`/products.json?limit=250`) — Shopify olup olmadığı ve en eski `created_at` (mağaza yaşı) aynı
+istekten. Önbellek: `tamam` alana bir daha istek atılmaz. 429/5xx/zaman aşımı → 24 sa ertele (Retry-After daha uzunsa o);
+bir koşuda 3× 429 → koşu durur. 401/403 → `hata`, yeniden denenmez. Dürüst User-Agent; tarayıcı taklidi yok.
+products.json kapalı Shopify mağazası başlık/gövde iziyle (x-shopid, cdn.shopify.com) Shopify sayılır, yaşı `bilinmiyor` kalır.
+§4'teki not geçerli: düz istek bazı mağazalarda 429 alır → o mağaza ertelenir; gerekirse kısa listede tarayıcıdan
+`magaza_oku.js` ile okunur.

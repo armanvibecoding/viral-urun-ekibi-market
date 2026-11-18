@@ -11,8 +11,9 @@ import sys
 import urllib.parse
 
 GORUNMUYOR = "görünmüyor"
-ULKELER = ["US", "TR", "GB", "DE", "FR", "ES"]          # Meta ülke kodları (UK = GB)
-PAZAR_AD = {"US": "ABD", "TR": "Türkiye", "GB": "Birleşik Krallık", "DE": "Almanya", "FR": "Fransa", "ES": "İspanya"}
+ULKELER = ["US", "TR", "GB", "DE", "FR", "ES", "IT", "NL"]  # Meta ülke kodları (UK = GB); IT/NL ürün terimi yok → İngilizce yedek
+PAZAR_AD = {"US": "ABD", "TR": "Türkiye", "GB": "Birleşik Krallık", "DE": "Almanya", "FR": "Fransa", "ES": "İspanya",
+            "IT": "İtalya", "NL": "Hollanda"}
 AILELER = ["U", "S", "K", "KONTROL", "ALAN"]            # Ü=ürün tipi, S=dropship sinyali, K=kimlik/kanca
 SORGU_AILELERI = ["U", "S", "K"]
 SIRALAMALAR = {"gosterim": "total_impressions", "yeni": "relevancy_monthly_grouped"}

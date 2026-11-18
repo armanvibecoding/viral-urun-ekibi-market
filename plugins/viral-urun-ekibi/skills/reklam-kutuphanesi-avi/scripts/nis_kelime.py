@@ -21,7 +21,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ortak as o  # noqa: E402
 
 VARSAYILAN_NISLER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "referans", "nisler.md")
-AB_INGILIZCE_YEDEK = {"GB", "DE", "FR", "ES"}   # AB'de İngilizce reklam da döner → US süzgeç terimleri yedek
+AB_INGILIZCE_YEDEK = {"GB", "DE", "FR", "ES", "IT", "NL"}   # AB'de İngilizce reklam da döner → US süzgeç terimleri yedek
 
 
 def nisler_oku(yol=VARSAYILAN_NISLER):

@@ -43,3 +43,19 @@ Başlık (virgül ya da sekme): `id,kaynak,hesap,pazar,yayin_tarihi,okuma_tarihi
 - `kaynak`: IG-organik / TT-organik / YT / META-reklam / TTCC-topads / BIZ · `pazar`: TR / ABD / AB-<ülke>.
 - Sayılar ham yazılır (12000, 1,2MN değil). `kazanan` boş bırakılır — `desen_say.py` hesaplar; elle yazılan değer hesapla çelişirse reddeder.
 - Reklam satırı izlenen her OLCEKLENIYOR kreatif için **ve** aynı sorgudan en az bir TEST kreatif için yazılır (kaybeden olmadan desen ayırt edilemez).
+
+## Shopify reklam toplayıcı deposu (`is/meta/reklam.db`, SQLite — `toplayici_ortak.py` kurar)
+| Tablo | Yazan | Ana alanlar |
+|---|---|---|
+| `kuyruk` | `kuyruk.py` | id · pazar · nis · aile · sorgu · yol(mcp/chrome) · dil(yerel/EN-yedek) · durum(bekliyor/acik/tamam/engel/hata) · deneme · son_tarih · tahmini_toplam · gelen |
+| `cagri` | `kuyruk.py al` | tarih · zaman · yol · kuyruk_id (günlük tavan + bekleme buradan) |
+| `kilit` | engel/hata | tarih · yol · sebep (o gün o yol durur) |
+| `reklam` | `toplanan_isle.py` | ad_id (tekil) · page_id · page_name · pazar · nis · sorgu · baslik · govde · yayin_tarihi · snapshot_url · hedef_alan · hedef_yol · kopya · kaynak(mcp/chrome) · ilk_gorulme · okuma_tarihi |
+| `sayfa_alan` | `shopify_kontrol.py alan-ekle` | page_id → alan |
+| `magaza` | `shopify_kontrol.py kontrol` | alan · durum · shopify(1/0/boş) · kanit · urun_sayisi · en_eski_urun · yas_gun · istek_sayisi · ertele_bitis |
+| `puan` | `basari_puani.py` | pazar · birim · puan(0–100) · gerekce · shopify · derin(1 = derin analiz kuyruğu) · sira |
+
+Birim = Facebook sayfası (MCP `page_id`; Chrome'da `sayfa:<ad>`). Aktif gün = bugün − `yayin_tarihi`. "Başlık kaç sayfada" =
+aynı normalize başlığın aynı pazarda kaç farklı sayfada geçtiği. Alan adları `pazar`, `nis`, `okuma_tarihi`, `yayin_tarihi`,
+`kaynak_ref` proje analiz veritabanıyla aynı; `analiz_db_aktar.py` yalnız derin kuyruğu hesap/urun/video tablolarına yazar
+(pazar eşlemesi US→ABD, GB→UK, DE/FR/ES/IT/NL→AB, TR→TR).
