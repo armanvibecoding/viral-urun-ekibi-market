@@ -5,7 +5,8 @@ Yapar: 3 adet 4 sn 720x1280 renkli test klibi (ses tonlu) + 1 sıçramalı klip 
 geçirip sıçramayı YAKALADIĞINI ölçer -> Türkçe kanca + pazara göre CTA + efektle kurgular -> süre/çözünürlük/LUFS
 ölçer -> ara kareyi PNG olarak çıkarır (Türkçe harflere gözle bak) -> müzik girişi kapısını kırarak sınar
 (−30 dB'den 1,75 sn rampalı müzik GEÇER; geç başlayan müzik, kısık yatak + tam drop, rampasız açılış KALIR;
-ses_tasarla uçtan uca: müzik 0'dan → 0, müzik 4. sn'de → 2, açılışta diegetik ses yok → 2).
+ses_tasarla uçtan uca: müzik 0'dan → 0, müzik 4. sn'de → 2, açılışta diegetik ses yok → 2) -> ses_olc --kapi
+(delik → 3, +10 dB üstü sıçrama → 4) ve kurgu_kontrol --goruntu (bildirilmemiş kesim / son 2 sn gürültü → 3) kırılarak sınanır.
 
 Kullanım: python3 kendini_test.py [--klasor <çıktı_klasörü>]   (varsayılan: geçici klasör)
 Çıkış kodu 0 = hepsi geçti.
@@ -114,6 +115,28 @@ def main():
                                 "--patlama_db", "0", "--crackle_db", "0", "--kesmeler", "yok",
                                 "--cikti", os.path.join(d, "kurgu", f"ses_{len(sonuc)}.mp4")], capture_output=True, text=True)
             sonuc.append((f"{ad} -> çıkış {bek}", r.returncode == bek))
+    # ses_olc --kapi: delik → 3, drop dışı sıçrama > +10 dB → 4 (2026-11-18 eleştirmen reçeteleri) — önce kır
+    ff = F.ffmpeg_bul()
+    for ad, ifade, bek in (("temiz ton", "0.3*sin(2*PI*220*t)", 0),
+                           ("0,5 sn ses deliği", "0.3*sin(2*PI*220*t)*(1-between(t,3,3.5))", 3),
+                           ("+20 dB ani sıçrama (3. sn)", "(0.03+0.27*gte(t,3))*sin(2*PI*220*t)", 4)):
+        w = os.path.join(d, f"ses_kapi_{bek}.wav")
+        F.calistir([ff, "-v", "error", "-y", "-f", "lavfi", "-i", f"aevalsrc='{ifade}':s=48000:d=6", w])
+        r = subprocess.run([py, os.path.join(BURASI, "ses_olc.py"), w, "--kapi"], capture_output=True, text=True)
+        sonuc.append((f"ses_olc --kapi {ad} -> çıkış {bek}", r.returncode == bek))
+    # kurgu_kontrol --goruntu: kesim dışı RGB sıçraması / son 2 sn gürültü → 3
+    kl = os.path.join(d, "klipler")
+    gur = os.path.join(kl, "_gurultu.mp4")
+    F.calistir([ff, "-v", "error", "-y", "-f", "lavfi", "-i", "color=c=0x2a6f97:s=720x1280:r=24:d=4,noise=alls=10:allf=t",
+                "-f", "lavfi", "-i", "color=c=0x2a6f97:s=720x1280:r=24:d=2,noise=alls=70:allf=t",
+                "-filter_complex", "[0][1]concat=n=2:v=1[v]", "-map", "[v]", "-c:v", "libx264", "-pix_fmt", "yuv420p", gur])
+    for ad, yol, kes, bek in (("temiz klip", os.path.join(kl, "V01_S1.mp4"), None, 0),
+                              ("bildirilmemiş kesim (koyu→açık)", os.path.join(kl, "SICRAMA.mp4"), None, 3),
+                              ("aynı sıçrama kesim olarak bildirilince", os.path.join(kl, "SICRAMA.mp4"), "2.0", 0),
+                              ("son 2 sn gürültü artışı (kesim bildirilse de)", gur, "4.0", 3)):
+        cmd = [py, os.path.join(BURASI, "kurgu_kontrol.py"), "--goruntu", yol] + (["--kesimler", kes] if kes else [])
+        r = subprocess.run(cmd, capture_output=True, text=True)
+        sonuc.append((f"kurgu_kontrol --goruntu {ad} -> çıkış {bek}", r.returncode == bek))
     for ad, ok in sonuc:
         print(("GEÇTİ " if ok else "KALDI ") + ad)
     print("klasör:", d)

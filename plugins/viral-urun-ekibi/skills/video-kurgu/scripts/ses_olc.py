@@ -19,7 +19,10 @@ ortada "bir anda açılma" yok. yatak = stem'in 1 sn pencere RMS medyanı.
                    +7,2 dB (parçanın kendi dinamiği; GEÇTİ). 1 sn pencere parçanın cümle dinamiğinde (+10,5) yanlış alarm verdi.
   acilis_olayi_db: (VIDEO karışımında) ilk 0,5 sn'nin en yüksek 50 ms RMS'i − karışımın 1 sn medyanı. Eşik ≥ −6 →
                    açılışta duyulur bir diegetik ses olayı var (müzik o sırada −30 dB'de).
-  tuttu          : hepsi birden. --kapi verilirse tuttu=false → çıkış 3.
+  tuttu          : hepsi birden.
+drop_disi_sicrama (her zaman): ardışık 0,1 sn RMS pencereleri arası artış; muaf ilk 0,5 sn, drop ±0,5 sn ve −45 dB altından
+  dönüş. `asan` = +10 dB'yi aşanlar (puan cetveli Ses 5-ölçütü; 2026-11-18 eleştirmen reçetesi: alan yoktu, elle ölçülüyordu).
+--kapi çıkışları: 3 = müzik girişi tutmadı ya da ses deliği var (delikler dolu) · 4 = drop dışı sıçrama > +10 dB · 0 = temiz.
 Çıktı JSON; dosya değiştirilmez.
 """
 import argparse, json, os, re, shutil, subprocess, sys, tempfile
@@ -101,6 +104,26 @@ def muzik_giris(x, sr=SR, esik=None, karisim=None):
     return r
 
 
+SICRAMA_ESIK = 10.0
+
+
+def drop_disi_sicrama(x, drop=0.0, sr=SR):
+    """Ardışık 0,1 sn RMS pencereleri arası artış (dB). Muaf: ilk 0,5 sn (diegetik açılış olayı), drop ±0,5 sn,
+    önceki pencere −45 dB altı (bilinçli sessizlikten dönüş). Eşik +10 dB (puan cetveli Ses 5-ölçütü)."""
+    h = int(0.1 * sr)
+    n = len(x) // h
+    z = 20 * np.log10(np.sqrt((np.asarray(x[: n * h], np.float64).reshape(n, h) ** 2).mean(1)) + 1e-9)
+    adim = []
+    for k in range(1, n):
+        t = k * 0.1
+        if t < 0.5 or (drop > 0 and abs(t - drop) <= 0.5) or z[k - 1] < -45:
+            continue
+        adim.append({"sn": round(t, 1), "db": round(float(z[k] - z[k - 1]), 1)})
+    adim.sort(key=lambda d: -d["db"])
+    return {"maks": adim[0] if adim else None, "asan": [d for d in adim if d["db"] > SICRAMA_ESIK],
+            "esik_db": SICRAMA_ESIK}
+
+
 def oku_mono(FF, yol):
     tmp = tempfile.mkdtemp(prefix="olc_")
     ham = os.path.join(tmp, "ham.f32")
@@ -118,7 +141,7 @@ def main():
     ap.add_argument("--delik_db", type=float, default=-45.0)
     ap.add_argument("--delik_sn", type=float, default=0.25)
     ap.add_argument("--muzik_stem", help="video zaman çizgisindeki müzik stem'i (ses_tasarla --stem_klasoru → muz.wav)")
-    ap.add_argument("--kapi", action="store_true", help="muzik_giris tutmazsa çıkış 3")
+    ap.add_argument("--kapi", action="store_true", help="müzik girişi/delik → çıkış 3; drop dışı sıçrama > +10 dB → çıkış 4")
     a = ap.parse_args()
     FF = ffmpeg_yolu()
     r = subprocess.run([FF, "-hide_banner", "-i", a.video, "-vn", "-af", "ebur128=peak=true", "-f", "null", "-"],
@@ -158,12 +181,24 @@ def main():
         if len(tepe) == 5:
             break
     rapor["tepe_anlari"] = tepe
+    rapor["drop_disi_sicrama"] = drop_disi_sicrama(x, a.drop)
     if a.muzik_stem:
         rapor["muzik_giris"] = muzik_giris(oku_mono(FF, a.muzik_stem), karisim=x)
     print(json.dumps(rapor, ensure_ascii=False, indent=1))
-    if a.kapi and a.muzik_stem and not rapor["muzik_giris"]["tuttu"]:
-        print("KAPI: müzik girişi tutmadı — " + rapor["muzik_giris"]["neden"], file=sys.stderr)
-        sys.exit(3)
+    if a.kapi:
+        k3 = []
+        if a.muzik_stem and not rapor["muzik_giris"]["tuttu"]:
+            k3.append("müzik girişi tutmadı — " + rapor["muzik_giris"]["neden"])
+        if delikler:
+            k3.append(f"ses deliği: {delikler}")
+        ds = rapor["drop_disi_sicrama"]
+        if k3:
+            print("KAPI: " + " · ".join(k3), file=sys.stderr)
+            sys.exit(3)
+        if ds["asan"]:
+            print(f"KAPI: drop dışı 0,1 sn sıçrama > +{SICRAMA_ESIK:.0f} dB: {ds['asan']} — müzik stem'ine kompresör "
+                  "(ses-tasarimi §1.5); --muzik_db normalizasyondan sonra etkisizdir", file=sys.stderr)
+            sys.exit(4)
 
 
 if __name__ == "__main__":

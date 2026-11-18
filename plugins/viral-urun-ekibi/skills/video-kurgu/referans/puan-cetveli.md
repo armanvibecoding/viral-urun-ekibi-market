@@ -36,6 +36,7 @@ Ağır DEĞİL (gerçekçilik 5, kontrat K7/K8): video seçilmemiş içerikle bi
 - **Hassas kategori platform kapısı** (`ai-video-kreatif/referans/kurgu-ve-yasaklar.md` §8.1): kelime kapısında tek
   isabet · imâ seviyesi 3 · anatomik biçimli ürün kadrajda ya da çalışan ürün yakın planı · vızıltı + nefes/inleme/yatakta beden · vızıltı
   görünür masum kaynaksız, > 3 kez ya da ürün yakın planıyla aynı anda (vızıltının kendisi serbest, kurucu talimatı).
+  Kaynak sayılan: kadrajdaki telefon ya da kapalı hediye kutusu. Vızıltı anında ürün görünüyorsa ya da kadrajda kaynak hiç yoksa ağır kusur.
 - **Olay ilk 3 sn'de anlaşılmıyor** (2026-11-17 kurucu: "ben anlamadım, olay ne?"): soğuk izleyici ilk 3 sn'de kim/ne/neden
   gerildi sorularından birini cevaplayamıyorsa kanca alanı en fazla 4. Eleştirmen hikâyeyi TEK CÜMLEYLE yazar; yazamıyorsa kusur.
 - **Hikâyeye hizmet etmeyen obje** (2026-11-17: kupa izi, saç tokası): kadrajda hikâyede görevi olmayan, dikkat çeken obje
@@ -75,6 +76,7 @@ Ağır DEĞİL (gerçekçilik 5, kontrat K7/K8): video seçilmemiş içerikle bi
 | 9 | Her plan ≥ 2 vuruş (140 BPM'de ≥ 0,85 sn, ayar dosyasından), önce/sonra kesimi drop'ta (flaşla), aynı klip aralığı iki kez kullanılmıyor, son kare ilk kareye bağlanıyor (döngü). |
 | 7 | 9'dan bir ölçüt eksik (ör. döngü yok ya da bir plan tekrarı var); önce/sonra drop'ta. |
 | 5 | Önce/sonra drop'a oturmuyor **ya da** < 2 vuruşluk plan var **ya da** aynı iki planın gidip gelmesi (A-B-A-B) videonun yarısını kaplıyor **ya da** yapı seride başka videonun kopyası. |
+| 4 | Canlandırılmış durgun plan (fotoğrafa itme/zoom, yalnız yazı hareketi) toplam sürenin %30'unu aşıyor (en fazla 4). |
 | 3 | 2 sn'den uzun durağan plan + önce/sonra anı yok; ya da toplam süre kontratın K1 aralığı dışında (kontrat yoksa: ürün-gösterim/amblem 8–15 sn, hikâye 20–30 sn). |
 
 ## Ses (`ses_olc.py` ile ölçülür; dinlenemez — yalnız ölçüleni yaz)

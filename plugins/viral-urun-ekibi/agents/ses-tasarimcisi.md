@@ -37,7 +37,8 @@ Kullanıcıyla dil Türkçe. Video dosyasını değiştirmezsin; yeni dosya üre
    - **Gerçekçi efekt** görüntüdeki eyleme bağlanır: ekranda dokunuş yoksa tık yok; whoosh yalnız hareketli geçişte/punch'ta.
    - **Kanca sesi:** ilk 0,5 sn'de bir ses olayı olmalı (müzik girişi, scratch, whoosh); sessiz açılış yok.
    - **Delik yok:** sessizlik yalnız bilinçli (vuruş, komedi duraklaması ≤ 0,25 sn); `ses_olc.py` `delikler` boş olmalı.
-3. **Komutu üret ve koştur:** `python3 "${CLAUDE_SKILL_DIR}/scripts/ses_tasarla.py" --video VNN_sessiz.mp4 --muzik M.mp3
+3. **Önce kapı:** `muzik/LISANS.md`'de "Kurucu seçti: <tarih>, söz kapısı: temiz | enstrümantal" satırı yoksa DUR (ses_tasarla
+   çalıştırılmaz; 3 aday kurucuya dinletilir). **Komutu üret ve koştur:** `python3 "${CLAUDE_SKILL_DIR}/scripts/ses_tasarla.py" --video VNN_sessiz.mp4 --muzik M.mp3
    --muzik_bas <drop sn> --drop_video_sn <sn> --kesmeler <plan başları> [--patlama_db 0 --crackle_db 0] --sfx tik@..,boom@..
    --sfx_dosya "ad.mp3@sn:dB[:bas-bit]" --sfx_klasor is/NN/sfx/kaynak --riser .. --sessizlik_vurusu 0.2 --son_fade 0.12 --cikti ..`
    `--stem_klasoru is/NN/ses/stem_VNN` ver (eleştirmen müzik girişini `muz.wav` ile ölçer).

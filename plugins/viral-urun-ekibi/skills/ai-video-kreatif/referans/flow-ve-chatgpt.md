@@ -58,6 +58,9 @@ yerden/patiden çıkıyor mu · hayvan cins değiştiriyor mu · ışınlanma/ka
 
 ## Flow ajanı ile üretim (ölçülmüş dersler)
 - Ajan klibi dosya ADIYLA değil, mesaja EKLENMİŞ görsellerle eşler; ek yoksa son yüklenenleri alır. Kareleri sohbet kutusuna sürükle-bırakla ekle ve promptta her klibin görselini İÇERİĞİYLE tarif et ("genç ayakta, amblem siyah" gibi). Ek sırasına güvenme; ters görünebilir.
+- **Politika reddi:** Flow istemi politika gerekçesiyle reddederse istem yeniden ifade edilmez (kelime oyunuyla filtreyi
+  aşmaya çalışmak hesap riski). Kontrata (KURALLAR.md) üretimden ÖNCE her riskli klip için bir "politika yedeği" satırı yazılır
+  (daha masum sahne, aynı hikâye işlevi); ret gelirse yalnız o yedek denenir, o da reddedilirse klip kurgudan çıkar ve lidere yazılır.
 - Onay kartı 1–2 dk içinde onaylanmazsa üretim iptal olur (kredi düşmez): "Tekrar dene" de ve hemen onayla.
 - Flow içindeki görsel düzenleme (Nano Banana) 0 kredi; kare düzeltmesi orada bedava yapılabilir.
 - Model "SCREEN LOCK"a rağmen ekran içeriğini değiştirebilir ya da ikinci (hayalet) bir ürün çizebilir: 4 fps panoyla bul, değişen ucu kırp ya da tavan içinde yeniden üret. Sabit kamerada hayalet nesne, ilk karenin temiz bölgesiyle (çevreye göre parlaklık eşlemeli, geniş yumuşak kenar) silinir.

@@ -16,6 +16,8 @@
    dikkatin %100'ü sende" [M1, M2, M3]. Ölçüldü: 0,2 sn kesme drop kontrastını +5,5 → +7,0 dB (yalnız kesme), darbeyle +14 dB'ye
    çıkarıyor. **Riser, drop'a kadar sürerse kontrastı siler** (+1,2 dB); kesmeden önce bitse bile −18 dB'de 4,6, −22 dB'de ≈ −1,5 dB bedel.
 5. **Seviye:** hedef −14 LUFS; efektler ana ses/konuşmaya göre −5…−10 dB; telefon hoparlöründe test; clipping yok [B1].
+   Drop dışı 0,1 sn sıçrama > +10 dB (`ses_olc.py` `drop_disi_sicrama`, `--kapi` çıkış 4) seviyeyle değil müzik stem'ine
+   kompresörle düzeltilir; `--muzik_db` son normalizasyondan sonra etkisizdir (2026-11-18 ölçüldü).
 6. **Meme sesleri:** Vine Boom 2012 Bluezone örnek kütüphanesinden, Vine'da 2014 (King Bach) yayıldı, 2020–22 ironik "loud =
    funny" kodu, "aşırı kullanım" algısı var [V1]; açık lisansı yok, Remotion bile "CC0 gibi serbest bir lisansla yayımlanmamış"
    diyor [V2]. Record scratch "Yep, that's me" kalıbı The Who "Baba O'Riley" ile anılır → şarkı yok, jenerik scratch var [R1].
@@ -41,7 +43,8 @@
 - Drop (vurgu) reçetesi: müzik zaten çalarken `--sessizlik_vurusu 0.2` + drop'ta darbe (`boom@` ya da bas-drop dosyası);
   vurguyu efekt ve 0,2 sn boşluk taşır, müziğin seviyesi değil. `drop_artis_db` 6–10. Riser isteğe bağlı, kesmeden önce biter.
 - Meme darbesi punchline'la aynı karede; komedi dışı videoda yok. Komedi duraklaması: scratch + 0,1–0,2 sn müzik kesme (`--sessizlik`).
-- Gerçekçi efekt görüntüye bağlı: dokunuş yoksa tık yok; whoosh yalnız hareketli geçiş/punch'ta.
+- Gerçekçi efekt görüntüye bağlı: dokunuş yoksa tık yok; whoosh yalnız hareketli geçiş/punch'ta. Olay sesi hareketin İLK
+  GÖRÜNÜR karesine ±0,1 sn oturur; plan saniyesi ya da senaryo değil, görüntü (4 fps/10 fps pano) esas alınır.
 - **Ürünün işlevi sesle hissettirilir** (imâ yolu): işlevi ekranda söylenemeyen üründe (reklamı yasak kategori) işlevin
   sesi alt mesajdır — ör. kısa titreşim/buzz (bkz. efekt kartı "Buzz"), görüntüdeki hareketle ±0,1 sn (aynı klip aralığı tekrar ya da farklı hızla kullanılıyorsa olay anı yeniden hesaplanır:
   t_çıkış = bas_çıkış + (t_kaynak − bas_kaynak)/hız; o aralıktaki görünen olaylar da sese bağlanır), videoda 1–3 kez,
@@ -65,6 +68,8 @@
 4. **Kurucu dinler:** her videoda 3 aday parça `muzik/aday1-3` olarak indirilir ve kurucuya dinletilir; seçimi kurucu yapar.
    Ölçüm (tempo/spektrum) yalnız ön eleme içindir, seçim değildir. Yetişkin/arzu ürününde duygu "after dark": yavaş (60–85 BPM),
    bas ağır, nefesli vokal dokusu, sultry R&B/pop; inleme/nefes örneği YOK (platform kapısı).
+   **Kapı:** `muzik/LISANS.md`'de "Kurucu seçti: <tarih>, söz kapısı: temiz | enstrümantal" satırı yoksa `ses_tasarla.py`
+   çalıştırılmaz (ses tasarımcısı ve kurgucu bu satırı arar); satırsız teslimde eleştirmen ses alanına en fazla 4 verir.
 5. **Stok hissi testi:** parça adında/etiketinde "corporate, upbeat background, inspiring, suspense" geçiyorsa ve 1. madde
    gerekçesi yoksa seçilmez. Ön elemede tür/BPM/enstrüman satırıyla karşılaştırılır; son seçim 4. maddeye göre kurucunun kulağıyla.
 

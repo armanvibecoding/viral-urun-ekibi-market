@@ -22,6 +22,8 @@ Kamera yalnız **sabit / yavaş itme / yavaş yana kayma** (doğrusal hareket ik
 5. Kurgu ayarında bu klibi kullan; yazı (kanca, CTA) bindirmeden SONRA eklenir ve ekranı örtmez.
 
 ## Kurallar
+- Geçiş karelerinde aynı anda en fazla 2 katman (ör. çıkan + giren plan); ayırıcı çizgi/bölme ürün kırpımının üstünden
+  geçmez. Kontrol: geçiş anlarının ±0,5 sn'sinde 10 fps pano.
 - Kırmızı-mavi dönüşümlü yanıp sönme yok (polis ışığı çağrışımı); hızlı flaş yok; animasyon hızı ≤ 2 Hz.
 - Ekran parlaklığı karedeki ışıkla uyumlu: abartılı parlaklık ürünü olduğundan farklı gösterir = yanıltıcı görüntü.
 - Islak zemin yansıması, cam yansıması gibi ek gerçekçilik katmanları bu betikte yok; gerekiyorsa ayrı ffmpeg katmanıyla

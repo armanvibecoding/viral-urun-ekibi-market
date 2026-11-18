@@ -15,11 +15,11 @@ Puan cetveli: ${CLAUDE_PLUGIN_ROOT}/skills/video-kurgu/referans/puan-cetveli.md 
 
 | # | Alan | Kural | Eşik (ölçülebilir) | Nasıl ölçülür |
 |---|---|---|---|---|
-| K1 | iskelet | süre ve vuruş | toplam <12–15> sn; plan ≥ <2> vuruş (<0,86> sn); drop <3,43> sn | ayar JSON + pano |
+| K1 | iskelet | süre ve vuruş | toplam <12–15> sn = Σ(klip aralığı / hız) + donuk kareler; her klip aralığı ≤ 4,03 sn (Flow klibi ölçülen süresi); plan ≥ <2> vuruş (<0,86> sn); drop <3,43> sn | ayar JSON + pano |
 | K2 | kanca | ürün ilk ... sn'de | değişmiş ekran ≤ <0,9> sn; durağan stok plan ilk plan değil | pano 10 fps |
 | K3 | stok sınırı | stok (eski hal) planı | ≤ <0,86> sn, ilk plan değil | ayar JSON |
 | K4 | giriş türü | seride açılış dağılımı | aynı açılış karesi ≤ 1 video; giriş türleri: <sonuç-önce / punch / söküm / telefon> en fazla <n>'er | plan tablosu |
-| K5 | yazı konumu | ürün/plaka kapatma | yakın planda konum ≤ <0,15>; plaka/ekran üstünde yazı yok; alt %20 + sağ %15 boş | kontrol karesi |
+| K5 | yazı konumu | ürün/plaka kapatma | yakın planda konum ≤ <0,15>; plaka/ekran üstünde ve ürünün üstünde yazı yok; alt %20 + sağ %15 boş | kontrol karesi — her kırpım/zoom planı için ayrı kare |
 | K6 | yazı biçimi | satır/kelime | ≤ <5> kelime, ≤ 2 satır, yetim kelime yok | pano |
 | K7 | telefon = ekran | seçilen = görünen | dokunulan karo sonraki her planda araçta; video seçilen içerikle biter | pano |
 | K8 | kapanış | CTA planı | CTA değişmiş ekranlı planda, ≥ 3 sn; stok rozetle bitmez; organik videoda ad/fiyat kartı yok | pano |

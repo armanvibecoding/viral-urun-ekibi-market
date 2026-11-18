@@ -88,6 +88,9 @@ Betik DUR/❌ verirse düzelt ve tekrar koştur; geçmeden sonraki aşamaya geç
   `video-kurgu` ekran bindirme kurallarıyla. Basit hareket (radar dönmesi) Flow'da istenebilir; 4 fps panoyla sına.
 - **Gerçek bağlam:** ürün bir araca/eşyaya takılıyorsa o nesne gerçekçi ve tanınır olmalı (araçta model rozeti, gerçekçi
   plaka + uydurma numara). Boş plaka, logosuz/markasız sahne, plastik yüz AI işaretidir.
+- **Kahraman karakter sabit:** hikâyenin kahramanı (hayvan ya da kişi) klip içinde ve klipler arasında tür, desen ya da
+  renk değiştirmez. Her klibin ilk/orta/son karesi referans kırpımıyla yan yana konur (`kare_hazirla.py --yan-yana`);
+  değişen klip kurguya girmez (kırp ya da tavan içinde yeniden üret).
 - **Seri üretim (30 video): videoya değil sahneye klip üret.** Özneye (araç, hayvan, kişi) bağlı sahne yeniden
   kullanılamaz; her özne için ~5 klip: k1 kahraman giriş · k2 önce/stok · k3 sonra (k2 ile AYNI kadraj) · k4 başka açı,
   içerik 2 · k5 geniş kimlik planı. Özneden bağımsız sahneler (telefon dokunuşu, kutu açılışı, elde ürün, söküm/montaj

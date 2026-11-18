@@ -42,9 +42,14 @@ her karede bindirme ekranın içinde mi. Yöntem ve ayarlar: `${CLAUDE_SKILL_DIR
 1. `is/NN/kurgu/VNN.json` ayar dosyasını yaz (alanlar `kurgu.py` başındaki açıklamada ve `referans/kurgu-kurallari.md`).
 2. Koştur: `python3 "${CLAUDE_SKILL_DIR}/scripts/kurgu.py" is/NN/kurgu/VNN.json --proje .`
    Betik kapıları kendisi uygular (720p altı, sıçrama); geçmezse kurgu yapılmaz.
-3. Çıktı satırını oku: süre 8–15 sn, 1080×1920, −14 ±1 LUFS. Değilse düzelt.
+3. Çıktı satırını oku: süre KURALLAR.md K1 aralığında (kontrat yoksa ürün gösterimi 8–15 sn, hikâye 20–30 sn), 1080×1920,
+   −14 ±1 LUFS. K1 dışındaysa video eleştiriye GÖNDERİLMEZ; önce düzelt.
+   Teslim öncesi görüntü kapısı: `python3 "${CLAUDE_SKILL_DIR}/scripts/kurgu_kontrol.py" --goruntu VNN.mp4 --kesimler <plan başları>`
+   → çıkış 0 (kesim dışı RGB sıçraması ya da son 2 sn gürültü → 3, render hatası).
 4. `VNN_kontrol.jpg`'ye bak (her planın ortası + son kare): yazı okunuyor mu, ürünü/çıkış noktasını örtüyor mu,
    CTA son ≥ 3 sn'de ve kancanın hemen altında mı. Örtüyorsa `yazi_konum` ya da `kanca_gizle` ile yeniden koştur.
+   KURALLAR.md'deki kredisiz her K maddesini tek tek işaretle (✓ / ✗ + kanıt: dosya, saniye); işaretsiz madde varsa
+   video eleştiriye GÖNDERİLMEZ.
 **Viral (hızlı) kurgu — varsayılan reklam kurgusu:** `hizli_kurgu.py ayar.json` (alanlar betiğin başında).
 - Kanca = videonun **en güçlü anı ilk karede** (alev, değişim, sonuç); olayın ortasından aç, ilk karede ses de olsun.
   Ölü/kapalı ürünle ya da sessiz açma. Kanca yazısı ilk karede tam görünür (kelime kelime değil).

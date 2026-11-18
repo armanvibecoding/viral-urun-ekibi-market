@@ -4,7 +4,17 @@
 Kullanım:
   python3 kurgu_kontrol.py AYAR.json [AYAR2.json ...] [--video VIDEO.mp4] [--drop 3.429] [--etiket klip_etiket.json]
                            [--esik ad=deger ...] [--gevset KURAL ...] [--json]
-Çıkış: herhangi bir ayarda HATA varsa 1, yoksa 0. UYARI çıkışı değiştirmez.
+  python3 kurgu_kontrol.py [AYAR.json] --goruntu VIDEO.mp4 [--kesimler 4.0,8.0]     (teslim öncesi görüntü kapısı)
+Çıkış: herhangi bir ayarda HATA varsa 1, yoksa 0. UYARI çıkışı değiştirmez. Görüntü kapısı HATA'sı → 3 (önceliklidir).
+
+Görüntü kapısı (2026-11-18 eleştirmen KALICI reçetesi: render hatası — son 1 sn'de tam kare kırmızı-sarı gürültü —
+eleştirmene kadar geldi): kareler 54×96'ya küçültülür, ardışık karelerin ortalama RGB farkı (kanal başına en büyük)
+ölçülür. Kesim anları (±0,15 sn; flaş/punch geçişi dahil) dışında > 25 birim = HATA "sicrama". Kesim listesi
+`--kesimler` ya da AYAR'ın planlarından (hizli_kurgu `{bas,bit,hiz}` ya da kurgu.py `[klip, bas, bit]`) gelir; liste
+yoksa HER sıçrama HATA'dır (kesimleri bildir). Son 2 sn'nin gürültü vekili (216×384 gri karede 3×3 yüksek geçiren
+artık) önceki 2 sn'nin 1,5 katını aşarsa HATA "gurultu". Kalibrasyon (2026-11-18): 5 teslim videosunda kesim dışı en
+büyük sıçrama 23,4, son/önceki 2 sn gürültü oranı ≤ 1,13; bilinen hata 12/25/41 → 75/39/42 (+50 birim, tek kare); son 1 sn'ye
+gürültü + renk kayması eklenmiş teslim: sıçrama 56,9, oran 1,87 → çıkış 3. Medyana oran ve 54×96 gradyan hatayı kaçırdı.
 
 Klip etiketi: her klibin ekranda ne gösterdiği ayar dosyasından okunamaz; `klip_etiket.json`dan gelir. Varsayılan:
 kullanılan kliplerin klasöründeki `klip_etiket.json` (birden fazla klasör varsa hepsi birleşir). Biçim dosyanın
@@ -28,6 +38,7 @@ Betik eleştirmenin yerini almaz: kanca gücü, gerçekçilik, ritim yargısı e
 """
 import argparse
 import json
+import numpy as np
 import os
 import subprocess
 import sys
@@ -327,16 +338,97 @@ def kontrol(ayar_yol, args, esik):
             "hatalar": hata, "uyarilar": uyari, "ses": ses, "gecti": not hata}
 
 
+GORUNTU_ESIK = {"sicrama": 25.0, "kesim_tol_sn": 0.15, "gurultu_oran": 1.5, "son_sn": 2.0}
+
+
+def ayar_kesimleri(ayar_yol):
+    a = json.load(open(ayar_yol, encoding="utf-8"))
+    t, kes = 0.0, []
+    for p in a.get("planlar", []):
+        if isinstance(p, dict):
+            sure = (p["bit"] - p["bas"]) / p.get("hiz", 1.0)
+        else:
+            sure = (p[2] - p[1]) / (p[3] if len(p) > 3 and isinstance(p[3], (int, float)) else 1.0)
+        t += sure
+        kes.append(round(t, 3))
+    return kes[:-1]
+
+
+def goruntu_kontrol(video, kesimler, esik=GORUNTU_ESIK):
+    from ffaraclar import ffmpeg_bul
+    W, Hh = 54, 96
+    ff = ffmpeg_bul()
+    r = subprocess.run([ff, "-v", "error", "-i", video, "-vf", f"scale={W}:{Hh}:flags=area", "-f", "rawvideo",
+                        "-pix_fmt", "rgb24", "-"], capture_output=True)
+    f = np.frombuffer(r.stdout, np.uint8)
+    n = len(f) // (W * Hh * 3)
+    if n < 10:
+        return {"hatalar": [f"görüntü okunamadı ({n} kare)"], "sicramalar": [], "gurultu_oran": None}
+    f = f[: n * W * Hh * 3].reshape(n, Hh, W, 3).astype(np.float64)
+    info = subprocess.run([ff, "-i", video], capture_output=True, text=True).stderr
+    try:
+        fps = float(info.split(" fps")[0].split(",")[-1])
+    except ValueError:
+        fps = 30.0
+    m = f.mean((1, 2))
+    d = np.abs(np.diff(m, axis=0)).max(1)
+    hatalar, sic = [], []
+    for i, v in enumerate(d):
+        t = (i + 1) / fps
+        if v > esik["sicrama"] and not any(abs(t - k) <= esik["kesim_tol_sn"] for k in kesimler):
+            sic.append({"sn": round(t, 2), "fark": round(float(v), 1)})
+    if sic:
+        en = max(sic, key=lambda x: x["fark"])
+        hatalar.append(f"kesim dışı RGB sıçraması {len(sic)} karede (en büyük {en['fark']} birim, {en['sn']} sn; eşik "
+                       f"{esik['sicrama']}) — render hatası ya da bildirilmemiş kesim (--kesimler)")
+    # gürültü vekili 216×384 gri karede (54×96 alan ortalaması gürültüyü siler — ölçüldü: bozuk videoda oran değişmedi)
+    r2 = subprocess.run([ff, "-v", "error", "-i", video, "-vf", "scale=216:384:flags=area", "-f", "rawvideo",
+                         "-pix_fmt", "gray", "-"], capture_output=True)
+    g = np.frombuffer(r2.stdout, np.uint8)
+    g = g[: (len(g) // (216 * 384)) * 216 * 384].reshape(-1, 384, 216).astype(np.float64)
+    bl = sum(g[:, 1 + dy:g.shape[1] - 1 + dy, 1 + dx:g.shape[2] - 1 + dx] for dy in (-1, 0, 1) for dx in (-1, 0, 1)) / 9
+    hf = np.abs(g[:, 1:-1, 1:-1] - bl).mean((1, 2))  # 3×3 yüksek geçiren artık = gürültü/gren
+    k = int(esik["son_sn"] * fps)
+    oran = float(hf[-k:].mean() / (hf[-2 * k:-k].mean() + 1e-9)) if len(hf) > 2 * k else None
+    if oran is not None and oran > esik["gurultu_oran"]:
+        hatalar.append(f"son {esik['son_sn']:.0f} sn'de gürültü artışı: oran {oran:.2f} > {esik['gurultu_oran']}")
+    return {"hatalar": hatalar, "sicramalar": sic[:20], "gurultu_oran": None if oran is None else round(oran, 2),
+            "kesimler": kesimler, "fps": fps}
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("ayar", nargs="+")
+    ap.add_argument("ayar", nargs="*")
     ap.add_argument("--video", help="çıktı video (ses kuralları için; tek ayarla)")
     ap.add_argument("--drop", type=float, help="drop'un videodaki sn'si (varsayılan ayar 'drop_sn' ya da 3.429)")
     ap.add_argument("--etiket", action="append", help="ek klip_etiket.json (birden fazla verilebilir)")
     ap.add_argument("--esik", action="append", default=[], help="eşik değiştir: ad=deger (ör. stok_hata_sn=0.86)")
     ap.add_argument("--gevset", action="append", help="bu kuralın HATA'larını UYARI yap (ör. --gevset dongu); raporda yazılır")
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--goruntu", help="teslim videosu: kesim dışı RGB sıçraması + son 2 sn gürültü kapısı (HATA → çıkış 3)")
+    ap.add_argument("--kesimler", help="kesim saniyeleri virgüllü (yoksa AYAR planlarından)")
     args = ap.parse_args()
+    if args.goruntu:
+        if args.kesimler:
+            kes = [float(v) for v in args.kesimler.split(",") if v.strip()]
+        elif len(args.ayar) == 1:
+            kes = ayar_kesimleri(args.ayar[0])
+        else:
+            kes = []
+        g = goruntu_kontrol(args.goruntu, kes)
+        print(json.dumps({"goruntu": args.goruntu, **g}, ensure_ascii=False) if args.json else
+              f"== görüntü {args.goruntu}  (kesim {len(kes)}, son 2 sn gürültü oranı {g['gurultu_oran']})")
+        for h in g["hatalar"]:
+            print(f"HATA  [goruntu] {h}")
+        if not kes:
+            print("UYARI [goruntu] kesim listesi yok — her sıçrama HATA sayıldı")
+        if g["hatalar"]:
+            sys.exit(3)
+        if not args.ayar or args.kesimler:
+            print("özet: görüntü kapısı GEÇTİ")
+            sys.exit(0)
+    if not args.ayar:
+        ap.error("AYAR.json ya da --goruntu gerekli")
     if args.video and len(args.ayar) > 1:
         sys.exit("--video tek ayar dosyasıyla kullanılır")
     esik = dict(ESIK)

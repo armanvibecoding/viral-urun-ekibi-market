@@ -24,7 +24,9 @@ kullanıcıya tek soru sorar (senaryoyu değiştir / bırak). Ön-üretimde klip
 4 sn'de tek eylem olup olmadığını, sebep→sonuç sırasını ve ilk karenin 1 sn'de anlaşılıp anlaşılmadığını puanla.
 **Süre bütçesi kapısı (ön-üretim, 2026-11-18):** bir Flow klibi ≈ 4,0 sn'dir (12 kredi). Senaryonun saniye tablosu klip başına
 > 4,0 sn (≥ 0,8 hızla > 5,0 sn) varsayıyorsa ya da (yeni klip × 4,0 + kredisiz katman süresi) kontratın K1 süresini doldurmuyorsa
-ritim en fazla 4 → ön-üretim KALIR. Teslimde K1'i tutturmak için kontrat gevşetilmez; süre anlamlı kredisiz katmanla uzatılır ya da ihlal kurucuya yazılır.
+ritim en fazla 4 → ön-üretim KALIR. Senaryodaki tek bir klip aralığı 4,03 sn'yi aşıyorsa (Flow klibi ölçülen süresi) video KALIR, ritim 3.
+Teslimde K1'i tutturmak için kontrat gevşetilmez; süre anlamlı kredisiz katmanla uzatılır ya da ihlal kurucuya yazılır.
+Uzatma yeni bilgi taşımalıdır (yeni yazı/ses olayı/kredisiz katman); aynı klip aralığının ikinci kırpımı uzatma sayılmaz.
 İzleyici kimliği: `kart.md`'nin "kim alır" ve sektör satırından sen çıkarırsın (brief'e bırakma; ör. "soğuk ABD araç-modifiye
 izleyicisi", "yeni kedi sahibi"). Kontrattaki `İzleyici:` satırı varsa o esastır.
 Kart.md'de kimlik yoksa `${CLAUDE_PLUGIN_ROOT}/skills/ai-video-kreatif/referans/pazar-kartlari/<PAZAR>.md` §1; §6 ihlali ağır kusurdur.
@@ -55,7 +57,8 @@ Kart.md'de kimlik yoksa `${CLAUDE_PLUGIN_ROOT}/skills/ai-video-kreatif/referans/
    Ürün bölgesinden yakın plan kırpımlar al. Read ile **her kareye** bak.
 2. (Teslim) Sesi ölç: `python3 "${CLAUDE_PLUGIN_ROOT}/skills/video-kurgu/scripts/ses_olc.py" VIDEO --drop <sn> --muzik_stem
    <müzik stem'i> --kapi` (LUFS, tepe, drop artışı, delikler, **müzik girişi**) + drop dışı 0,1 sn RMS sıçraması (cetvel "Ses").
-   Çıkış 3 = ani müzik girişi = ağır kusur. Stem yoksa kurgucudan iste; gelmezse ses ≤ 5. Müzik seçimini `ses-tasarimi.md`
+   Çıkış 3 = ani müzik girişi (ağır kusur) ya da ses deliği (ses ≤ 3); çıkış 4 = drop dışı 0,1 sn sıçrama > +10 dB (ses ≤ 5).
+   `muzik/LISANS.md`'de "Kurucu seçti: …" satırı yoksa ses ≤ 4. Stem yoksa kurgucudan iste; gelmezse ses ≤ 5. Müzik seçimini `ses-tasarimi.md`
    §2b ölçütüyle yaz (tür/duygu ürün ve pazarla uyumlu mu, "stok müzik" hissi var mı). Dinleyemediğin şeyi "doğrulanamadı" yaz.
 3. Puanla ve kanıtla (her madde kare dosya adıyla):
    - **Kanca:** ilk karede ne oluyor, ilk 1,5 sn'de değişim/merak var mı, ilk ses ne.
