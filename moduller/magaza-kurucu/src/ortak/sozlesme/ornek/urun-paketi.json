@@ -1,0 +1,25 @@
+{
+  "surum": "1",
+  "urun": {
+    "ad": "Vantuzlu kedi pencere hamağı (ÖRNEK)",
+    "nis": "nis-gadget",
+    "fotograflar": ["ornek-urun-1.jpg", "ornek-urun-2.jpg"],
+    "ozellikler": [
+      { "ad": "taşıma kapasitesi", "deger": 15, "birim": "kg", "kaynak": "https://example.com/tedarikci/urun-sayfasi" },
+      { "ad": "kılıf", "deger": "sökülüp yıkanır" }
+    ],
+    "varyantlar": [
+      { "ad": "Gri", "stok": true },
+      { "ad": "Bej", "stok": true }
+    ],
+    "tedarik_fiyati": { "tutar": 9.4, "para": "USD" }
+  },
+  "pazar": { "ulke": "TR", "dil": "tr", "para": "TRY" },
+  "rakipler": [
+    { "marka": "Örnek Rakip A", "url": "https://example.com/rakip-a", "fiyat": 899 },
+    { "marka": "Örnek Rakip B", "url": "https://example.com/rakip-b", "fiyat": "749 TRY" }
+  ],
+  "kanit": [
+    { "kaynak": "Meta Ads Library", "url": "https://example.com/reklam-kutuphanesi-sorgusu", "tarih": "2026-01-15", "olcu": "aktif reklam 90+ gün (ÖRNEK, ölçüm değil)" }
+  ]
+}

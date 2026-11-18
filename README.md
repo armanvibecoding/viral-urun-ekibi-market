@@ -28,8 +28,9 @@ Katkı kuralları: [CONTRIBUTING.md](CONTRIBUTING.md) · Geliştirici şartnames
 `kreatif-analisti`, `video-elestirmen`, `ses-tasarimcisi`) + mağaza kolu 20 (marka, görsel, site, denetim). Her üyenin İngilizce
 unvanı, adı, Türkçe rolü ve modeli: `plugins/viral-urun-ekibi/ortak/ekip.md`.
 
-**Köprü** (`plugins/viral-urun-ekibi/sozlesme/`): kollar arasında veri taşıyan üç dosyanın şeması, betiği ve kırma testi:
-`urun-paketi.json` (ürün → mağaza), `magaza-paketi.json` (mağaza → video), `video-paketi.json` (video → mağaza).
+**Sözleşme** (`plugins/viral-urun-ekibi/ortak/sozlesme/` + `ortak/paket.py`): kollar arasında veri taşıyan üç dosyanın şeması,
+örnekleri, doğrulayıcısı ve yazıcı-okuyucu betiği: `urun-paketi.json` (ürün → mağaza), `magaza-paketi.json` (mağaza → video),
+`video-paketi.json` (video → mağaza). Alan tablosu: `arayuz-sozlesmesi.md`. Üretim yapmadan uçtan uca deneme: `python3 docs/sozlesme_test.py`.
 
 **Ortak bilgi** (`plugins/viral-urun-ekibi/ortak/`): marka skoru, viral DNA, sözlük ve `bilgi/` altında ürün kataloğu,
 kreatif notlar, fırsat geçmişi, üretim deneyimi, dersler.
@@ -46,6 +47,19 @@ kreatif notlar, fırsat geçmişi, üretim deneyimi, dersler.
   onaylı iddiaları söylenir (kapı: `kurgu_kontrol.py --magaza-paketi`).
 - **Model:** lider en güçlü modelle çalışmalı: oturumu `/model fable` ile aç (yoksa opus). Yargı rolleri ajan dosyasında `model: fable`;
   hesabında yoksa o dosyalarda `opus` yaz.
+- Claude görsel üretmez: mağazanın görsel adımında görseller ChatGPT'de üretilip sohbete eklenir.
+
+### Dosya zinciri (ürün → mağaza → video → mağaza)
+```
+ürün bulundu (SAT) ──urun-paketi.json──▶ mağaza kolu ──magaza-paketi.json──▶ video ekibi
+                                              ▲                                   │
+                                              └───────── video-paketi.json ───────┘
+```
+1. `AliExpress'ten ürün bul` → SAT kararını onayla → ekip `is/NN-urun-adi/urun-paketi.json` yazar (`ortak/paket.py urun-yaz`).
+2. `Bu ürün için mağaza kur` → mağaza kolu fotoğraf + ülke sormadan başlar, sonunda `is/NN-urun-adi/magaza-paketi.json` verir.
+3. `Bu ürüne video yap` → ekip mağaza paketini okur (`paket.py magaza-oku` → `marka-kilidi.md`): aynı renkler, aynı yazı ailesi,
+   yalnız onaylı iddialar, mağaza linki. Teslimde `teslim/video-paketi.json` çıkar (`paket.py video-yaz`).
+4. `pdp-galeri` / `hero` işaretli videolar ürün sayfası galerisine girer; `reklam` işaretliler mağazaya yüklenmez.
 
 ## Hangi yolu seçmeliyim?
 
@@ -66,7 +80,7 @@ kreatif notlar, fırsat geçmişi, üretim deneyimi, dersler.
    /plugin marketplace add armanvibecoding/viral-urun-ekibi-market
    /plugin install viral-urun-ekibi@viral-urun-market
    ```
-   Güncellemeleri kendiliğinden almak için: `/plugin` → Marketplaces → Enable auto-update.
+   Mağaza kolu aynı eklentinin içindedir; ayrı kurulum yok. Güncellemeleri kendiliğinden almak için: `/plugin` → Marketplaces → Enable auto-update.
 4. **Araç izinleri:**
    - Chrome'a "Claude" eklentisini kur, Claude Code'da `/chrome` ile bağla.
    - Mac + iPhone modu için: `/mcp` → computer-use → Enable; Sistem Ayarları'nda Erişilebilirlik ve Ekran Kaydı izni; iPhone Yansıtma'yı bir kez elle aç.
@@ -119,7 +133,7 @@ Yeni skill eklemek, mevcut olanı düzeltmek ya da bilgi bankasına ürün/ders 
 PR öncesi kısaca: `claude plugin validate plugins/viral-urun-ekibi` geçmeli, kişisel bilgi (ad, e-posta, mağaza, hesap,
 mutlak yol, API anahtarı) içermemeli. Mağaza kolunun kaynağı `moduller/magaza-kurucu/`'dadır (`skills/magaza-kurucu/` oradan
 üretilir, elle düzenlenmez): `python3 moduller/magaza-kurucu/tools/build.py --check`, `python3 -m pytest -q moduller/magaza-kurucu/tests`
-ve `python3 plugins/viral-urun-ekibi/sozlesme/kirma_testi.py` de geçmeli. Taşıma kaydı: [docs/TASIMA-ESLEME.md](docs/TASIMA-ESLEME.md).
+ve `python3 docs/sozlesme_test.py` de geçmeli. Taşıma kaydı: [docs/TASIMA-ESLEME.md](docs/TASIMA-ESLEME.md).
 
 ## Lisans
 [MIT](LICENSE) — © viral-urun-ekibi contributors.
@@ -140,5 +154,7 @@ Install inside Claude Code:
 /plugin marketplace add armanvibecoding/viral-urun-ekibi-market
 /plugin install viral-urun-ekibi@viral-urun-market
 ```
+The store-building arm (`magaza-kurucu` skill) ships inside the same plugin; the arms exchange `urun-paketi.json` /
+`magaza-paketi.json` / `video-paketi.json` files (schemas in `plugins/viral-urun-ekibi/ortak/sozlesme/`).
 Then run `/viral-urun-ekibi:ekip-lideri` in an empty folder. User-facing text is Turkish; contributions in English are
 welcome too. See [CONTRIBUTING.md](CONTRIBUTING.md). License: MIT.

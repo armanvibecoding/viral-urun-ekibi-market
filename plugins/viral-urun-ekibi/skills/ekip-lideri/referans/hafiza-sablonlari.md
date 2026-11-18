@@ -45,9 +45,9 @@ Pazar: <TR/ABD>   Kredi: harcanan X / onaylı Y
 ## is/NN-urun-adi/magaza/  (mağaza kolu; ürün mağazaya gidiyorsa)
 ```
 devam-karti.md        ← mağaza aşamalarının hafızası (her aşama sonunda üzerine yazılır; biçim mağaza becerisinde)
-urun-paketi.json      ← ürün kolundan (sozlesme/paket.py urun-yaz)
+urun-paketi.json      ← ürün kolundan (ortak/paket.py urun-yaz)
 magaza-paketi.json    ← kurulum sonunda (dogrula magaza → 0)
-video-paketi.json     ← teslimde (sozlesme/paket.py video-yaz)
+video-paketi.json     ← teslimde (ortak/paket.py video-yaz --cikti)
 tur-<n>/              ← görsel üretim turları (istem/, aday/, secili/, pano/)
 CRO.md HIZ.md SEO.md ERISIM.md SES.md   ← site denetimi raporları
 ```

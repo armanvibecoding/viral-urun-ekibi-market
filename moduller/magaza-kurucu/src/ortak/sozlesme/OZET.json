@@ -1,0 +1,14 @@
+{
+  "surum": "2",
+  "kaynak": "moduller/magaza-kurucu: src/ortak/sozlesme/ + src/ortak/arayuz-sozlesmesi.md",
+  "dosyalar": {
+    "arayuz-sozlesmesi.md": "f0d03b7bb39943a856ca7109da70722d78f02694c9130dc1ac3803fc91052677",
+    "magaza-paketi.schema.json": "467cd26500d271aa6f47b18fa1273dd997a4f728ddb8797ac9d9b065d3fd304d",
+    "ornek/magaza-paketi.json": "db76ff283dc27cd77ebec25c27cdd7bcae15e8d035fa4a0819b6a36d0b7c6256",
+    "ornek/urun-paketi.json": "33d8f6a7e989bdb1d95e9c19e8105d879a190e72bdd1cc06a9332fe813f5dc28",
+    "ornek/video-paketi.json": "fb2a5c2ef6d6db78bb77ecdbb2d79be53b61d85131e32eb9883d2472654a784d",
+    "paket_dogrula.py": "23568476d255160af8d8bc428fd2a9712788be2200f5e5bd487c39501685794a",
+    "urun-paketi.schema.json": "75eb513b1b66b89b251faf1b0467df94847bf7bc2b44227917805d4b25af8866",
+    "video-paketi.schema.json": "0dfaa2e996a0a7407f1eae51d03d93afd60ab129459d19aa082835d1d703be2a"
+  }
+}

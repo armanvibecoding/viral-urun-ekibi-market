@@ -1,0 +1,40 @@
+{
+  "surum": "1",
+  "marka": {
+    "ad": "Pati Pencere",
+    "slogan": "Camın önü onun yeri.",
+    "ses": { "sifatlar": ["sıcak", "net", "oyuncu"], "degil": ["abartılı", "bebeksi", "teknik"] }
+  },
+  "renkler": { "zemin": "#1E2226", "metin": "#F2F2EE", "ikincil": "#A9ADB2", "kart": "#2A2F34", "vurgu": "#E0B04A" },
+  "tipografi": {
+    "baslik": { "aile": "Barlow Condensed", "agirlik": 600, "handle": "barlow_condensed_n6", "buyuk_harf": true },
+    "govde": { "aile": "Inter", "handle": "inter_n4" }
+  },
+  "logo": { "dosya": "patipencere-logo.png", "tur": "ikon" },
+  "urun": {
+    "baslik": "Pati Pencere Kedi Hamağı",
+    "handle": "pati-pencere-kedi-hamagi",
+    "url": "https://ornek-magaza.example/products/pati-pencere-kedi-hamagi",
+    "fiyat": 799,
+    "para": "TRY",
+    "varyantlar": ["Gri", "Bej"]
+  },
+  "onayli_metinler": {
+    "faydalar": ["Cama vantuzla tutunur, delme yok", "Kılıfı sökülüp yıkanır", "15 kg'a kadar taşır"],
+    "g1_baslik": ["CAMIN ÖNÜ", "ONUN YERİ"],
+    "b2": { "baslik": "Güneşi kaçırmasın", "dugme": "Hemen incele" },
+    "iddialar": [
+      { "metin": "15 kg'a kadar taşır", "kaynak": "https://example.com/tedarikci/urun-sayfasi", "bilgi_notu": false }
+    ]
+  },
+  "gorseller": [
+    { "kod": "G0", "dosya": "patipencere-urun-0.jpg", "olcu": "1500x1500", "yazisiz": true },
+    { "kod": "G1", "dosya": "patipencere-urun-1.jpg", "olcu": "1500x1500", "yazisiz": false }
+  ],
+  "magaza": {
+    "alan_adi": "ornek-magaza.example",
+    "tema_id": "gid://shopify/OnlineStoreTheme/0",
+    "pdp_url": "https://ornek-magaza.example/products/pati-pencere-kedi-hamagi",
+    "utm": "utm_source=instagram&utm_medium=video&utm_campaign=patipencere-kedi-hamagi"
+  }
+}

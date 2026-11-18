@@ -58,6 +58,7 @@ Kullanıcıya üyeyi unvanı ve adıyla an ("Creative Director (QA) (Deniz) vide
 | SAT olmuş ürüne teklif / ürün sayfası / upsell / e-posta | `teklif-ve-sayfa` | sen; `kanit-savcisi` sayfa iddialarını çürütür |
 | Mağaza kur / ürünü Shopify'a aç / marka adı, logo, galeri görseli, site metni | `magaza-kurucu` (5 aşama, §2b) | sen aşamayı yürütürsün; marka, görsel ve site işi mağaza kolu ajanlarında |
 | Kurulu mağazayı denetle (hız, arama/feed, erişilebilirlik, satın alma kutusu, metin) | `magaza-kurucu` Adım 8 (`shopify-kurulum/references/site-denetimi.md`) | 5 denetçi paralel: `cro-ux-denetcisi`, `hiz-muhendisi`, `seo-aio-uzmani`, `erisilebilirlik-denetcisi`, `marka-sesi-denetcisi` |
+| Mağaza kuruldu, videolar mağazayla aynı görünsün | `python3 "${CLAUDE_PLUGIN_ROOT}/ortak/paket.py" magaza-oku is/NN/magaza/magaza-paketi.json --cikti-dizin is/NN/kurgu` → `marka-kilidi.md` + `video-ayar.json` + `onayli-iddialar.txt` (§2b adım 5) | sen; dosyayı kollar arasında sen taşırsın |
 | ChatGPT'de yapmak istiyor | `${CLAUDE_PLUGIN_ROOT}/ekler/chatgpt/` içindeki ilgili dosyayı ver | kullanıcı |
 
 **Yayın döngüsü:** teslimde `${CLAUDE_SKILL_DIR}/sablon/` içindeki iki şablonu `is/NN/yayin/`'a kopyala, `PLAN.md`'yi
@@ -68,13 +69,13 @@ kanca/giriş ortalaması. Basılan ders önerisini kurucu onaylarsa `ortak/bilgi
 Belirsizse tek soru sor; netse sormadan başla. Ürün işinde `video-elestirmen` iki kez çağrılır: ön-üretim (kredi
 onayından önce, senaryo + kareler) ve teslim; eşikler ajan dosyasında.
 
-## 2b. Uçtan uca hat (kollar arası köprü; betik `${CLAUDE_PLUGIN_ROOT}/sozlesme/paket.py`, dosyalar `is/NN-urun/magaza/`)
+## 2b. Uçtan uca hat (kollar arası köprü; betik `${CLAUDE_PLUGIN_ROOT}/ortak/paket.py`, şema `${CLAUDE_PLUGIN_ROOT}/ortak/sozlesme/`, dosyalar `is/NN-urun/magaza/`)
 1. **Bul → doğrula:** `kesfet-urun-avi` / `reklam-kutuphanesi-avi` → `aliexpress-firsat` (SAT + kanıt dosyası).
 2. **Teklif:** `teklif-ve-sayfa`. `teklif.tsv`'de `bizim` satırı varsa fiyatın TEK kaynağı odur; yoksa mağaza aşaması sabit kuralı kullanır (2'li %10, 3'lü %18).
-3. **Ürün paketi:** `python3 "${CLAUDE_PLUGIN_ROOT}/sozlesme/paket.py" urun-yaz --cikti is/NN-urun/magaza/urun-paketi.json --ad … --nis <niş kodu> --pazar <ülke> --foto … --marj-csv is/firsat/marj.csv --teklif-tsv is/NN-urun/teklif/teklif.tsv --kanit-md is/firsat/kanit/NN-urun.md` → çıkış 0. Mağaza işi bu dosyayla başlar; kullanıcıya fiyat, rakip, kanıt yeniden sorulmaz.
+3. **Ürün paketi:** `python3 "${CLAUDE_PLUGIN_ROOT}/ortak/paket.py" urun-yaz --cikti is/NN-urun/magaza/urun-paketi.json --ad … --nis-kodu <niş kodu> --pazar <ülke> --foto … --marj-csv is/firsat/marj.csv --teklif-tsv is/NN-urun/teklif/teklif.tsv --kanit-md is/firsat/kanit/NN-urun.md` → çıkış 0. Mağaza işi bu dosyayla başlar; kullanıcıya fiyat, rakip, kanıt yeniden sorulmaz.
 4. **Mağaza:** `magaza-kurucu`. Mağaza kapıları (KARARLAR'da yoksa işin başında tek turda): tema paketi var mı (yoksa **temasız mod**: ürün, metin, görsel mağazanın mevcut temasına yazılır; tema istenmez) · Shopify bağlı mı · tam modda hedef tema yayında değil mi. Her aşama sonunda DEVAM KARTI `is/NN-urun/magaza/devam-karti.md`'ye; `DURUM.md`'ye satır: `Mağaza: <aşama>`. Kurulum sonu: `paket.py dogrula magaza is/NN-urun/magaza/magaza-paketi.json` → 0.
 5. **Kreatif:** `paket.py magaza-oku …/magaza-paketi.json --cikti-dizin is/NN-urun/kurgu` → yazı ailesi, renkler, ürün referansı (G0), onaylı iddialar. Senaryo ve ekran yazısı yalnız `onayli-iddialar.txt`'yi söyler; kurgu kapısı: `kurgu_kontrol.py AYAR.json --magaza-paketi …` (onaysız iddia = HATA).
-6. **Teslim → mağaza → yayın:** `paket.py video-yaz --cikti is/NN-urun/magaza/video-paketi.json --video <dosya>:pdp-galeri|hero|reklam[:dil]`; `pdp-galeri`/`hero` videoları `magaza-kurucu` galeriye yükler. Sonra yayın döngüsü (aşağıda).
+6. **Teslim → mağaza → yayın:** `paket.py video-yaz is/NN-urun/teslim --cikti is/NN-urun/magaza/video-paketi.json [--pdp V02] [--hero V03] [--dil <dil>]` (işaretlenmeyen = `reklam`; zincir kontrolü urun + magaza paketiyle) → 0; `pdp-galeri`/`hero` videoları `magaza-kurucu` galeriye yükler (`paket.py video-sec`). Sonra yayın döngüsü (aşağıda).
 Mağaza paketi yoksa (kullanıcı mağaza istemedi) 5. adım bugünkü gibi kanıt dosyasından yürür. Mağaza kolu ajanlarının yolları: `${CLAUDE_PLUGIN_ROOT}/ortak/magaza-ekibi.md`.
 
 ## 3. Ajan brief kuralı
@@ -137,5 +138,4 @@ REÇETE satırı (`video-elestirmen` çıktısı, `puanlar.jsonl` `recete` alan�
 - "Doğrulanamadı" dürüst bir sonuçtur; sayı veya kaynak uydurulmaz.
 
 ## 7. Rapor biçimi
-Faz/iş sonunda kullanıcıya en fazla 6 satır: ne çıktı (dosya yolu), sınama sonucu, harcanan kredi, sıradaki adım,
-kullanıcıdan beklenen karar (varsa tek soru). Geri bildirim işlendiyse ek satır: "Geri bildiriminiz işlendi: … → …".
+Faz/iş sonunda kullanıcıya en fazla 6 satır: ne çıktı (dosya yolu), sınama sonucu, harcanan kredi, sıradaki adım, kullanıcıdan beklenen karar (varsa tek soru). Geri bildirim işlendiyse ek satır: "Geri bildiriminiz işlendi: … → …".

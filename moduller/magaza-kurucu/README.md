@@ -21,6 +21,7 @@ python3 moduller/magaza-kurucu/tools/build.py --check  # yalnız doğrula (çık
 python3 -m pytest -q moduller/magaza-kurucu/tests
 ```
 Köprü dosyaları (`urun-paketi.json`, `magaza-paketi.json`, `video-paketi.json`): anlatım `src/ortak/arayuz-sozlesmesi.md`,
-şema ve betik `plugins/viral-urun-ekibi/sozlesme/`.
+şema, örnek ve doğrulayıcı `src/ortak/sozlesme/` (kaynak; eklentideki kopya `plugins/viral-urun-ekibi/ortak/sozlesme/`,
+`python3 docs/sozlesme_esitle.py` ile eşitlenir), yazıcı-okuyucu betik `plugins/viral-urun-ekibi/ortak/paket.py`.
 
 Tek başına ChatGPT becerisi (`dist/chatgpt/magaza-kurucu.zip`) aynı kaynaktan üretilir; ekip lideri ve köprü betiği o pakette yoktur.

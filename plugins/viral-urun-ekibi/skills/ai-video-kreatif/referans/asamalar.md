@@ -27,6 +27,18 @@ Link/fiyat yoksa onlarsız devam et; varsayımı tek satır yaz. Cevapların hep
 kareler ve ölçüm, ön-üretim eleştirisi, tavan içinde Flow üretimi, `klip_qc.py`, kurgu, eleştirmen döngüsü, caption.
 Yeni soru yalnız: tavan aşılacaksa, giriş/ödeme ekranında, ön-üretim eleştirisi eşiği 2 turda geçilemezse.
 
+**Mağaza paketi (mağaza kolu mağazayı kurduysa):** `is/NN/magaza/magaza-paketi.json` →
+`python3 "<eklenti kökü>/ortak/paket.py" magaza-oku is/NN/magaza/magaza-paketi.json --cikti-dizin is/NN/kurgu` →
+`is/NN/magaza/marka-kilidi.md` (+ `is/NN/kurgu/video-ayar.json`, `onayli-iddialar.txt`). Kilit varken:
+1. Pazar, ürün linki ve fiyat sorulmaz; kilitten alınır (pazar yine KARARLAR.md'ye yazılır).
+2. Kilitteki G0 temiz ürün karesi `is/NN/referans/`a kopyalanır (dosyayı kullanıcı verir) ve ürün referansıdır.
+3. Kart, senaryo, ekran yazısı ve caption'da YALNIZ kilitteki fayda ve iddialar geçer; listede olmayan iddia yazılmaz.
+4. Kapak, son kare ve altyazı kutusu renkleri kilitteki HEX; yazı ailesi kilitteki aile. `kurgu.py`'de renk ayarı yok:
+   renk başlangıç karesi ve son kare promptlarına girer. Ailenin TTF'si varsa `kurgu.py --font <ttf>`; yoksa varsayılan font
+   kalır ve teslim raporuna "marka fontu uygulanmadı" yazılır.
+5. CTA ve caption linki kilitteki linktir; `utm_source` yayın kanalına göre yazılır.
+Kilit yoksa akış aynen sürer. Dosya biçimi: `<eklenti kökü>/ortak/sozlesme/arayuz-sozlesmesi.md`.
+
 ## Aşama 1 — Araştırma + ürün kartı + kilit
 - Web: ne işe yarar, kim alır / kime hediye alınır, benzer viral videolar ne gösteriyor. Viral videodaki ürün bizimkiyle
   AYNI mı karşılaştır (benzer ≠ aynı). Sahneden sahneye değişen (AI) satıcı videosu kaynak değildir. Captcha veren siteyi atla.

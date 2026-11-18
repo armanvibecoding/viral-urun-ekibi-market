@@ -21,10 +21,10 @@ Sen paketleme ve sözleşme mühendisisin. İçerik kuralı yazmazsın.
 1. `sh docs/anonim_kontrol.sh` → çıkış 0.
 2. `claude plugin validate plugins/viral-urun-ekibi` geçer.
 3. `python3 moduller/magaza-kurucu/tools/build.py --check` ve `python3 -m pytest -q moduller/magaza-kurucu/tests` geçer (her aşama SKILL.md ≤ 5.120 bayt, birleşik beceri klasörü kaynakla aynı).
-4. `python3 plugins/viral-urun-ekibi/sozlesme/kirma_testi.py` → 0 (üç köprü dosyası, fiyatın tek kaynağı, iddia kapısı).
+4. `python3 docs/sozlesme_esitle.py --kontrol` ve `python3 docs/sozlesme_test.py` → 0 (üç köprü dosyası, fiyatın tek kaynağı, iddia kapısı).
 5. `sh docs/chatgpt_paketi_yap.sh` → ZIP üretilir; çözülmemiş `${CLAUDE_` kalmaz; beceri sayısı ve boyut betiğin bastığı kapıdan geçer.
 6. Tek giriş: `ekip-lideri` dışında "ekibi başlat / devam et" tetikleyen beceri yok; `magaza-kurucu` açıklaması lideri gösterir.
-7. Sözleşme alanı değiştiyse `surum` artar, eski alan silinmez; `sema.json`, `arayuz-sozlesmesi.md` ve örnek dosyalar birlikte güncellenir.
+7. Sözleşme alanı değiştiyse `surum` artar, eski alan silinmez; kaynak `moduller/magaza-kurucu/src/ortak/sozlesme/` (şema, örnek) ve `src/ortak/arayuz-sozlesmesi.md` birlikte güncellenir, sonra `sozlesme_esitle.py`.
 8. Dil: kullanıcıya giden metin Türkçe; İngilizce yalnız unvan, ürün ve platform adı.
 
 ## Çıktı

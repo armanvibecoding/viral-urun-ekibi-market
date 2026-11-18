@@ -15,6 +15,7 @@ is/firsat/marj.csv      ← iniş maliyeti satırları (şablon: sablon/marj.csv
 is/firsat/ivme.csv      ← t0/t7 talep sinyalleri (şablon: sablon/ivme.csv)
 is/firsat/pazar-oranlari.tsv ← (isteğe bağlı) kendi ödeme/aracı/iade oranların; eklentidekinin üstüne okunur
 is/NN-urun-adi/DURUM.md ← SAT olan ürünün kendi klasörü
+is/NN-urun-adi/magaza/urun-paketi.json ← onaylanan SAT ürünü; mağaza kolunun girdisi (betik yazar)
 ```
 
 ## is/firsat/aramalar.md
@@ -61,5 +62,28 @@ Bekleyen onaylar: numune siparişi (#2) — kullanıcı onayı yok
 ```
 # NN — <ürün> — aşama: fırsat SAT
 Kanıt: is/firsat/kanit/NN-urun-adi.md
-Sıradaki beceri: ai-video-kreatif
+Ürün paketi: is/NN-urun-adi/magaza/urun-paketi.json (mağaza koluna gider)
+Sıradaki beceri: ai-video-kreatif (mağaza kurulacaksa önce magaza-kurucu)
 ```
+
+## is/NN-urun-adi/magaza/urun-paketi.json (SAT onayından sonra; elle yazılmaz, betik yazar ve doğrular)
+```
+python3 "<eklenti kökü>/ortak/paket.py" urun-yaz --cikti is/NN-urun-adi/magaza/urun-paketi.json \
+  --ad "<ürün sayfasındaki ad>" --foto <görsel dosyası ya da URL> --pazar TR \
+  --marj-csv is/firsat/marj.csv --kanit-md is/firsat/kanit/NN-urun-adi.md [--teklif-tsv is/NN-urun-adi/teklif/teklif.tsv] \
+  --ozellik "ad|değer|birim|kaynak link" --varyant "Gri|var" [--rakip "marka|link|fiyat"] [--kanit "kaynak|link|YYYY-AA-GG|ölçü"]
+```
+| Seçenek | Nereden okunur |
+|---|---|
+| `--ad`, `--foto` (≥1), `--pazar` ya da `--ulke` | zorunlu. Ad ve görseller ürün sayfasından; ilk görsel en temiz ürün karesi. Pazar KARARLAR.md pazar satırından (TR, US, ABD, DE …; `--pazar` dil ve parayı kendisi doldurur, `--ulke` ile `--dil`/`--para` elle verilir) |
+| `--tedarik` ya da `--marj-csv` | `--tedarik "13.63 USD"`: `adaylar.md` normal fiyatı (yeni müşteri fiyatı değil); `--marj-csv`: `marj.csv`'de ürün adıyla eşleşen son satırın `urun_maliyeti` |
+| `--kanit-md` | kanıt dosyasının URL + ölçü içeren her satırı `kanit[]` olur (satırda tarih yoksa dosyadaki ilk tarih); ölçüsüz URL alınmaz |
+| `--teklif-tsv` | `teklif-ve-sayfa` çalıştıysa: `bizim` satırı = fiyatın TEK kaynağı, `rakip` satırları `rakipler[]`; dosya sürüm 2 olur. `bizim` satırı yoksa sabit kural (2'li %10, 3'lü %18) |
+| `--ozellik` (tekrarlanır) | ürün sayfasında OKUNAN değer; 4. parça kaynak linki. Kaynaksız özellik "doğrulanmış" sayılmaz |
+| `--varyant` (tekrarlanır) | ürün sayfasındaki seçenekler; stok `var` / `yok` |
+| `--rakip` (tekrarlanır) | zaten-viral kontrolünde bulunan mağaza / pazar yeri satırları |
+| `--kanit` (tekrarlanır) | kanıt dosyasındaki ölçümler: kaynak, link, ölçüm günü, ölçü (ör. `ürün sayfası 57 satış`, `Meta: 0 aktif reklam`, `ivme: ERKEN DALGA`) |
+| `--nis` ya da `--nis-kodu` | `--nis nis-ev` doğrudan; `--nis-kodu mutfak` ekibin niş kodunu `ortak/nis-esleme.tsv` ile çevirir (tabloda yoksa nis-gadget + UYARI). Bilinmiyorsa verilmez; mağaza kolu seçer |
+
+Okunamayan alanın seçeneği hiç yazılmaz (uydurma yok). Çıkış 1 ise dosya yazılmamıştır: hata satırını düzelt, yeniden koştur.
+Alanların tam tanımı: `<eklenti kökü>/ortak/sozlesme/arayuz-sozlesmesi.md`.

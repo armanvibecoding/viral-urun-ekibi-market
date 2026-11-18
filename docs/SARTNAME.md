@@ -1,6 +1,7 @@
 # Geliştirici şartnamesi (paketi geliştirenler için — eklentiye yüklenmez)
 
-Bu depo bir Claude Code eklenti pazarıdır. Tek eklenti: `plugins/viral-urun-ekibi/`.
+Bu depo bir Claude Code eklenti pazarıdır. Pazardaki tek eklenti: `plugins/viral-urun-ekibi/`. Mağaza kolu (`magaza-kurucu`
+becerisi, kaynağı `moduller/magaza-kurucu/`) aynı eklentinin içindedir; kollar dosyayla konuşur (§8).
 Kullanıcıya görünen her metin **Türkçe**; kod, değişken, dosya adı İngilizce veya ASCII Türkçe olabilir.
 
 ## 1. Amaç
@@ -68,3 +69,20 @@ Bilinen ChatGPT sınırları (ölçüldü):
 3. Kişisel veri grep'i boş.
 4. `ekler/chatgpt/<beceri>.md` var.
 5. Hafıza protokolü SKILL.md'de bir bölüm olarak yer alıyor (hangi aşamada neyi yazar).
+
+## 8. Kollar arası arayüz sözleşmesi
+```
+aliexpress-firsat (SAT) ──urun-paketi.json──▶ magaza-kurucu ──magaza-paketi.json──▶ ai-video-kreatif / video-kurgu
+                                                   ▲                                         │
+                                                   └────────────── video-paketi.json ────────┘
+```
+- Sözleşmenin tek kaynağı içerideki modüldür (`moduller/magaza-kurucu/src/ortak/sozlesme/` + `src/ortak/arayuz-sozlesmesi.md`).
+  Eklentideki kopya `plugins/viral-urun-ekibi/ortak/sozlesme/` elle DÜZENLENMEZ: `python3 docs/sozlesme_esitle.py` kaynaktaki
+  `OZET.json`'u yeniden üretir ve kopyalar, `--kontrol` denetler. Sürüm 2 alanları: `teklif` (urun), `magaza.tema_modu`.
+- Betik `ortak/paket.py`: `dogrula`, `urun-yaz` (SAT ürünü; `--teklif-tsv` verilirse sürüm 2, `--nis-kodu` `ortak/nis-esleme.tsv`
+  ile çevrilir), `fiyat` (fiyatın tek kaynağı), `magaza-oku` (`marka-kilidi.md` + `--cikti-dizin` ile `video-ayar.json`,
+  `onayli-iddialar.txt`), `iddia-kontrol` (kurgu_kontrol.py da kullanır), `video-yaz`, `video-sec`. Yazmadan önce şemadan geçirir;
+  hata varsa dosya yazılmaz.
+- Test (PR öncesi zorunlu): `python3 docs/sozlesme_test.py` — kopya denetimi, örnekler, kırma testleri ve üretim yapmadan
+  uçtan uca zincir. Çıkış 0 olmalı.
+- Alan adı değişmez; yeni alan kaynakta (modül) eklenir, `surum` artar, sonra eşitlenir.

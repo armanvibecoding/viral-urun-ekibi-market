@@ -11,11 +11,14 @@
 #   - Mağaza kolu ajanları (dosyada "<!-- kol: magaza -->" işareti) pakete GİRMEZ: işleri magaza-kurucu aşama dosyalarının
 #     içindedir (ChatGPT'de alt ajan yok; 20 rol becerisi tetik çakışması ve bağlam yükü olurdu).
 #   - magaza-kurucu becerisi DÖNÜŞTÜRÜLMEDEN kopyalanır (kaynağı iki yüzey için yazılmış ve ChatGPT'de koşulmuş; ek not girmez).
-#   - sozlesme/ (köprü betiği, şema, örnekler) paket köküne aynen kopyalanır; .mcp.json girmez (ChatGPT kendi Shopify bağlantısını kullanır).
+#   - Köprü (ortak/paket.py + ortak/nis-esleme.tsv + ortak/sozlesme/) skills/ekip-bilgi/references/ altına bayt bayt girer;
+#     .mcp.json girmez (ChatGPT kendi Shopify bağlantısını kullanır).
 #   - Kök plugin.json'a com.openai arayüz bloğu (görünen ad, kısa açıklama, örnek istekler) yazılır.
 #   - ortak/ -> skills/ekip-bilgi/references/ (ayrı bilgi skill'i); ekler/chatgpt/ -> skills/ekip-bilgi/references/chatgpt/
 #   - ${CLAUDE_SKILL_DIR} / ${CLAUDE_PLUGIN_ROOT} -> paket köküne göreli yol; Claude'a özgü terimler nötr dile.
 #   - Kökte plugin.json (agent-plugins şeması) + .claude-plugin/plugin.json (aynı ad/sürüm/açıklama).
+#   - ortak/sozlesme/ (kollar arası arayüz sözleşmesi) ve ortak/ altındaki betik/veri dosyaları (.py, .tsv, .json) dönüştürülmeden,
+#     bayt bayt kopyalanır (terim dönüşümü kodu ve OZET.json özetlerini bozardı).
 set -e
 KOK="$(cd "$(dirname "$0")/.." && pwd)"
 KAYNAK="$KOK/plugins/viral-urun-ekibi"
@@ -110,7 +113,7 @@ GENEL_NOT = """> **ChatGPT'de çalışma notu** (paket dönüştürücüsü ekle
 > 4. **Yollar** paket köküne göredir (`skills/...`); ortak bilgi `skills/ekip-bilgi/references/` altında. Kod yorumlayıcının paket dosyalarını görüp görmediği **doğrulanmadı**; göremiyorsa kullanıcıdan gereken betiği ya da dosyayı sohbete yüklemesini iste.
 > 5. **Araçlar:** tarayıcı otomasyonu, bilgisayar/telefon kontrolü (iPhone Yansıtma), yerel terminal ve Google Flow otomasyonu burada yok. Bu adımları **kullanıcı yapar** ve sonucu (ekran görüntüsü, sayfa metni, dosya) sohbete yükler. ChatGPT ajan modu web sayfası açabilir ama bu paketle sınanmadı (**doğrulanmadı**). Python betikleri kod yorumlayıcıda koşulabilir; ffmpeg'i kullanmadan önce `ffmpeg -version` ile ölç.
 > 6. **Ekip rolleri:** çekirdek ekipte "ajan" ya da "yardımcı rol" denen üye aynı adlı beceridir (`skills/<ad>/SKILL.md`). Ayrı süreç yok: role aynı sohbette sen geçersin, brief'i kendine yazarsın, çıktıyı yine sınarsın. Mağaza kolu üyeleri (marka, görsel, site, denetim) ayrı beceri DEĞİLDİR: işleri `skills/magaza-kurucu/<aşama>/` dosyalarının içindedir; site denetimini o aşama kendisi uygular.
-> 7. **Mağaza ve köprü:** Shopify işlemleri ChatGPT'nin Shopify bağlantısıyla, Çalışma (Work) modunda yapılır. Köprü betiği `sozlesme/paket.py` kod yorumlayıcıda koşulur; `is/NN-urun/magaza/` dosyaları sohbete eklenir ya da indirilebilir dosya olarak verilir.
+> 7. **Mağaza ve köprü:** Shopify işlemleri ChatGPT'nin Shopify bağlantısıyla, Çalışma (Work) modunda yapılır. Köprü betiği `skills/ekip-bilgi/references/paket.py` kod yorumlayıcıda koşulur; `is/NN-urun/magaza/` dosyaları sohbete eklenir ya da indirilebilir dosya olarak verilir.
 """
 
 OZEL = {
@@ -130,14 +133,17 @@ OZEL = {
     "aliexpress-firsat": [
         "AliExpress / Trendyol / Amazon / Meta Reklam Kütüphanesi sayfalarını **kullanıcı açar** ve ürün sayfası metnini ya da ekran görüntüsünü yükler (ajan modu sınanmadı). Görmediğin satış sayısını yazma: `doğrulanamadı`.",
         "`firsat_kontrol.py`, `marj_hesap.py`, `ivme_olc.py`, `kirma_testi.py` kod yorumlayıcıda koşulabilir.",
+        "`urun-paketi.json` (mağaza kolunun girdisi) `skills/ekip-bilgi/references/paket.py urun-yaz` ile kod yorumlayıcıda yazılır ve indirilebilir dosya olarak verilir; mağaza işi aynı paketteki `magaza-kurucu` becerisiyle bu dosyadan başlar.",
     ],
     "ai-video-kreatif": [
         "Başlangıç karelerini ChatGPT'nin görsel üretimiyle bu sohbette üretebilirsin (kullanılabiliyorsa; her kare yine ölçülerek kontrol edilir).",
         "Google Flow klip üretimini **kullanıcı yapar** (kredi harcar → önce onay, tutar DURUM bloğundaki Kararlar satırına). Promptları dosya olarak ver; `chatgpt_indir.js`, `flow_yukle.js` tarayıcı otomasyonu içindir, burada kullanılmaz.",
+        "`magaza-paketi.json` kullanıcı tarafından sohbete eklenir; `skills/ekip-bilgi/references/paket.py magaza-oku <dosya>` kod yorumlayıcıda koşulur, çıkan marka kilidi DURUM bloğunun Kararlar satırına tek satır özetle girer.",
         "TikTok / Meta viral referansı: kullanıcı link ve ekran görüntüsü verir; izlenme sayısı görünmüyorsa `doğrulanamadı`. `senaryo_kontrol.py`, `prompt_uret.py`, `kare_hazirla.py`, `malzeme_kontrol.py` kod yorumlayıcıda koşulabilir.",
     ],
     "video-kurgu": [
         "Kurgu kod yorumlayıcıda ffmpeg ile yapılır; kullanıcı klipleri sohbete yükler. Daha önceki bir ölçümde kod ortamında ffmpeg 7.x vardı, moviepy yoktu (`skills/ekip-bilgi/references/chatgpt/video-kurgu.md`) — yine de `ffmpeg -version` ile ölç.",
+        "`video-paketi.json`: `skills/ekip-bilgi/references/paket.py video-yaz <teslim klasörü>` kod yorumlayıcıda; indirilebilir dosya olarak verilir (mağaza koluna geri dönüş: `magaza-kurucu` › `shopify-kurulum`).",
         "Müzik indirme (Pixabay `curl`) burada yok: kullanıcı müziği indirir ve yükler. Sesi dinleyemezsin: kullanıcı videoyu bir kez sesli izler.",
         "**Aşama 8b (HyperFrames hareketli katman) ChatGPT'de çalışmaz** (yerel Node + Chrome + CLI). Burada: yazıyı `hizli_kurgu.py` ile göm ve hareketli katman planını yaz (hangi saniyede hangi öğe: kinetik yazı, geçiş, sayaç, UI kartı). Render, eklentinin yerel kurulumunda (Node + Chrome olan bilgisayar) yapılır; bunu teslim raporunda \"hareketli katman yok\" diye belirt.",
     ],
@@ -302,6 +308,13 @@ for kok, dirs, files in os.walk(os.path.join(kaynak, "ortak")):
             continue
         kp = os.path.join(kok, f)
         hp = os.path.join(bilgi_h, "references", os.path.relpath(kp, os.path.join(kaynak, "ortak")))
+        if "sozlesme" in os.path.relpath(kok, os.path.join(kaynak, "ortak")).replace(os.sep, "/").split("/") \
+                or f.endswith((".py", ".tsv", ".json")):
+            # Sözleşme kaynağıyla bayt bayt aynı kalır (OZET.json); betik/veri dosyasına terim dönüşümü yapılmaz.
+            os.makedirs(os.path.dirname(hp), exist_ok=True)
+            with open(kp, "rb") as g, open(hp, "wb") as h:
+                h.write(g.read().replace(b"\r\n", b"\n"))
+            continue
         yaz(hp, terim_cevir(yol_cevir(oku(kp), None)))
 cg = os.path.join(kaynak, "ekler", "chatgpt")
 if os.path.isdir(cg):
@@ -309,9 +322,6 @@ if os.path.isdir(cg):
         if f.endswith(".md"):
             yaz(os.path.join(bilgi_h, "references", "chatgpt", f), terim_cevir(yol_cevir(oku(os.path.join(cg, f)), None)))
 
-# Köprü (betik + şema + örnekler): paket kökünde, kaynakla aynı göreli yerde (skills/video-kurgu/scripts -> ../../../sozlesme).
-shutil.copytree(os.path.join(kaynak, "sozlesme"), os.path.join(hedef, "sozlesme"),
-                ignore=shutil.ignore_patterns(*ATLA_AD, "*.pyc"))
 
 tum_beceri = skill_adlari + ajanlar
 yaz(os.path.join(bilgi_h, "SKILL.md"), fm_yaz(
@@ -340,6 +350,7 @@ Tam tablo: `references/bilgi/README.md`. Kısa yol:
 | Terimler | `references/sozluk.md` |
 | Cevap biçimi | `references/adhd-kurallari.md` |
 | ChatGPT'de tek parça iş akışı metinleri | `references/chatgpt/` |
+| Kollar arası dosya alışverişi (`urun-paketi.json`, `magaza-paketi.json`, `video-paketi.json`) | `references/sozlesme/arayuz-sozlesmesi.md`, betik `references/paket.py` |
 
 ## Okuma kuralları
 - Kod numaraları kanıt izidir: `S063` ürün = `kreatif-notlar.md` içinde **063** notu.
@@ -413,9 +424,10 @@ for ad in HAM & set(skill_adlari):
 sizan = [a for a in magaza_ajan if os.path.isdir(os.path.join(skills_h, a))]
 if sizan:
     raise SystemExit("HATA: mağaza kolu ajanı beceriye dönüşmüş: " + ", ".join(sizan))
-if not os.path.exists(os.path.join(hedef, "sozlesme", "paket.py")):
-    raise SystemExit("HATA: sozlesme/paket.py pakette yok")
-print("beceri: %d (%d iş akışı + %d rol + ekip-bilgi) · mağaza kolu ajanı pakete girmedi: %d · köprü: sozlesme/"
+for zorunlu in ("paket.py", "nis-esleme.tsv", "sozlesme/paket_dogrula.py", "sozlesme/OZET.json"):
+    if not os.path.exists(os.path.join(bilgi_h, "references", *zorunlu.split("/"))):
+        raise SystemExit("HATA: köprü dosyası pakette yok: skills/ekip-bilgi/references/" + zorunlu)
+print("beceri: %d (%d iş akışı + %d rol + ekip-bilgi) · mağaza kolu ajanı pakete girmedi: %d · köprü: skills/ekip-bilgi/references/paket.py + sozlesme/"
       % (len(tum_beceri) + 1, len(skill_adlari), len(ajanlar), len(magaza_ajan)))
 PY
 

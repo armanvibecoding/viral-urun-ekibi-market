@@ -6,7 +6,7 @@ Mağaza Kurucu, Viral Ürün Ekibi'nin mağaza koludur. Ekibin tek lideri `ekip-
 ## 1. Dosyalar ve hafıza
 - Proje klasörü varsa (Claude Code) her şey `is/NN-urun/magaza/` altındadır: `devam-karti.md`, `urun-paketi.json`, `magaza-paketi.json`, `video-paketi.json`. Aşama sonunda DEVAM KARTI bu dosyaya da yazılır; lider `.ekip/DURUM.md`'ye tek satır ekler.
 - Proje klasörü yoksa (ChatGPT, sohbet): aynı dosyalar sohbete eklenir ya da indirilebilir dosya olarak verilir; hafıza DEVAM KARTI'dır.
-- Köprü betiği: `sozlesme/paket.py` (eklenti kökünde). Yeri: `find / -name paket.py -path "*sozlesme*" 2>/dev/null | head -1`. Bulunamazsa (tek başına kurulum) dosyayı `arayuz-sozlesmesi.md` tablosuna göre elle yaz ve oku; alan uydurma.
+- Köprü betiği: `ortak/paket.py` (eklenti kökünde; şema ve doğrulayıcı yanındaki `ortak/sozlesme/`). Yeri: `find / -name paket.py -path "*ortak*" 2>/dev/null | head -1`. Bulunamazsa (kod aracı yok) dosyayı `arayuz-sozlesmesi.md` tablosuna göre elle yaz ve oku; alan uydurma.
 
 ## 2. Girdi: `urun-paketi.json` (ekibin ürün kolu üretir)
 1. Önce doğrula: `python3 <paket.py> dogrula urun <dosya>`. Çıkış 1 ise eksik alanı kullanıcıya tek satırla söyle; uydurma.

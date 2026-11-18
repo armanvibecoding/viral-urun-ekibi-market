@@ -116,10 +116,10 @@ class Kopru(unittest.TestCase):
         for parca in ("Temasız mod", "`teklif.kaynak` = `teklif.tsv`", "2'li %10, 3'lü %18", "dogrula magaza", "video-sec"):
             self.assertIn(parca, t, parca)
 
-    def test_kirma_testi_gecer(self):
+    def test_sozlesme_testi_gecer(self):
         import subprocess
         import sys
-        r = subprocess.run([sys.executable, os.path.join(EKLENTI, "sozlesme", "kirma_testi.py")], capture_output=True, text=True)
+        r = subprocess.run([sys.executable, os.path.join(DEPO, "docs", "sozlesme_test.py")], capture_output=True, text=True)
         self.assertEqual(r.returncode, 0, r.stdout[-800:])
 
 

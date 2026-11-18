@@ -1,6 +1,6 @@
 # Katkı rehberi
 
-Katkın için teşekkürler. Bu depo bir Claude Code eklenti pazarıdır; tek eklenti `plugins/viral-urun-ekibi/` altındadır.
+Katkın için teşekkürler. Bu depo bir Claude Code eklenti pazarıdır; pazardaki tek eklenti `plugins/viral-urun-ekibi/` altındadır (mağaza kolu dahil).
 Ayrıntılı klasör sözleşmesi ve yazım kuralları: [docs/SARTNAME.md](docs/SARTNAME.md). Bu dosya kısa yoldur.
 
 ## 1. Yerelde kurulum (geliştirme için)
@@ -34,8 +34,9 @@ Araç ön koşulları (ffmpeg, Python paketleri, Chrome eklentisi) için [README
   `skills/`, ortak dosyalar `src/ortak/`). Değişiklikten sonra `python3 moduller/magaza-kurucu/tools/build.py`, sonra
   `python3 -m pytest -q moduller/magaza-kurucu/tests`. Her aşama SKILL.md ≤ 5.120 bayt.
 - Köprü dosyalarının (`urun-paketi.json`, `magaza-paketi.json`, `video-paketi.json`) alanı değişirse üçü birlikte güncellenir:
-  `sozlesme/sema.json`, `moduller/magaza-kurucu/src/ortak/arayuz-sozlesmesi.md`, `sozlesme/ornek/`; `surum` artar, alan silinmez;
-  `python3 plugins/viral-urun-ekibi/sozlesme/kirma_testi.py` çıkış 0 olmalı.
+  kaynak `moduller/magaza-kurucu/src/ortak/sozlesme/` (şemalar, `ornek/`, `paket_dogrula.py`) + `src/ortak/arayuz-sozlesmesi.md`;
+  `surum` artar, alan silinmez. Sonra `python3 docs/sozlesme_esitle.py` (kopya `plugins/viral-urun-ekibi/ortak/sozlesme/`),
+  `python3 moduller/magaza-kurucu/tools/build.py` ve `python3 docs/sozlesme_test.py` çıkış 0 olmalı. Betik: `ortak/paket.py`.
 - Ortak bilgi (`ortak/`) birden çok skill'in kullandığı bilgidir. Bilgi bankasını (`ortak/bilgi/`) değiştirdiysen
   claude.ai/ChatGPT proje paketini yeniden üret: `sh docs/proje_paketi_yap.sh`.
 - Kullanıcıya görünen metin **Türkçe**; kod, değişken ve dosya adları İngilizce ya da ASCII Türkçe olabilir.
@@ -57,8 +58,10 @@ anlaşması bilgilerini ekleme — bu depo herkese açıktır.
    ```
    İkisi de `Validation passed` demeli.
 2. **Python betikleri** değiştiyse en az bir kez çalıştır; `video-kurgu` için `python3 plugins/viral-urun-ekibi/skills/video-kurgu/scripts/kendini_test.py`.
-3. **Anonimlik ve güvenlik kontrolü** (aşağıda).
-4. PR açıklamasına neyi neden değiştirdiğini ve nasıl denediğini yaz.
+3. **Arayüz sözleşmesi** (Mağaza Kurucu ile dosya alışverişi): `python3 docs/sozlesme_test.py` çıkış 0 vermeli.
+   `plugins/viral-urun-ekibi/ortak/sozlesme/` elle düzenlenmez (kaynağı Mağaza Kurucu deposu; `docs/SARTNAME.md` §8).
+4. **Anonimlik ve güvenlik kontrolü** (aşağıda).
+5. PR açıklamasına neyi neden değiştirdiğini ve nasıl denediğini yaz.
 
 ## 5. Anonimlik ve güvenlik
 

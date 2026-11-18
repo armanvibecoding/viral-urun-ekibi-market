@@ -155,7 +155,7 @@
 ## Birleşmeyle yeni gelen dosyalar (kaynak depoda karşılığı yok)
 | Dosya | Ne |
 |---|---|
-| `plugins/viral-urun-ekibi/sozlesme/sema.json, paket.py, nis-esleme.tsv, ornek/, kirma_testi.py` | köprü: 3 dosyanın şeması, yazıcı/okuyucu betiği, 39 kırma testi |
+| `moduller/magaza-kurucu/src/ortak/sozlesme/` → kopya `plugins/viral-urun-ekibi/ortak/sozlesme/`, `ortak/paket.py`, `ortak/nis-esleme.tsv`, `docs/sozlesme_test.py` | köprü: 3 dosyanın JSON şeması (sürüm 1–2), doğrulayıcı, yazıcı/okuyucu betiği, 45 test (ilk yerel köprü `plugins/viral-urun-ekibi/sozlesme/` uzak sözleşmeyle birleşince kaldırıldı) |
 | `moduller/magaza-kurucu/src/ortak/ekip-koprusu.md` | mağaza aşamalarının ekiple bağı: girdi, fiyatın tek kaynağı, tema modu, kapılar |
 | `moduller/magaza-kurucu/surum.json` | modül sürümü (0.5.0) |
 | `plugins/viral-urun-ekibi/ortak/ekip.md` | tam kadro: unvan · ad · Türkçe rol · ajan · model |

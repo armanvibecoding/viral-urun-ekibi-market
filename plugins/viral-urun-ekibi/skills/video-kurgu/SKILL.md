@@ -39,7 +39,7 @@ Ekran içeriği karede üretilir, değişim kesimdedir (`ai-video-kreatif` "Kare
 her karede bindirme ekranın içinde mi. Yöntem ve ayarlar: `${CLAUDE_SKILL_DIR}/referans/ekran-bindirme.md`.
 
 ## Aşama 8 — Kurgu
-0. Mağaza kurulduysa (`is/NN/magaza/magaza-paketi.json`): `is/NN/kurgu/video-ayar.json` (`sozlesme/paket.py magaza-oku` çıktısı) yazı
+0. Mağaza kurulduysa (`is/NN/magaza/magaza-paketi.json`): `is/NN/kurgu/video-ayar.json` (`ortak/paket.py magaza-oku --cikti-dizin` çıktısı) yazı
    ailesini, renkleri ve linki verir; ekran yazısı ve altyazı mağazayla aynı aile ve renkle kurulur. Kurgu ön-kontrolüne
    `--magaza-paketi is/NN/magaza/magaza-paketi.json` eklenir: onaylı listede olmayan iddia = HATA `[iddia]`, gevşetilmez.
 1. `is/NN/kurgu/VNN.json` ayar dosyasını yaz (alanlar `kurgu.py` başındaki açıklamada ve `referans/kurgu-kurallari.md`).
@@ -139,9 +139,9 @@ ChatGPT'de bu aşama yok (render yerel Node + Chrome ister).
 ## Aşama 9 — Teslim
 `is/NN/teslim/` altına: MP4 + kontrol karesi + caption metni (+ istenirse kareler, klipler, senaryo tablosu .zip).
 Caption, hashtag, AI etiketi, DM otomasyonu, 48. saat ölçüm eşikleri: `${CLAUDE_SKILL_DIR}/referans/teslim.md`.
-Mağaza kurulduysa teslimde `video-paketi.json` yazılır: `python3 "${CLAUDE_PLUGIN_ROOT}/sozlesme/paket.py" video-yaz --cikti
-is/NN/magaza/video-paketi.json --video is/NN/teslim/V01.mp4:reklam:<dil> --video is/NN/teslim/V02.mp4:pdp-galeri:yok` (kullanım:
-`pdp-galeri` · `hero` · `reklam`; yalnız ilk ikisi mağazaya yüklenir). Çıkış 0 olmadan mağaza koluna devredilmez.
+Mağaza kurulduysa teslimde `video-paketi.json` yazılır: `python3 "${CLAUDE_PLUGIN_ROOT}/ortak/paket.py" video-yaz is/NN/teslim
+--cikti is/NN/magaza/video-paketi.json [--pdp VNN] [--hero VNN] --dil <tr|en|yok>` (işaretlenmeyen = `reklam`; yalnız `pdp-galeri`
+ve `hero` mağazaya yüklenir; hangi video nereye: `teslim.md`). Çıkış 0 olmadan mağaza koluna devredilmez.
 Teslim raporu: yeniden üretilen/kırpılan klipler (saniyesiyle), harcanan kredi, kalan kusurlar, varsayımlar.
 Sesi dinleyemediysen bunu açıkça yaz.
 

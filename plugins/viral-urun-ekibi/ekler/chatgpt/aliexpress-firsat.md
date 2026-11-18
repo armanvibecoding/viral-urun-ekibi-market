@@ -54,3 +54,7 @@ SAT / İZLE / ELE diye sıralamak. Terimleri yalnız `sozluk.md`'deki anlamıyla
 ## Tur sonu özeti (≤10 satır)
 Pazar · aranan terim · açılan ürün sayfası · aday/elenen (sebep dağılımı) · sınama sonucu · en iyi 3–5 aday
 (ürün, fiyat, ürün satışı, sıra puanı, karar) · doğrulanamayanlar · sıradaki adım ve gereken onay.
+
+## Mağaza koluna geçiş (isteğe bağlı)
+Kullanıcı SAT kararını onaylayınca ürünü `urun-paketi.json` dosyası olarak ver (indirilebilir dosya): ad, görseller, pazar (ülke kodu, dil, para), tedarik fiyatı, yalnız OKUNAN özellikler (kaynak linkiyle), varyantlar, rakipler, kanıt ölçümleri. Okunamayan alanı yazma. Mağaza işi aynı paketteki `magaza-kurucu` becerisiyle bu dosyadan başlar; fotoğraf + ülke yerine geçer.
+Biçim (alan adları değişmez): depodaki `plugins/viral-urun-ekibi/ortak/sozlesme/` klasörü — `arayuz-sozlesmesi.md` (alan tablosu), `*.schema.json` (zorunlu alan ve biçim), `ornek/` (geçerli örnek), `paket_dogrula.py` (kod yorumlayıcıda doğrulama).

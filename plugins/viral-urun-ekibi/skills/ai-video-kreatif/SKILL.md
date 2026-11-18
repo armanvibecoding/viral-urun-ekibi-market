@@ -35,10 +35,12 @@ Python komutu: macOS/Linux `python3`, Windows `py -3` (Windows'ta `python3` yazm
 hakları" onayı, Chrome çoklu indirme izni, logo/IP) burada tek mesajda sorulur ve KARARLAR.md'ye yazılır; sonrası
 sorusuz akar (liste ve istisnalar: `asamalar.md` Aşama 0).
 
+
 Aşama 1'de kartı **gerçek fotoğraf ve satıcı açıklamasından** yaz (AI görselden değil). Mekanizmanın bilinmeyen kısmını
 gösterme; o anı atlayan sahne kur ve `[DOĞRULA]` etiketle. Kilit metni bir kez yazılır, her promptu betik üretir.
-**Mağaza kurulduysa** (`is/NN/magaza/magaza-paketi.json` var): önce `python3 "${CLAUDE_PLUGIN_ROOT}/sozlesme/paket.py" magaza-oku
-is/NN/magaza/magaza-paketi.json --cikti-dizin is/NN/kurgu`. Ürün referansı mağazanın yazısız G0 karesidir (`kilit.txt` ondan ve
+**Mağaza kurulduysa** (`is/NN/magaza/magaza-paketi.json` var, Aşama 0): önce `python3 "${CLAUDE_PLUGIN_ROOT}/ortak/paket.py" magaza-oku
+is/NN/magaza/magaza-paketi.json --cikti-dizin is/NN/kurgu` → `is/NN/magaza/marka-kilidi.md` + `video-ayar.json` + `onayli-iddialar.txt`
+(çıkış 0 değilse dosya kullanılmaz; ayrıntı `asamalar.md` Aşama 0). Ürün referansı mağazanın yazısız G0 karesidir (`kilit.txt` ondan ve
 mağazanın ürün kilidinden yazılır, ikinci bir kilit tanımı yapılmaz); senaryoda söylenen her sayı ve sonuç cümlesi
 `onayli-iddialar.txt`'de olmalı (brief'e ekle); kapak ve son karede mağazanın renkleri ve başlık ailesi kullanılır.
 

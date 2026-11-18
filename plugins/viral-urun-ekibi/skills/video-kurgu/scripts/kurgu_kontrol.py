@@ -37,7 +37,7 @@ Kurallar (SKILL.md "Viral kurgu" + eleştiri turları; eşikler ESIK sözlüğü
  ses       (--video) ses_olc.py: drop_artis ≥ 6 dB, ≥ 0,3 sn −28 dB altı delik yok, −14 ± 1 LUFS.
  iddia     (--magaza-paketi) ayardaki her ekran yazısı: sayı ya da sonuç/üstünlük sözü taşıyorsa mağazanın onaylı
            listesinde (onayli_metinler.iddialar/faydalar/başlık) olmalı; mağaza fiyatı birebir yazılabilir. Yoksa HATA.
-           Kural ve sinyal listesi tek yerde: sozlesme/paket.py (iddia_ihlalleri). --yalniz-iddia öbür kuralları atlar.
+           Kural ve sinyal listesi tek yerde: ortak/paket.py (iddia_ihlalleri). --yalniz-iddia öbür kuralları atlar.
 Betik eleştirmenin yerini almaz: kanca gücü, gerçekçilik, ritim yargısı eleştirmende kalır.
 """
 import argparse
@@ -448,10 +448,14 @@ def main():
     sonuclar = ([{"ayar": y, "arac": "-", "sure_sn": 0, "etiket": [], "hatalar": [], "uyarilar": [], "ses": None, "gecti": True}
                  for y in args.ayar] if args.yalniz_iddia else [kontrol(y, args, esik) for y in args.ayar])
     if args.magaza_paketi:
-        sys.path.insert(0, os.path.join(BURASI, "..", "..", "..", "sozlesme"))
+        # Eklentide ../../../ortak; ChatGPT paketinde ../../ekip-bilgi/references (paket dönüştürücüsü oraya koyar)
+        for aday in (os.path.join(BURASI, "..", "..", "..", "ortak"), os.path.join(BURASI, "..", "..", "ekip-bilgi", "references")):
+            if os.path.exists(os.path.join(aday, "paket.py")):
+                sys.path.insert(0, aday)
+                break
         import paket as kopru
         mp = kopru.oku_json(args.magaza_paketi)
-        sema_hata = kopru.dogrula("magaza", mp)
+        sema_hata = kopru.sema_hatalari("magaza", mp)
         for s in sonuclar:
             s["hatalar"] += [{"kural": "iddia", "mesaj": "magaza-paketi geçersiz: " + h} for h in sema_hata]
             if not sema_hata:

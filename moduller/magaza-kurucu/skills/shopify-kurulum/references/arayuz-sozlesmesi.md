@@ -1,20 +1,20 @@
 # Arayüz sözleşmesi (sürüm 2): ekibin kolları arasında dosya alışverişi
 
-Ekibin ürün kolu, mağaza kolu ve video kolu arasındaki tek bağ üç JSON dosyasıdır. Proje klasöründe yeri `is/NN-urun/magaza/`; ChatGPT'de sohbete eklenir. İki yüzeyde aynı biçim. Alan adları değişmez; yeni alan eklenirse `surum` artar, eski alan silinmez. Makine şeması ve betik: eklenti kökünde `sozlesme/sema.json`, `sozlesme/paket.py` (`dogrula`, `urun-yaz`, `magaza-oku`, `iddia-kontrol`, `video-yaz`, `video-sec`). Kullanım sırası: `ekip-koprusu.md`.
+Ekibin ürün kolu, mağaza kolu ve video kolu arasındaki tek bağ üç JSON dosyasıdır. Dosya ChatGPT'de sohbete eklenir, Claude'da yol olarak verilir; iki yüzeyde aynı biçim. Alan adları değişmez; yeni alan eklenirse `surum` artar, eski alan silinmez (sürüm 1 dosyalar geçerli kalır). Kullanım sırası: `ekip-koprusu.md`.
 
 ## Girdi: `urun-paketi.json` (ürün kolu üretir; isteğe bağlı)
 Kullanıcı fotoğraf + ülke yerine bu dosyayı verirse `urun-analiz` onu okur, yalnız eksik alanları araştırır. Dosyadaki bilgi "doğrulanmış" sayılmaz; `kaynak` alanı olan özellik doğrulanmış sayılır.
 
 | Alan | Tür | Not |
 |---|---|---|
-| `surum` | "1" ya da "2" | `teklif` alanı sürüm 2 ile geldi |
-| `urun.ad` | metin | tedarikçideki ad |
-| `urun.nis` | metin | `nis-guzellik`, `nis-gadget`, `nis-ev`, `nis-moda`, `nis-saglik`, `nis-pet` (TEKNİK EK T4.3); ürün kolunun niş kodu `sozlesme/nis-esleme.tsv` ile çevrilir |
-| `urun.fotograflar` | liste | dosya adı ya da URL; ilki Ek 1 adayı |
+| `surum` | "1" ya da "2" | zorunlu; `teklif` alanı sürüm 2 ile geldi |
+| `urun.ad` | metin | tedarikçideki ad; zorunlu |
+| `urun.nis` | metin | `nis-guzellik`, `nis-gadget`, `nis-ev`, `nis-moda`, `nis-saglik`, `nis-pet` (TEKNİK EK T4.3); ürün kolunun niş kodu `ortak/nis-esleme.tsv` ile çevrilir |
+| `urun.fotograflar` | liste | dosya adı ya da URL; ilki Ek 1 adayı; en az 1 (zorunlu) |
 | `urun.ozellikler` | liste | `{ "ad": "uzunluk", "deger": "120", "birim": "mm", "kaynak": "<URL>" }` |
 | `urun.varyantlar` | liste | `{ "ad": "Siyah", "stok": true }` |
-| `urun.tedarik_fiyati` | nesne | `{ "tutar": 11.4, "para": "USD" }` |
-| `pazar` | nesne | `{ "ulke": "US", "dil": "en", "para": "USD" }` (ülke ISO 3166: İngiltere `GB`) |
+| `urun.tedarik_fiyati` | nesne | `{ "tutar": 9.4, "para": "USD" }` |
+| `pazar` | nesne | `{ "ulke": "US", "dil": "en", "para": "USD" }`; `ulke` zorunlu (ISO 3166: İngiltere `GB`) |
 | `rakipler` | liste | `{ "marka", "url", "fiyat" }` |
 | `kanit` | liste | reklam/satış kanıtı: `{ "kaynak": "Meta Ads Library", "url", "tarih", "olcu": "aktif reklam 90+ gün" }` |
 | `teklif` | nesne (sürüm 2) | `{ "kaynak": "teklif.tsv" ya da "sabit-kural", "fiyat", "para", "paketler": [{ "adet": 2, "indirim_yuzde": 10 }], "garanti", "kargo_vaadi" }`. Fiyatın TEK kaynağı: `teklif.tsv` ise onaylı değerdir; `sabit-kural` ise fiyatı `urun-analiz` önerir, paket 2'li %10, 3'lü %18 |
@@ -32,10 +32,22 @@ DEVAM KARTI'nın makine okunur hâli. Video kolu altyazı, kapak ve son kareyi b
 | `urun` | `{ "baslik", "handle", "url", "fiyat", "para", "varyantlar" }` | link, CTA |
 | `onayli_metinler` | `{ "faydalar": [3], "g1_baslik": [...], "b2": {...}, "iddialar": [{ "metin", "kaynak", "bilgi_notu": true/false }] }` | yalnız bunlar söylenir; listede olmayan iddia videoya girmez (kapı: `paket.py iddia-kontrol`) |
 | `gorseller` | `[{ "kod": "G0", "dosya": "<marka>-urun-0.jpg", "olcu": "1500x1500", "yazisiz": true }, …]` | G0 temiz ürün karesi video için ürün referansıdır |
-| `magaza` | `{ "alan_adi", "tema_id", "pdp_url", "utm": "utm_source=<kanal>&utm_medium=video&utm_campaign=<marka>-<urun>", "tema_modu": "tam" ya da "temasiz" }` | reklam linki |
+| `magaza` | `{ "alan_adi", "tema_id", "pdp_url", "utm": "utm_source=<kanal>&utm_medium=video&utm_campaign=<marka>-<urun>", "tema_modu": "tam" ya da "temasiz" }` | reklam linki; `tema_modu` sürüm 2 |
 
 ## Geri dönüş: `video-paketi.json` (video kolu üretir; isteğe bağlı)
 `[{ "dosya", "olcu": "1080x1920", "sure_sn", "kullanim": "pdp-galeri|hero|reklam", "altyazi_dili" }]`. `shopify-kurulum` yalnız `pdp-galeri` ve `hero` olanları yükler: ürün videosu galerinin son sıralarına girer, G0'ın yerini almaz (feed görseli yazısız fotoğraftır; video "ölçek" karesinin yerini tutmaz, KANIT 1.2).
+
+## Makine okunur şema, örnek, doğrulama
+Eklenti kökündeki `ortak/sozlesme/` klasörü sözleşmenin makine okunur hâlidir (`OZET.json` = dosya özetleri; kaynağı `moduller/magaza-kurucu/src/ortak/sozlesme/`, elle düzenlenmez):
+- `urun-paketi.schema.json`, `magaza-paketi.schema.json`, `video-paketi.schema.json`: zorunlu alan, tür ve biçim buradan okunur (tablolarla çelişirse şema geçerlidir).
+- `ornek/`: üç dosyanın geçerli örneği (aynı ürün, uçtan uca).
+- `paket_dogrula.py` (yalnız standart Python; yol tutmazsa `find / -name paket_dogrula.py`): `urun|magaza|video <dosya>` ya da `zincir <urun> <magaza> [<video>]` (para birimi, varyant, altyazı dili tutarlılığı).
+- Yazıcı-okuyucu betik: eklenti kökünde `ortak/paket.py` (`dogrula`, `urun-yaz`, `fiyat`, `magaza-oku`, `iddia-kontrol`, `video-yaz`, `video-sec`); doğrulamayı `paket_dogrula.py`'ye bırakır.
+- HATA varsa dosya kullanılmaz ve teslim edilmez: hata satırı kullanıcıya tek satırla söylenir. UYARI engel değildir. Kod aracı yoksa şema elle uygulanır ve "doğrulayıcı çalıştırılmadı" denir.
+
+## Dosya yerleri
+- ChatGPT / claude.ai: dosya sohbete eklenir; çıktı indirilebilir dosya olarak verilir.
+- Claude Code: `is/NN-urun/magaza/urun-paketi.json` → `is/NN-urun/magaza/magaza-paketi.json` → `is/NN-urun/magaza/video-paketi.json`.
 
 ## Kurallar
 - Sözleşme dışı alan okunmaz, yazılmaz. Eksik zorunlu alan varsa kullanıcıya tek satırla söylenir, uydurulmaz.
