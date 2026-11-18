@@ -7,10 +7,10 @@
     {
       "name": "viral-urun-ekibi",
       "source": "./plugins/viral-urun-ekibi",
-      "description": "Viral ürün bulma, AliExpress fırsat avı, AI video üretimi ve kurgu ekibi"
+      "description": "Viral ürün bulma, AliExpress fırsat avı, Shopify mağaza kurulumu, AI video üretimi ve kurgu: tek liderli ekip"
     }
   ],
   "metadata": {
-    "description": "Viral ürün bulma, AliExpress fırsat avı, AI video üretimi ve kurgu için Türkçe Claude ekibi"
+    "description": "Viral ürün bulma, doğrulama, teklif, Shopify mağaza kurulumu, AI video üretimi ve kurgu için tek liderli Türkçe Claude ekibi"
   }
 }

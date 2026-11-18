@@ -28,6 +28,14 @@ Araç ön koşulları (ffmpeg, Python paketleri, Chrome eklentisi) için [README
 - Yol yazımı: skill içinden `${CLAUDE_SKILL_DIR}/referans/x.md`, eklenti kökünden `${CLAUDE_PLUGIN_ROOT}/ortak/x.md`.
   **Mutlak yol (ev klasörünü ya da sürücü harfini içeren yol) yazma.** Bu değişkenler yalnız markdown gövdesinde açılır; Bash ortamında yoktur.
 - Yeni ajan: `plugins/viral-urun-ekibi/agents/<ajan>.md` (frontmatter: `name`, `description`, `tools`).
+  Açıklama ekip kalıbıyla başlar: `İngilizce unvan (Ad · Türkçe rol).` ve üye `ortak/ekip.md` tablosuna eklenir. Mağaza kolu
+  ajanında frontmatter'dan sonraki ilk satır `<!-- kol: magaza -->` olur (ChatGPT paketine rol becerisi olarak girmez).
+- Mağaza kolu (`skills/magaza-kurucu/`) **üretilen** klasördür, elle düzenlenmez. Kaynak: `moduller/magaza-kurucu/` (aşamalar
+  `skills/`, ortak dosyalar `src/ortak/`). Değişiklikten sonra `python3 moduller/magaza-kurucu/tools/build.py`, sonra
+  `python3 -m pytest -q moduller/magaza-kurucu/tests`. Her aşama SKILL.md ≤ 5.120 bayt.
+- Köprü dosyalarının (`urun-paketi.json`, `magaza-paketi.json`, `video-paketi.json`) alanı değişirse üçü birlikte güncellenir:
+  `sozlesme/sema.json`, `moduller/magaza-kurucu/src/ortak/arayuz-sozlesmesi.md`, `sozlesme/ornek/`; `surum` artar, alan silinmez;
+  `python3 plugins/viral-urun-ekibi/sozlesme/kirma_testi.py` çıkış 0 olmalı.
 - Ortak bilgi (`ortak/`) birden çok skill'in kullandığı bilgidir. Bilgi bankasını (`ortak/bilgi/`) değiştirdiysen
   claude.ai/ChatGPT proje paketini yeniden üret: `sh docs/proje_paketi_yap.sh`.
 - Kullanıcıya görünen metin **Türkçe**; kod, değişken ve dosya adları İngilizce ya da ASCII Türkçe olabilir.

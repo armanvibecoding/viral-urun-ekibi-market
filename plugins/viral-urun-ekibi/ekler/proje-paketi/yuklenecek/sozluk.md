@@ -30,3 +30,9 @@ Tüm beceriler ve ajanlar bu anlamları kullanır. Yeni terim gerekirse buraya e
 | **DENEYİCİ** | Sürekli ürün değiştiren, marka hissi vermeyen hesap. Örnek alınmaz. Puanlama: `ortak/marka-skoru.md`. |
 | **Kanca** | Videonun ilk 3 saniyesi (görüntü + yazı). |
 | **Pazar** | Ürünün satılacağı ülke/bölge (TR, ABD, diğer). `.ekip/KARARLAR.md`'de "pazar" satırıyla tutulur. |
+| **Köprü dosyası** | Kollar arasında veri taşıyan üç JSON: `urun-paketi.json` (ürün → mağaza), `magaza-paketi.json` (mağaza → video), `video-paketi.json` (video → mağaza). Yeri `is/NN-urun/magaza/`; şema ve betik `sozlesme/`. |
+| **Onaylı iddia** | `magaza-paketi.json` `onayli_metinler.iddialar` listesindeki, kaynağı yazılı cümle. Video ve altyazı yalnız bunları söyler; listede olmayan sayı ya da sonuç cümlesi kapıdan geçmez. |
+| **Tema modu** | Tam mod = kullanıcıda kayıtlı tema paketi var, şablonlar yazılır. Temasız mod = paket yok; ürün, metin, görsel mağazanın mevcut temasına yazılır, tema istenmez. |
+| **Pazar kodu** | Köprü dosyalarında ISO 3166 (`US`, `TR`, `GB`, `DE`…); kullanıcıya Türkçe ad. Teklif tablosundaki `UK` = `GB`. |
+| **Niş eki** | Mağazanın niş şablonu (`nis-pet`, `nis-gadget`…). Reklam avının niş kodu `sozlesme/nis-esleme.tsv` ile çevrilir. |
+| **DEVAM KARTI** | Mağaza aşamalarının hafızası: onaylı ad, renk, yazı, fiyat, metin ve dosya adları. Proje klasöründe `is/NN-urun/magaza/devam-karti.md`; sohbette yapıştırılır. Karttaki onaylı değer değişmez. |

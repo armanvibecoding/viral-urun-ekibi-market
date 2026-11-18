@@ -1,9 +1,19 @@
 {
   "name": "viral-urun-ekibi",
   "displayName": "Viral Ürün Ekibi",
-  "version": "0.1.0",
-  "description": "Instagram'da viral ürün bulma, AliExpress'te henüz viral olmamış ürün avı, ChatGPT + Google Flow ile AI video üretimi ve ffmpeg kurgu",
-  "author": { "name": "Viral Ürün Ekibi" },
+  "version": "0.2.0",
+  "description": "Tek liderli e-ticaret ekibi: Instagram'da viral ürün bulma, AliExpress'te henüz viral olmamış ürün avı, teklif, Shopify mağaza kurulumu (marka, görsel, metin, site denetimi), ChatGPT + Google Flow ile AI video üretimi ve ffmpeg kurgu",
+  "author": {
+    "name": "Viral Ürün Ekibi"
+  },
   "license": "MIT",
-  "keywords": ["e-ticaret", "dropshipping", "viral", "ai-video", "turkce"]
+  "keywords": [
+    "e-ticaret",
+    "dropshipping",
+    "viral",
+    "ai-video",
+    "shopify",
+    "magaza",
+    "turkce"
+  ]
 }

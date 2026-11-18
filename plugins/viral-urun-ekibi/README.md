@@ -1,8 +1,11 @@
 # viral-urun-ekibi (eklenti)
 
-Instagram'da viral ürün bulma, AliExpress'te henüz viral olmamış ürün avı, ChatGPT + Google Flow ile AI ürün videosu
-üretimi ve ffmpeg ile kurgu yapan Türkçe Claude Code eklentisi. Yedi skill (`ekip-lideri`, `kesfet-urun-avi`,
-`aliexpress-firsat`, `ai-video-kreatif`, `video-kurgu`, `reklam-kutuphanesi-avi`, `teklif-ve-sayfa`), altı alt ajan ve ortak bir bilgi bankası içerir.
+Tek liderli Türkçe e-ticaret ekibi: ürün bul → doğrula → teklif → Shopify mağazasını kur → kreatif üret → yayınla. Sekiz iş akışı
+(`ekip-lideri`, `kesfet-urun-avi`, `aliexpress-firsat`, `reklam-kutuphanesi-avi`, `teklif-ve-sayfa`, `magaza-kurucu`, `ai-video-kreatif`,
+`video-kurgu`), 26 alt ajan (kadro: `ortak/ekip.md`), kollar arası köprü (`sozlesme/`) ve ortak bir bilgi bankası içerir.
+Tek giriş `ekip-lideri` becerisidir. Mağaza kolu Shopify bağlantısını (`.mcp.json`) getirir; özel tema paketi yoksa **temasız mod**da
+çalışır (ürün, metin ve görseller mağazanın mevcut temasına yazılır). `skills/magaza-kurucu/` üretilen klasördür; kaynağı depodaki
+`moduller/magaza-kurucu/`.
 Hareketli tasarım için HyperFrames becerileri de pakette: `hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use`
 (çağrı adı `viral-urun-ekibi:hyperframes` vb.).
 Kurulum (Claude Code içinde):

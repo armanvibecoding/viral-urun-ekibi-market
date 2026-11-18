@@ -7,7 +7,12 @@
 #   - HyperFrames becerileri (hyperframes, hyperframes-cli, hyperframes-registry, media-use) pakete GİRMEZ:
 #     render yerel Node 22+ + Chrome + CLI ister (ChatGPT'de yok), iş döngüsü check/snapshot/render olmadan doğrulanamaz,
 #     ZIP'i ~0,65 MB'tan ~2,6 MB'a ve 163 dosyadan ~385'e çıkarır; terim dönüşümü Apache-2.0 dosyalarını değiştirirdi.
-#   - 6 ajan -> ayrı skill (skills/<ajan-adı>/SKILL.md), aynı sohbette uygulanan rol.
+#   - Çekirdek ekibin 6 ajanı -> ayrı skill (skills/<ajan-adı>/SKILL.md), aynı sohbette uygulanan rol.
+#   - Mağaza kolu ajanları (dosyada "<!-- kol: magaza -->" işareti) pakete GİRMEZ: işleri magaza-kurucu aşama dosyalarının
+#     içindedir (ChatGPT'de alt ajan yok; 20 rol becerisi tetik çakışması ve bağlam yükü olurdu).
+#   - magaza-kurucu becerisi DÖNÜŞTÜRÜLMEDEN kopyalanır (kaynağı iki yüzey için yazılmış ve ChatGPT'de koşulmuş; ek not girmez).
+#   - sozlesme/ (köprü betiği, şema, örnekler) paket köküne aynen kopyalanır; .mcp.json girmez (ChatGPT kendi Shopify bağlantısını kullanır).
+#   - Kök plugin.json'a com.openai arayüz bloğu (görünen ad, kısa açıklama, örnek istekler) yazılır.
 #   - ortak/ -> skills/ekip-bilgi/references/ (ayrı bilgi skill'i); ekler/chatgpt/ -> skills/ekip-bilgi/references/chatgpt/
 #   - ${CLAUDE_SKILL_DIR} / ${CLAUDE_PLUGIN_ROOT} -> paket köküne göreli yol; Claude'a özgü terimler nötr dile.
 #   - Kökte plugin.json (agent-plugins şeması) + .claude-plugin/plugin.json (aynı ad/sürüm/açıklama).
@@ -104,7 +109,8 @@ GENEL_NOT = """> **ChatGPT'de çalışma notu** (paket dönüştürücüsü ekle
 > 3. **`is/` dosyaları:** kod yorumlayıcı açıksa orada üret ve indirilebilir dosya olarak ver; kapalıysa içeriği sohbete parça parça yaz.
 > 4. **Yollar** paket köküne göredir (`skills/...`); ortak bilgi `skills/ekip-bilgi/references/` altında. Kod yorumlayıcının paket dosyalarını görüp görmediği **doğrulanmadı**; göremiyorsa kullanıcıdan gereken betiği ya da dosyayı sohbete yüklemesini iste.
 > 5. **Araçlar:** tarayıcı otomasyonu, bilgisayar/telefon kontrolü (iPhone Yansıtma), yerel terminal ve Google Flow otomasyonu burada yok. Bu adımları **kullanıcı yapar** ve sonucu (ekran görüntüsü, sayfa metni, dosya) sohbete yükler. ChatGPT ajan modu web sayfası açabilir ama bu paketle sınanmadı (**doğrulanmadı**). Python betikleri kod yorumlayıcıda koşulabilir; ffmpeg'i kullanmadan önce `ffmpeg -version` ile ölç.
-> 6. **Ekip rolleri:** "ajan" ya da "yardımcı rol" denen üye aynı adlı beceridir (`skills/<ad>/SKILL.md`). Ayrı süreç yok: role aynı sohbette sen geçersin, brief'i kendine yazarsın, çıktıyı yine sınarsın.
+> 6. **Ekip rolleri:** çekirdek ekipte "ajan" ya da "yardımcı rol" denen üye aynı adlı beceridir (`skills/<ad>/SKILL.md`). Ayrı süreç yok: role aynı sohbette sen geçersin, brief'i kendine yazarsın, çıktıyı yine sınarsın. Mağaza kolu üyeleri (marka, görsel, site, denetim) ayrı beceri DEĞİLDİR: işleri `skills/magaza-kurucu/<aşama>/` dosyalarının içindedir; site denetimini o aşama kendisi uygular.
+> 7. **Mağaza ve köprü:** Shopify işlemleri ChatGPT'nin Shopify bağlantısıyla, Çalışma (Work) modunda yapılır. Köprü betiği `sozlesme/paket.py` kod yorumlayıcıda koşulur; `is/NN-urun/magaza/` dosyaları sohbete eklenir ya da indirilebilir dosya olarak verilir.
 """
 
 OZEL = {
@@ -113,6 +119,7 @@ OZEL = {
         "**Kullanıcının elle yaptığı adımlar** (ilk oturumda bir kez söyle): (1) Instagram/Reels taraması → ekran görüntüsü, link ya da hesap adı yükler · (2) AliExpress, Trendyol, Amazon, Meta Reklam Kütüphanesi, rakip mağaza → sayfayı açar, metnini ya da ekran görüntüsünü yükler · (3) Google Flow klip üretimi → kendisi üretir (kredi = önce onay), sen promptu dosya olarak verirsin · (4) müzik → kendisi indirir ve yükler · (5) yeni sohbete geçerken son DURUM bloğunu yapıştırır.",
         "**Kod yorumlayıcıda senin yaptıkların:** Python betikleri, ffmpeg kurgusu, Excel/CSV/TSV dosyaları. Tarayıcı JS betikleri (`*.js`) ve macOS/iPhone araçları (`*.swift`, iPhone `.sh` betikleri) burada çalışmaz.",
         "`scripts/yayin_olc.py` (48. saat ölçümü) kod yorumlayıcıda koşulur; içgörü sayılarını kullanıcı girer.",
+        "Mağaza işi (`magaza-kurucu`) bu pakette tam çalışır: görsel üretimi bu sohbette, Shopify yazımı ChatGPT'nin Shopify bağlantısıyla (Çalışma modu şart). Mağaza kolu ajanları yoktur; aşama dosyaları aynı işi tek seste yürütür. Oturum modeli notu (Fable) burada geçersizdir.",
         "HyperFrames becerileri (`viral-urun-ekibi:hyperframes` vb.) bu pakette **yok**: hareketli tasarım render'ı yerel Node + Chrome ister. Yönlendirme tablosundaki hareketli tasarım satırı burada `video-kurgu` notundaki yolla yürür.",
     ],
     "kesfet-urun-avi": [
@@ -222,9 +229,17 @@ skills_k = os.path.join(kaynak, "skills")
 skills_h = os.path.join(hedef, "skills")
 # HyperFrames (Apache-2.0, yerel render) ChatGPT paketine girmez — gerekçe dosya başında.
 HARIC = {"hyperframes", "hyperframes-cli", "hyperframes-registry", "media-use"}
+# Dönüştürülmeden kopyalanan beceriler (iki yüzey için yazılmış kaynak; içinde ${CLAUDE_...} olmamalı — sondaki kapı ölçer).
+HAM = {"magaza-kurucu"}
 skill_adlari = sorted(d for d in os.listdir(skills_k) if os.path.isdir(os.path.join(skills_k, d)) and d not in HARIC)
 
+for ad in sorted(HAM & set(skill_adlari)):
+    shutil.copytree(os.path.join(skills_k, ad), os.path.join(skills_h, ad),
+                    ignore=shutil.ignore_patterns(*ATLA_AD, "*.pyc"))
+
 for ad in skill_adlari:
+    if ad in HAM:
+        continue
     for kok, dirs, files in os.walk(os.path.join(skills_k, ad)):
         dirs[:] = sorted(d for d in dirs if d not in ATLA_AD)
         for f in sorted(files):
@@ -260,7 +275,10 @@ for ad in skill_adlari:
 # ---------- 4) Ajanlar -> rol skill'leri ----------
 ajan_k = os.path.join(kaynak, "agents")
 AJAN_BECERI = {"ses-tasarimcisi": "video-kurgu"}
-ajanlar = sorted(f[:-3] for f in os.listdir(ajan_k) if f.endswith(".md"))
+MAGAZA_ISARET = "<!-- kol: magaza -->"
+tum_ajan = sorted(f[:-3] for f in os.listdir(ajan_k) if f.endswith(".md"))
+magaza_ajan = [a for a in tum_ajan if MAGAZA_ISARET in oku(os.path.join(ajan_k, a + ".md"))]
+ajanlar = [a for a in tum_ajan if a not in magaza_ajan]
 for ad in ajanlar:
     if ad in skill_adlari:
         raise SystemExit("ad çakışması: " + ad)
@@ -290,6 +308,10 @@ if os.path.isdir(cg):
     for f in sorted(os.listdir(cg)):
         if f.endswith(".md"):
             yaz(os.path.join(bilgi_h, "references", "chatgpt", f), terim_cevir(yol_cevir(oku(os.path.join(cg, f)), None)))
+
+# Köprü (betik + şema + örnekler): paket kökünde, kaynakla aynı göreli yerde (skills/video-kurgu/scripts -> ../../../sozlesme).
+shutil.copytree(os.path.join(kaynak, "sozlesme"), os.path.join(hedef, "sozlesme"),
+                ignore=shutil.ignore_patterns(*ATLA_AD, "*.pyc"))
 
 tum_beceri = skill_adlari + ajanlar
 yaz(os.path.join(bilgi_h, "SKILL.md"), fm_yaz(
@@ -327,9 +349,10 @@ Tam tablo: `references/bilgi/README.md`. Kısa yol:
 
 # ---------- 6) Manifestler + README + LICENSE ----------
 kaynak_mf = json.load(open(os.path.join(kaynak, ".claude-plugin", "plugin.json"), encoding="utf-8"))
-aciklama = ("Türkçe e-ticaret ekibi: Instagram'da viral ürün analizi, AliExpress'te henüz viral olmamış ürün avı ve kanıt "
-            "dosyası, Meta Reklam Kütüphanesi taraması, teklif ve ürün sayfası, AI video senaryosu ve başlangıç karesi "
-            "promptları, ffmpeg ile kurgu. 14 beceri; tarayıcı ve telefon adımlarını kullanıcı yapar.")
+aciklama = ("Türkçe e-ticaret ekibi, tek lider: viral ürün analizi, AliExpress'te henüz viral olmamış ürün avı ve kanıt "
+            "dosyası, Meta Reklam Kütüphanesi taraması, teklif, Shopify mağaza kurulumu (marka, görsel, metin, site denetimi), "
+            "AI video senaryosu ve başlangıç karesi promptları, ffmpeg ile kurgu. %d beceri; tarayıcı ve telefon adımlarını "
+            "kullanıcı yapar." % (len(tum_beceri) + 1))
 kok_mf = {
     "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
     "name": kaynak_mf["name"],
@@ -338,8 +361,20 @@ kok_mf = {
     "author": kaynak_mf.get("author", {"name": "Viral Ürün Ekibi"}),
     "license": kaynak_mf.get("license", "MIT"),
     "keywords": kaynak_mf.get("keywords", []),
+    "extensions": {"com.openai": {"interface": {
+        "displayName": kaynak_mf.get("displayName", "Viral Ürün Ekibi"),
+        "shortDescription": "Ürün bul, mağaza kur, video üret",
+        "longDescription": ("Tek liderli Türkçe e-ticaret ekibi. Ürünü bulur ve kanıtla doğrular, teklifi kurar, Shopify mağazasını "
+                            "açar (marka adı, logo, galeri görselleri, site metni, kurulum ve site denetimi), AI video senaryosunu ve "
+                            "karelerini hazırlar, kurguyu yapar. Her adımda kararı ekip verir, gerekçesini tek satırda söyler; sen "
+                            "onaylarsın. Mağaza ve görsel adımları için Çalışma modu ve Shopify bağlantısı gerekir."),
+        "developerName": kaynak_mf.get("author", {}).get("name", "Viral Ürün Ekibi"),
+        "category": "Productivity",
+        "capabilities": ["Interactive", "Write"],
+        "defaultPrompt": ["Ekibi başlat", "Bu ürün için mağaza kur. Ülke: Türkiye", "Bu ürüne video yap"],
+    }}},
 }
-claude_mf = {k: v for k, v in kok_mf.items() if k != "$schema"}
+claude_mf = {k: v for k, v in kok_mf.items() if k not in ("$schema", "extensions")}
 if "displayName" in kaynak_mf:
     claude_mf["displayName"] = kaynak_mf["displayName"]
 yaz(os.path.join(hedef, "plugin.json"), json.dumps(kok_mf, ensure_ascii=False, indent=2) + "\n")
@@ -365,7 +400,23 @@ for kok, _, files in os.walk(hedef):
             kalan.append(os.path.relpath(os.path.join(kok, f), hedef))
 if kalan:
     raise SystemExit("HATA: çözülmemiş ${CLAUDE_...}: " + ", ".join(kalan))
-print("beceri: %d (%d iş akışı + %d rol + ekip-bilgi)" % (len(tum_beceri) + 1, len(skill_adlari), len(ajanlar)))
+# Kapı: ham kopyalanan becerinin dosyaları kaynakla bayt bayt aynı; mağaza kolu ajanı beceriye dönüşmemiş.
+for ad in HAM & set(skill_adlari):
+    for kok, _, files in os.walk(os.path.join(skills_k, ad)):
+        for f in files:
+            if f in ATLA_AD or f.endswith(".pyc") or "__pycache__" in kok:
+                continue
+            kp = os.path.join(kok, f)
+            hp = os.path.join(skills_h, os.path.relpath(kp, skills_k))
+            if not os.path.exists(hp) or open(kp, "rb").read() != open(hp, "rb").read():
+                raise SystemExit("HATA: ham kopya farklı: " + os.path.relpath(kp, skills_k))
+sizan = [a for a in magaza_ajan if os.path.isdir(os.path.join(skills_h, a))]
+if sizan:
+    raise SystemExit("HATA: mağaza kolu ajanı beceriye dönüşmüş: " + ", ".join(sizan))
+if not os.path.exists(os.path.join(hedef, "sozlesme", "paket.py")):
+    raise SystemExit("HATA: sozlesme/paket.py pakette yok")
+print("beceri: %d (%d iş akışı + %d rol + ekip-bilgi) · mağaza kolu ajanı pakete girmedi: %d · köprü: sozlesme/"
+      % (len(tum_beceri) + 1, len(skill_adlari), len(ajanlar), len(magaza_ajan)))
 PY
 
 # Tekrar üretilebilir ZIP: sabit zaman damgası, sıralı dosya listesi, ek alan yok.
@@ -375,3 +426,5 @@ ADET=$(find "$HEDEF" -type f | wc -l | tr -d ' ')
 BOYUT=$(wc -c < "$ZIP" | tr -d ' ')
 echo "klasör: $HEDEF ($ADET dosya)"
 echo "zip: $ZIP ($BOYUT bayt)"
+# Kapı: boyut tavanı (resmî sınır bulunamadı; güvenli tavan 2,5 MB — fontlar ve stil çapası ~1 MB).
+[ "$BOYUT" -le 2621440 ] || { echo "HATA: zip $BOYUT bayt > 2621440"; exit 1; }
