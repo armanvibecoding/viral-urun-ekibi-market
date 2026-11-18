@@ -173,3 +173,5 @@ Kaynak: https://www.facebook.com/help/1257205004624246 · https://transparency.m
 - **Hesap katmanı:** biyografi, kullanıcı adı, profil fotoğrafı ve link sayfasının ilk ekranı açık kelime taşımaz.
 - **Tekrar sınırı:** 10 gönderide en çok 1 sınırda (imâ 2) deneme; hesap durumu (Account Status) haftalık kontrol; reddedilen
   içerik düzeltilmeden yeniden yüklenmez.
+
+- Giyilebilir ürünün boyunda takılı göründüğü plan AI ile üretilmez (Flow politika reddi + sahte görünüm, 2026-11-18): kurucunun kendi telefon çekimi (yüz yok, 3 sn) ya da ürünün gerçek fotoğrafı kullanılır.

@@ -24,6 +24,7 @@ Kamera yalnız **sabit / yavaş itme / yavaş yana kayma** (doğrusal hareket ik
 ## Kurallar
 - Geçiş karelerinde aynı anda en fazla 2 katman (ör. çıkan + giren plan); ayırıcı çizgi/bölme ürün kırpımının üstünden
   geçmez. Kontrol: geçiş anlarının ±0,5 sn'sinde 10 fps pano.
+- Ürün kesimi (kolye vb.) yazı kelimelerinin üstüne binmez, kelimeyi bölmez; yazı ile ürün kenarı arası ≥ 24 px (1080 genişlikte). Kontrol karesinde ölçülür.
 - Kırmızı-mavi dönüşümlü yanıp sönme yok (polis ışığı çağrışımı); hızlı flaş yok; animasyon hızı ≤ 2 Hz.
 - Ekran parlaklığı karedeki ışıkla uyumlu: abartılı parlaklık ürünü olduğundan farklı gösterir = yanıltıcı görüntü.
 - Islak zemin yansıması, cam yansıması gibi ek gerçekçilik katmanları bu betikte yok; gerekiyorsa ayrı ffmpeg katmanıyla
