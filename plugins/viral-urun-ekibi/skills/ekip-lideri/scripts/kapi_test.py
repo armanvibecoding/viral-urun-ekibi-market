@@ -118,6 +118,25 @@ def kredi_testleri(kok):
     yaz(os.path.join(p, ".ekip", "GERI-BILDIRIM.md"), DEFTER + "| 2 | 2000-01-02 | elestirmen | fiyat | organikte fiyat | — | AÇIK | hayır |\n")
     bekle("kırma: defterde AÇIK satır -> 1", kos("kredi", i, "--proje", p), 1, ["KALDI      defter"])
 
+    # kural terfisi iki basamak (URE-02): ilk örnek ürün kontratına, eklentiye ancak ikinci örnekte
+    BAS = DEFTER.split("| 1 |")[0]
+    def defterli(ad, satirlar):
+        p, i = taze(kok, ad)
+        yaz(os.path.join(p, ".ekip", "GERI-BILDIRIM.md"), BAS + "".join(satirlar))
+        return kos("kredi", i, "--proje", p)
+    ILK_URUN = "| 1 | 2000-01-01 | kullanıcı | ani-muzik | müzik ani | is/01-urun/kurgu/KURALLAR.md:K3 | İŞLENDİ | evet |\n"
+    bekle("kırma: ilk örnekte eklenti dosyasına kural -> 1 (tek örnekten eklenti kuralı)",
+          defterli("t1", ["| 1 | 2000-01-01 | kullanıcı | ani-muzik | müzik ani | skills/video-kurgu/SKILL.md:Ses | İŞLENDİ | evet |\n"]), 1,
+          ["tek örnekten eklenti kuralı"])
+    bekle("terfi: ilk örnek kontrata, ikinci örnek üretici dosyaya (TEKRAR-DÜZELTİLDİ) -> 0",
+          defterli("t2", [ILK_URUN, "| 2 | 2000-01-05 | direktör | ani-muzik | yine ani | agents/ses-tasarimcisi.md:Kurallar | TEKRAR-DÜZELTİLDİ | evet |\n"]), 0,
+          ["GEÇTİ      defter"])
+    bekle("kırma: ikinci örnek yine yalnız kontrata yazılmış -> 1 (üretici düzeltilmemiş)",
+          defterli("t3", [ILK_URUN, "| 2 | 2000-01-05 | direktör | ani-muzik | yine ani | is/01-urun/kurgu/KURALLAR.md:K3 | İŞLENDİ | evet |\n"]), 1,
+          ["TEKRAR-DÜZELTİLDİ olmalı"])
+    bekle("kırma: işlendi ama kullanıcıya bildirilmedi -> 1",
+          defterli("t4", [ILK_URUN.replace("| evet |", "| hayır |")]), 1, ["bildirilmedi"])
+
     # aşım: yalnız KARARLAR'da tarihli kurucu satırıyla, kapı başına
     def asimli(ad, satir):
         p, i = taze(kok, ad); hukum(i, "onuretim", "V01", False)

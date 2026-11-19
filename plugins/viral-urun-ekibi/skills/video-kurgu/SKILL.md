@@ -53,91 +53,27 @@ her karede bindirme ekranın içinde mi. Yöntem ve ayarlar: `${CLAUDE_SKILL_DIR
    CTA son ≥ 3 sn'de ve kancanın hemen altında mı. Örtüyorsa `yazi_konum` ya da `kanca_gizle` ile yeniden koştur.
    KURALLAR.md'deki kredisiz her K maddesini tek tek işaretle (✓ / ✗ + kanıt: dosya, saniye); işaretsiz madde varsa
    video eleştiriye GÖNDERİLMEZ.
-**Viral (hızlı) kurgu — varsayılan reklam kurgusu:** `hizli_kurgu.py ayar.json` (alanlar betiğin başında).
-- Kanca = videonun **en güçlü anı ilk karede** (alev, değişim, sonuç); olayın ortasından aç, ilk karede ses de olsun.
-  Ölü/kapalı ürünle ya da sessiz açma. Kanca yazısı ilk karede tam görünür (kelime kelime değil).
-- Planlar müziğin vuruşuna oturur: plan = 2 ya da 4 vuruş (140 BPM'de 0,857 / 1,714 sn), **2 vuruştan kısa plan yok**
-  (0,43 sn'lik montaj "çok hızlı" bulundu); toplam 12–15 sn.
-- Yazılar planlara değil zaman çizelgesine bağlanır (`yazilar`: bas/bit sn): bir yazı birkaç kesim boyunca kalır.
-  Ekranda en az 0,5 sn + kelime başına 0,25 sn (betik uyarır); en fazla 5 kelime, CTA ikinci satırı ≤ 5 kelime.
-  "Önce/sonra" geçişi beyaz flaşla, yakın plan girişleri zoom punch ile. Son plan ilk plana bağlanır (döngü).
-- Yazı: platformun yerli görünümü — **TikTok Sans Bold** (OFL, Google Fonts `ofl/tiktoksans`), cümle düzeni
-  (büyük harf değil), 96–104 px, ince kontur (`kontur_oran` 0,06) + yumuşak gölge, cümlede tek vurgu kelimesi renkli.
-  Montserrat ExtraBold büyük harf "reklam gibi" bulunup beğenilmedi. Konum plan başına: ürünü örtmez; alt %20 ve sağ %15 boş.
-- "Polisten sakla" gibi yasa dışı kullanımı ima eden yazı yok.
-- Çok sahneli videoda isteğe bağlı satış iskeleti (GÖZLEM, tek ürün): `referans/noropazarlama.md`. Tek sahne ve yazısız videolar iskeletsiz.
-- Kontrol/uygulama planı neden-sonuç gösterir: önceki hal → dokunuş → sonuç; dokunuş öncesinde sonucun izi olan kesit
-  kullanılmaz, kırpım sonucu kadraj dışında bırakmaz. Dokunuşa ve sonuca ses: `ses_tasarla.py --sfx tik@sn,vurus@sn`.
-- **Ön-kontrol kapısı (kurgudan sonra, eleştirmenden önce):** `hizli_kurgu.py ayar.json --katı` (okunma UYARI'sı = çıkış 1),
-  sonra `kurgu_kontrol.py ayar.json --video VIDEO.mp4` → çıkış 0 olmadan eleştirmene gönderme. Klip içerikleri
-  `klipler/klip_etiket.json`dan okunur (biçim betiğin başında; yeni klip = yeni etiket satırı, bilinmeyen "bilinmiyor").
-  Betik ölçülebilir kuralları alır; kanca gücü, gerçekçilik, ritim yargısı kör jüride kalır.
-- Teslimden önce kör jüri (`juri.py pano --mod teslim` → `video-juri` 3 kopya → `juri.py birlestir`; akış `ekip-lideri` "Hüküm hattı")
-  videoyu gerçek viral referanslarla yan yana puanlar; `gecti: true` olmadan teslim yok. Kalırsa kök nedeni `video-elestirmen` yazar.
-  Teslim geçişinin tek kapısı: `python3 "${CLAUDE_PLUGIN_ROOT}/skills/ekip-lideri/scripts/kapi.py" yayin is/NN --proje . --kopyala`
+**Viral (hızlı) kurgu — varsayılan reklam kurgusu:** `hizli_kurgu.py ayar.json` (alanlar betiğin başında). Kurgu kuralları
+(kanca ilk karede, vuruşa oturan plan, yazı biçimi ve konumu, ses, müzik, drop, döngü): `${CLAUDE_SKILL_DIR}/referans/kurgu-kurallari.md`
+— kurgudan önce oku. Sektöre özgü kurallar ayrı ektedir (ör. `referans/sektor/arac-aksesuar.md`); ürünün sektör eki yoksa
+yalnız genel kurallar ve ürün kontratı (`is/NN/kurgu/KURALLAR.md`) geçerlidir.
+- En güçlü an ilk karede; ilk karede ses de olsun. Plan = 2 ya da 4 vuruş, 2 vuruştan kısa plan yok; toplam 12–15 sn.
+- Yazı ürünü örtmez; alt %20 ve sağ %15 boş; emoji videoya girmez (caption'a). Ekranda fiyat: ICE-01.
+- **Ses:** `ses-tasarimcisi` ajanı `ses_tasarla.py`dan önce efekt planını çıkarır. Müzik videoda olmalı (SES-02) ve müzik girişi
+  kuralına uyar (SES-01); müzik stem'i `is/NN/ses/stem_VNN/muz.wav` olarak kaydedilir (kapı onu ölçer). Yöntem: `referans/ses-tasarimi.md`.
+- **Ön-kontrol (kurgudan sonra, jüriden önce):** `hizli_kurgu.py ayar.json --katı` (okunma UYARI'sı = çıkış 1), sonra
+  `kurgu_kontrol.py ayar.json --video VIDEO.mp4` → çıkış 0. Klip içerikleri `klipler/klip_etiket.json`dan okunur (biçim betiğin başında).
+- **Hüküm:** kör jüri (`juri.py pano --mod teslim` → `video-juri` 3 kopya → `juri.py birlestir`; akış `ekip-lideri` "Hüküm hattı")
+  videoyu gerçek viral referanslarla yan yana puanlar. Kalırsa kök nedeni `video-elestirmen` yazar.
+- **Teslim geçişinin tek kapısı:** `python3 "${CLAUDE_PLUGIN_ROOT}/skills/ekip-lideri/scripts/kapi.py" yayin is/NN --proje . --kopyala`
   (teknik, kurgu, görüntü, ses, iddia, hüküm, defter, sözleşme); çıkış 0 olmadan `teslim/` klasörüne video konmaz.
 
-Kurallar (ayrıntı `referans/kurgu-kurallari.md`):
-- Kanca beyaz kalın, siyah konturlu, 1–3 satır; konum "oto" en boş bandı seçer (alt %20 ve sağ %15 hariç).
-- Emoji videoya girmez (betik çıkarır, uyarır) → caption'a taşı. Türkçe büyük harfi elle yaz; kodda `upper()` kullanma.
-- Font: betik Türkçe harfleri (çğıİöşü) ölçerek seçer; ilk kurulumda font test karesine bak.
-- Ses: klibin gerçek sesi + sentetik efekt: `ses_tasarla.py --sfx tik@sn,vurus@sn` (tık = dokunuş, vuruş = değişim);
-  **efekt dosyası istenmez.** Kullanıcı kendi efektini verirse `sfx` + `hizala: true` gerçek ses anına oturtur. Hedef −14 LUFS.
-- **Ses tasarımcısı (ses_tasarla'dan önce):** `ses-tasarimcisi` ajanı ayar dosyasından efekt planı (sn · efekt · dB · neden)
-  çıkarır ve komutu üretir: dosya efekti `--sfx_dosya "ad.mp3@sn:dB" --sfx_klasor is/NN/sfx/kaynak` (lisans `sfx/LISANS.md`'de),
-  sentetik `boom/whoosh`, drop reçetesi `--riser <drop−0,2>:1.0:-18 --sessizlik_vurusu 0.2`. Kapılar: 10 sn'de ≤ 5 efekt,
-  `drop_tuttu`, **müzik girişi** (açılış diegetik ses; müzik 0. sn'de −30 dB'den 1,5–2 sn rampa; kısık yatak + drop'ta tam müzik YASAK — ağır kusur).
-  Önce/sonra `ses_olc.py VIDEO --drop sn --muzik_stem <stem>/muz.wav --kapi`. Yöntem: `referans/ses-tasarimi.md`.
-- **Elle miks betiği** (ses_tasarla dışı) yazılırsa müzik stem'i ayrı wav olarak kaydedilir ve aynı kapıdan geçer.
-- **Drop karışımda ölçülür:** müzik dosyasındaki drop yetmez; klip sesi (rölanti, söküm) drop'u bastırır. `ses_tasarla.py`
-  drop'tan önceki 1,7 sn'de klip sesini `--drop_oncesi_db` (varsayılan −8) kadar kısar ve drop anındaki artışı ölçer;
-  < `--drop_esik_db` (6 dB) ise `hedef_tuttu: false`. Geçmezse −12/−16 dene ya da drop öncesi planların `ses_db`'sini kıs.
-- **Yazı ürünü/plakayı kapatmaz:** yakın planda (kirp ≥ 1,3 ya da rozet/plaka kadrajın alt yarısında) yazı konumu ≤ 0,15.
-  Panoda her yazının altında plaka rakamı ya da ürün ekranı varsa düzelt.
-- **Telefon karosu = araç ekranı:** telefonda dokunulan içerik, sonraki her planda araç ekranında aynı içerik olarak kalır;
-  aracın içerikleri arasında yoksa telefon planı kullanılmaz. Ekranda dokunuş yoksa `tik` sesi yok.
-- **Ürün ilk 0,9 sn'de görünür** (2. tur eleştiri: geçen videoların hepsi değişmiş ekranı ilk karede ya da < 0,9 sn'de gösterdi;
-  durağan stok plan en fazla 0,86 sn ve ilk plan değil). Söküm klibi sökülen rozetin logosunu göstermiyorsa söküm kancası kullanılmaz.
-- **İlk 1,7 sn kancayı görüntüyle kanıtlar:** durağan stok geniş plan ile açma. Ya sonuç önce (değişmiş ekran yakın), ya
-  rozete punch (kirp ≥ 1,4), ya söküm/kutu eylemi. Ortak klipteki ikon/araç rengi bu araçla uyuşmuyorsa ≤ 0,9 sn ve ilk
-  plan olmaz. Kancadaki nesne ("star", "pump", "walk over") görüntüde yoksa kanca değişir.
-- **Müzik videoda olmalı** (müziksiz teslim yok). Kaynak (Aşama 0'da izni alınmış): kullanıcının dosyası ya da Pixabay.
-  Pixabay (ölçülmüş): arama sayfasını `fetch` et (`pixabay.com/music/search/<tür>/`) → ilk parça sayfasını `fetch` et →
-  içindeki `cdn.pixabay.com/download/audio/...mp3` bağlantısını al → `curl -L -o is/NN/muzik/<ad>.mp3 <bağlantı>`.
-  Parça adı, sanatçı, sayfa linki ve lisans notu (Content ID riski) teslim raporuna. Telifli şarkı indirilmez; yayında
-  platformun kendi ses kütüphanesinden eklenebilir. Drop'u ölç (0,1 sn enerji sıçraması) ve "önce/sonra" kesimine hizala.
-- Ana ses anı (egzoz, tık, patlama) müziğin üstüne çıkar: `ses_tasarla.py` (sidechain ile müziği o anda kısar,
-  bas + doygunluk + mekân yankısı; tepe −1 dBTP). Abartı gerçekçiliği bozmamalı: clipping yok.
-- Toplam 10–15 sn; tek sahne şablonunda kesme yok; son kare ilk kareye bağlanabiliyorsa döngü kur.
-
 ## Aşama 8b — Hareketli tasarım katmanı (HyperFrames; her reklam videosunda)
-`ai-video-kreatif` "Görüntü kaynağı önceliği" madde 4'ün uygulandığı yer: kinetik tipografi (vuruşa oturan, vurgu
-kelimesi renkli), geçiş, ilerleme/sayaç, UI kartı, önce/sonra silmesi. ffmpeg temel kurguyu (klip, kesim, ses) yapar;
-hareketli katmanı HyperFrames üretir. Ön koşul: Node 22+ ve `npx hyperframes doctor --json` → `ok` (yoksa `ekip-lideri`
-kurulum kontrolü; kurulumu kullanıcı onaylar). Bu katman kurulamıyorsa yazı `hizli_kurgu.py` ile kalır ve raporda yazılır.
-1. **Önce oku:** `viral-urun-ekibi:hyperframes` becerisi (render sözleşmesi, iş döngüsü) — kompozisyon kuralları ondan.
-   CLI komutları `viral-urun-ekibi:hyperframes-cli`, hazır bloklar `viral-urun-ekibi:hyperframes-registry`, ses/görsel
-   varlık `viral-urun-ekibi:media-use`. Kişisel `~/.claude/skills` kopyası varsa da bu paketteki becerileri kullan.
-2. **Registry'de önce ara, elle yapma:** her öğe için
-   `npx hyperframes catalog --query "<öğenin işi, İngilizce>" --json` → uyanı `npx hyperframes add <ad> --json`
-   (ör. kinetik yazı `bottom-up-letters`/`blur-in`, altyazı `caption-*`, geçiş `beat-freeze-cut`, önce/sonra `before-after-wipe`).
-3. **Proje:** `npx hyperframes init is/NN/hareketli/VNN --skip-skills --skill=hyperframes` (beceri kurmasın:
-   `--skip-skills` şart). 1080×1920, 30 fps, süre = temel kurgu süresi. Yazı zamanları ve metni **tek kaynaktan**:
-   `is/NN/kurgu/VNN.json` içindeki `yazilar`/`cta` (bas/bit sn) — kompozisyona aynen taşınır, yeni metin uydurulmaz.
-   Font, renk, konum ve "alt %20 + sağ %15 boş, ürünü örtme" kuralları yukarıdaki yazı kuralları ile aynıdır.
-4. **Temel video yazısız:** ayar dosyasının kopyasında `yazilar`, plan `yazi` alanları ve `cta` boşaltılıp
-   `hizli_kurgu.py` ile `is/NN/kurgu/VNN_temel.mp4` üretilir (ses dahil); asıl `VNN.json` değişmez (kapılar onu okur).
-5. **Kontrol ve render:** `npx hyperframes check --json` (her hata düzeltilir) → `npx hyperframes snapshot` ile
-   karelere bak (`.hyperframes/artifacts/snapshots/`) → saydam katman:
-   `npx hyperframes render is/NN/hareketli/VNN --format webm --quality delivery --output is/NN/hareketli/VNN_katman.webm`.
-6. **Bindir (ses temelden):**
-   `ffmpeg -i is/NN/kurgu/VNN_temel.mp4 -c:v libvpx-vp9 -i is/NN/hareketli/VNN_katman.webm -filter_complex "[0:v][1:v]overlay=0:0:shortest=1[v]" -map "[v]" -map 0:a -c:v libx264 -crf 18 -pix_fmt yuv420p -c:a copy -movflags +faststart is/NN/kurgu/VNN.mp4`
-   (`-c:v libvpx-vp9` katman girişinden ÖNCE şart: yoksa ffmpeg saydamlığı okumaz, katman opak olur ve temel videoyu örter —
-   sentetik testte ölçüldü. Bindirmeden sonra bir karede ürünün göründüğüne bak.)
-7. Sonra aşama 8'in ön-kontrol kapısı aynen: `kurgu_kontrol.py is/NN/kurgu/VNN.json --video is/NN/kurgu/VNN.mp4` ve `--goruntu`.
-   Kesim dışı sıçrama hareketli öğeden geliyorsa kareye bak, gerekçeyi yaz; eşik gevşetilmez.
-Telemetri: HyperFrames CLI kullanım sayacı gönderir; kullanıcı isterse `npx hyperframes telemetry disable`.
-ChatGPT'de bu aşama yok (render yerel Node + Chrome ister).
+Kinetik tipografi, geçiş, ilerleme/sayaç, UI kartı, önce/sonra silmesi. ffmpeg temel kurguyu yapar; hareketli katmanı
+HyperFrames üretir. Ön koşul: Node 22+ ve `npx hyperframes doctor --json` → `ok`. Adımlar (registry'de ara, proje kur, temel video
+yazısız, kontrol ve render, saydam bindirme, sonra aynı ön-kontrol kapısı): `${CLAUDE_SKILL_DIR}/referans/hareketli-tasarim.md`.
+Yazı metni ve zamanı tek kaynaktan gelir (`is/NN/kurgu/VNN.json`); yeni metin uydurulmaz. Katman kurulamıyorsa yazı
+`hizli_kurgu.py` ile kalır ve raporda yazılır. ChatGPT'de bu aşama yok.
 
 ## Aşama 9 — Teslim
 `is/NN/teslim/` altına: MP4 + kontrol karesi + caption metni (+ istenirse kareler, klipler, senaryo tablosu .zip).

@@ -33,8 +33,8 @@
 | `ortam` | evet | mekân + zaman ("gece yatak odası", "çatı otoparkı, mavi saat"); aynı ortam en fazla 6 videoda |
 | `ozne` | seride özne değişiyorsa | araç/renk/hayvan ("mat siyah G63"); aynı özne ardışık iki videoda olmaz |
 | `kultur` | ABD pazarında evet | görünen ABD kültür unsuru ("Sunday football, banliyö oturma odası"); `pazar-katmani.md` §1 |
-| `yazilar` | isteğe bağlı | kanca dışı ekran yazıları listesi; organikte fiyat içeremez (betik tarar) |
-| kök `kreatif` | isteğe bağlı | `organik` (varsayılan) · `reklam`; organikte kanca/CTA/yazılarda fiyat = ❌ |
+| `yazilar` | isteğe bağlı | kanca dışı ekran yazıları listesi; fiyat kuralı ICE-01 (betik tarar) |
+| kök `kreatif` | isteğe bağlı | `organik` (varsayılan) · `reklam`; ICE-01 yalnız `organik`te uygulanır |
 | `sahneler[].eylem` | evet | Türkçe, tek eylem, tablo için |
 | `sahneler[].prompt` | ilk 5 video | İngilizce. `scene`, `action` zorunlu; `position`, `camera`, `audio`, `ambient`, `who`, `where`, `light` isteğe bağlı (yoksa `ortak`tan) |
 | `prompt.audio` | — | yalnız ACTION'daki eylemin sesi, sebebiyle: "single piano note as the white key goes down" |

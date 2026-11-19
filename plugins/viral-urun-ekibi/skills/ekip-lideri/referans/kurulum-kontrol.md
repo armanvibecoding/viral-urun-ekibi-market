@@ -23,3 +23,9 @@ HyperFrames notu: becerileri bu eklentinin içinde gelir (`viral-urun-ekibi:hype
 `skills update` ya da `npx skills add` ÇALIŞTIRILMAZ (kişisel kopya kurar, eklentiyle çakışır). `init` her zaman `--skip-skills` ile.
 CLI kullanım sayacı (telemetri) gönderir; kullanıcı isterse `npx hyperframes telemetry disable`. HyperFrames yoksa video yine
 çıkar (yazı `hizli_kurgu.py` ile), ama `ai-video-kreatif` hareketli katman kuralı karşılanmamış olur → raporda yaz.
+
+## HyperFrames beceri adları (SKILL.md'den taşındı)
+**Beceri adları:** HyperFrames becerileri bu eklentiden `viral-urun-ekibi:hyperframes`, `viral-urun-ekibi:hyperframes-cli`,
+   `viral-urun-ekibi:hyperframes-registry`, `viral-urun-ekibi:media-use` adıyla çağrılır. Kullanıcının `~/.claude/skills` altında
+   aynı adlı kişisel kopyası olabilir (öneksiz `hyperframes`); ekip işinde öneklisini kullan, ajana da öneklisini yaz.
+   Becerilerin içindeki `/hyperframes-cli` gibi atıflar = aynı paketteki öneklisi. Lisans: `${CLAUDE_PLUGIN_ROOT}/THIRD_PARTY_NOTICES.md`.

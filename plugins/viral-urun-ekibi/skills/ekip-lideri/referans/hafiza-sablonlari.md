@@ -27,10 +27,10 @@ Diğer işler: <ör. 02-x: kurgu bitti, teslim edildi>
 ## .ekip/GERI-BILDIRIM.md  (geri bildirim defteri; satır silinmez, durum güncellenir — SKILL §5b)
 ```
 # GERİ BİLDİRİM DEFTERİ — kurucu geri bildirimi + eleştirmenin KALICI reçeteleri. Kapı: scripts/geri_bildirim_kontrol.py
-# Durum: AÇIK · İŞLENDİ · TEKRAR-DÜZELTİLDİ (aynı anahtar 2. kez → üretici ajan/beceri dosyası düzeltildi) · REDDEDİLDİ (gerekçe)
+# Durum: AÇIK · İŞLENDİ (ilk örnek: ürün kontratı ya da .ekip/DERSLER.md) · TEKRAR-DÜZELTİLDİ (aynı anahtar 2. kez → üretici ajan/beceri dosyası, eklentiye terfi) · REDDEDİLDİ (gerekçe)
 | # | Tarih | Kaynak | Anahtar | Geri bildirim / kusur | İşlenen dosya:bölüm | Durum | Bildirildi |
 |---|---|---|---|---|---|---|---|
-| 1 | YYYY-AA-GG | kurucu | ani-muzik | "müzik bir anda açılıyor" (H1, 12,6 sn) | skills/video-kurgu/referans/ses-tasarimi.md:§2 | İŞLENDİ | evet |
+| 1 | YYYY-AA-GG | kullanıcı | ani-muzik | "müzik bir anda açılıyor" (H1, 12,6 sn) | is/NN-urun/kurgu/KURALLAR.md:K9 | İŞLENDİ | evet |
 ```
 
 ## is/NN-urun-adi/DURUM.md  (ürün başına aşama kaydı)

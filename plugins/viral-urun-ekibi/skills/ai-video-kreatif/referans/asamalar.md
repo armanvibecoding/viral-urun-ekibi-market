@@ -24,7 +24,7 @@ parça indirilsin mi / kullanıcının dosyası) 6) Flow "kullanım hakları" on
 7) Chrome'da çoklu indirme izni 8) logo/IP: ürün başka markanın ürününe takılıyorsa marka görünürlüğü.
 Link/fiyat yoksa onlarsız devam et; varsayımı tek satır yaz. Cevapların hepsi KARARLAR.md'ye; fotoğraflar `is/NN/referans/`.
 **Sonrası sorusuz akar:** araştırma, kart, sektör sayımı, viral referans, senaryolar + `senaryo_kontrol.py`, promptlar,
-kareler ve ölçüm, ön-üretim eleştirisi, tavan içinde Flow üretimi, `klip_qc.py`, kurgu, eleştirmen döngüsü, caption.
+kareler ve ölçüm, ön-üretim hükmü (kör jüri + `kapi.py kredi`), tavan içinde Flow üretimi, `klip_qc.py`, kurgu, teslim hükmü (kör jüri + `kapi.py yayin`), caption.
 Yeni soru yalnız: tavan aşılacaksa, giriş/ödeme ekranında, ön-üretim eleştirisi eşiği 2 turda geçilemezse.
 
 **Mağaza paketi (mağaza kolu mağazayı kurduysa):** `is/NN/magaza/magaza-paketi.json` →
@@ -88,7 +88,7 @@ orkestra şefi değil". TR ölçülebilir kural (betik tarar): kanca ≤ 8 kelim
 "sizler için", "hemen sipariş verin", "mükemmel", "kaliteli", "tanışın", "işte", "artık", "—". Türkçe büyük harfi elle
 yaz (kodda `upper()` "i"yi "I" yapar → "KEDI"); ç ğ ı İ ö ş ü doğru olsun. Emoji yalnız caption'da (videoda kutucuk olur).
 **CTA kelimesi:** ürünü anlatan tek kelime, BÜYÜK harf, seride AYNI, marka adı değil. TR: `Yorumlara "KELİME" yaz, linki
-DM'den atayım` · yurt dışı: `Comment "WORD" and I'll DM you the link`. **Organik videoda ekranda fiyat yok (her pazar);**
+DM'den atayım` · yurt dışı: `Comment "WORD" and I'll DM you the link`. Ekranda fiyat: ICE-01;
 fiyat caption/bio'da. Reklam kreatifinde ekranda fiyat yalnız pazar kartı kararıyla ve GERÇEK fiyatla (TR fiyat kancası GÖZLEM).
 
 **Kurallar**

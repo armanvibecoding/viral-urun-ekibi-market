@@ -52,7 +52,7 @@ Babalar Günü (Haz) → okula dönüş (Ağu). Super Bowl (Şub) yalnız konuş
 
 ## 10 Ses
 Enerjik trend müzik; meme sesi düzeyi 1 (yalnız lisanslı efekt, `../meme-formatlari.md` §1); VO opsiyonel — öneri, KANIT YOK.
-Açılış diegetik ses; müzik 0. sn'de −30 dB'den 1,5–2 sn'de yatağa; ani açılma ağır kusur (`video-kurgu/referans/ses-tasarimi.md` §2). Hikâye türüne göre tür
+Müzik girişi SES-01 (`ortak/kurallar.md`). Hikâye türüne göre tür
 seçimi §2b. İşletme hesabında telifli trend şarkı dosya olarak yok (platform ses koleksiyonu uygulama içinde).
 Kültür unsuru zorunlu (organik keşif): `../pazar-katmani.md` §1 "ABD kültür unsuru".
 

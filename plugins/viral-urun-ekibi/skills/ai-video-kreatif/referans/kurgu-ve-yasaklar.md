@@ -50,8 +50,8 @@ Mekanizma kilidi ÖRNEĞİ (piyano ürünü; her ürün için `kilit.txt` içind
   3. Yazısız — KURAL (20, D7). Problem/CTA caption'da.
 - **Özellik cümlesi** yalnız İŞLEVİ söyleyen tek cümle olarak: "It's a life jacket with chin support...🛟🥺" [132] — ADAY.
   Ölçü/ağırlık/renk/malzeme kartları ("121 mm · 30 g · Rose gold") yazı DEĞİLDİR: bilgi verir, ikna etmez (2026-11-17
-  kurucu reddi; eleştirmende yazı 3). Eski "özellik başına 1 yazı [001]" önerisi kaldırıldı. İkna kalıpları:
-  `kanca-kutuphanesi.md` §1b Ekran yazısı. **Organik videoda fiyat yok** (ağır kusur).
+  kurucu reddi). Eski "özellik başına 1 yazı [001]" önerisi kaldırıldı. İkna kalıpları:
+  `kanca-kutuphanesi.md` §1b Ekran yazısı. Fiyat: ICE-01.
 - **İddia metni yazma:** yazılı teklif/"sturdy"/"fix" metinleri yazısız demoya kaybetti [102: 983–2.275 vs 5,1MN; 117: 2.461–3.590 vs 4MN] — ADAY (2).
 - **Biçim (uygulama kuralı, kanıt değil):** üst-orta üçte bir; beyaz kalın sans-serif, ince siyah kontur; 1–2 satır + 1–2 emoji; alt %20 ve sağ %15 boş (Instagram arayüzü).
 - Yazı AI'a ürettirilmez; editörde eklenir.
@@ -147,8 +147,8 @@ okundu; kurucu: "ürünün asıl işlevi hissedilmiyor"). Kural: **açık söyle
 3. **Görüntü metaforu:** işlevin kendisini değil sonucunu/ritmini gösteren nesne/hayvan/doğa (titreşen yüzey, telefonun masada titremesi,
    tabakta tıkırdayan obje, açılan çiçek; dalgalanan su/sıvı+cam AI'da üretilmez → gerçek çekim, `baslangic-karesi.md` §6 Sıvı modülü). Metafor işlevle aynı fiili taşımalı; taşımıyorsa (kabuğundan çıkan hayvan =
    "cesaret", işlev değil) ses ve yazı işlevi taşımak zorunda.
-4. **Kontrol:** eleştirmen "2. izleme testi" — ürünü bilmeyen hedef izleyici iki izlemede işlevi çıkarıyor mu. Çıkaramıyorsa
-   ağır kusur (`video-kurgu/referans/puan-cetveli.md`). Platform riski için caption'da da açık kelime yok; işlev ürün sayfasında.
+4. **Kontrol:** "2. izleme testi" (kör jüri `anlasilir` alanı; ICE-03) — ürünü bilmeyen hedef izleyici iki izlemede işlevi çıkarıyor mu. Çıkaramıyorsa
+   ağır kusur (`video-kurgu/referans/agir-kusurlar.md`). Platform riski için caption'da da açık kelime yok; işlev ürün sayfasında.
 5. Ürün kartına (`kart.md`) `işlev cümlesi:` (açık, iç kullanım) ve `imâ planı:` (ses · yazı · görüntü) satırları yazılır.
 
 ### 8.1 Platform sınırı (Instagram/Facebook öneri kuralları; dış araştırma 2026-11-17)
@@ -157,7 +157,7 @@ müstehcen içerik buraya düşer) · **B. hesap öneri dışı** (A'nın tekrar
 hiçbir içerik takipçi dışına gitmez) · **C. kaldırma / hesap kapanması** (çıplaklık, ima edilen cinsel aktivite — çizim ve AI
 dahil, grafik cinsel dil, cinsel talep). Mizahi cinsel metafor kaldırılmaz ama 18+ ile sınırlanır (Keşfet'e gidemez).
 Kaynak: https://www.facebook.com/help/1257205004624246 · https://transparency.meta.com/policies/community-standards/sexual-solicitation/
-- **İmâ seviyesi (0–3; eleştirmen yazar):** 0 imâ yok (işlev hissedilmez → ağır kusur) · **1 obje/duygu/ilişki imâsı = hedef**
+- **İmâ seviyesi (0–3; direktör `video-elestirmen` yazar):** 0 imâ yok (işlev hissedilmez → ağır kusur) · **1 obje/duygu/ilişki imâsı = hedef**
   · 2 yatak odası/ilişki-anı imâsı = yalnız deneme gönderisi (Trial Reels, ana grid değil) · 3 cinsel karşılaşma imâsı =
   YAYINLANMAZ (ağır kusur). Metafor ilişkiyi/duyguyu/nesneyi anlatır; yatakta ne olduğunu anlatmaz.
 - **Kelime kapısı (ekran yazısı + caption + hashtag + ses dökümü):** ürün kategorisinin açık adı, anatomik kelime, "sex/toy/

@@ -26,7 +26,7 @@ Web bilgisi ayrı blokta, URL'li (önceki turda okundu; bu turda yeniden açılm
 **Saha:**
 - Kanca dili İngilizce; kimlik kelimesi BÜYÜK harf (K1, K2). Bütün kanca aileleri (`kanca-kutuphanesi.md`) ABD kayıtlarından.
 - **ABD işareti kancada/altyazıda** — KURAL (3): "Secret Santa idea for a cheese lover in the US...🇺🇸" [110: 4,7MN vs ülkesiz 'Gift idea…' 31,4B] · "American dog moms: Just ONE Christmas…" + ABD bayrağı [064] · ABD bayrağı tekrar eden sahne [119]. Profilde: 'Every American Cat Mom NEEDS this' [057 notu].
-- **Videoda fiyat yok** (organikte ağır kusur, 2026-11-17 kurucu: "organik videoda fiyat yazmak anlamsız"); indirim caption/bio'da: "80% OFF" [066], "30% OFF" [073, 127], "15% off rn" [061], "FREE shipping" [067, 069]. Son karede teklif kartı (Bundle deals, FREE SHIPPING, fiyatsız) [075] — GÖZLEM.
+- **Videoda fiyat yok** (ICE-01); indirim caption/bio'da: "80% OFF" [066], "30% OFF" [073, 127], "15% off rn" [061], "FREE shipping" [067, 069]. Son karede teklif kartı (Bundle deals, FREE SHIPPING, fiyatsız) [075] — GÖZLEM.
 - Sezon: Noel/Cadılar Bayramı/havai fişek (R16: 10 kayıt). Kasım'da Noel çerçevesi ve "Secret Santa", "stocking stuffer" kelimeleri [110].
 
 **ABD kültür unsuru — ZORUNLU (organik keşif hedefi; 2026-11-17 kurucu kararı):** her ABD videosunda izleyicinin "bu

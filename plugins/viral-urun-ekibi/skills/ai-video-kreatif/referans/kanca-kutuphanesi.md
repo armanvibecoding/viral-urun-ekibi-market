@@ -114,7 +114,7 @@ Kanıt: "Watch what happens when the handle gets close to the magnetic drain" [0
 Kanca dışındaki yazı kartları da bu kurallara uyar (yazı başına ≤ 5 kelime, `video-kurgu` biçim kuralları ayrıca).
 - **Her kart bir iş yapar:** merak (açık döngü), ikna (itiraz/arzu cevabı), kimlik (izleyici kendini görür) ya da işlev imâsı.
   Düz bilgi kartı (ölçü, ağırlık, renk, malzeme, "USB rechargeable") en çok 1 tane ve bir ikna cümlesine bağlı.
-- **Organik videoda fiyat yok** (her pazar; ağır kusur). Ad+fiyat kartı yerine kapanışta merak/CTA.
+- Fiyat: ICE-01 (`ortak/kurallar.md`). Ad+fiyat kartı yerine kapanışta merak/CTA.
 - Kalıplar (milyon kancalarından türetilmiş; GÖZLEM — kendi kartında kanıt yok, ölçülecek):
   | İş | Kalıp | Kaynak aile |
   |---|---|---|
@@ -127,7 +127,7 @@ Kanca dışındaki yazı kartları da bu kurallara uyar (yazı başına ≤ 5 ke
   ör. aile sofrasında "so… are you seeing anyone?") → NESNE (ürün obje olarak + en çok 1 gerçek özellik) → ÇİFT ANLAM (son
   3 sn; masum okumada da doğru, ikinci okumada gülümseten; ikinci anlam duygu/kimlik taşır). Kart ≤ 7 kelime (kanca ≤ 5),
   20 sn videoda ≤ 5 kart. Para yerine zaman kelimesi ("your night", "Sunday") — fiyat hatırlatması duygusal bağı zayıflatır.
-- Eleştirmen yazıları merak / ikna / kimlik / bilgi / fiyat diye sınıflar; bilgi > yarı → yazı 3; fiyat (organik) → ağır.
+- Yazılar merak / ikna / kimlik / bilgi / fiyat diye sınıflanır; bilgi yarıyı geçerse yazı zayıftır (kör jüri `yazi` alanı); fiyat ICE-01.
 
 ## 2. Kimlik listesi — milyonlarda görülen kovalar
 

@@ -26,8 +26,8 @@ Kullanıcıyla dil Türkçe. Video dosyasını değiştirmezsin; yeni dosya üre
    - **Hiyerarşi:** drop anı en yüksek (−3…−6 dB tepe), ikincil darbe −6…−9, UI tık/scratch −10…−14, riser −14…−18.
      Efekt müziğin drop'unu bastırmaz: `drop_artis_db ≥ 6` korunur, önce/sonra ölç.
    - **Müzik ilk kareden (ağır kusur kapısı):** açılış diegetik ses olayı (klip sesi ya da tık/titreşim
-     efekti); müzik 0. sn'de −30 dB'den başlar, 1,5–2 sn'de yatak seviyesine çıkar (`--muzik_fade_in 1.75`); müziği
-     kısıp/boğup drop'ta açmak YASAK (2026-11-17 kurucu reddi, ölçüldü +22,2 dB). `--muzik_bas` > `--drop_video_sn` olmalı.
+     efekti); müzik girişi SES-01'e uyar (`${CLAUDE_PLUGIN_ROOT}/ortak/kurallar.md`; `--muzik_fade_in 1.75`); müziği
+     kısıp/boğup drop'ta açmak YASAK (SES-01; ölçüldü +22,2 dB). `--muzik_bas` > `--drop_video_sn` olmalı.
    - **Drop (vurgu) reçetesi:** müzik zaten çalarken riser kesmeden ÖNCE biter (`--riser <drop−0,2>:1.0:-18`) →
      `--sessizlik_vurusu 0.2` → drop'ta darbe (`boom@drop` ya da bass-drop dosyası). Riser drop'a kadar sürerse ölçülen
      kontrast düşer (ölçüldü: +7,0 → +1,2 dB).
@@ -43,7 +43,7 @@ Kullanıcıyla dil Türkçe. Video dosyasını değiştirmezsin; yeni dosya üre
    çalıştırılmaz; 3 aday kurucuya dinletilir). **Komutu üret ve koştur:** `python3 "${CLAUDE_SKILL_DIR}/scripts/ses_tasarla.py" --video VNN_sessiz.mp4 --muzik M.mp3
    --muzik_bas <drop sn> --drop_video_sn <sn> --kesmeler <plan başları> [--patlama_db 0 --crackle_db 0] --sfx tik@..,boom@..
    --sfx_dosya "ad.mp3@sn:dB[:bas-bit]" --sfx_klasor is/NN/sfx/kaynak --riser .. --sessizlik_vurusu 0.2 --son_fade 0.12 --cikti ..`
-   `--stem_klasoru is/NN/ses/stem_VNN` ver (eleştirmen müzik girişini `muz.wav` ile ölçer).
+   `--stem_klasoru is/NN/ses/stem_VNN` ver (`kapi.py yayin` müzik girişini `muz.wav` ile ölçer; stem yoksa kapı kalır).
    Çıkış 0 + `hedef_tuttu: true` + `muzik_giris.tuttu: true` + (drop varsa) `drop_tuttu: true` şart; `efekt_yogunlugu_10sn ≤ 5`.
 4. **Ölç ve karşılaştır:** `ses_olc.py ÖNCE.mp4 --drop sn` ve `ses_olc.py SONRA.mp4 --drop sn --muzik_stem .../muz.wav --kapi` → LUFS, TP, drop_artis_db,
    delikler, tepe_anlari (en yüksek an drop/punchline mi?). Tablo hâlinde yaz.

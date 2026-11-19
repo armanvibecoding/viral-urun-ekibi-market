@@ -40,7 +40,7 @@ kopya ölür (aynı fikir, yeni an). Ürünün yapmadığını gösteren, sayı/
 - **Her video ürünün işlevini hissettirir:** izleyici 2. izlemede ürünün ne işe yaradığını çıkarabilmeli. Açık söylenemeyen
   işlevde imâ planı (ses + yazı + görüntüden ≥ 2): `kurgu-ve-yasaklar.md` §8. `neden` alanına "işlev şuradan anlaşılır: …" yaz.
 - **Yazılar ikna eder:** kanca ve `yazilar` merak/itiraz cevabı/kimlik kalıbından (`kanca-kutuphanesi.md` §1b); ölçü/ağırlık/
-  renk kartı ≤ 1. Organik seride fiyat yok (betik ❌). ABD pazarında her videoya `kultur` alanı (`pazar-katmani.md` §1).
+  renk kartı ≤ 1. Fiyat ve kültür unsuru: ICE-01, ICE-02 (`ortak/kurallar.md`; betik ❌).
 - Yasak (uydurma veri, IDD-02): sahte yorum/önce-sonra/sayı/stok aciliyeti, sahte otorite, AI kişinin "aldım, harika" demesi;
   ayrıca başka marka adı/logosu, lisanslı karakter/müzik, ünlü yüzü/sesi, korku abartısı.
 - Sağlık ve sonuç dili yasak değil (IDD-01, `${CLAUDE_PLUGIN_ROOT}/ortak/kurallar.md`): cümleyi yumuşatma; senaryo dosyasının sonuna

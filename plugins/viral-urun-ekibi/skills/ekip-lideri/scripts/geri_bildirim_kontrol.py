@@ -11,11 +11,17 @@ Kapı (çıkış 1, hepsi listelenir):
   - İŞLENDİ satırı kurucuya bildirilmemiş (Bildirildi ≠ evet).
   - Aynı Anahtar ikinci kez görülmüş ama son satır TEKRAR-DÜZELTİLDİ değil ya da dosyası üretici dosya
     (agents/ ya da skills/) değil — tekrar eden kusur üreticinin talimatı yerinde düzeltilmeden kapanmaz.
-Çıkış 0 = temiz. Dosya yoksa çıkış 0 ve "defter yok" (ilk kurulumda şablondan oluştur).
+  - Kural terfisi iki basamak (ortak/kurallar.md URE-02): anahtarın İLK satırında işlenen dosya eklenti dosyasıysa
+    (agents/, skills/, ortak/, hooks/) "tek örnekten eklenti kuralı" — ilk örnek ürün kontratına (is/NN/kurgu/KURALLAR.md)
+    ya da .ekip/DERSLER.md'ye yazılır; eklentiye ancak ikinci örnekte (TEKRAR-DÜZELTİLDİ) girer.
+Çıkış 0 = temiz. Dosya yoksa bu betik çıkış 0 ve "defter yok" basar; geçiş kapısı kapi.py defter yokluğunu KALDI sayar.
 """
 import argparse
 import os
 import sys
+
+
+EKLENTI_KLASORLERI = ("agents/", "skills/", "ortak/", "hooks/")
 
 
 def main():
@@ -53,6 +59,12 @@ def main():
     gorulen = {}
     for r in satirlar:
         gorulen.setdefault(r["anahtar"], []).append(r)
+    for k, rr in gorulen.items():
+        ilk = rr[0]
+        yol = ilk["dosya"].split(":", 1)[0].strip().strip("`")
+        if k and not ilk["durum"].startswith(("REDDED", "AÇIK", "ACIK")) and yol.startswith(EKLENTI_KLASORLERI):
+            hatalar.append(f"satır {ilk['no']} #{ilk['id']} anahtar '{k}': tek örnekten eklenti kuralı ({yol}). İlk örnek ürün "
+                           f"kontratına (is/NN/kurgu/KURALLAR.md) ya da .ekip/DERSLER.md'ye yazılır; eklentiye ikinci örnekte terfi eder")
     for k, rr in gorulen.items():
         if k and len(rr) >= 2:
             son = rr[-1]

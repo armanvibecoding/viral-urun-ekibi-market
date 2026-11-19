@@ -7,7 +7,7 @@ Kullanıldığında altı vuruş bu sırayla gelir. Saniyeler 140 BPM ızgarası
 
 | Saniye | Beyin | Görüntü | Ses |
 |---|---|---|---|
-| 0–0,9 | Örüntü kırma | hareket + ürünün en güçlü anı; kanca yazısı ilk karede tam | kanca efekti videonun en yüksek anı; açılış diegetik ses; müzik 0. sn'de −30 dB'den 1,5–2 sn rampa (kısık başlayıp sonra "açılmaz") |
+| 0–0,9 | Örüntü kırma | hareket + ürünün en güçlü anı; kanca yazısı ilk karede tam | kanca efekti videonun en yüksek anı; müzik girişi SES-01 |
 | 0,9–3,4 | Merak boşluğu | normal/eski hal (beklenti) + elde ürün (gerçeklik kanıtı) | müzik tam seviyede, kendi akışında |
 | 3,4 | Ödül | değişim, beyaz flaş | müzik drop'u tam kesimde |
 | 3,4–7,7 | Kişiselleştirme | 3 farklı sonuç, 0,86'şar sn | vuruşta kesim |
@@ -17,6 +17,6 @@ Kullanıldığında altı vuruş bu sırayla gelir. Saniyeler 140 BPM ızgarası
 Kurallar:
 - Son kare ilk kareye bağlanır (döngü, tekrar izlenme).
 - Merak sorusu ("Is this legal?") videoda cevaplanmaz; yorumu tetikler, cevap DM'de ürün sayfasına göre verilir.
-- Organik videoda fiyat yok. Uydurulmaz: fiyat, indirim, stok, yorum, tepki, kurulum süresi, yasallık. Polis/sigorta/"gizle" ima eden kanca yok.
+- Fiyat ICE-01. Uydurulmaz (IDD-02): fiyat, indirim, stok, yorum, tepki, kurulum süresi, yasallık. Polis/sigorta/"gizle" ima eden kanca yok.
 - Dokunuş anını gözle değil ölçerek bul (ör. seçilen karonun renk pikseli sayısı kare kare).
 - Seri: sahneye klip üretilir (`ai-video-kreatif` SKILL "Seri üretim"); her videoda özne, ortam, giriş, kanca ve müzik farklı.

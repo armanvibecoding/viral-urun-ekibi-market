@@ -36,7 +36,7 @@
   çıkar (`ses_tasarla.py --muzik_fade_in 1.75`, varsayılan). "Kısık/boğuk
   (alçak geçiren) yatak + drop'ta tam müzik" YASAK — ölçüldü: 3 sn pencerede +22,2 dB basamak, kurucu reddetti. Kapı:
   `ses_olc.py VIDEO --muzik_stem muz.wav --kapi` çıkış 0 (başlangıç ≤ −20 dB · rampa 1,5–3,0 sn (fade 1,5–2 sn; parçanın kendi girişi ölçümü 3 sn'ye kadar uzatabilir) · ilk 1 sn ≥ −30 dB · 3 sn basamak ≤ +10 dB · açılış olayı ≥ −6 dB).
-  Elle miks betiği yazan kurgucu müzik stem'ini ayrı dosyaya yazar (yoksa ölçülemez → eleştirmen ses ≤ 5).
+  Elle miks betiği yazan kurgucu müzik stem'ini ayrı dosyaya yazar (yoksa ölçülemez → `kapi.py` `ses@V` KALDI).
 - Herhangi bir 10 sn penceresinde (kayan pencere; 0–10/10–20 kovası değil) ≤ 5 efekt (betik kapısı `--sfx_max_10sn`); aynı anda
   katmanlanan sesler tek efekt dosyasında birleştirilir; 12–15 sn videoda 4–6. Kanca ilk 0,5 sn'de ses olayı (diegetik efekt; müzik altta −30 dB rampada). Delik yok (`ses_olc.py delikler: []`).
 - Hiyerarşi (tepe, son seviyeden önce): drop darbesi −3…−6 · ikincil −6…−9 · UI/scratch −10…−14 · riser ≤ −22 (ya da yok).
@@ -48,7 +48,7 @@
 - **Ürünün işlevi sesle hissettirilir** (imâ yolu): işlevi ekranda söylenemeyen üründe (reklamı yasak kategori) işlevin
   sesi alt mesajdır — ör. kısa titreşim/buzz (bkz. efekt kartı "Buzz"), görüntüdeki hareketle ±0,1 sn (aynı klip aralığı tekrar ya da farklı hızla kullanılıyorsa olay anı yeniden hesaplanır:
   t_çıkış = bas_çıkış + (t_kaynak − bas_kaynak)/hız; o aralıktaki görünen olaylar da sese bağlanır), videoda 1–3 kez,
-  ilk 5 sn içinde en az bir kez. Ses ürünü açıkça tarif etmez; izleyici 2. izlemede çıkarır (eleştirmen "2. izleme testi").
+  ilk 5 sn içinde en az bir kez. Ses ürünü açıkça tarif etmez; izleyici 2. izlemede çıkarır (ICE-03).
 - Müzik drop'u bastırılmaz: `drop_tuttu: true` ve önce/sonra `drop_artis_db` yazılır; en yüksek an (`tepe_anlari`) punchline/drop olmalı.
 
 ## 2b. Müzik seçim ölçütü (seçim gerekçesi `muzik/LISANS.md` altına 3 satır)
@@ -69,7 +69,7 @@
    Ölçüm (tempo/spektrum) yalnız ön eleme içindir, seçim değildir. Yetişkin/arzu ürününde duygu "after dark": yavaş (60–85 BPM),
    bas ağır, nefesli vokal dokusu, sultry R&B/pop; inleme/nefes örneği YOK (platform kapısı).
    **Kapı:** `muzik/LISANS.md`'de "Kurucu seçti: <tarih>, söz kapısı: temiz | enstrümantal" satırı yoksa `ses_tasarla.py`
-   çalıştırılmaz (ses tasarımcısı ve kurgucu bu satırı arar); satırsız teslimde eleştirmen ses alanına en fazla 4 verir.
+   çalıştırılmaz (ses tasarımcısı ve kurgucu bu satırı arar); satırsız teslim, direktör raporunda eksik olarak yazılır.
 5. **Stok hissi testi:** parça adında/etiketinde "corporate, upbeat background, inspiring, suspense" geçiyorsa ve 1. madde
    gerekçesi yoksa seçilmez. Ön elemede tür/BPM/enstrüman satırıyla karşılaştırılır; son seçim 4. maddeye göre kurucunun kulağıyla.
 

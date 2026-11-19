@@ -15,11 +15,12 @@ Kod bilmeyen bir e-ticaret girişimcisi eklentiyi kurar ve şu 4 işi Claude'a y
 ## 2. Klasör sözleşmesi
 ```
 plugins/viral-urun-ekibi/
-  skills/<beceri>/SKILL.md      ← ≤ 120 satır, ≤ 40 talimat. Ayrıntı referans dosyalara.
+  skills/<beceri>/SKILL.md      ← ≤ 120 satır VE ≤ 12 000 bayt, ≤ 40 talimat. Ayrıntı referans dosyalara. (kapı: docs/butce_kontrol.py)
   skills/<beceri>/referans/*.md ← gerektiğinde okunur (SKILL.md hangi durumda hangisini okuyacağını söyler)
   skills/<beceri>/scripts/      ← çalıştırılabilir yardımcılar
-  agents/<ajan>.md              ← frontmatter: name, description, tools (, model)
+  agents/<ajan>.md              ← frontmatter: name, description, tools, model; ≤ 7 000 bayt; model ortak/ekip.md ile aynı
   ortak/                        ← birden çok becerinin kullandığı bilgi (marka skoru, viral DNA, sözlük)
+  ortak/kurallar.md             ← kalıcı kuralların TEK kaynağı (kimlikli: SES-01, ICE-01 …); diğer dosyalar kimliğe atıf yapar
   ekler/chatgpt/                ← ChatGPT'ye yapıştırılacak sürümler (Claude yüklemez)
   hooks/                        ← SessionStart hafıza yükleyici (hazır, dokunma)
 ```
@@ -58,7 +59,14 @@ Bilinen ChatGPT sınırları (ölçüldü):
 - Talimat sayısı ≤ 40 / SKILL.md. Niyet + bitiş durumu yaz; adım yalnız kırılgan işlemde (komut, koordinat).
 - "Bilmiyorum / doğrulanamadı" her çıktıda geçerli bir sonuçtur; uydurmak yasak.
 - Tek terim tek kavram: "kanca" (hook), "sahne", "başlangıç karesi", "klip", "kurgu", "aday", "kanıt".
-- Tarih içeren kural yazma; kişiyi "kullanıcı" diye an.
+- Tarih içeren kural yazma; kişiyi "kullanıcı" diye an. Kuralın hikâyesi `ortak/bilgi/dersler.md`'de durur.
+- **Tek kaynak:** kalıcı kural bir kez `ortak/kurallar.md`'ye kimlikle yazılır; başka dosyada metni tekrarlanmaz (kapı HATA verir).
+- **Kural terfisi iki basamak (URE-02):** tek örnekten eklenti kuralı çıkmaz. Yeni kural önce ürün kontratına; eklentiye aynı
+  kusur ikinci kez (başka ürün/video) görülünce, kapsam etiketiyle girer. Sektöre özgü kural `referans/sektor/<sektör>.md`'ye.
+- **Hüküm üç elde:** ölçü betikte (`kapi.py`), zevk kör jüride (`video-juri`, performans kalibrasyonlu), kök neden direktörde.
+  Ölçülebilir bir kuralı ajan talimatına yazma; betiğe eşik + kırma testi olarak yaz.
+- **Sağlık/sonuç dili yasak değil** (IDD-01: bilgi notu); uydurma veri yasak (IDD-02). Yeni hukuki yasak kullanıcıya sorulmadan eklenmez.
+- **Model:** en güçlü model yalnız jüri, kök neden, strateji ve aylık budamada; mekanik iş betikte ya da ucuz modelde (`ortak/ekip.md`).
 - Para/kredi harcayan her adım (Flow kredisi, sipariş, reklam) kullanıcı onayı ister; onay KARARLAR.md'ye yazılır.
 - Instagram'da takip/yorum/DM/satın alma yok; yalnız izle, kaydır, profil/site oku (beğeni kullanıcı izin verirse).
 - Marka/IP: başka markanın logosu veya ürün adı üretilen görsel/videoda kullanılmaz.
@@ -85,4 +93,11 @@ aliexpress-firsat (SAT) ──urun-paketi.json──▶ magaza-kurucu ──maga
   hata varsa dosya yazılmaz.
 - Test (PR öncesi zorunlu): `python3 docs/sozlesme_test.py` — kopya denetimi, örnekler, kırma testleri ve üretim yapmadan
   uçtan uca zincir. Çıkış 0 olmalı.
+
+## 9. Commit öncesi kapılar (hepsi çıkış 0)
+`sh docs/anonim_kontrol.sh` · `sh docs/proje_paketi_yap.sh` · `sh docs/chatgpt_paketi_yap.sh` · `claude plugin validate plugins/viral-urun-ekibi` ·
+`python3 docs/sozlesme_test.py` · `python3 docs/butce_kontrol.py` (+ `--kendini-sina`) · `cd moduller/magaza-kurucu && python3 -m pytest -q tests` ·
+eklenti içi: `skills/ekip-lideri/scripts/kapi_test.py`, `karne_test.py` · `skills/video-kurgu/scripts/kendini_test.py`, `juri_test.py` ·
+`skills/reklam-kutuphanesi-avi/scripts/kendini_test.py`, `toplayici_test.py` · `skills/teklif-ve-sayfa/scripts/kirma_testi.py` ·
+`skills/aliexpress-firsat/scripts/kirma_testi.py`. Aylık budama ve çıkarılanlar: `docs/BUDAMA-0.3.0.md`, `docs/ESKIDI/`.
 - Alan adı değişmez; yeni alan kaynakta (modül) eklenir, `surum` artar, sonra eşitlenir.
