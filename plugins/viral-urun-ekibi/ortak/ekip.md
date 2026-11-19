@@ -42,6 +42,22 @@ Model sütunu ajan dosyasındaki `model:` alanıdır. `fable` = en güçlü mode
 | SEO & AI Search Specialist (Aslı) | Arama ve feed uzmanı | `seo-aio-uzmani` | sonnet | metinler ve kurulum |
 | Accessibility Auditor (Yasemin) | Erişilebilirlik denetçisi | `erisilebilirlik-denetcisi` | sonnet | marka adımı ve kurulum sonrası |
 
+## Rol başına sonuç metriği (haftalık karne: `skills/ekip-lideri/scripts/karne_uret.py`)
+Her rol ara doğrulukla değil **sonuçla** ölçülür; kaynak kullanıcının beğenisi değil gerçek performans kaydıdır. Betik rol
+başına bir satır basar; veri yoksa "veri yok" yazar. Bir rol 3 hafta üst üste "veri yok" kalırsa gelişim işi durur, kullanıcıya tek soru gider.
+| Rol | Sonuç metriği | Veri nereden gelir |
+|---|---|---|
+| Fırsat avcısı | önerdiği adaylardan izleme ölçümünde büyüyenlerin oranı | `is/firsat/ivme.csv` (t0 → t7/t30) |
+| Kanıt savcısı | SAT kararının 30. günde ayakta kalma oranı | kanıt dosyasında `sonuc_30gun:` satırı |
+| Kreatif analisti | ayrı tutulan videolarda yönü tutan desen oranı | `is/kesfet/desen-test.tsv` (aynı hesapta kazanan–kaybeden) |
+| İçerik stratejisti | 48. saat paylaşım/izlenme medyanı (eşik %0,61) | `is/NN/yayin/olcum.csv` |
+| Kör jüri (video ve görsel) | jüri sırası ↔ gerçek performans, Spearman ρ (≥ 0,5 uyumlu) | `juri.py kalibrasyon` → `.ekip/juri-kalibrasyon.jsonl` |
+| Direktör (kök neden) | kalan videolardan ≤ 3 turda geçenlerin oranı | `is/NN/elestiri/juri.jsonl` |
+| Ses tasarımcısı | ses kapısından ilk koşuda geçen video oranı | `.ekip/kapi.jsonl` (`ses@V`) |
+| Kurgu | teknik + kurgu + görüntü kapılarından ilk koşuda geçen video oranı | `.ekip/kapi.jsonl` |
+| Ekip lideri | ilk koşuda geçen geçiş oranı; aşım sayısı | `.ekip/kapi.jsonl` |
+| Mağaza kolu (marka, görsel, site, denetim) | sepete ekleme oranı (sepete ekleme / oturum), düzeltme öncesi ve sonrası | `is/NN/magaza/analitik.csv` (Shopify analitiğinden yalnız okunur) |
+
 ## Birleşen roller (aynı işi yapanlar tek üyede)
 | Eski iki rol | Yeni üye | Neden |
 |---|---|---|
