@@ -27,7 +27,7 @@ Python komutu: macOS/Linux `python3`, Windows `py -3` (Windows'ta `python3` yazm
 | 2 | Temiz ürün görselleri | `referans/paket_*.png` + aynı-ürün panosu ve ölçüm tablosu |
 | 3 | 30 senaryo | `senaryolar.json` + `senaryolar.md/.csv`, `senaryo_kontrol.py` çıkış 0 |
 | 4 | Kare planı + promptlar | ilk 5 videonun `promptlar/VNN_SK_gorsel.txt` ve `_flow.txt` dosyaları |
-| 5 | Başlangıç kareleri + ön-üretim eleştirisi | `kareler/VNN_SK.png` (1080×1920), kabul tablosu, `elestiri/ELESTIRI-on-uretim-*.md` GEÇTİ |
+| 5 | Başlangıç kareleri + ön-üretim hükmü | `kareler/VNN_SK.png` (1080×1920), kabul tablosu, `elestiri/juri.jsonl` ön-üretim satırı `gecti: true`, `kapi.py kredi` çıkış 0 |
 | 6 | Flow klipleri | `klipler/VNN_SK.mp4` (720p), harcanan kredi DURUM'da |
 | 7–9 | Klip kontrolü, kurgu, teslim | `video-kurgu` becerisi |
 
@@ -67,8 +67,9 @@ Aşama 3 ağır iştir: `icerik-stratejisti` alt ajanına ver. Brief'te: `is/NN/
 dağılım kuralları (`asamalar.md` §3), çıktı biçimi `${CLAUDE_SKILL_DIR}/referans/senaryo-formati.md`, betik klasörü
 `${CLAUDE_SKILL_DIR}/scripts/` (ajan değişkeni bilmez, yolu açık yaz), durma ölçütü "`senaryo_kontrol.py` çıkış 0". Ana oturuma yalnız özet + dosya yolu döner. Sonra betiği **sen de** koştur (ajan çıktısı sınanır).
 
-**Ön-üretim eleştirisi (Aşama 5 sonu, kredi onayından önce):** ilk 5 senaryo ve kareleri `video-elestirmen` ajanına
-"ön-üretim" moduyla verilir; eşiği geçmeyen video Flow'a gitmez (eşikler ajan dosyasında).
+**Ön-üretim hükmü (Aşama 5 sonu, kredi onayından önce):** ilk 5 videonun kareleri kör jüriye gider (`juri.py pano --mod onuretim`,
+gerçek viral referansların ilk kareleriyle yan yana; `video-juri` 3 kopya; `juri.py birlestir`). Kalan video Flow'a gitmez;
+kök nedeni `video-elestirmen` yazar, geçenler için kontratı (`kurgu/KURALLAR.md`) doldurur. Akış: `ekip-lideri` "Hüküm hattı".
 Kredi geçişinin tek kapısı: `python3 "${CLAUDE_PLUGIN_ROOT}/skills/ekip-lideri/scripts/kapi.py" kredi is/NN --proje .` (senaryo,
 kontrat, hüküm, kredi onayı, defter). Çıkış 0 olmadan Flow'da üretim başlamaz; aşım yalnız kurucu kararıyla (`ekip-lideri` §5c).
 

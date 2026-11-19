@@ -7,7 +7,7 @@
 #   - HyperFrames becerileri (hyperframes, hyperframes-cli, hyperframes-registry, media-use) pakete GİRMEZ:
 #     render yerel Node 22+ + Chrome + CLI ister (ChatGPT'de yok), iş döngüsü check/snapshot/render olmadan doğrulanamaz,
 #     ZIP'i ~0,65 MB'tan ~2,6 MB'a ve 163 dosyadan ~385'e çıkarır; terim dönüşümü Apache-2.0 dosyalarını değiştirirdi.
-#   - Çekirdek ekibin 6 ajanı -> ayrı skill (skills/<ajan-adı>/SKILL.md), aynı sohbette uygulanan rol.
+#   - Çekirdek ekibin 7 ajanı -> ayrı skill (skills/<ajan-adı>/SKILL.md), aynı sohbette uygulanan rol.
 #   - Mağaza kolu ajanları (dosyada "<!-- kol: magaza -->" işareti) pakete GİRMEZ: işleri magaza-kurucu aşama dosyalarının
 #     içindedir (ChatGPT'de alt ajan yok; 20 rol becerisi tetik çakışması ve bağlam yükü olurdu).
 #   - magaza-kurucu becerisi DÖNÜŞTÜRÜLMEDEN kopyalanır (kaynağı iki yüzey için yazılmış ve ChatGPT'de koşulmuş; ek not girmez).
@@ -167,7 +167,10 @@ OZEL = {
         "Kreatif notları kullanıcı yükler; yoksa `skills/ekip-bilgi/references/bilgi/kreatif-notlar.md` kaynak alınır.",
     ],
     "video-elestirmen": [
-        "Kareleri kod yorumlayıcıda ffmpeg ile çıkar (saniyede 4 kare); video yüklenmediyse puan verme.",
+        "Jüri hükmü ve `kapi.py` çıktısı sohbette yoksa kök neden yazma; önce onları iste.",
+    ],
+    "video-juri": [
+        "**Aynı sohbet kör değildir.** Bu rol YENİ ve boş bir sohbette uygulanır: kullanıcı yalnız bu dosyayı ve `juri.py pano`nun ürettiği pano görsellerini yükler (senaryo, kontrat, hangi ögenin bizim olduğu yüklenmez). 3 kopya = 3 ayrı yeni sohbet; her birinin JSON çıktısı `KOR-<n>.json` olarak kaydedilir ve asıl sohbette `juri.py birlestir` ile birleştirilir.",
     ],
     "ses-tasarimcisi": [
         "`ses_tasarla.py` / `ses_olc.py` kod yorumlayıcıda (ffmpeg gerekir) koşulur; dinleyemediğini `doğrulanamadı` diye yaz.",

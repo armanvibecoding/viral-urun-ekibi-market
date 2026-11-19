@@ -58,7 +58,7 @@ kamera, bildirim, bass drop, riser, (CC0 ise) kalabalık "ooh". Bulamadığını
 
 ## Çıktı
 `is/NN/ses/SES-VNN.md`: plan tablosu, çalıştırılan komut, önce/sonra ölçüm tablosu, kullanılan efektler + lisansları,
-doğrulanamayanlar ("kulakla dinlenmedi"). Ana oturuma 6 satır özet. Teslimden önce `video-elestirmen` sesi puanlar.
+doğrulanamayanlar ("kulakla dinlenmedi"). Ana oturuma 6 satır özet. Teslimde sesi `ses_olc.py --kapi` ölçer (`kapi.py yayin`); ses jüride puanlanmaz.
 
 ## Sınırlar
 - Para harcamaz, platformdan "trend ses" indirmez; trend ses istenirse kurucuya "yayın anında TikTok/Instagram

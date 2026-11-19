@@ -71,8 +71,9 @@ her karede bindirme ekranın içinde mi. Yöntem ve ayarlar: `${CLAUDE_SKILL_DIR
 - **Ön-kontrol kapısı (kurgudan sonra, eleştirmenden önce):** `hizli_kurgu.py ayar.json --katı` (okunma UYARI'sı = çıkış 1),
   sonra `kurgu_kontrol.py ayar.json --video VIDEO.mp4` → çıkış 0 olmadan eleştirmene gönderme. Klip içerikleri
   `klipler/klip_etiket.json`dan okunur (biçim betiğin başında; yeni klip = yeni etiket satırı, bilinmeyen "bilinmiyor").
-  Betik ölçülebilir kuralları alır; kanca gücü, gerçekçilik, ritim yargısı eleştirmende kalır.
-- Teslimden önce `video-elestirmen` ajanı (soğuk izleyici, teslim modu) videoyu puanlar; ≥ 7/10 olmadan teslim yok.
+  Betik ölçülebilir kuralları alır; kanca gücü, gerçekçilik, ritim yargısı kör jüride kalır.
+- Teslimden önce kör jüri (`juri.py pano --mod teslim` → `video-juri` 3 kopya → `juri.py birlestir`; akış `ekip-lideri` "Hüküm hattı")
+  videoyu gerçek viral referanslarla yan yana puanlar; `gecti: true` olmadan teslim yok. Kalırsa kök nedeni `video-elestirmen` yazar.
   Teslim geçişinin tek kapısı: `python3 "${CLAUDE_PLUGIN_ROOT}/skills/ekip-lideri/scripts/kapi.py" yayin is/NN --proje . --kopyala`
   (teknik, kurgu, görüntü, ses, iddia, hüküm, defter, sözleşme); çıkış 0 olmadan `teslim/` klasörüne video konmaz.
 

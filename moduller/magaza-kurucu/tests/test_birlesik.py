@@ -81,7 +81,7 @@ class EkipKalibi(unittest.TestCase):
         kadro = oku(EKLENTI, "ortak", "ekip.md")
         adlar, unvanlar = [], []
         ajanlar = sorted(glob.glob(os.path.join(EKLENTI, "agents", "*.md")))
-        self.assertEqual(len(ajanlar), 26)
+        self.assertEqual(len(ajanlar), 27)
         for p in ajanlar:
             t = oku(p)
             m = self.KALIP.search(t)

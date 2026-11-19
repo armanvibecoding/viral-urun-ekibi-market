@@ -127,8 +127,10 @@ def k_hukum(is_dizin, mod, video=None):
         r = son.get(video) or son.get(video.lstrip("V")) or son.get(video.lstrip("V").lstrip("0"))
         if r is None:
             return KALDI, "%s: %s için %s hükmü yok" % (kaynak, video, mod)
-        return (GECTI, "%s tur %s gecti=true" % (kaynak, r.get("tur"))) if r.get("gecti") is True else \
-            (KALDI, "%s tur %s gecti=false (toplam %s)" % (kaynak, r.get("tur"), r.get("toplam", r.get("medyan"))))
+        kal = (r.get("kalibrasyon") or {}).get("durum")
+        if r.get("gecti") is True:
+            return GECTI, "%s tur %s gecti=true%s" % (kaynak, r.get("tur"), " · jüri kalibrasyonu: %s (hüküm DENEME)" % kal if kal and kal != "UYUMLU" else "")
+        return KALDI, "%s tur %s gecti=false (toplam %s)" % (kaynak, r.get("tur"), r.get("toplam", r.get("medyan")))
     if not son:
         return KALDI, "%s: %s modunda satır yok" % (kaynak, mod)
     kalan = sorted(v for v, r in son.items() if r.get("gecti") is not True)

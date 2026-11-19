@@ -1,4 +1,4 @@
-# Ekip (tek lider, 26 çalışma zamanı üyesi)
+# Ekip (tek lider, 27 çalışma zamanı üyesi)
 
 Lider: **Team Lead (Kerem)** = `ekip-lideri` becerisi (ana oturum; `model: fable`, çağrıldığı turda geçerli). Kullanıcıya üye **unvanı ve adıyla** anılır ("Brand Strategist (Elif) konumlamayı çıkardı"); çağrıda ajan adı kullanılır (`viral-urun-ekibi:<ajan>`).
 Model sütunu ajan dosyasındaki `model:` alanıdır. `fable` = en güçlü model: yanlışı pahalı, seyrek çağrılan yargı rolleri (eleştirmenler, strateji, direktörler). Hesabında yoksa o dosyalarda `opus` yaz.
@@ -10,7 +10,8 @@ Model sütunu ajan dosyasındaki `model:` alanıdır. `fable` = en güçlü mode
 | Risk & Validation Analyst (Selin) | Kanıt savcısı | `kanit-savcisi` | opus | SAT kararından önce; sayfa iddialarını çürütür |
 | Creative Strategy Analyst (Arda) | Kreatif analisti | `kreatif-analisti` | opus | viral video desenleri |
 | Content Strategist (Ece) | İçerik stratejisti | `icerik-stratejisti` | fable | 30 senaryo, hikâye seçimi |
-| Creative Director (QA) (Deniz) | Video eleştirmeni | `video-elestirmen` | fable | ön-üretim ve teslim eleştirisi |
+| Blind Video Panelist (Aras) | Kör video jürisi | `video-juri` | fable | kredi onayından ve teslimden önce, 3 bağımsız kopya; kalibrasyon turu |
+| Creative Director (QA) (Deniz) | Kök neden ve düzeltme direktörü | `video-elestirmen` | fable | jüri hükmü açıklandıktan sonra, tur başına bir kez |
 | Sound Designer (Ozan) | Ses tasarımcısı | `ses-tasarimcisi` | opus | kurgu aşama 8 |
 
 ## Mağaza kolu: marka ve görsel

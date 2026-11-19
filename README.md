@@ -24,7 +24,7 @@ Katkı kuralları: [CONTRIBUTING.md](CONTRIBUTING.md) · Geliştirici şartnames
 | `teklif-ve-sayfa` | Kazanan ürün için teklif, iniş sayfası, itiraz bankası ve e-posta taslağı; baskı/sahte indirim ifadesi denetçisi. |
 | `hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use` | Hareketli tasarım katmanı (HeyGen'in açık kaynak HyperFrames beceri paketi, Apache-2.0, değiştirilmeden): HTML'den video — kinetik yazı, geçiş, overlay, altyazı, ~450 hazır blok; render yerelde Node 22+ ve Chrome ister. `video-kurgu` aşama 8b'de çağrılır. |
 
-**Ajanlar** (`plugins/viral-urun-ekibi/agents/`, 26 üye): çekirdek ekip 6 (`firsat-avcisi`, `kanit-savcisi`, `icerik-stratejisti`,
+**Ajanlar** (`plugins/viral-urun-ekibi/agents/`, 27 üye): çekirdek ekip 7 (`video-juri` kör video jürisi, `firsat-avcisi`, `kanit-savcisi`, `icerik-stratejisti`,
 `kreatif-analisti`, `video-elestirmen`, `ses-tasarimcisi`) + mağaza kolu 20 (marka, görsel, site, denetim). Her üyenin İngilizce
 unvanı, adı, Türkçe rolü ve modeli: `plugins/viral-urun-ekibi/ortak/ekip.md`.
 
@@ -65,9 +65,9 @@ kreatif notlar, fırsat geçmişi, üretim deneyimi, dersler.
 
 | Yol | Ne yapabilir | Kim için |
 |---|---|---|
-| **A. Claude Code eklentisi** (önerilen) | Hattın tamamı: Instagram'da gezinme, AliExpress tarama, Shopify mağaza kurulumu ve site denetimi (26 ajanla), Flow'da üretim, ffmpeg ile kurgu. Hafıza kendiliğinden tutulur. Görseller ChatGPT'de üretilir. | Bilgisayarında Claude Code kurabilen herkes (Mac en iyisi, Windows destekli) |
+| **A. Claude Code eklentisi** (önerilen) | Hattın tamamı: Instagram'da gezinme, AliExpress tarama, Shopify mağaza kurulumu ve site denetimi (27 ajanla), Flow'da üretim, ffmpeg ile kurgu. Hafıza kendiliğinden tutulur. Görseller ChatGPT'de üretilir. | Bilgisayarında Claude Code kurabilen herkes (Mac en iyisi, Windows destekli) |
 | **B. claude.ai veya ChatGPT Projesi** | Sohbette bilgi bankasıyla ürün yorumu, viral analiz, 30 senaryo, prompt yazımı. Tarayıcı/kurgu yok veya sınırlı. | Hiç kurulum istemeyen herkes → `plugins/viral-urun-ekibi/ekler/proje-paketi/KURULUM.md` |
-| **C. ChatGPT plugin** | 15 beceri (8 iş akışı + 6 ekip rolü + bilgi bankası) ChatGPT'de; betikler kod yorumlayıcıda. Mağaza kolu tam çalışır (görsel üretimi sohbette, Shopify ChatGPT'nin kendi bağlantısıyla, Çalışma modu şart). Tarayıcı, telefon ve Flow adımlarını kullanıcı yapar; alt ajan, oturum kancası ve hareketli tasarım yok; hafıza DURUM bloğu + DEVAM KARTI. | ChatGPT'de Plugins yükleme seçeneği olan herkes → aşağıdaki **C** bölümü (ZIP: `dist/viral-urun-ekibi-chatgpt.zip`) |
+| **C. ChatGPT plugin** | 16 beceri (8 iş akışı + 7 ekip rolü + bilgi bankası) ChatGPT'de; betikler kod yorumlayıcıda. Mağaza kolu tam çalışır (görsel üretimi sohbette, Shopify ChatGPT'nin kendi bağlantısıyla, Çalışma modu şart). Tarayıcı, telefon ve Flow adımlarını kullanıcı yapar; alt ajan, oturum kancası ve hareketli tasarım yok; hafıza DURUM bloğu + DEVAM KARTI. | ChatGPT'de Plugins yükleme seçeneği olan herkes → aşağıdaki **C** bölümü (ZIP: `dist/viral-urun-ekibi-chatgpt.zip`) |
 
 ## A. Claude Code kurulumu (5 adım)
 
