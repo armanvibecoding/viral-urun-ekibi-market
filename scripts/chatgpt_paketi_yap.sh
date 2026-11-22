@@ -1,6 +1,7 @@
 #!/bin/sh
 # Viral Ürün Ekibi eklentisinden ChatGPT'ye yüklenebilir plugin ZIP'i üretir. Kaynağa DOKUNMAZ.
 # Çıktı: dist/chatgpt/viral-urun-ekibi/ (dönüştürülmüş kopya) + dist/viral-urun-ekibi-chatgpt.zip
+# ZIP git içinde TUTULMAZ (dist/ .gitignore'da): her sürümde GitHub Releases sayfasına yüklenir (gh release create vX.Y.Z dist/viral-urun-ekibi-chatgpt.zip).
 # Kullanım: sh scripts/chatgpt_paketi_yap.sh   (depo kökünden ya da herhangi bir yerden)
 # Dönüşüm özeti:
 #   - hooks/, agents/, ekler/ (proje-paketi) pakete girmez; hook'un işi ekip-lideri SKILL.md başına talimat olur.

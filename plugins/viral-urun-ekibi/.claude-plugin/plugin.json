@@ -1,7 +1,7 @@
 {
   "name": "viral-urun-ekibi",
   "displayName": "Viral Ürün Ekibi",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Tek liderli e-ticaret ekibi: Instagram'da viral ürün bulma, AliExpress'te henüz viral olmamış ürün avı, teklif, Shopify mağaza kurulumu (marka, görsel, metin, site denetimi), ChatGPT + Google Flow ile AI video üretimi ve ffmpeg kurgu",
   "author": {
     "name": "Viral Ürün Ekibi"
@@ -15,5 +15,9 @@
     "shopify",
     "magaza",
     "turkce"
-  ]
+  ],
+  "homepage": "https://github.com/armanvibecoding/viral-urun-ekibi-market",
+  "repository": "https://github.com/armanvibecoding/viral-urun-ekibi-market",
+  "icon": "./.claude-plugin/icon.png",
+  "privacyPolicyUrl": "https://github.com/armanvibecoding/viral-urun-ekibi-market/blob/main/PRIVACY.md"
 }

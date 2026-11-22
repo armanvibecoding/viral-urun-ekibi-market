@@ -12,3 +12,13 @@ is/
 dist/chatgpt/
 moduller/*/dist/
 .pytest_cache/
+
+# Türev paketler: ChatGPT ZIP'i Releases sayfasına yüklenir, depoda tutulmaz (sh scripts/chatgpt_paketi_yap.sh ile üretilir)
+dist/
+
+# Editör ve işletim sistemi
+*.log
+node_modules/
+.idea/
+.vscode/
+Thumbs.db
