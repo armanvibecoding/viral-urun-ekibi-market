@@ -4,6 +4,16 @@ Bu depo bir Claude Code eklenti pazarıdır. Pazardaki tek eklenti: `plugins/vir
 becerisi, kaynağı `moduller/magaza-kurucu/`) aynı eklentinin içindedir; kollar dosyayla konuşur (§8).
 Kullanıcıya görünen her metin **Türkçe**; kod, değişken, dosya adı İngilizce veya ASCII Türkçe olabilir.
 
+## Sözlük (tek terim, tek anlam)
+| Terim | Anlamı | Kullanma |
+|---|---|---|
+| eklenti | Claude Code plugin'i (`plugins/viral-urun-ekibi/`) | "plugin", "paket" (ChatGPT ZIP'i hariç: "ChatGPT paketi") |
+| beceri | skill (`skills/<ad>/SKILL.md`); kod, yol ve dosya adlarında `skill`/`skills` aynen kalır | "skill" (düz yazıda) |
+| ajan | alt ajan (`agents/<ad>.md`) | "rol" yalnız ChatGPT'de ajanın beceriye çevrilmiş hâli için |
+| eklenti kataloğu | marketplace (`.claude-plugin/marketplace.json`) | "pazar" |
+| hedef ülke / pazar | satış yapılan ülke (Türkiye, ABD) | marketplace anlamında "pazar" |
+| kol | ürün, mağaza, video: köprü dosyasıyla bağlanan üç iş alanı | "hat" (yalnız `uctan-uca-hat` dosya adında) |
+
 ## 1. Amaç
 Kod bilmeyen bir e-ticaret girişimcisi eklentiyi kurar ve şu 4 işi Claude'a yaptırır:
 1. `kesfet-urun-avi` — Instagram'da viral ürün bulma (Mac: iPhone Yansıtma; Windows/her yer: Chrome'da instagram.com).

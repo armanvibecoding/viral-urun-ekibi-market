@@ -1,7 +1,12 @@
 # Katkı rehberi
 
-Katkın için teşekkürler. Bu depo bir Claude Code eklenti pazarıdır; pazardaki tek eklenti `plugins/viral-urun-ekibi/` altındadır (mağaza kolu dahil).
+Katkın için teşekkürler. Bu depo bir Claude Code eklenti kataloğudur; katalogdaki tek eklenti `plugins/viral-urun-ekibi/` altındadır (mağaza kolu dahil).
 Ayrıntılı klasör sözleşmesi ve yazım kuralları: [docs/SARTNAME.md](docs/SARTNAME.md). Bu dosya kısa yoldur.
+
+**İlk katkı, 3 adım:** (1) depoyu çatalla (fork) ve bir dal aç, (2) değişikliği yap, [§4](#4-pr-göndermeden-önce-zorunlu)'teki kapıları çalıştır,
+(3) Pull Request aç (şablon seni yönlendirir). Davranış kuralları: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) · güvenlik açığı: [SECURITY.md](SECURITY.md).
+GitHub Actions (`.github/workflows/ci.yml`) testleri her PR'da çalıştırır; anonimlik denetimi kara liste depo dışında durduğu için CI'da
+"atlandı" der, onu kendi bilgisayarında çalıştırman gerekir. In English: PRs and issues in English are welcome; user-facing text stays Turkish.
 
 ## 1. Yerelde kurulum (geliştirme için)
 
@@ -10,7 +15,7 @@ git clone https://github.com/armanvibecoding/viral-urun-ekibi-market.git
 cd viral-urun-ekibi-market
 ```
 
-Claude Code içinde yerel çalışma kopyanı pazar olarak ekle — böylece değişikliklerini yayına girmeden denersin:
+Claude Code içinde yerel çalışma kopyanı katalog olarak ekle — böylece değişikliklerini yayına girmeden denersin:
 
 ```
 /plugin marketplace add ./
@@ -18,14 +23,14 @@ Claude Code içinde yerel çalışma kopyanı pazar olarak ekle — böylece de�
 ```
 
 Değişiklikten sonra `/plugin` → Marketplaces → viral-urun-market → Update (ya da Claude Code'u yeniden başlat).
-Araç ön koşulları (ffmpeg, Python paketleri, Chrome eklentisi) için [README.md](README.md) §A'ya bak.
+Araç ön koşulları (ffmpeg, Python paketleri, Chrome eklentisi) için [README.md](README.md) içindeki "Yol A" bölümüne bak.
 
-## 2. Skill eklemek veya değiştirmek
+## 2. Beceri eklemek veya değiştirmek
 
-- Yeni skill: `plugins/viral-urun-ekibi/skills/<skill-adi>/SKILL.md` (frontmatter'da `name` ve `description` zorunlu).
-  - `description` skill'in **ne zaman** çağrılacağını söyler; tetikleyici cümleleri buraya yaz.
+- Yeni beceri: `plugins/viral-urun-ekibi/skills/<beceri-adi>/SKILL.md` (frontmatter'da `name` ve `description` zorunlu).
+  - `description` becerinin **ne zaman** çağrılacağını söyler; tetikleyici cümleleri buraya yaz.
   - `SKILL.md` kısa kalır (≤ 120 satır). Ayrıntı `referans/*.md` dosyalarına, çalıştırılabilir yardımcılar `scripts/`'e.
-- Yol yazımı: skill içinden `${CLAUDE_SKILL_DIR}/referans/x.md`, eklenti kökünden `${CLAUDE_PLUGIN_ROOT}/ortak/x.md`.
+- Yol yazımı: beceri içinden `${CLAUDE_SKILL_DIR}/referans/x.md`, eklenti kökünden `${CLAUDE_PLUGIN_ROOT}/ortak/x.md`.
   **Mutlak yol (ev klasörünü ya da sürücü harfini içeren yol) yazma.** Bu değişkenler yalnız markdown gövdesinde açılır; Bash ortamında yoktur.
 - Yeni ajan: `plugins/viral-urun-ekibi/agents/<ajan>.md` (frontmatter: `name`, `description`, `tools`).
   Açıklama ekip kalıbıyla başlar: `İngilizce unvan (Ad · Türkçe rol).` ve üye `ortak/ekip.md` tablosuna eklenir. Mağaza kolu
@@ -37,11 +42,11 @@ Araç ön koşulları (ffmpeg, Python paketleri, Chrome eklentisi) için [README
   kaynak `moduller/magaza-kurucu/src/ortak/sozlesme/` (şemalar, `ornek/`, `paket_dogrula.py`) + `src/ortak/arayuz-sozlesmesi.md`;
   `surum` artar, alan silinmez. Sonra `python3 scripts/sozlesme_esitle.py` (kopya `plugins/viral-urun-ekibi/ortak/sozlesme/`),
   `python3 moduller/magaza-kurucu/tools/build.py` ve `python3 scripts/sozlesme_test.py` çıkış 0 olmalı. Betik: `ortak/paket.py`.
-- Ortak bilgi (`ortak/`) birden çok skill'in kullandığı bilgidir. Bilgi bankasını (`ortak/bilgi/`) değiştirdiysen
+- Ortak bilgi (`ortak/`) birden çok becerinin kullandığı bilgidir. Bilgi bankasını (`ortak/bilgi/`) değiştirdiysen
   claude.ai/ChatGPT proje paketini yeniden üret: `sh scripts/proje_paketi_yap.sh`.
 - Kullanıcıya görünen metin **Türkçe**; kod, değişken ve dosya adları İngilizce ya da ASCII Türkçe olabilir.
 - Kullanıcı verisi eklentiye yazılmaz; çalışma çıktısı kullanıcının proje klasöründe (`.ekip/`, `is/`) durur.
-- Davranışı değiştiren her PR'da `plugins/viral-urun-ekibi/.claude-plugin/plugin.json` içindeki `version`'ı artır.
+- Davranışı değiştiren her PR'da `plugins/viral-urun-ekibi/.claude-plugin/plugin.json` içindeki `version`'ı artır ve `CHANGELOG.md`'ye bir satır ekle.
 
 ## 3. Bilgi bankasına katkı
 
