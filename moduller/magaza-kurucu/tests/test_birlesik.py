@@ -119,7 +119,7 @@ class Kopru(unittest.TestCase):
     def test_sozlesme_testi_gecer(self):
         import subprocess
         import sys
-        r = subprocess.run([sys.executable, os.path.join(DEPO, "docs", "sozlesme_test.py")], capture_output=True, text=True)
+        r = subprocess.run([sys.executable, os.path.join(DEPO, "scripts", "sozlesme_test.py")], capture_output=True, text=True)
         self.assertEqual(r.returncode, 0, r.stdout[-800:])
 
 

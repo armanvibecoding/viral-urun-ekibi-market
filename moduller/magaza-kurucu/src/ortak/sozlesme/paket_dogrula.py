@@ -10,7 +10,7 @@
   python paket_dogrula.py zincir <urun-paketi.json> <magaza-paketi.json> [<video-paketi.json>]
 
 Kurallar bu dosyanın yanındaki *.schema.json dosyalarından okunur (tek kaynak). Kaynak: moduller/magaza-kurucu/src/ortak/sozlesme/;
-eklentideki kopya (plugins/viral-urun-ekibi/ortak/sozlesme/) bayt bayt aynıdır, docs/sozlesme_esitle.py ile eşitlenir.
+eklentideki kopya (plugins/viral-urun-ekibi/ortak/sozlesme/) bayt bayt aynıdır, scripts/sozlesme_esitle.py ile eşitlenir.
 Sürüm alanları: teklif (urun-paketi) ve magaza.tema_modu (magaza-paketi) sürüm 2 ile geldi; surum "1" dosyada HATA.
 Çıkış kodu: 0 = geçti (UYARI olabilir), 1 = HATA var, 2 = kullanım ya da dosya hatası.
 """

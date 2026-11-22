@@ -37,7 +37,7 @@
 | `.claude/agents/tasarim-direktoru.md` | taşındı | `plugins/viral-urun-ekibi/agents/tasarim-direktoru.md` | ekip kalıbı: İngilizce unvan + ad + Türkçe rol; yollar proje klasörüne |
 | `.claude/agents/tipografi-sistemcisi.md` | taşındı | `plugins/viral-urun-ekibi/agents/tipografi-sistemcisi.md` | ekip kalıbı: İngilizce unvan + ad + Türkçe rol; yollar proje klasörüne |
 | `.claude/agents/urun-kilidi-analisti.md` | taşındı | `plugins/viral-urun-ekibi/agents/urun-kilidi-analisti.md` | ekip kalıbı: İngilizce unvan + ad + Türkçe rol; yollar proje klasörüne |
-| `.codex-plugin/plugin.json` | birleşti | `docs/chatgpt_paketi_yap.sh` | ChatGPT manifesti pakette üretilir (com.openai arayüz bloğu) |
+| `.codex-plugin/plugin.json` | birleşti | `scripts/chatgpt_paketi_yap.sh` | ChatGPT manifesti pakette üretilir (com.openai arayüz bloğu) |
 | `.gitattributes` | birleşti | `.gitattributes` | LF kuralı modül ve üretilen beceriyle sınırlandı |
 | `.gitignore` | birleşti | `.gitignore` | modül dist/ ve test artıkları eklendi; research/ satırları gereksiz (klasör taşınmadı) |
 | `.mcp.json` | taşındı | `plugins/viral-urun-ekibi/.mcp.json` | Shopify bağlantısı eklenti köküne |
@@ -50,7 +50,7 @@
 | `docs/TASARIM-DILI-DEFTER.md` | taşındı | `moduller/magaza-kurucu/docs/TASARIM-DILI-DEFTER.md` | bayt bayt aynı |
 | `docs/TASARIM-ETHOS.md` | taşındı | `plugins/viral-urun-ekibi/ortak/tasarim-ethos.md` | ajanlar eklenti içinden okuyabilsin diye ortak/ altına |
 | `kaynak/<kaynak prompt dosyası>` | taşındı | `moduller/magaza-kurucu/kaynak/KAYNAK-PROMPT.md` | yeniden adlandı (eski ad anonimlik nedeniyle yazılmadı); içerik nötrleştirildi |
-| `plugin.json` | birleşti | `docs/chatgpt_paketi_yap.sh` | kök plugin.json + com.openai arayüzü ChatGPT paketinde üretilir |
+| `plugin.json` | birleşti | `scripts/chatgpt_paketi_yap.sh` | kök plugin.json + com.openai arayüzü ChatGPT paketinde üretilir |
 | `skills/gorseller/SKILL.md` | taşındı | `moduller/magaza-kurucu/skills/gorseller/SKILL.md` | düzenlendi (nötr adlar, ekip unvanları, köprü/tema modu kuralları) · üretilen kopya: plugins/viral-urun-ekibi/skills/magaza-kurucu/gorseller/ASAMA.md |
 | `skills/gorseller/agents/openai.yaml` | taşındı | `moduller/magaza-kurucu/skills/gorseller/agents/openai.yaml` | düzenlendi (nötr adlar, ekip unvanları, köprü/tema modu kuralları) |
 | `skills/gorseller/assets/fonts/Anton-Regular.ttf` | taşındı | `moduller/magaza-kurucu/skills/gorseller/assets/fonts/Anton-Regular.ttf` | bayt bayt aynı · üretilen kopya: plugins/viral-urun-ekibi/skills/magaza-kurucu/gorseller/assets/fonts/Anton-Regular.ttf |
@@ -155,12 +155,12 @@
 ## Birleşmeyle yeni gelen dosyalar (kaynak depoda karşılığı yok)
 | Dosya | Ne |
 |---|---|
-| `moduller/magaza-kurucu/src/ortak/sozlesme/` → kopya `plugins/viral-urun-ekibi/ortak/sozlesme/`, `ortak/paket.py`, `ortak/nis-esleme.tsv`, `docs/sozlesme_test.py` | köprü: 3 dosyanın JSON şeması (sürüm 1–2), doğrulayıcı, yazıcı/okuyucu betiği, 45 test (ilk yerel köprü `plugins/viral-urun-ekibi/sozlesme/` uzak sözleşmeyle birleşince kaldırıldı) |
+| `moduller/magaza-kurucu/src/ortak/sozlesme/` → kopya `plugins/viral-urun-ekibi/ortak/sozlesme/`, `ortak/paket.py`, `ortak/nis-esleme.tsv`, `scripts/sozlesme_test.py` | köprü: 3 dosyanın JSON şeması (sürüm 1–2), doğrulayıcı, yazıcı/okuyucu betiği, 45 test (ilk yerel köprü `plugins/viral-urun-ekibi/sozlesme/` uzak sözleşmeyle birleşince kaldırıldı) |
 | `moduller/magaza-kurucu/src/ortak/ekip-koprusu.md` | mağaza aşamalarının ekiple bağı: girdi, fiyatın tek kaynağı, tema modu, kapılar |
 | `moduller/magaza-kurucu/surum.json` | modül sürümü (0.5.0) |
 | `plugins/viral-urun-ekibi/ortak/ekip.md` | tam kadro: unvan · ad · Türkçe rol · ajan · model |
 | `plugins/viral-urun-ekibi/ortak/magaza-ekibi.md` | mağaza kolu ajanlarının yolları ve eksik dosya kuralı |
-| `docs/anonim-muaf.sha256` | içerik imzalı anonimlik muafiyeti (tek kayıt: tema ayar sözlüğü) |
+| `scripts/anonim-muaf.sha256` | içerik imzalı anonimlik muafiyeti (tek kayıt: tema ayar sözlüğü) |
 
 ## Rol eşlemesi (25 rol → 22 dosya)
 Tam kadro ve modeller: `plugins/viral-urun-ekibi/ortak/ekip.md`. Birleşenler: logo araştırmacısı + logo tasarımcısı → Logo Designer · görsel üretici + koşu kaydedicisi → Image Production Operator · referans küratörü + kütüphane bakımcısı → Reference Curator. 20 rol çalışma zamanında (`plugins/viral-urun-ekibi/agents/`), 2 rol geliştirme ekibinde (`.claude/agents/`).

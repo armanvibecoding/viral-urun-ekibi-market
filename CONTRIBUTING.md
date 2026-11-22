@@ -35,10 +35,10 @@ Araç ön koşulları (ffmpeg, Python paketleri, Chrome eklentisi) için [README
   `python3 -m pytest -q moduller/magaza-kurucu/tests`. Her aşama SKILL.md ≤ 5.120 bayt.
 - Köprü dosyalarının (`urun-paketi.json`, `magaza-paketi.json`, `video-paketi.json`) alanı değişirse üçü birlikte güncellenir:
   kaynak `moduller/magaza-kurucu/src/ortak/sozlesme/` (şemalar, `ornek/`, `paket_dogrula.py`) + `src/ortak/arayuz-sozlesmesi.md`;
-  `surum` artar, alan silinmez. Sonra `python3 docs/sozlesme_esitle.py` (kopya `plugins/viral-urun-ekibi/ortak/sozlesme/`),
-  `python3 moduller/magaza-kurucu/tools/build.py` ve `python3 docs/sozlesme_test.py` çıkış 0 olmalı. Betik: `ortak/paket.py`.
+  `surum` artar, alan silinmez. Sonra `python3 scripts/sozlesme_esitle.py` (kopya `plugins/viral-urun-ekibi/ortak/sozlesme/`),
+  `python3 moduller/magaza-kurucu/tools/build.py` ve `python3 scripts/sozlesme_test.py` çıkış 0 olmalı. Betik: `ortak/paket.py`.
 - Ortak bilgi (`ortak/`) birden çok skill'in kullandığı bilgidir. Bilgi bankasını (`ortak/bilgi/`) değiştirdiysen
-  claude.ai/ChatGPT proje paketini yeniden üret: `sh docs/proje_paketi_yap.sh`.
+  claude.ai/ChatGPT proje paketini yeniden üret: `sh scripts/proje_paketi_yap.sh`.
 - Kullanıcıya görünen metin **Türkçe**; kod, değişken ve dosya adları İngilizce ya da ASCII Türkçe olabilir.
 - Kullanıcı verisi eklentiye yazılmaz; çalışma çıktısı kullanıcının proje klasöründe (`.ekip/`, `is/`) durur.
 - Davranışı değiştiren her PR'da `plugins/viral-urun-ekibi/.claude-plugin/plugin.json` içindeki `version`'ı artır.
@@ -58,7 +58,7 @@ anlaşması bilgilerini ekleme — bu depo herkese açıktır.
    ```
    İkisi de `Validation passed` demeli.
 2. **Python betikleri** değiştiyse en az bir kez çalıştır; `video-kurgu` için `python3 plugins/viral-urun-ekibi/skills/video-kurgu/scripts/kendini_test.py`.
-3. **Arayüz sözleşmesi** (Mağaza Kurucu ile dosya alışverişi): `python3 docs/sozlesme_test.py` çıkış 0 vermeli.
+3. **Arayüz sözleşmesi** (Mağaza Kurucu ile dosya alışverişi): `python3 scripts/sozlesme_test.py` çıkış 0 vermeli.
    `plugins/viral-urun-ekibi/ortak/sozlesme/` elle düzenlenmez (kaynağı Mağaza Kurucu deposu; `docs/SARTNAME.md` §8).
 4. **Anonimlik ve güvenlik kontrolü** (aşağıda).
 5. PR açıklamasına neyi neden değiştirdiğini ve nasıl denediğini yaz.
@@ -71,7 +71,7 @@ bilgisayarındaki mutlak yollar (ev klasörü adını içeren her yol), API anah
 
 ### Kişisel kara liste (önerilir)
 
-`docs/anonim_kontrol.sh`, **senin bilgisayarında, depo dışında** duran bir kara listeyle tüm dosyaları tarar.
+`scripts/anonim_kontrol.sh`, **senin bilgisayarında, depo dışında** duran bir kara listeyle tüm dosyaları tarar.
 Liste depoya girmez (girerse kendisi kimliğini ele verir).
 
 ```sh
@@ -85,12 +85,12 @@ magazam
 LISTE
 chmod 600 ~/.config/viral-urun-ekibi/yasak.txt
 
-sh docs/anonim_kontrol.sh          # depo kökünü tarar; temizse 0, eşleşme varsa dosya:satır basar ve 1 döner
+sh scripts/anonim_kontrol.sh          # depo kökünü tarar; temizse 0, eşleşme varsa dosya:satır basar ve 1 döner
 ```
 
 - Betik ayrıca her `*.myshopify.com` alan adını işaretler. Bilgi bankasında bilerek tutulan **başka** mağazaların alt
   alan adlarını `~/.config/viral-urun-ekibi/myshopify-izin.txt` içine `a|b|c` biçiminde yazarak izinli yapabilirsin.
-- Liste yolunu değiştirmek için `YASAK_DOSYASI=... IZIN_DOSYASI=... sh docs/anonim_kontrol.sh`.
+- Liste yolunu değiştirmek için `YASAK_DOSYASI=... IZIN_DOSYASI=... sh scripts/anonim_kontrol.sh`.
 - Commit'lerin yazar bilgisi de kimlik taşır. İstersen GitHub'ın `<id>+<kullanici>@users.noreply.github.com`
   adresini kullan.
 - Gizli bilgi (anahtar, şifre, `.env`) asla commit'lenmez; `.gitignore` bunları dışarıda bırakır. Yanlışlıkla

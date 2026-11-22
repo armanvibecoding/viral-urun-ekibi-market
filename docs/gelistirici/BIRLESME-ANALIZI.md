@@ -4,7 +4,7 @@
 Tarih: 2026-11-18 · Yalnız analiz: iki depoda da dosya değişmedi (bu belge dışında), commit yok.
 Ölçüm yöntemi her satırda yazıyor: **[okundu]** dosya açıldı · **[koşuldu]** komut çalıştı, çıkış kodu var · **[tahmin]** ölçülmedi.
 
-> **Güncelleme (kurucu kararları sonrası):** uygulanacak plan → `docs/GOC-PLANI.md`. Bu belgedeki iki öneri değişti:
+> **Güncelleme (kurucu kararları sonrası):** uygulanacak plan → `docs/gelistirici/GOC-PLANI.md`. Bu belgedeki iki öneri değişti:
 > (1) `git subtree` YOK. B'nin commit yazarı ve geçmişindeki kara liste eşleşmesi A'nın anonimliğini bozar; dosyalar geçmişsiz kopyalanır.
 > (2) `magaza-kurucu` yönlendiricisi ikinci lider olarak kalmaz. Yönlendirme görevleri `ekip-lideri`'ne geçer, aşamalar `magaza-kurulumu` becerisinde (`user-invocable: false`) durur.
 > §7'deki kararların bir kısmı verildi (birleştir, tek lider, A'nın ad kalıbı, B gizlenecek); kalanların uygulamadaki karşılığı planın §0'ında.
@@ -48,10 +48,10 @@ Tarih: 2026-11-18 · Yalnız analiz: iki depoda da dosya değişmedi (bu belge d
 |---|---|---|
 | Hafıza | proje klasöründe `.ekip/` (DURUM, KARARLAR, DERSLER, GERI-BILDIRIM) + `is/` (çıktılar); ChatGPT'de DURUM bloğu | sohbette DEVAM KARTI + `devam-karti.md`, yani durumsuz. Yeni sohbette kartın yapıştırılması gerekiyor |
 | Kurulum | Claude Code: `/plugin marketplace add …/viral-urun-ekibi-market` → `/plugin install viral-urun-ekibi@viral-urun-market` | ChatGPT Work: Skills › Upload `magaza-kurucu.zip`. Claude: claude.ai plugin zip'i ya da `claude plugin marketplace add …/magaza-kurucu` |
-| ChatGPT paketi | `docs/chatgpt_paketi_yap.sh`: hook → lider talimatı, 6 ajan → rol becerisi, `ortak/` → `ekip-bilgi`, `${CLAUDE_*}` → göreli yol, HyperFrames hariç. 14 beceri, 0,65 MB, 163 dosya [koşuldu] | `tools/build.py`: 5 skill zip'i + tek paket (yönlendirici + `<aşama>/ASAMA.md`) + `agents/openai.yaml` + `com.openai` arayüz manifesti (`.codex-plugin/`, kök `plugin.json`) |
+| ChatGPT paketi | `scripts/chatgpt_paketi_yap.sh`: hook → lider talimatı, 6 ajan → rol becerisi, `ortak/` → `ekip-bilgi`, `${CLAUDE_*}` → göreli yol, HyperFrames hariç. 14 beceri, 0,65 MB, 163 dosya [koşuldu] | `tools/build.py`: 5 skill zip'i + tek paket (yönlendirici + `<aşama>/ASAMA.md`) + `agents/openai.yaml` + `com.openai` arayüz manifesti (`.codex-plugin/`, kök `plugin.json`) |
 | Test | `kendini_test.py` (video-kurgu, reklam-kutuphanesi-avi), `kirma_testi.py` (aliexpress-firsat, teklif-ve-sayfa), `geri_bildirim_kontrol.py`, `claude plugin validate` → **geçti** [koşuldu] | `pytest tests` → **60 geçti, 20 atlandı** (tema deposu yerelde yok); `build.py --check` → **GEÇTİ**, 11 uyarı (~10 KB üstü reference) [koşuldu] |
 | Lisans | MIT, "viral-urun-ekibi contributors"; HyperFrames Apache-2.0 (HeyGen) | MIT, telif sahibi GitHub kullanıcı adıyla yazılı; fontlar OFL 1.1 |
-| Anonimlik | kapı var: `docs/anonim_kontrol.sh`, kara liste depo dışında (28 desen). Bugün **çıkış 1**, 8 satır, hepsi HyperFrames'teki İngilizce "masaüstü" kelimesi (yanlış alarm) | kapı yok, kimlik bilerek açık (yazar, depo, tema adı). A'nın kapısında **çıkış 1, 49 satır** [koşuldu] |
+| Anonimlik | kapı var: `scripts/anonim_kontrol.sh`, kara liste depo dışında (28 desen). Bugün **çıkış 1**, 8 satır, hepsi HyperFrames'teki İngilizce "masaüstü" kelimesi (yanlış alarm) | kapı yok, kimlik bilerek açık (yazar, depo, tema adı). A'nın kapısında **çıkış 1, 49 satır** [koşuldu] |
 | GitHub | PUBLIC | PUBLIC. Son release **v0.3.6**, kaynak 0.4.1: danışmanın indirdiği zip eski [koşuldu] |
 
 ---
@@ -220,7 +220,7 @@ viral-urun-ekibi-market/
 | 4 | `video-kurgu` teslimde `video-paketi.json` yazar | şema testi 0 · B tarafında `shopify-kurulum` yalnız `pdp-galeri`/`hero` seçer (örnek dosyayla) |
 | 5 | B kaynağı `moduller/magaza-kurucu/` altına `git subtree add` ile alınır | `python3 moduller/magaza-kurucu/tools/build.py --check` → GEÇTİ · pytest 60 geçti / 20 atlandı (bugünkü taban) |
 | 6 | build.py'ye birleşik hedef eklenir (`skills/magaza-kurucu/`, `agents/openai.yaml` hariç); sözleşme tek kaynaktan kopyalanır | `claude plugin validate` geçer · Claude Code'da `viral-urun-ekibi:magaza-kurucu` listelenir |
-| 7 | Anonimlik temizliği: tema adı, kaynak prompt dosya adı, hedef kullanıcı kelimesi nötrleşir; Windows yolu kaldırılır (`OCR_TESSDATA` zorunlu olur); masaüstü test yolu ortam değişkenine geçer; HyperFrames yanlış alarmı için kurucu kendi kara listesini daraltır (liste depoda değil) | `sh docs/anonim_kontrol.sh` → çıkış 0 |
+| 7 | Anonimlik temizliği: tema adı, kaynak prompt dosya adı, hedef kullanıcı kelimesi nötrleşir; Windows yolu kaldırılır (`OCR_TESSDATA` zorunlu olur); masaüstü test yolu ortam değişkenine geçer; HyperFrames yanlış alarmı için kurucu kendi kara listesini daraltır (liste depoda değil) | `sh scripts/anonim_kontrol.sh` → çıkış 0 |
 | 8 | `ekip-lideri` yönlendirme ve kapıları, `hafiza-sablonlari.md`'ye `is/NN/magaza/`, `teklif-ve-sayfa`'ya tema modu kuralı, yasak ifadeler TSV'ye eklenir | `teklif_kontrol.py tara` B'nin örnek site metninde çıkış 0 · yeni tetik çakışma testi (beceri açıklamalarındaki tetik cümleleri kesişmiyor) çıkış 0 |
 | 9 | Plugin köküne `.mcp.json` (Shopify) eklenir | validate geçer · Claude Code `/mcp`'de shopify listelenir |
 | 10 | `chatgpt_paketi_yap.sh` `magaza-kurucu`'yu dönüştürmeden alır; manifest `com.openai` arayüzünü alır | ZIP üretilir · `${CLAUDE_` kapısı 0 · beceri sayısı 15 · boyut ≤ 2 MB |
@@ -228,7 +228,7 @@ viral-urun-ekibi-market/
 | 12 | Uçtan uca gerçek koşu (Claude Code + ChatGPT Work): 1 SAT ürünü → `urun-paketi` → mağaza (UNPUBLISHED tema) → `magaza-paketi` → altyazılı video → `video-paketi` → galeriye yükleme | 3 JSON dosyası `is/NN/magaza/` içinde · Shopify ürün gid'i · galeride video var · kurucunun gözle onayı |
 
 ### 6e. Test ve kapılar (birleşik depoda her PR'da)
-1. `sh docs/anonim_kontrol.sh` → 0
+1. `sh scripts/anonim_kontrol.sh` → 0
 2. `claude plugin validate plugins/viral-urun-ekibi` ve `claude plugin validate .` → geçer
 3. `python3 moduller/magaza-kurucu/tools/build.py --check` + `pytest moduller/magaza-kurucu/tests` → geçer
 4. A'nın mevcut kapıları: `kendini_test.py` (video-kurgu, reklam-kutuphanesi-avi), `kirma_testi.py` (aliexpress-firsat, teklif-ve-sayfa)
@@ -254,7 +254,7 @@ viral-urun-ekibi-market/
 ---
 
 ## Ek: ölçüm kaynakları
-- Anonimlik: `sh docs/anonim_kontrol.sh <B yerel kopyası>` → çıkış 1, 49 satır · `sh docs/anonim_kontrol.sh` (A) → çıkış 1, 8 satır (HyperFrames). Eşleşen desenler bu belgeye yazılmadı (kara liste kimliği ele verir).
+- Anonimlik: `sh scripts/anonim_kontrol.sh <B yerel kopyası>` → çıkış 1, 49 satır · `sh scripts/anonim_kontrol.sh` (A) → çıkış 1, 8 satır (HyperFrames). Eşleşen desenler bu belgeye yazılmadı (kara liste kimliği ele verir).
 - B: `python3 tools/build.py --check` → GEÇTİ (11 uyarı) · `pytest -q -p no:cacheprovider tests` → 60 geçti, 20 atlandı.
 - A: `claude plugin validate plugins/viral-urun-ekibi` → geçti · `unzip -l dist/viral-urun-ekibi-chatgpt.zip` → 163 dosya.
 - GitHub: `gh repo view` → iki depo da PUBLIC; B'nin son release'i v0.3.6.

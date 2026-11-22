@@ -5,8 +5,8 @@
 Tek kaynak: moduller/magaza-kurucu/src/ortak/sozlesme/ + moduller/magaza-kurucu/src/ortak/arayuz-sozlesmesi.md.
 Kopya:      plugins/viral-urun-ekibi/ortak/sozlesme/   (elle DÜZENLENMEZ)
 
-  python3 docs/sozlesme_esitle.py            # kaynaktaki OZET.json'u yeniden üret, kopyala, denetle
-  python3 docs/sozlesme_esitle.py --kontrol  # yazmadan denetle
+  python3 scripts/sozlesme_esitle.py            # kaynaktaki OZET.json'u yeniden üret, kopyala, denetle
+  python3 scripts/sozlesme_esitle.py --kontrol  # yazmadan denetle
 
 --kontrol: kopyadaki her dosyanın özeti OZET.json ile aynı mı; kaynaktaki OZET.json kaynağın kendisiyle tutarlı mı;
 kopya kaynakla bayt bayt aynı mı. Çıkış: 0 aynı, 1 farklı. İsteğe bağlı argüman: başka bir kaynak modül yolu.
@@ -89,10 +89,10 @@ def kontrol(depo):
         hatalar.append("OZET.json'da olmayan dosya: %s" % rel)
     kaynak_ozet_yolu = os.path.join(soz_klasoru(depo), OZET)
     if not os.path.isfile(kaynak_ozet_yolu):
-        return hatalar + ["kaynakta OZET.json yok: python3 docs/sozlesme_esitle.py ile üret"]
+        return hatalar + ["kaynakta OZET.json yok: python3 scripts/sozlesme_esitle.py ile üret"]
     kaynak_ozet = json.loads(bayt(kaynak_ozet_yolu).decode("utf-8"))["dosyalar"]
     if kaynak_ozet != {rel: ozet(p) for rel, p in kaynak_listesi(depo).items()}:
-        hatalar.append("kaynaktaki OZET.json kaynakla tutarsız (kaynak düzenlendi, eşitlenmedi): python3 docs/sozlesme_esitle.py")
+        hatalar.append("kaynaktaki OZET.json kaynakla tutarsız (kaynak düzenlendi, eşitlenmedi): python3 scripts/sozlesme_esitle.py")
     for rel, kaynak in sorted(kaynak_dosyalari(depo).items()):
         p = os.path.join(KOPYA, *rel.split("/"))
         if not os.path.isfile(p) or bayt(p) != bayt(kaynak):

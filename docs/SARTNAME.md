@@ -15,7 +15,7 @@ Kod bilmeyen bir e-ticaret girişimcisi eklentiyi kurar ve şu 4 işi Claude'a y
 ## 2. Klasör sözleşmesi
 ```
 plugins/viral-urun-ekibi/
-  skills/<beceri>/SKILL.md      ← ≤ 120 satır VE ≤ 12 000 bayt, ≤ 40 talimat. Ayrıntı referans dosyalara. (kapı: docs/butce_kontrol.py)
+  skills/<beceri>/SKILL.md      ← ≤ 120 satır VE ≤ 12 000 bayt, ≤ 40 talimat. Ayrıntı referans dosyalara. (kapı: scripts/butce_kontrol.py)
   skills/<beceri>/referans/*.md ← gerektiğinde okunur (SKILL.md hangi durumda hangisini okuyacağını söyler)
   skills/<beceri>/scripts/      ← çalıştırılabilir yardımcılar
   agents/<ajan>.md              ← frontmatter: name, description, tools, model; ≤ 7 000 bayt; model ortak/ekip.md ile aynı
@@ -45,7 +45,7 @@ is/NN-urun-adi/    ← her ürünün tüm çıktıları; içinde DURUM.md (o ür
 ## 4. Platform desteği
 - **macOS:** tam (iPhone Yansıtma yalnız Mac; Swift araçları kaynak olarak gelir, ilk kurulumda `swiftc` ile derlenir).
 - **Windows:** iPhone yerine Chrome'da instagram.com/reels (Claude in Chrome eklentisi). Betikler Python 3 veya POSIX sh (Windows'ta Git Bash). ffmpeg bulma sırası: `shutil.which("ffmpeg")` → `imageio_ffmpeg.get_ffmpeg_exe()` → kurulum talimatı (winget install Gyan.FFmpeg / brew install ffmpeg).
-- Mutlak yol, kişisel e-posta, hesap/mağaza adı, oturum klasörü YASAK. Teslimden önce `sh docs/anonim_kontrol.sh` 0 ile çıkmalı (kara liste depo dışında, hazırlayanın bilgisayarında).
+- Mutlak yol, kişisel e-posta, hesap/mağaza adı, oturum klasörü YASAK. Teslimden önce `sh scripts/anonim_kontrol.sh` 0 ile çıkmalı (kara liste depo dışında, hazırlayanın bilgisayarında).
 
 ## 5. ChatGPT desteği
 Her beceri için `ekler/chatgpt/<beceri>.md`: ChatGPT (Çalışma modu / Proje talimatı) için tek parça, kopyala-yapıştır sürüm.
@@ -85,19 +85,19 @@ aliexpress-firsat (SAT) ──urun-paketi.json──▶ magaza-kurucu ──maga
                                                    └────────────── video-paketi.json ────────┘
 ```
 - Sözleşmenin tek kaynağı içerideki modüldür (`moduller/magaza-kurucu/src/ortak/sozlesme/` + `src/ortak/arayuz-sozlesmesi.md`).
-  Eklentideki kopya `plugins/viral-urun-ekibi/ortak/sozlesme/` elle DÜZENLENMEZ: `python3 docs/sozlesme_esitle.py` kaynaktaki
+  Eklentideki kopya `plugins/viral-urun-ekibi/ortak/sozlesme/` elle DÜZENLENMEZ: `python3 scripts/sozlesme_esitle.py` kaynaktaki
   `OZET.json`'u yeniden üretir ve kopyalar, `--kontrol` denetler. Sürüm 2 alanları: `teklif` (urun), `magaza.tema_modu`.
 - Betik `ortak/paket.py`: `dogrula`, `urun-yaz` (SAT ürünü; `--teklif-tsv` verilirse sürüm 2, `--nis-kodu` `ortak/nis-esleme.tsv`
   ile çevrilir), `fiyat` (fiyatın tek kaynağı), `magaza-oku` (`marka-kilidi.md` + `--cikti-dizin` ile `video-ayar.json`,
   `onayli-iddialar.txt`), `iddia-kontrol` (kurgu_kontrol.py da kullanır), `video-yaz`, `video-sec`. Yazmadan önce şemadan geçirir;
   hata varsa dosya yazılmaz.
-- Test (PR öncesi zorunlu): `python3 docs/sozlesme_test.py` — kopya denetimi, örnekler, kırma testleri ve üretim yapmadan
+- Test (PR öncesi zorunlu): `python3 scripts/sozlesme_test.py` — kopya denetimi, örnekler, kırma testleri ve üretim yapmadan
   uçtan uca zincir. Çıkış 0 olmalı.
 
 ## 9. Commit öncesi kapılar (hepsi çıkış 0)
-`sh docs/anonim_kontrol.sh` · `sh docs/proje_paketi_yap.sh` · `sh docs/chatgpt_paketi_yap.sh` · `claude plugin validate plugins/viral-urun-ekibi` ·
-`python3 docs/sozlesme_test.py` · `python3 docs/butce_kontrol.py` (+ `--kendini-sina`) · `cd moduller/magaza-kurucu && python3 -m pytest -q tests` ·
+`sh scripts/anonim_kontrol.sh` · `sh scripts/proje_paketi_yap.sh` · `sh scripts/chatgpt_paketi_yap.sh` · `claude plugin validate plugins/viral-urun-ekibi` ·
+`python3 scripts/sozlesme_test.py` · `python3 scripts/butce_kontrol.py` (+ `--kendini-sina`) · `cd moduller/magaza-kurucu && python3 -m pytest -q tests` ·
 eklenti içi: `skills/ekip-lideri/scripts/kapi_test.py`, `karne_test.py` · `skills/video-kurgu/scripts/kendini_test.py`, `juri_test.py` ·
 `skills/reklam-kutuphanesi-avi/scripts/kendini_test.py`, `toplayici_test.py` · `skills/teklif-ve-sayfa/scripts/kirma_testi.py` ·
-`skills/aliexpress-firsat/scripts/kirma_testi.py`. Aylık budama ve çıkarılanlar: `docs/BUDAMA-0.3.0.md`, `docs/ESKIDI/`.
+`skills/aliexpress-firsat/scripts/kirma_testi.py`. Aylık budama ve çıkarılanlar: `docs/gelistirici/BUDAMA-0.3.0.md`, `docs/gelistirici/ESKIDI/`.
 - Alan adı değişmez; yeni alan kaynakta (modül) eklenir, `surum` artar, sonra eşitlenir.

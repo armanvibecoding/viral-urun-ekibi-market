@@ -27,5 +27,5 @@ AÇIK satır · dosyası olmayan satır · bildirilmemiş satır · ilk örnekte
 düzeltilmemiş · defter hiç yok → geçiş kalır.
 
 ## Aylık budama (en güçlü modelle, ayda bir ya da sürüm başına)
-`python3 docs/butce_kontrol.py` çıktısına bakılır (beceri boyutu, tekrar eden kural, tarihli anlatı). 30 gündür hiçbir defter
-satırında ya da kapıda tetiklenmeyen ve kapıya çevrilmiş kural metinden çıkar; çıkarılan `docs/ESKIDI/` altına kaydedilir.
+`python3 scripts/butce_kontrol.py` çıktısına bakılır (beceri boyutu, tekrar eden kural, tarihli anlatı). 30 gündür hiçbir defter
+satırında ya da kapıda tetiklenmeyen ve kapıya çevrilmiş kural metinden çıkar; çıkarılan `docs/gelistirici/ESKIDI/` altına kaydedilir.

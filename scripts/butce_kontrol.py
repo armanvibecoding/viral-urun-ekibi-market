@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Talimat bütçesi ve tek-kaynak kapısı (geliştirici betiği; eklentiye yüklenmez). Commit öncesi koşulur.
 
-  python3 docs/butce_kontrol.py            → çıkış 0 temiz · 1 ihlal
-  python3 docs/butce_kontrol.py --kendini-sina   → kapının kendisini kırarak sınar (geçici kopyada)
+  python3 scripts/butce_kontrol.py            → çıkış 0 temiz · 1 ihlal
+  python3 scripts/butce_kontrol.py --kendini-sina   → kapının kendisini kırarak sınar (geçici kopyada)
 
 Kapılar (HATA → çıkış 1):
   1. Çekirdek beceri SKILL.md: ≤ 120 satır VE ≤ 12 000 bayt (satır sınırı uzun satırla aşılmasın diye ikisi birlikte).

@@ -3,13 +3,13 @@
 # Kara liste DEPODA DEĞİL, hazırlayanın bilgisayarında durur (liste kimliği ele vereceği için):
 #   ${YASAK_DOSYASI:-$HOME/.config/viral-urun-ekibi/yasak.txt}   — satır başına bir ERE deseni (büyük/küçük harf duyarsız)
 #   ${IZIN_DOSYASI:-$HOME/.config/viral-urun-ekibi/myshopify-izin.txt} — izinli başka mağaza alt alan adları (a|b|c)
-# Kullanım: sh docs/anonim_kontrol.sh [klasör]   (varsayılan: deponun tamamı, .git hariç)
+# Kullanım: sh scripts/anonim_kontrol.sh [klasör]   (varsayılan: deponun tamamı, .git hariç)
 # Üçüncü taraf (HyperFrames, Apache-2.0) dosyaları kara listeden YALNIZ imzaları tutuyorsa muaftır:
 #   plugins/viral-urun-ekibi/licenses/hyperframes.sha256 (eklenti köküne göreli yollar). Dosya değişmiş ya da eksikse
 #   ihlal sayılır; listede olmayan yeni dosya muaf değildir. Bilinçli değişiklikten sonra imzayı yeniden üret:
 #   cd plugins/viral-urun-ekibi && find skills/hyperframes skills/hyperframes-cli skills/hyperframes-registry skills/media-use \
 #     -type f | LC_ALL=C sort | xargs shasum -a 256 > licenses/hyperframes.sha256
-# İkinci muafiyet (kendi dosyamız, içerik imzasıyla): docs/anonim-muaf.sha256 — satır: "<sha256>  <dosya adı>".
+# İkinci muafiyet (kendi dosyamız, içerik imzasıyla): scripts/anonim-muaf.sha256 — satır: "<sha256>  <dosya adı>".
 #   Yalnız, adı listede olan VE içeriği o imzayla bayt bayt aynı olan dosya kara listeden muaftır (yol fark etmez:
 #   kaynak, üretilen kopya, dist). Dosya değişirse muafiyet kendiliğinden düşer ve dosya normal taranır.
 #   Bugünkü tek kayıt: mağaza kolunun tema ayar sözlüğü (ayar-sozlugu.json) — tema ayar ANAHTARLARI (masaüstü son ekli İngilizce anahtarlar)
@@ -33,7 +33,7 @@ if [ -f "$IMZA" ]; then
     if [ "$durum" = "OK" ]; then echo "$EKLENTI/$yol:" >> "$MUAF"; else echo "[üçüncü-taraf] imza tutmuyor ($durum): $yol"; fi
   done > "$TMP.ut"
 fi
-MUAF2="$KOK/docs/anonim-muaf.sha256"
+MUAF2="$KOK/scripts/anonim-muaf.sha256"
 if [ -f "$MUAF2" ]; then
   command -v shasum >/dev/null && SHA2="shasum -a 256" || SHA2="sha256sum"
   grep -v '^#' "$MUAF2" | while read -r imza ad; do

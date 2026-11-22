@@ -1,7 +1,7 @@
 #!/bin/sh
 # Viral Ürün Ekibi eklentisinden ChatGPT'ye yüklenebilir plugin ZIP'i üretir. Kaynağa DOKUNMAZ.
 # Çıktı: dist/chatgpt/viral-urun-ekibi/ (dönüştürülmüş kopya) + dist/viral-urun-ekibi-chatgpt.zip
-# Kullanım: sh docs/chatgpt_paketi_yap.sh   (depo kökünden ya da herhangi bir yerden)
+# Kullanım: sh scripts/chatgpt_paketi_yap.sh   (depo kökünden ya da herhangi bir yerden)
 # Dönüşüm özeti:
 #   - hooks/, agents/, ekler/ (proje-paketi) pakete girmez; hook'un işi ekip-lideri SKILL.md başına talimat olur.
 #   - HyperFrames becerileri (hyperframes, hyperframes-cli, hyperframes-registry, media-use) pakete GİRMEZ:
@@ -400,7 +400,7 @@ for ad in tum_beceri + ["ekip-bilgi"]:
     satirlar.append("| `%s` | %s |" % (ad, "rol" if ad in ajanlar else ("bilgi" if ad == "ekip-bilgi" else "iş akışı")))
 yaz(os.path.join(hedef, "README.md"), """# Viral Ürün Ekibi — ChatGPT paketi
 
-Bu klasör `docs/chatgpt_paketi_yap.sh` ile üretildi; elle düzenleme (bir sonraki üretimde silinir).
+Bu klasör `scripts/chatgpt_paketi_yap.sh` ile üretildi; elle düzenleme (bir sonraki üretimde silinir).
 Başlangıç: sohbette "ekibi başlat" yaz → `ekip-lideri` becerisi devreye girer. Hafıza her cevabın sonundaki DURUM bloğudur.
 
 | Beceri | Tür |

@@ -25,7 +25,7 @@ Alınan klasörler (eklenti içinde `skills/` altında, aynı adlarla):
 
 Her dosyanın SHA-256 imzası: [`licenses/hyperframes.sha256`](licenses/hyperframes.sha256) (222 dosya). "Değişiklik yok"
 iddiası buradan sınanır: `cd plugins/viral-urun-ekibi && shasum -a 256 -c licenses/hyperframes.sha256`.
-`docs/anonim_kontrol.sh` de bu imzayı doğrular; tutmayan dosya ihlal sayılır.
+`scripts/anonim_kontrol.sh` de bu imzayı doğrular; tutmayan dosya ihlal sayılır.
 
 İleride bu klasörlerde bir dosya değiştirilirse, Apache-2.0 madde 4(b) gereği o dosyanın başına
 "Modified by Viral Ürün Ekibi" notu ve tarih eklenir; bu tablo ve imza dosyası güncellenir.

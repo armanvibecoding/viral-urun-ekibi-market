@@ -30,7 +30,7 @@ unvanı, adı, Türkçe rolü ve modeli: `plugins/viral-urun-ekibi/ortak/ekip.md
 
 **Sözleşme** (`plugins/viral-urun-ekibi/ortak/sozlesme/` + `ortak/paket.py`): kollar arasında veri taşıyan üç dosyanın şeması,
 örnekleri, doğrulayıcısı ve yazıcı-okuyucu betiği: `urun-paketi.json` (ürün → mağaza), `magaza-paketi.json` (mağaza → video),
-`video-paketi.json` (video → mağaza). Alan tablosu: `arayuz-sozlesmesi.md`. Üretim yapmadan uçtan uca deneme: `python3 docs/sozlesme_test.py`.
+`video-paketi.json` (video → mağaza). Alan tablosu: `arayuz-sozlesmesi.md`. Üretim yapmadan uçtan uca deneme: `python3 scripts/sozlesme_test.py`.
 
 **Ortak bilgi** (`plugins/viral-urun-ekibi/ortak/`): marka skoru, viral DNA, sözlük ve `bilgi/` altında ürün kataloğu,
 kreatif notlar, fırsat geçmişi, üretim deneyimi, dersler.
@@ -100,7 +100,7 @@ kreatif notlar, fırsat geçmişi, üretim deneyimi, dersler.
 3. Yeni sohbette yaz: `Ekibi başlat. Pazarım Türkiye.` → her cevabın sonunda DURUM bloğu çıkar; yeni sohbete geçerken onu yapıştır.
 
 ChatGPT'de tarayıcı, telefon ve Google Flow adımlarını sen yaparsın (ekran görüntüsü/metin yüklersin); liste `ekip-lideri` becerisinin başında.
-ZIP'i yeniden üretmek: `sh docs/chatgpt_paketi_yap.sh`. Plugin yüklenemezse B yolu (Proje + talimat) aynı bilgi bankasıyla çalışır.
+ZIP'i yeniden üretmek: `sh scripts/chatgpt_paketi_yap.sh`. Plugin yüklenemezse B yolu (Proje + talimat) aynı bilgi bankasıyla çalışır.
 
 ## Kullanım örnekleri
 - "Instagram'dan bugün 20 viral ürün bul."
@@ -133,7 +133,7 @@ Yeni skill eklemek, mevcut olanı düzeltmek ya da bilgi bankasına ürün/ders 
 PR öncesi kısaca: `claude plugin validate plugins/viral-urun-ekibi` geçmeli, kişisel bilgi (ad, e-posta, mağaza, hesap,
 mutlak yol, API anahtarı) içermemeli. Mağaza kolunun kaynağı `moduller/magaza-kurucu/`'dadır (`skills/magaza-kurucu/` oradan
 üretilir, elle düzenlenmez): `python3 moduller/magaza-kurucu/tools/build.py --check`, `python3 -m pytest -q moduller/magaza-kurucu/tests`
-ve `python3 docs/sozlesme_test.py` de geçmeli. Taşıma kaydı: [docs/TASIMA-ESLEME.md](docs/TASIMA-ESLEME.md).
+ve `python3 scripts/sozlesme_test.py` de geçmeli. Taşıma kaydı: [docs/gelistirici/TASIMA-ESLEME.md](docs/gelistirici/TASIMA-ESLEME.md).
 
 ## Lisans
 [MIT](LICENSE) — © viral-urun-ekibi contributors.

@@ -22,7 +22,7 @@ Kullanım:
   paket.py video-sec VIDEO-PAKETI.json              mağazaya yüklenecekler (yalnız pdp-galeri ve hero)
 
 Şema ve doğrulayıcı yandaki sozlesme/ klasöründedir (kaynağı moduller/magaza-kurucu/src/ortak/sozlesme/; burada
-düzenlenmez, docs/sozlesme_esitle.py eşitler). Bilinmeyen alan YAZILMAZ: verilmeyen seçenek dosyaya girmez, uydurulmaz.
+düzenlenmez, scripts/sozlesme_esitle.py eşitler). Bilinmeyen alan YAZILMAZ: verilmeyen seçenek dosyaya girmez, uydurulmaz.
 Teklif verilirse (--teklif-tsv) dosya sürüm 2 olur; verilmezse sürüm 1. Çıkış: 0 geçti, 1 hata, 2 kullanım.
 """
 import argparse

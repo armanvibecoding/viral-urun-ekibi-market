@@ -1,7 +1,7 @@
 # Göç planı: Mağaza Kurucu → Viral Ürün Ekibi (tek plugin, tek lider)
 
 **Sonuç:** 5 faz, 27 adım. Her adımın bir kanıtı var (çıkış kodu, sayı ya da dosya). Uygulayıcı ajan adımları sırayla yapar. B deposu ancak Faz 5'te gizlenir; o adım taşınan dosya sayısı (142/142) ve testler geçtikten sonra, kurucu onayıyla yapılır.
-Tarih: 2026-11-18 · Dayanak: `docs/BIRLESME-ANALIZI.md` (seçenek a) + kurucu kararları (aşağıda) · Tahmini iş: 34–42 saat [tahmin].
+Tarih: 2026-11-18 · Dayanak: `docs/gelistirici/BIRLESME-ANALIZI.md` (seçenek a) + kurucu kararları (aşağıda) · Tahmini iş: 34–42 saat [tahmin].
 Kısaltmalar: **A** = `plugins/viral-urun-ekibi/` (bu depo) · **B** = `armanvibecoding/magaza-kurucu` (yerel kopya `~/Documents/magaza-kurucu`, HEAD `d3191ae`).
 
 ---
@@ -189,7 +189,7 @@ teklif-ve-sayfa ◀──(ANALIZ §5 ürün sayfası oranları + KANIT kurallar�
 | # | Adım | Kanıt |
 |---|---|---|
 | 2.1 | `git -C B archive d3191ae \| tar -x -C <geçici>` → aşağıdaki eşleme. **Her B dosyası** `docs/goc/TASINAN.tsv`'ye yazılır (B yolu · sha256 · yeni yol · durum: `kopya` / `donusturuldu` / `birlesti`). Beklenen: 110 `kopya` (skills 77, src 10, tests 11, tools 2, docs 4, config 1, kaynak 1, README, KURULUM, .gitignore, .gitattributes → `moduller/magaza-kurucu/`), 25 `donusturuldu` (`.claude/agents/` → §1b'deki 19 dosya), 7 `birlesti` (`.claude-plugin/`×2, `.codex-plugin/`, `.agents/`, `plugin.json`, `.mcp.json`, `LICENSE` → A manifestleri) | TSV 142 satır · `kopya` satırlarında sha256 kaynakla aynı (anonim temizlikten önce) · B'de olup TSV'de olmayan yol = 0 |
-| 2.2 | Anonim temizlik (`moduller/`, yeni ajanlar): tema adı → "tema paketi" (dosya adı `config/tema.json`'dan okunur, metne yazılmaz), kaynak prompt dosya adı → nötr ad (`kaynak/KAYNAK-PROMPT.md`; test yolu da), hedef kullanıcı kelimesi → "kullanıcı", Windows yolu silinir (`OCR_TESSDATA` yoksa açık hata), masaüstü yolu → `TEMA_ZIP` ortam değişkeni, telif satırı → "viral-urun-ekibi contributors". HyperFrames'teki İngilizce "masaüstü" kelimesi yanlış alarmı için kurucu kendi kara listesini daraltır (liste depo dışında, ajan değiştirmez) | `sh docs/anonim_kontrol.sh` → çıkış **0** |
+| 2.2 | Anonim temizlik (`moduller/`, yeni ajanlar): tema adı → "tema paketi" (dosya adı `config/tema.json`'dan okunur, metne yazılmaz), kaynak prompt dosya adı → nötr ad (`kaynak/KAYNAK-PROMPT.md`; test yolu da), hedef kullanıcı kelimesi → "kullanıcı", Windows yolu silinir (`OCR_TESSDATA` yoksa açık hata), masaüstü yolu → `TEMA_ZIP` ortam değişkeni, telif satırı → "viral-urun-ekibi contributors". HyperFrames'teki İngilizce "masaüstü" kelimesi yanlış alarmı için kurucu kendi kara listesini daraltır (liste depo dışında, ajan değiştirmez) | `sh scripts/anonim_kontrol.sh` → çıkış **0** |
 | 2.3 | `moduller/magaza-kurucu/tools/build.py`: yeni hedef `A/skills/magaza-kurulumu/` (yönlendirici gövdesi + 5 aşama, `agents/openai.yaml` ChatGPT kopyasında). Frontmatter izni: plugin kopyasında `name`, `description`, `user-invocable`; ChatGPT kopyasında yalnız `name`, `description`. `arayuz-sozlesmesi.md` artık `A/sozlesme/`'den kopyalanır. Testlerde yol/ad güncellemesi | `build.py --check` → GEÇTİ · pytest ≥ 60 geçti, 0 kaldı · üretilen `SKILL.md` ≤ 5.120 B |
 | 2.4 | **Tek lider:** §2 tablosu uygulanır. `ekip-lideri/SKILL.md`: açıklamaya mağaza tetikleri, `model: fable`, ekip tablosu (§1 unvan + ad), yönlendirme satırı "mağaza kur → `magaza-kurulumu` (aşama 1'den ya da `urun-paketi.json` ile)". Ayrıntı yeni `referans/magaza-hatti.md`'ye. Kapılar (`kurulum-kontrol.md`): tema zip'i (yoksa temasız mod), Shopify bağlantısı, hedef tema `UNPUBLISHED` | `wc -c ekip-lideri/SKILL.md` artışı ≤ 1.024 B (Fable incelemesi: talimat bütçesi zaten aşılmış) · **tek giriş testi:** `ekip-lideri` dışındaki hiçbir SKILL.md açıklamasında "oturum başında", "mağaza kur", "devam et" geçmez (yeni `tests/tek_lider_test.py`, çıkış 0) |
 | 2.5 | Roller: A'nın 6 ajanına unvan + ad (açıklamanın ilk cümlesi: `Risk & Validation Analyst (Selin) (Kanıt savcısı).`); 5 çalışma rolü `A/agents/`'a (`research/` atıfları aşama references yollarına çevrilmiş); 14 geliştirme rolü depo kökü `.claude/agents/`'a; birleşen rollerin kontrol listeleri tek dosyada (kural kaybı yok: eski dosyaların her "##" başlığı yeni dosyada) | `claude plugin validate` geçer · ad tekilliği testi (26 ad, 25 dosya adı tekil) · birleşme testi: 6 birleşmede kaynak dosyaların başlık listesi ⊂ yeni dosya |
@@ -229,7 +229,7 @@ teklif-ve-sayfa ◀──(ANALIZ §5 ürün sayfası oranları + KANIT kurallar�
 ---
 
 ## 6. Kapılar (Faz 3'te ve her sonraki PR'da)
-1. `sh docs/anonim_kontrol.sh` → 0
+1. `sh scripts/anonim_kontrol.sh` → 0
 2. `claude plugin validate plugins/viral-urun-ekibi` ve `claude plugin validate .` → geçti
 3. `python3 moduller/magaza-kurucu/tools/build.py --check` → GEÇTİ · `python3 -m pytest moduller/magaza-kurucu/tests` → ≥ 60 geçti, 0 kaldı
 4. A'nın mevcut testleri: `video-kurgu` ve `reklam-kutuphanesi-avi` `kendini_test.py`, `aliexpress-firsat` ve `teklif-ve-sayfa` `kirma_testi.py`, `geri_bildirim_kontrol.py`

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Arayüz sözleşmesi testi + uçtan uca kuru deneme (görsel/video üretmeden, geçici klasörde).
 
-  python3 docs/sozlesme_test.py        # çıkış 0 = hepsi geçti
+  python3 scripts/sozlesme_test.py        # çıkış 0 = hepsi geçti
 
 Zincir: ürün bulundu -> paket.py urun-yaz -> urun-paketi.json -> (Mağaza Kurucu; burada örnek magaza-paketi.json)
         -> paket.py magaza-oku -> marka-kilidi.md -> paket.py video-yaz -> video-paketi.json -> zincir doğrulaması.
@@ -203,7 +203,7 @@ def main():
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
     # 1) Kopya güncel mi (OZET.json; yan klasörde Mağaza Kurucu deposu varsa bayt bayt)
-    kod, cikti = kos(os.path.join(KOK, "docs", "sozlesme_esitle.py"), "--kontrol")
+    kod, cikti = kos(os.path.join(KOK, "scripts", "sozlesme_esitle.py"), "--kontrol")
     test("sözleşme kopyası kaynağıyla aynı", kod == 0, cikti)
 
     # 2) Örnekler ve örnek zincir

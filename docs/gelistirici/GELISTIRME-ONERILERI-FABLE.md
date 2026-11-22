@@ -120,7 +120,7 @@ Yol kısaltmaları: **A/** = `plugins/viral-urun-ekibi/` · **B/** = Mağaza Kur
 
 **14. ChatGPT sürümünü çeviriyle değil tek kaynaktan derle; önce gerçek koşuyla sına.** Maliyet: M–L
 - Sorun: A'nın paketi metin dönüştürme ile üretiliyor; beceriler büyük, temel varsayım sınanmamış.
-- Kanıt: çıktı SKILL.md'leri 6–17 KB (`dist/chatgpt/…/skills/*/SKILL.md`); her birine 1,9–3,1 KB aynı not ekleniyor (13 dosya); "kod yorumlayıcının paket dosyalarını görüp görmediği doğrulanmadı" (`docs/chatgpt_paketi_yap.sh:105`). Altı rol becerisi aynı sohbette uygulanıyor, yani "üretici kendini puanlamaz" kuralı (A/`skills/ekip-lideri/SKILL.md:73`) ChatGPT'de tutmuyor.
+- Kanıt: çıktı SKILL.md'leri 6–17 KB (`dist/chatgpt/…/skills/*/SKILL.md`); her birine 1,9–3,1 KB aynı not ekleniyor (13 dosya); "kod yorumlayıcının paket dosyalarını görüp görmediği doğrulanmadı" (`scripts/chatgpt_paketi_yap.sh:105`). Altı rol becerisi aynı sohbette uygulanıyor, yani "üretici kendini puanlamaz" kuralı (A/`skills/ekip-lideri/SKILL.md:73`) ChatGPT'de tutmuyor.
 - Değişiklik: B deseni — tek yönlendirici + aşama dosyaları, ortak not tek dosyada. Roller aşama içine girer. Eleştiri ayrı yeni sohbette yapılır: kullanıcıya "kör eleştiri kartı" (video + referanslar + bir sayfa talimat) verilir. Yayından önce bir ürünle uçtan uca ChatGPT koşusu.
 - Etki: iki yüzeyde aynı davranış; "doğrulanmadı" satırları kapanır.
 

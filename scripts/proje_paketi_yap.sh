@@ -1,6 +1,6 @@
 #!/bin/sh
 # claude.ai / ChatGPT Projesi'ne yüklenecek dosyaları ortak/ altından kopyalar (tek klasör, düz yapı).
-# Kullanım: sh docs/proje_paketi_yap.sh   (depo kökünden)
+# Kullanım: sh scripts/proje_paketi_yap.sh   (depo kökünden)
 set -e
 KOK="$(cd "$(dirname "$0")/.." && pwd)"
 E="$KOK/plugins/viral-urun-ekibi"

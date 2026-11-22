@@ -1,7 +1,7 @@
 # Kural budaması 0.3.0 (ne nereden çıktı, tek kaynağı neresi)
 
 Hiçbir kapı ya da test kaldırılmadı; kural **metinleri** tek kaynağa indi, ayrıntı referans dosyalarına taşındı.
-Kapı: `python3 docs/butce_kontrol.py` (commit öncesi; `--kendini-sina` ile kırma testi).
+Kapı: `python3 scripts/butce_kontrol.py` (commit öncesi; `--kendini-sina` ile kırma testi).
 
 ## Ölçüm (önce → sonra)
 | Ölçüm | Önce (0.2.1) | Sonra (0.3.0) |
@@ -33,7 +33,7 @@ SES-02 müziksiz teslim yok · ICE-01 organikte fiyat · ICE-02 ABD kültür uns
 URE-01 klip süresi · URE-02 kural terfisi.
 
 ## Çalışma zamanından çıkanlar
-`docs/ESKIDI/README.md` (eski puan cetveli ve `puan_kaydet.py`).
+`docs/gelistirici/ESKIDI/README.md` (eski puan cetveli ve `puan_kaydet.py`).
 
 ## Davranışı değişen kurallar (budama değil, karar)
 - Kural terfisi: "aynı turda eklentiye işle" → önce ürün kontratı, eklentiye ikinci örnekte (URE-02; kapı `geri_bildirim_kontrol.py`).
