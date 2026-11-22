@@ -50,7 +50,8 @@ videoların kareleri kör jürinin referansıdır. Yöntem: `${CLAUDE_SKILL_DIR}
 **Hikâye bankası (Aşama 1 sonu, sahne üretiminden önce):** `is/NN/hikaye-bankasi.md`, en az 10 aday; senaryo yalnız bankadan
 seçilir. Bir sahne 2 kez yeniden üretilip tutmadıysa 3. üretim yerine bankaya dön. Satır biçimi: `uretim-kurallari.md` §2.
 
-Aşama 3 ağır iştir: `icerik-stratejisti` alt ajanına ver. Brief'te: `is/NN/kart.md`, `kilit.txt`, pazar, CTA kelimesi,
+Aşama 3 ağır iştir: `icerik-stratejisti` alt ajanına ver (30 senaryonun yazımı ajanın varsayılan modelinde; hikâye bankası ve
+ilk 5 senaryonun seçimi için ayrı çağrı, çağrıda en güçlü model). Brief'te: `is/NN/kart.md`, `kilit.txt`, pazar, CTA kelimesi,
 dağılım kuralları (`asamalar.md` §3), çıktı biçimi `${CLAUDE_SKILL_DIR}/referans/senaryo-formati.md`, betik klasörü
 `${CLAUDE_SKILL_DIR}/scripts/` (ajan değişkeni bilmez, yolu açık yaz), durma ölçütü "`senaryo_kontrol.py` çıkış 0". Ana oturuma yalnız özet + dosya yolu döner. Sonra betiği **sen de** koştur (ajan çıktısı sınanır).
 

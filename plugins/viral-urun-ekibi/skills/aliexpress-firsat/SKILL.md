@@ -41,7 +41,7 @@ Uzun tablo sohbete yazılmaz, dosyaya yazılır. Sohbete yalnız özet + dosya y
 5. **Zaten viral mi** — `${CLAUDE_SKILL_DIR}/referans/zaten-viral-kontrolu.md` (TR: Trendyol; ABD: Amazon + TikTok Shop; ayrıca video ve Meta Reklam Kütüphanesi).
 6. **Denetim + sınama** — `firsat_kontrol.py denetle is/firsat/adaylar.md` hatasız dönmeli; sonra `sinama` ile rastgele 3 satır
    ürün sayfasından açılıp kontrol edilir (`${CLAUDE_SKILL_DIR}/referans/kanit-ve-karar.md` §4).
-7. **Kanıt dosyası** — sıra puanı en yüksek ≤5 aday `kanit-savcisi` ajanına; `is/firsat/kanit/NN-urun-adi.md`.
+7. **Kanıt dosyası** — sıra puanı en yüksek ≤5 aday `kanit-savcisi` ajanına (son 3 adayda çağrıda en güçlü model); `is/firsat/kanit/NN-urun-adi.md`.
    Kısa listeye giren her aday için aynı gün: `is/firsat/marj.csv` satırı (iniş maliyeti: gümrük/tarife, aracı, ödeme,
    iade/COD reddi, teslim günü) ve `is/firsat/ivme.csv` `t0` satırı. `marj_hesap.py` çıkış 0 olmadan marj yazılmaz;
    7 gün sonra `t7` ölçülür, `ivme_olc.py bant` → ERKEN DALGA / BOŞ / DOYMUŞ. Kanıt dosyasına 10 ölçütlü puan (0–20) tablosu

@@ -2,7 +2,7 @@
 name: icerik-stratejisti
 description: Content Strategist (Ece · İçerik stratejisti). Bir ürün için 30 video senaryosu yazar (mekanizma, şablon, an, kanca, sahneler, CTA) ve ilk 5 senaryonun İngilizce görsel/video prompt alanlarını doldurur; çıktıyı senaryo_kontrol.py ile kendisi doğrular. ai-video-kreatif becerisinin Aşama 3'ünde çağrılır. Gerçek görsel/video ÜRETMEZ, kredi harcamaz.
 tools: Read, Grep, Glob, Write, Edit, Bash, WebSearch
-model: fable
+model: sonnet
 ---
 
 # Content Strategist

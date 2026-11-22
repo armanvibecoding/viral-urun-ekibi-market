@@ -1,18 +1,18 @@
 # Ekip (tek lider, 27 çalışma zamanı üyesi)
 
 Lider: **Team Lead (Kerem)** = `ekip-lideri` becerisi (ana oturum; `model: fable`, çağrıldığı turda geçerli). Kullanıcıya üye **unvanı ve adıyla** anılır ("Brand Strategist (Elif) konumlamayı çıkardı"); çağrıda ajan adı kullanılır (`viral-urun-ekibi:<ajan>`).
-Model sütunu ajan dosyasındaki `model:` alanıdır. `fable` = en güçlü model: yanlışı pahalı, seyrek çağrılan yargı rolleri (eleştirmenler, strateji, direktörler). Hesabında yoksa o dosyalarda `opus` yaz.
+Model sütunu ajan dosyasındaki `model:` alanıdır. `fable` = en güçlü model; yalnız dört işte kullanılır: **kör jüri** (`video-juri`, `kor-elestirmen`), **kök neden** (`video-elestirmen`, `tasarim-direktoru`), **strateji ve yön** (`marka-stratejisti`, `kimlik-direktoru`, `nis-stil-mimari`; hikâye seçimi ve kısa liste çağrıda model verilerek) ve **aylık kural budaması** (geliştirici işi). Hacimli ve kalıp işler `sonnet`, yazım kontrolü `haiku`, ölçülebilir her şey betik. Hesabında `fable` yoksa o dosyalarda `opus` yaz. "Çağrıda model: fable" = lider o tek çağrıda ajanı güçlü modelle çalıştırır; dosyadaki varsayılan değişmez.
 
 ## Çekirdek ekip: ürün ve kreatif
 | Unvan (ad) | Türkçe rol | Ajan | Model | Ne zaman |
 |---|---|---|---|---|
 | Product Research Lead (Kaan) | Fırsat avcısı | `firsat-avcisi` | sonnet | AliExpress taraması; mağaza kolunda pazar ve rakip araştırması |
-| Risk & Validation Analyst (Selin) | Kanıt savcısı | `kanit-savcisi` | opus | SAT kararından önce; sayfa iddialarını çürütür |
-| Creative Strategy Analyst (Arda) | Kreatif analisti | `kreatif-analisti` | opus | viral video desenleri |
-| Content Strategist (Ece) | İçerik stratejisti | `icerik-stratejisti` | fable | 30 senaryo, hikâye seçimi |
+| Risk & Validation Analyst (Selin) | Kanıt savcısı | `kanit-savcisi` | opus | SAT kararından önce; sayfa iddialarını çürütür; yalnız son 3 adayda çağrıda model: fable |
+| Creative Strategy Analyst (Arda) | Kreatif analisti | `kreatif-analisti` | sonnet | viral video desenleri (sayım betik ve SQL işi; desen yorumu ayda bir, çağrıda model: fable) |
+| Content Strategist (Ece) | İçerik stratejisti | `icerik-stratejisti` | sonnet | 30 senaryonun yazımı; hikâye bankası ve ilk 5 seçimi için çağrıda model: fable |
 | Blind Video Panelist (Aras) | Kör video jürisi | `video-juri` | fable | kredi onayından ve teslimden önce, 3 bağımsız kopya; kalibrasyon turu |
 | Creative Director (QA) (Deniz) | Kök neden ve düzeltme direktörü | `video-elestirmen` | fable | jüri hükmü açıklandıktan sonra, tur başına bir kez |
-| Sound Designer (Ozan) | Ses tasarımcısı | `ses-tasarimcisi` | opus | kurgu aşama 8 |
+| Sound Designer (Ozan) | Ses tasarımcısı | `ses-tasarimcisi` | sonnet | kurgu aşama 8 (ölçüm okuyup komut üretir; yargı betik eşiklerinde) |
 
 ## Mağaza kolu: marka ve görsel
 | Unvan (ad) | Türkçe rol | Ajan | Model | Ne zaman |
@@ -24,7 +24,7 @@ Model sütunu ajan dosyasındaki `model:` alanıdır. `fable` = en güçlü mode
 | Niche Art Director (Zeynep) | Niş stil mimarı | `nis-stil-mimari` | fable | yeni niş; nişe uygunluk düşükse |
 | Typography Systems Designer (Emre) | Tipografi sistemcisi | `tipografi-sistemcisi` | opus | marka adımı; her görsel/site turu |
 | Product Fidelity Analyst (Burak) | Ürün kilidi analisti | `urun-kilidi-analisti` | opus | üretimden önce ve her turdan sonra |
-| Copywriter (Naz) | Görsel metin yazarı | `metin-yazari` | fable | istemlerden önce |
+| Copywriter (Naz) | Görsel metin yazarı | `metin-yazari` | opus | istemlerden önce |
 | Prompt Engineer (Can) | İstem mühendisi | `prompt-muhendisi` | opus | üretim istemleri |
 | Image Production Operator (Tolga) | Görsel üretim operatörü ve koşu kaydedicisi | `gorsel-uretici` | sonnet | onaylı üretim listesi; gerçek ortam koşusu |
 | Visual QA Inspector (İpek) | Görsel yazım bekçisi (OCR) | `gorsel-qa` | haiku | her görsel |

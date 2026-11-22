@@ -93,7 +93,7 @@ class EkipKalibi(unittest.TestCase):
             self.assertIn("`%s`" % os.path.basename(p)[:-3], kadro)
             model = re.search(r"^model: (\w+)$", t, re.M)
             self.assertIsNotNone(model, os.path.basename(p))
-            self.assertIn("| %s |" % model.group(1), [l for l in kadro.split("\n") if "`%s`" % os.path.basename(p)[:-3] in l][0])
+            self.assertIn("| %s |" % model.group(1), [l for l in kadro.split("\n") if l.lstrip().startswith("|") and "`%s`" % os.path.basename(p)[:-3] in l][0])
         self.assertEqual(len(set(adlar)), len(adlar), "ad çakışması")
         self.assertEqual(len(set(unvanlar)), len(unvanlar), "unvan çakışması")
 

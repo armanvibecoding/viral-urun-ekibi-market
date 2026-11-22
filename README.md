@@ -45,8 +45,8 @@ kreatif notlar, fırsat geçmişi, üretim deneyimi, dersler.
 - **Shopify bağlantısı:** eklenti Shopify'ın uzak bağlantısını (`.mcp.json`) getirir; ilk kullanımda `/mcp` → shopify ile giriş yaparsın.
 - **Video mağazayla aynı sistemde:** altyazı ve kapak mağazanın yazı ailesini ve renklerini kullanır; videoda yalnız mağazanın
   onaylı iddiaları söylenir (kapı: `kurgu_kontrol.py --magaza-paketi`).
-- **Model:** lider en güçlü modelle çalışmalı: oturumu `/model fable` ile aç (yoksa opus). Yargı rolleri ajan dosyasında `model: fable`;
-  hesabında yoksa o dosyalarda `opus` yaz.
+- **Model:** lider en güçlü modelle çalışmalı: oturumu `/model fable` ile aç (yoksa opus). En güçlü model yalnız kör jüri, kök neden ve strateji rollerinde
+  (`model: fable`; hesabında yoksa o dosyalarda `opus` yaz); hacimli işler `sonnet`, ölçülebilir her şey betik (`ortak/ekip.md`).
 - Claude görsel üretmez: mağazanın görsel adımında görseller ChatGPT'de üretilip sohbete eklenir.
 
 ### Dosya zinciri (ürün → mağaza → video → mağaza)
