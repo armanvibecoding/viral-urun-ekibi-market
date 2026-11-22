@@ -8,7 +8,7 @@ sunucusu yoktur, hiçbir yere telemetri göndermez.** Her şey sizin bilgisayar�
 - Çalışma çıktıları (ürün listeleri, kanıt dosyaları, senaryolar, videolar) sizin proje klasörünüzde kalır: hafıza `.ekip/`,
   ürün çıktıları `is/`. Eklentinin kendi klasörüne kullanıcı verisi yazılmaz.
 - Oturum kancası (`hooks/durum-yukle.sh`) yalnızca `.ekip/` dosyalarını yerelde okuyup Claude'a bağlam olarak verir; ağa çıkmaz.
-- Eklentideki betikler (kurgu, doğrulama, paket yazıcı) yerelde çalışır. Tek istisna: `reklam-kutuphanesi-avi` becerisinin
+- Eklentideki betikler (kurgu, doğrulama, paket yazıcı) yerelde çalışır. Tek istisna: `spy` becerisinin
   `shopify_kontrol.py` betiği, bir mağazanın herkese açık ürün listesini (`/products.json`) okumak için o mağazanın adresine
   salt-okunur bir HTTP isteği atar; hesap bilgisi göndermez.
 

@@ -1,7 +1,7 @@
 # Ekip köprüsü: mağaza aşamalarının ekibin geri kalanıyla bağı
 
 Ne zaman okunur: `urun-paketi.json` geldiğinde, tema paketi yokken, site metni yazılırken, kurulum bitince, video geldiğinde.
-Mağaza Kurucu, Viral Ürün Ekibi'nin mağaza koludur. Ekibin tek lideri `ekip-lideri` becerisidir: işi o başlatır, onayları o toplar, hafızayı o tutar. Bu dosya aşamaların ekipten ne alıp ekibe ne verdiğini söyler.
+Mağaza Kurucu, Viral Ürün Ekibi'nin mağaza koludur. Ekibin tek lideri `captain` becerisidir: işi o başlatır, onayları o toplar, hafızayı o tutar. Bu dosya aşamaların ekipten ne alıp ekibe ne verdiğini söyler.
 
 ## 1. Dosyalar ve hafıza
 - Proje klasörü varsa (Claude Code) her şey `is/NN-urun/magaza/` altındadır: `devam-karti.md`, `urun-paketi.json`, `magaza-paketi.json`, `video-paketi.json`. Aşama sonunda DEVAM KARTI bu dosyaya da yazılır; lider `.ekip/DURUM.md`'ye tek satır ekler.

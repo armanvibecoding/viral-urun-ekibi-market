@@ -1,4 +1,4 @@
-# reklam-kutuphanesi-avi niş kodu (referans/nisler.md) -> mağaza niş eki (tema templateSuffix). Eşleşmeyen kod: nis-gadget + UYARI. Kullanan: ortak/paket.py urun-yaz --nis-kodu.
+# spy niş kodu (referans/nisler.md) -> mağaza niş eki (tema templateSuffix). Eşleşmeyen kod: nis-gadget + UYARI. Kullanan: ortak/paket.py urun-yaz --nis-kodu.
 kod	nis
 evcil	nis-pet
 bebek	nis-ev

@@ -90,7 +90,7 @@ def yerel_testler(k):
 
     # urun-yaz: ekibin dosyalarından paket; fiyatın TEK kaynağı
     tb = oku(os.path.join(EKLENTI, "skills", "teklif-ve-sayfa", "sablon", "teklif.tsv"))
-    mb = oku(os.path.join(EKLENTI, "skills", "aliexpress-firsat", "sablon", "marj.csv"))
+    mb = oku(os.path.join(EKLENTI, "skills", "hunter", "sablon", "marj.csv"))
     rakip = teklif_satir(tb, tur="rakip", kaynak_url="https://www.ornek-magaza.example/products/rampa", fiyat="44.95")
     teklif = yaz(k, "teklif.tsv", tb + rakip + teklif_satir(tb))
     marj = yaz(k, "marj.csv", mb.rstrip("\n") + "\nkatlanır kedi rampası,US,USD,39.99,11.40,4.2,0,-,0,2.9,0.3,5,6,8,ornek\n")
@@ -162,7 +162,7 @@ def yerel_testler(k):
     kotu3 = yaz(k, "fiyat.json", {"cta": {"satir1": "Şimdi 499"}})
     kod, c = kos(PAKET, "iddia-kontrol", mp, kotu3)
     test("kırma: mağazadakinden farklı fiyat -> 1", kod == 1 and "499" in c, c)
-    kk = os.path.join(EKLENTI, "skills", "video-kurgu", "scripts", "kurgu_kontrol.py")
+    kk = os.path.join(EKLENTI, "skills", "cut", "scripts", "kurgu_kontrol.py")
     kod, c = kos(kk, iyi, "--magaza-paketi", mp, "--yalniz-iddia")
     test("kurgu_kontrol --magaza-paketi onaylı ayar -> 0", kod == 0 and "GEÇTİ" in c, c)
     kod, c = kos(kk, kotu, "--magaza-paketi", mp, "--yalniz-iddia")

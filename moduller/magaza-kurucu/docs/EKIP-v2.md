@@ -101,7 +101,7 @@ Yeni roller (10) **kalın**. Her rolde: girdi, ölçülebilir kontrol listesi, �
 ## 5. İki yüzeyde çalışma (ChatGPT + Claude)
 - **Çalışma zamanı ekibi aşama içindedir.** ChatGPT'de ve claude.ai sohbetinde alt ajan yok (plugin `agents/` claude.ai Chat'te yok sayılıyor; ChatGPT plugin'i ajan dosyası taşımıyor: `research/plan/YOL-HARITASI.md` §0). Bu yüzden yeni rollerin kullanıcıya dokunan işi aşama dosyalarına girdi: tipografi (marka adımı + T10), feed karesi (görseller), site denetimi (Adım 8), arayüz (urun-analiz + kurulum). `.claude/agents/` yalnız geliştirme ekibidir; pakete girmez.
 - **Paket sınırları korunuyor:** her SKILL.md ≤ 5.120 bayt (marka 5.094, gorseller 5.078, shopify-kurulum 4.818, yönlendirici 4.915), `tools/build.py --check` geçiyor, 80 test + 35 alt test geçiyor (yeni: `tests/test_ocr_kontrol.py`). Yeni reference dosyaları `src/ortak/` tek kaynaktan kopyalanıyor.
-- **ChatGPT:** yalnız Çalışma modu (test14: Sohbet modunda şablonlar okunmadı). Yükleme insan eliyle (Skills › Upload `magaza-kurucu.zip` ya da Plugins › arşiv). G0 istemi de tek çağrı = tek görsel kuralına uyuyor.
+- **ChatGPT:** yalnız Çalışma modu (test14: Sohbet modunda şablonlar okunmadı). Yükleme insan eliyle (Skills › Upload `builder.zip` ya da Plugins › arşiv). G0 istemi de tek çağrı = tek görsel kuralına uyuyor.
 - **Claude:** görsel üretmez; G0 dahil istemler dosya olarak verilir. Shopify bağlayıcısıyla kurulum aynı.
 - **Doğrulanmadı:** 0.4.0 gerçek ChatGPT Çalışma koşusunda henüz denenmedi (görsel üretimi kullanıcı onayı ister). `platform-uyum-muhendisi` ilk koşuda G0'ın yazısız gelip gelmediğini ve T10'da `type_heading_font` yazımını kayda geçirmeli.
 

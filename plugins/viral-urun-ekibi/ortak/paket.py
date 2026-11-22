@@ -132,7 +132,7 @@ def pazar_coz(kod):
 
 
 def nis_coz(kod):
-    """Ekibin niş kodu (reklam-kutuphanesi-avi referans/nisler.md) -> mağaza niş eki. (nis, uyarı|None)"""
+    """Ekibin niş kodu (spy referans/nisler.md) -> mağaza niş eki. (nis, uyarı|None)"""
     tablo = {}
     with open(NIS_ESLEME, encoding="utf-8") as f:
         for satir in f:

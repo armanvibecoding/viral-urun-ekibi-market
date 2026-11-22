@@ -1,11 +1,11 @@
 ---
-name: magaza-kurucu
+name: builder
 description: "Viral Ürün Ekibi'nin mağaza kolu: ürün fotoğrafı ve ülkeden ya da ekibin urun-paketi.json dosyasından Shopify mağazası kurar (5 aşama: ürün analizi, marka, görseller, metinler, Shopify kurulumu ve site denetimi). Ekip lideri 'mağaza kur' işini buraya verir; kullanıcı ürün fotoğrafı ekleyip 'mağaza kur', 'bu ürün için mağaza kur, ülke: Türkiye', 'bu ürünü X ülkesinde satacağız' dediğinde ya da bir DEVAM KARTI yapıştırıp 'devam' dediğinde de kullanılır."
 ---
 
 # Mağaza Kurucu (ekibin mağaza kolu, aşama sıralayıcısı)
 
-Ekibin tek lideri `ekip-lideri` becerisidir; bu dosya yalnız 5 aşamayı sıralar. Kurallar, adımlar ve şablonlar aşama dosyalarındadır; burada tekrar edilmez. `ekip-lideri` bu ortamda varsa ve iş ondan gelmediyse önce onu çağır (hafıza ve onay kapıları onda), sonra buraya dön.
+Ekibin tek lideri `captain` becerisidir; bu dosya yalnız 5 aşamayı sıralar. Kurallar, adımlar ve şablonlar aşama dosyalarındadır; burada tekrar edilmez. `captain` bu ortamda varsa ve iş ondan gelmediyse önce onu çağır (hafıza ve onay kapıları onda), sonra buraya dön.
 
 ## Girdi
 Ürün fotoğraf(lar)ı + ülke; ya da ekibin `urun-paketi.json` dosyası (kanıt, rakip, onaylı teklif). Kullanıcıdan başka bilgi istenmez. Ekiple dosya alışverişi, fiyatın tek kaynağı ve tema modu: `urun-analiz/references/ekip-koprusu.md`.

@@ -1,6 +1,6 @@
 # Mağaza kolunun kaynağı ve üretilen kopyası her platformda aynı bayt olmalı (build.py --check bayt bayt karşılaştırır).
 moduller/** text=auto eol=lf
-plugins/viral-urun-ekibi/skills/magaza-kurucu/** text=auto eol=lf
+plugins/viral-urun-ekibi/skills/builder/** text=auto eol=lf
 plugins/viral-urun-ekibi/ortak/sozlesme/** text=auto eol=lf
 *.ttf binary
 *.jpg binary

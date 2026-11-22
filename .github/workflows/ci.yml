@@ -73,23 +73,23 @@ jobs:
 
       - name: Ekip lideri kapıları
         run: |
-          python plugins/viral-urun-ekibi/skills/ekip-lideri/scripts/kapi_test.py
-          python plugins/viral-urun-ekibi/skills/ekip-lideri/scripts/karne_test.py
+          python plugins/viral-urun-ekibi/skills/captain/scripts/kapi_test.py
+          python plugins/viral-urun-ekibi/skills/captain/scripts/karne_test.py
 
       - name: Video kurgu testleri
         run: |
-          python plugins/viral-urun-ekibi/skills/video-kurgu/scripts/kendini_test.py
-          python plugins/viral-urun-ekibi/skills/video-kurgu/scripts/juri_test.py
+          python plugins/viral-urun-ekibi/skills/cut/scripts/kendini_test.py
+          python plugins/viral-urun-ekibi/skills/cut/scripts/juri_test.py
 
       - name: Reklam kütüphanesi toplayıcı testleri
         run: |
-          python plugins/viral-urun-ekibi/skills/reklam-kutuphanesi-avi/scripts/kendini_test.py
-          python plugins/viral-urun-ekibi/skills/reklam-kutuphanesi-avi/scripts/toplayici_test.py
+          python plugins/viral-urun-ekibi/skills/spy/scripts/kendini_test.py
+          python plugins/viral-urun-ekibi/skills/spy/scripts/toplayici_test.py
 
       - name: Teklif ve AliExpress kırma testleri
         run: |
           python plugins/viral-urun-ekibi/skills/teklif-ve-sayfa/scripts/kirma_testi.py
-          python plugins/viral-urun-ekibi/skills/aliexpress-firsat/scripts/kirma_testi.py
+          python plugins/viral-urun-ekibi/skills/hunter/scripts/kirma_testi.py
 
       - name: Yükleme paketleri üretilebiliyor mu (Claude ZIP + ChatGPT ZIP)
         run: |

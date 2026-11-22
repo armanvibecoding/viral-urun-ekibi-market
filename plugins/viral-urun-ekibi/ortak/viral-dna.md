@@ -1,7 +1,7 @@
 # Viral ürün DNA'sı (ortak bilgi)
 
 Bu dosya, Instagram'da **sıfırdan patlamış** ürünlerin ortak özelliklerini ölçüt hâline getirir.
-`aliexpress-firsat` becerisi adayları bu ölçütle süzer; `ai-video-kreatif` kanca seçerken buna bakar.
+`hunter` becerisi adayları bu ölçütle süzer; `studio` kanca seçerken buna bakar.
 
 **Kaynak:** 114 saha notu (Instagram Reels, her not tek video; 102'si ≥1 milyon izlenmeli) + 70 marka
 sitesinin fiyat taraması. Parantezdeki sayılar not numarasıdır (ör. "063" = 63 numaralı not).
@@ -33,7 +33,7 @@ Akraba ürün seçerken yalnız marka gibi davranan hesaplar örnek alınır →
 
 **Eşik nereden?** Kaynak çalışmada 7 maddelik bu liste milyonluk ürünlerden türetildi ve "en az 4" ile kullanıldı.
 Ölçülmüş zayıflık: gerçek aday listesinde adayların çoğu 5–7/7 aldı → **DNA puanı kapıdır, sıralama değildir.**
-Sıralama `aliexpress-firsat` becerisindeki sıra puanıyla (mekanizma gücü + doygunluk + marj + üretilebilirlik) yapılır.
+Sıralama `hunter` becerisindeki sıra puanıyla (mekanizma gücü + doygunluk + marj + üretilebilirlik) yapılır.
 
 ## 3. Mekanizma tablosu (izleyici neden durdu / neden paylaştı)
 

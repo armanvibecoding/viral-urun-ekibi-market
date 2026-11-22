@@ -35,7 +35,7 @@ All user-facing text is Turkish; contributions and issues in English are welcome
    /plugin marketplace add armanvibecoding/viral-urun-ekibi-market
    /plugin install viral-urun-ekibi@viral-urun-market
    ```
-3. In an empty folder run `claude` and type `/viral-urun-ekibi:ekip-lideri`.
+3. In an empty folder run `claude` and type `/viral-urun-ekibi:captain`.
 
 **ChatGPT**
 
@@ -53,12 +53,12 @@ flowchart LR
     A["Product arm<br/>find, validate, offer"] -- urun-paketi.json --> B["Store arm<br/>brand, images, copy, Shopify"]
     B -- magaza-paketi.json --> C["Video arm<br/>scripts, clips, editing"]
     C -- video-paketi.json --> B
-    L(("ekip-lideri")) -.manages.-> A
+    L(("captain")) -.manages.-> A
     L -.-> B
     L -.-> C
 ```
 
-The store-building arm (`magaza-kurucu` skill) ships inside the same plugin. Schemas for the three bridge files live in
+The store-building arm (`builder` skill) ships inside the same plugin. Schemas for the three bridge files live in
 `plugins/viral-urun-ekibi/ortak/sozlesme/`.
 
 ## Red lines

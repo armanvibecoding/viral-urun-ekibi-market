@@ -1,6 +1,6 @@
 # Marka skoru — "marka mı, deneyici mi?" (0–10)
 
-Kullanan beceriler: `kesfet-urun-avi` (Instagram profili), `aliexpress-firsat` (akraba ürünün satıcısı),
+Kullanan beceriler: `radar` (Instagram profili), `hunter` (akraba ürünün satıcısı),
 `kreatif-analisti` ajanı (hangi notlar desen kanıtı sayılır). Puan **gözleme** dayanır; görmediğin
 kriter 0 değil "?" yazılır ve toplam "en az N" diye verilir.
 

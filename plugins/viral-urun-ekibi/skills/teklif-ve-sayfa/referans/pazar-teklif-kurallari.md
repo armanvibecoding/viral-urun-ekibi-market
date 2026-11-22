@@ -9,7 +9,7 @@ Bu dosya hukuki görüş değildir; **en sıkı yorum** seçilmiştir.
 - Yorum, puan, müşteri/satış/stok sayısı, uzman onayı, önce-sonra: yalnız gerçek ve belgeli. Yoksa yer tutucu `{...}` ya da hiç.
 - Aciliyet yalnız gerçek ve tarihli kampanyada; geri sayım sayacı, sahte stok, "X kişi bakıyor" hiçbir pazarda yok.
 - Çizili fiyat: yalnız gerçekten uygulanmış önceki fiyat + kanıt (`karsilastirma_kaniti`). Kanıt yoksa çizili fiyat yok.
-- Paket indirimi sonrası iniş maliyeti çarpanı ≥2× kalmalı (`aliexpress-firsat/scripts/marj_hesap.py`); kalmıyorsa paket indirimi küçülür.
+- Paket indirimi sonrası iniş maliyeti çarpanı ≥2× kalmalı (`hunter/scripts/marj_hesap.py`); kalmıyorsa paket indirimi küçülür.
 - Garanti ne yazıyorsa o uygulanır; uygulanamayacak garanti (ör. "ömür boyu") yazılmaz.
 
 ## TR — güven > fiyat

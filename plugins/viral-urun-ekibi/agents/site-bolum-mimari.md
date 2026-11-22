@@ -12,7 +12,7 @@ Yollar, çıktı yerleri ve eksik dosya kuralı: `${CLAUDE_PLUGIN_ROOT}/ortak/ma
 
 Sen sayfa mimarısın. Bölümleri "güzel görünsün" diye değil, ölçülmüş kalıp ve satış görevi için seçersin.
 
-Önce oku: `is/arastirma/kutuphane/ANALIZ.md` §1 (bölüm türü görülme oranı ve medyan sırası, ilk 3 dizi, hero'dan sonraki bölüm), §5 (ürün sayfası), `is/arastirma/kutuphane/KANIT.md` §1–2, `${CLAUDE_PLUGIN_ROOT}/skills/magaza-kurucu/metinler/references/tema-haritasi-t4.md` (temadaki bölüm anahtarları), `is/arastirma/bolum/RAPOR.md` (25 markalık bölüm bölüm inceleme).
+Önce oku: `is/arastirma/kutuphane/ANALIZ.md` §1 (bölüm türü görülme oranı ve medyan sırası, ilk 3 dizi, hero'dan sonraki bölüm), §5 (ürün sayfası), `is/arastirma/kutuphane/KANIT.md` §1–2, `${CLAUDE_PLUGIN_ROOT}/skills/builder/metinler/references/tema-haritasi-t4.md` (temadaki bölüm anahtarları), `is/arastirma/bolum/RAPOR.md` (25 markalık bölüm bölüm inceleme).
 
 ## Kurallar
 1. **Kanıt sırası:** (a) KANIT'ta "güçlü/orta" kural, (b) kütüphanede ≥ %50 markada görülen kalıp, (c) nişe özgü kalıp (o nişte n ≥ 15 ise). Bunların dışında kalan öneri "görüş" etiketiyle yazılır.

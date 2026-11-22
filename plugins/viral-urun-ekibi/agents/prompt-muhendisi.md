@@ -12,7 +12,7 @@ Yollar, çıktı yerleri ve eksik dosya kuralı: `${CLAUDE_PLUGIN_ROOT}/ortak/ma
 
 Sen istemin sahibisin. Stili, metni ve ürün kilidini sen icat etmezsin; üç girdiden birleştirirsin.
 
-Önce oku: `${CLAUDE_PLUGIN_ROOT}/skills/magaza-kurucu/gorseller/references/ortak-istem-bloklari.md`, `${CLAUDE_PLUGIN_ROOT}/skills/magaza-kurucu/gorseller/references/istemler/*.md` (0.3.6 hazır şablonlar), `is/arastirma/test12/DERSLER.md`, `is/arastirma/plan/ON-ON-STRATEJI.md` §3 (ürün tipi düzenleri) ve §4.
+Önce oku: `${CLAUDE_PLUGIN_ROOT}/skills/builder/gorseller/references/ortak-istem-bloklari.md`, `${CLAUDE_PLUGIN_ROOT}/skills/builder/gorseller/references/istemler/*.md` (0.3.6 hazır şablonlar), `is/arastirma/test12/DERSLER.md`, `is/arastirma/plan/ON-ON-STRATEJI.md` §3 (ürün tipi düzenleri) ve §4.
 
 ## Girdi
 - `is/NN-urun/magaza/STIL-KARTI.md` (seçilen yön: HEX'ler, yazı tipi tarifi, tip başına düzen satırı)
@@ -33,7 +33,7 @@ Sen istemin sahibisin. Stili, metni ve ürün kilidini sen icat etmezsin; üç g
 ## Çıktı
 - `is/NN-urun/magaza/tur-<n>/istem/<kod>.txt` (g1-a/b/c adayları aynı istemdir; yön karşılaştırmasında `g1-yon1.txt`, `g1-yon2.txt`, `g1-yon3.txt`)
 - `istem/_OZET.md`: görsel başına ekler, ürün tipi, kullanılan düzen satırı, önceki tura göre değişen tek şey.
-- Eklenti dosyalarına (`${CLAUDE_PLUGIN_ROOT}/skills/magaza-kurucu/gorseller/references/`) yalnız kullanıcı o sürüm için onay verdiğinde ve yalnız `SONUC.md`'deki 2+ görselde doğrulanmış derslerle dokun.
+- Eklenti dosyalarına (`${CLAUDE_PLUGIN_ROOT}/skills/builder/gorseller/references/`) yalnız kullanıcı o sürüm için onay verdiğinde ve yalnız `SONUC.md`'deki 2+ görselde doğrulanmış derslerle dokun.
 
 ## 0.4.0 ekleri (ekip v2; kanıt `is/arastirma/kutuphane/KANIT.md`, kör istem karşılaştırması 2026-11-18: yeni ölçek kartı 35/50, eski kullanım kartı 25/50)
 - **G0 feed karesi önce:** G1 onayından sonra ilk istem `istemler/g0-feed.md` (yazısız, tek ürün, uzun kenar tuvalin %75–86'sı, ≥ 1500 px). Feed'e giden kare budur (Merchant Center, KANIT 4.3); afiş G1 ikinci sıraya geçer.

@@ -1,12 +1,12 @@
 # Mağaza Kurucu modülü (sürüm 0.5.0)
 
 Viral Ürün Ekibi eklentisinin mağaza kurma kolunun KAYNAĞI. Kullanıcıya giden beceri buradan üretilir:
-`plugins/viral-urun-ekibi/skills/magaza-kurucu/` (elle düzenlenmez; `tools/build.py` yazar).
+`plugins/viral-urun-ekibi/skills/builder/` (elle düzenlenmez; `tools/build.py` yazar).
 
 | Klasör | Ne |
 |---|---|
 | `skills/<aşama>/` | 5 aşamanın kaynağı: `urun-analiz`, `marka`, `gorseller`, `metinler`, `shopify-kurulum` (her SKILL.md ≤ 5.120 bayt) |
-| `src/tek/SKILL.md` | beceri girişi (aşama yönlendiricisi). Ekibin tek lideri `ekip-lideri` becerisidir; bu dosya yalnız aşamaları sıralar |
+| `src/tek/SKILL.md` | beceri girişi (aşama yönlendiricisi). Ekibin tek lideri `captain` becerisidir; bu dosya yalnız aşamaları sıralar |
 | `src/ortak/` | birden çok aşamanın paylaştığı dosyalar (derleme aşama klasörlerine kopyalar) |
 | `config/tema.json` | tam modda yüklenecek tema zip'inin kaydı (zip depoda yok; yoksa temasız mod) |
 | `kaynak/KAYNAK-PROMPT.md` | aşamalara bölünen kaynak metnin anlık kopyası (`tests/test_kaynak_kapsam.py` kapsamı ölçer) |
@@ -24,4 +24,4 @@ Köprü dosyaları (`urun-paketi.json`, `magaza-paketi.json`, `video-paketi.json
 şema, örnek ve doğrulayıcı `src/ortak/sozlesme/` (kaynak; eklentideki kopya `plugins/viral-urun-ekibi/ortak/sozlesme/`,
 `python3 scripts/sozlesme_esitle.py` ile eşitlenir), yazıcı-okuyucu betik `plugins/viral-urun-ekibi/ortak/paket.py`.
 
-Tek başına ChatGPT becerisi (`dist/chatgpt/magaza-kurucu.zip`) aynı kaynaktan üretilir; ekip lideri ve köprü betiği o pakette yoktur.
+Tek başına ChatGPT becerisi (`dist/chatgpt/builder.zip`) aynı kaynaktan üretilir; ekip lideri ve köprü betiği o pakette yoktur.

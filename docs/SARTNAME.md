@@ -1,6 +1,6 @@
 # Geliştirici şartnamesi (paketi geliştirenler için — eklentiye yüklenmez)
 
-Bu depo bir Claude Code eklenti pazarıdır. Pazardaki tek eklenti: `plugins/viral-urun-ekibi/`. Mağaza kolu (`magaza-kurucu`
+Bu depo bir Claude Code eklenti pazarıdır. Pazardaki tek eklenti: `plugins/viral-urun-ekibi/`. Mağaza kolu (`builder`
 becerisi, kaynağı `moduller/magaza-kurucu/`) aynı eklentinin içindedir; kollar dosyayla konuşur (§8).
 Kullanıcıya görünen her metin **Türkçe**; kod, değişken, dosya adı İngilizce veya ASCII Türkçe olabilir.
 
@@ -16,11 +16,11 @@ Kullanıcıya görünen her metin **Türkçe**; kod, değişken, dosya adı İng
 
 ## 1. Amaç
 Kod bilmeyen bir e-ticaret girişimcisi eklentiyi kurar ve şu 4 işi Claude'a yaptırır:
-1. `kesfet-urun-avi` — Instagram'da viral ürün bulma (Mac: iPhone Yansıtma; Windows/her yer: Chrome'da instagram.com).
-2. `aliexpress-firsat` — viral ürünlerin ortak DNA'sından AliExpress'te henüz viral olmamış ürün bulma.
-3. `ai-video-kreatif` — ChatGPT (görsel) + Google Flow (video) ile 30 senaryo ve örnek video.
-4. `video-kurgu` — ffmpeg ile kurgu, yazı, ses, kalite kontrolü, teslim.
-`ekip-lideri` hepsini yönetir ve hafızayı tutar.
+1. `radar` — Instagram'da viral ürün bulma (Mac: iPhone Yansıtma; Windows/her yer: Chrome'da instagram.com).
+2. `hunter` — viral ürünlerin ortak DNA'sından AliExpress'te henüz viral olmamış ürün bulma.
+3. `studio` — ChatGPT (görsel) + Google Flow (video) ile 30 senaryo ve örnek video.
+4. `cut` — ffmpeg ile kurgu, yazı, ses, kalite kontrolü, teslim.
+`captain` hepsini yönetir ve hafızayı tutar.
 
 ## 2. Klasör sözleşmesi
 ```
@@ -90,7 +90,7 @@ Bilinen ChatGPT sınırları (ölçüldü):
 
 ## 8. Kollar arası arayüz sözleşmesi
 ```
-aliexpress-firsat (SAT) ──urun-paketi.json──▶ magaza-kurucu ──magaza-paketi.json──▶ ai-video-kreatif / video-kurgu
+hunter (SAT) ──urun-paketi.json──▶ builder ──magaza-paketi.json──▶ studio / cut
                                                    ▲                                         │
                                                    └────────────── video-paketi.json ────────┘
 ```
@@ -107,7 +107,7 @@ aliexpress-firsat (SAT) ──urun-paketi.json──▶ magaza-kurucu ──maga
 ## 9. Commit öncesi kapılar (hepsi çıkış 0)
 `sh scripts/anonim_kontrol.sh` · `sh scripts/proje_paketi_yap.sh` · `sh scripts/chatgpt_paketi_yap.sh` · `sh scripts/paketle.sh` (iki ZIP) · `claude plugin validate plugins/viral-urun-ekibi` ·
 `python3 scripts/sozlesme_test.py` · `python3 scripts/butce_kontrol.py` (+ `--kendini-sina`) · `cd moduller/magaza-kurucu && python3 -m pytest -q tests` ·
-eklenti içi: `skills/ekip-lideri/scripts/kapi_test.py`, `karne_test.py` · `skills/video-kurgu/scripts/kendini_test.py`, `juri_test.py` ·
-`skills/reklam-kutuphanesi-avi/scripts/kendini_test.py`, `toplayici_test.py` · `skills/teklif-ve-sayfa/scripts/kirma_testi.py` ·
-`skills/aliexpress-firsat/scripts/kirma_testi.py`. Aylık budama ve çıkarılanlar: `docs/gelistirici/BUDAMA-0.3.0.md`, `docs/gelistirici/ESKIDI/`.
+eklenti içi: `skills/captain/scripts/kapi_test.py`, `karne_test.py` · `skills/cut/scripts/kendini_test.py`, `juri_test.py` ·
+`skills/spy/scripts/kendini_test.py`, `toplayici_test.py` · `skills/teklif-ve-sayfa/scripts/kirma_testi.py` ·
+`skills/hunter/scripts/kirma_testi.py`. Aylık budama ve çıkarılanlar: `docs/gelistirici/BUDAMA-0.3.0.md`, `docs/gelistirici/ESKIDI/`.
 - Alan adı değişmez; yeni alan kaynakta (modül) eklenir, `surum` artar, sonra eşitlenir.

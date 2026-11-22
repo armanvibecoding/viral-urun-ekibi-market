@@ -2,7 +2,7 @@
 
 "Şu ürüne 30 video yaz", "hangi kanca/şablonu seçeyim", "AI klip neden bozuldu" sorularında buraya bak.
 Ürünler: (1) köpekbalığı ağızlı kedi yuvası, (2) arcade joystick ışık anahtarı kapağı, (3) evcil hayvan mama piyanosu, (4) araç amblemi yerine takılan dijital ekran.
-Kod kısaltmaları (K = kanca ailesi, S = sahne şablonu, İ = ilk kare tipi, M = viral mekanizma, D = desen) `ai-video-kreatif` becerisinin referans dosyalarındaki anlamdadır. Sayılar kaynak planlardan aynen alındı; kendi ürünümüzün satış/izlenme sonucu **ölçülmedi** (yayına çıkmadı).
+Kod kısaltmaları (K = kanca ailesi, S = sahne şablonu, İ = ilk kare tipi, M = viral mekanizma, D = desen) `studio` becerisinin referans dosyalarındaki anlamdadır. Sayılar kaynak planlardan aynen alındı; kendi ürünümüzün satış/izlenme sonucu **ölçülmedi** (yayına çıkmadı).
 
 ## 0. Ortak üretim hattı (dört üründe de aynı)
 | Adım | Ne | Öğrenilen |

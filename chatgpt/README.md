@@ -14,7 +14,7 @@ Shopify ChatGPT'nin kendi bağlantısıyla, Çalışma modu şart). Betikler kod
 
 1. `viral-urun-ekibi-CHATGPT-v0.3.0.zip` dosyasını Releases'tan indir. ZIP'i açma.
 2. ChatGPT → **Plugins** → yükleme seçeneği. İş alanında: yönetici konsolu → **Plugins** → **Add** → **Upload plugin**. Seçenek yoksa
-   **Plugins → Skills → Create → Upload** ile ZIP'in içindeki `skills/` altındaki klasörleri tek tek yükle (önce `ekip-bilgi` ve `ekip-lideri`).
+   **Plugins → Skills → Create → Upload** ile ZIP'in içindeki `skills/` altındaki klasörleri tek tek yükle (önce `ekip-bilgi` ve `captain`).
    Kişisel hesapta hangi planın gerektiği belgelerde net değil.
 3. Yeni sohbette yaz: `Ekibi başlat. Pazarım Türkiye.` Her cevabın sonunda DURUM bloğu çıkar; yeni sohbete geçerken onu yapıştır.
 
@@ -32,7 +32,7 @@ Plugin yüklenemezse Proje yolu (`proje-paketi/KURULUM.md`, 10 dakika) aynı bil
 | Hareketli tasarım (HyperFrames) | Pakette yok | Yerel Node 22+ ve Chrome ister; Claude Code parçasını kullan |
 | Shopify bağlantısı | ChatGPT'nin kendi bağlantısı | Çalışma modunda bağla; `.mcp.json` pakete girmez |
 
-Tam liste `ekip-lideri` becerisinin başındadır. Tam hat (otomatik gezinme, 27 ajan, hafıza) için [Claude parçası](../claude/README.md).
+Tam liste `captain` becerisinin başındadır. Tam hat (otomatik gezinme, 27 ajan, hafıza) için [Claude parçası](../claude/README.md).
 
 ## ZIP'i kendin üretmek
 

@@ -12,12 +12,12 @@ paylaştığı references) + config/tema.json.
 Derleme hedefleri (hepsi TEK paket düzeni: src/tek/SKILL.md sıralayıcısı + 5 aşama klasörü; aşama SKILL.md'leri
 <aşama>/ASAMA.md olarak, frontmatter'sız girer: iç içe SKILL.md tek skill'de yanlış tetiklenebilir):
   1) BİRLEŞİK beceri klasörü (Viral Ürün Ekibi eklentisinin içinde; depoya girer, elle düzenlenmez):
-       ../../plugins/viral-urun-ekibi/skills/magaza-kurucu/
+       ../../plugins/viral-urun-ekibi/skills/builder/
      --check bu klasörün kaynakla bayt bayt aynı olduğunu da doğrular (eksik, farklı, fazla dosya = hata).
   2) Tek başına zip'ler (depoya girmez):
-       dist/chatgpt/magaza-kurucu.zip      (agents/openai.yaml dahil)
+       dist/chatgpt/builder.zip      (agents/openai.yaml dahil)
        dist/claude/magaza-kurucu-tek.zip   (agents/ hariç)
-Ayrı 5 skill zip'i ve ayrı plugin zip'i ÜRETİLMEZ: ekibin tek girişi vardır (ekip-lideri).
+Ayrı 5 skill zip'i ve ayrı plugin zip'i ÜRETİLMEZ: ekibin tek girişi vardır (captain).
 
 Çıkış kodu: 0 = geçti, 1 = hata.
 """
@@ -52,7 +52,7 @@ KOPYALAR = {
 }
 MANIFESTLER = ["surum.json"]       # modül sürümü; eklenti manifesti plugins/viral-urun-ekibi/.claude-plugin/plugin.json
 JSONLAR = MANIFESTLER + ["config/tema.json"]
-BIRLESIK = os.path.normpath(os.path.join(KOK, "..", "..", "plugins", "viral-urun-ekibi", "skills", "magaza-kurucu"))
+BIRLESIK = os.path.normpath(os.path.join(KOK, "..", "..", "plugins", "viral-urun-ekibi", "skills", "builder"))
 YASAK_UZANTI = (".webp", ".jpg", ".jpeg", ".png", ".gif", ".zip")   # başka mağaza görseli pakete girmez
 # İstisna: kullanıcının onayladığı kendi üretimimiz stil çapası kareleri (G3). Yalnız bu klasör, yalnız jpg/png.
 GORSEL_IZINLI_KLASOR = "skills/gorseller/assets/stil-capasi/"
@@ -62,9 +62,9 @@ ATLA = ("__pycache__", ".pyc", ".DS_Store")
 ZIP_TARIH = (2026, 1, 1, 0, 0, 0)   # tekrarlanabilir zip
 
 # Tek paket
-TEK_KOK = "magaza-kurucu"            # zip kök klasörü = router name
+TEK_KOK = "builder"            # zip kök klasörü = router name
 TEK_ASAMA_DOSYA = "ASAMA.md"         # aşama SKILL.md'lerinin paket içi adı
-TEK_ZIPLER = {"chatgpt": "dist/chatgpt/magaza-kurucu.zip", "claude": "dist/claude/magaza-kurucu-tek.zip"}
+TEK_ZIPLER = {"chatgpt": "dist/chatgpt/builder.zip", "claude": "dist/claude/magaza-kurucu-tek.zip"}
 TEK_MAX_BAYT = 25 * 1024 * 1024      # Skills Upload sınırı ölçülmedi; güvenli tavan
 METIN_UZANTI = (".md", ".py", ".json", ".yaml", ".yml", ".txt")
 
@@ -222,8 +222,8 @@ def kontrol_manifest(hatalar):
             continue
         if j in MANIFESTLER:
             surumler[j] = veri.get("version")
-            if veri.get("name") != "magaza-kurucu":
-                hatalar.append("%s: name magaza-kurucu değil" % j)
+            if veri.get("name") != "builder":
+                hatalar.append("%s: name builder değil" % j)
         if j == ".claude-plugin/marketplace.json":
             for p in veri.get("plugins", []):
                 surumler[j + " → " + p.get("name", "?")] = p.get("version")
@@ -299,7 +299,7 @@ def frontmatter_sil(b):
 
 
 def tek_girdileri(chatgpt):
-    """Tek paket: magaza-kurucu/SKILL.md (router) + [agents/openai.yaml] + <aşama>/ASAMA.md + references/scripts/assets."""
+    """Tek paket: builder/SKILL.md (router) + [agents/openai.yaml] + <aşama>/ASAMA.md + references/scripts/assets."""
     k = TEK_KOK + "/"
     g = [(yol("src", "tek", "SKILL.md"), k + "SKILL.md")]
     if chatgpt:
@@ -435,12 +435,12 @@ def birlesik_mevcut():
 def kontrol_birlesik(hatalar):
     bek, mev = birlesik_beklenen(), birlesik_mevcut()
     for ad in sorted(set(bek) - set(mev)):
-        hatalar.append("BİRLEŞİK EKSİK: skills/magaza-kurucu/%s (build.py çalıştır)" % ad)
+        hatalar.append("BİRLEŞİK EKSİK: skills/builder/%s (build.py çalıştır)" % ad)
     for ad in sorted(set(mev) - set(bek)):
-        hatalar.append("BİRLEŞİK FAZLA: skills/magaza-kurucu/%s (kaynakta karşılığı yok; elle eklenmiş)" % ad)
+        hatalar.append("BİRLEŞİK FAZLA: skills/builder/%s (kaynakta karşılığı yok; elle eklenmiş)" % ad)
     for ad in sorted(set(bek) & set(mev)):
         if bek[ad] != mev[ad]:
-            hatalar.append("BİRLEŞİK FARKLI: skills/magaza-kurucu/%s (elle düzenlenmiş ya da build.py çalıştırılmamış)" % ad)
+            hatalar.append("BİRLEŞİK FARKLI: skills/builder/%s (elle düzenlenmiş ya da build.py çalıştırılmamış)" % ad)
     return len(bek)
 
 

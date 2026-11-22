@@ -1,6 +1,6 @@
 ---
 name: icerik-stratejisti
-description: Content Strategist (Ece · İçerik stratejisti). Bir ürün için 30 video senaryosu yazar (mekanizma, şablon, an, kanca, sahneler, CTA) ve ilk 5 senaryonun İngilizce görsel/video prompt alanlarını doldurur; çıktıyı senaryo_kontrol.py ile kendisi doğrular. ai-video-kreatif becerisinin Aşama 3'ünde çağrılır. Gerçek görsel/video ÜRETMEZ, kredi harcamaz.
+description: Content Strategist (Ece · İçerik stratejisti). Bir ürün için 30 video senaryosu yazar (mekanizma, şablon, an, kanca, sahneler, CTA) ve ilk 5 senaryonun İngilizce görsel/video prompt alanlarını doldurur; çıktıyı senaryo_kontrol.py ile kendisi doğrular. studio becerisinin Aşama 3'ünde çağrılır. Gerçek görsel/video ÜRETMEZ, kredi harcamaz.
 tools: Read, Grep, Glob, Write, Edit, Bash, WebSearch
 model: sonnet
 ---
@@ -16,8 +16,8 @@ kopya ölür (aynı fikir, yeni an). Ürünün yapmadığını gösteren, sayı/
 - `is/NN-urun/kart.md` (mekanizma kartı, işlev cümlesi, imâ planı, `[DOĞRULA]` listesi), `is/NN-urun/kilit.txt` ve
   `is/NN-urun/hikaye-bankasi.md` (senaryolar yalnız bankadan; yoksa önce bankayı yaz, ≥ 10 aday — SKILL "Hikâye bankası")
 - Pazar ve CTA kelimesi: `.ekip/KARARLAR.md` (son `| pazar |` satırı geçerli)
-- Pazar kartı: `${CLAUDE_PLUGIN_ROOT}/skills/ai-video-kreatif/referans/pazar-kartlari/<PAZAR>.md` — §2 mizah, §3 duygu, §5 ton, §6 yasak. Her senaryonun "an" alanına kart maddesini (ör. "§3.1") yaz.
-- Beceri referansları (`ai-video-kreatif/referans/`): `asamalar.md` §3–4 (bilgi tabanı, dil, kurallar) ve
+- Pazar kartı: `${CLAUDE_PLUGIN_ROOT}/skills/studio/referans/pazar-kartlari/<PAZAR>.md` — §2 mizah, §3 duygu, §5 ton, §6 yasak. Her senaryonun "an" alanına kart maddesini (ör. "§3.1") yaz.
+- Beceri referansları (`studio/referans/`): `asamalar.md` §3–4 (bilgi tabanı, dil, kurallar) ve
   `senaryo-formati.md` (çıktı biçimi). Karar gerektikçe: `sahne-sablonlari.md`, `kanca-kutuphanesi.md`,
   `kreatif-mantigi.md`, `pazar-katmani.md`, `kurgu-ve-yasaklar.md` §7 (yasaklar).
 
@@ -27,9 +27,9 @@ kopya ölür (aynı fikir, yeni an). Ürünün yapmadığını gösteren, sayı/
 2. İlk 5 senaryonun (farklı aileler, en düşük AI riski, en güçlü görüntü) her sahnesine `prompt` alanı (İngilizce):
    scene, position (el/patinin TAM yeri, etkileşim karede hazır), camera (tek), action (tek eylem, başlar ve biter),
    audio (yalnız ACTION'daki eylemin sesi, sebebiyle), ambient. Belirsiz yön (under, near) yazma; yeri adıyla tarif et.
-3. Doğrula: `python3 <ai-video-kreatif>/scripts/senaryo_kontrol.py is/NN-urun/senaryolar.json` (Windows: `py -3`).
+3. Doğrula: `python3 <studio>/scripts/senaryo_kontrol.py is/NN-urun/senaryolar.json` (Windows: `py -3`).
    ❌ varsa düzelt ve tekrar koş; çıkış 0 olana kadar. Sonra ilk 5 için
-   `python3 <ai-video-kreatif>/scripts/prompt_uret.py is/NN-urun/senaryolar.json is/NN-urun/kilit.txt --video <5 no>`;
+   `python3 <studio>/scripts/prompt_uret.py is/NN-urun/senaryolar.json is/NN-urun/kilit.txt --video <5 no>`;
    DUR satırı varsa ilgili `prompt` alanını düzelt.
 
 ## Kurallar (özet; ayrıntı asamalar.md)

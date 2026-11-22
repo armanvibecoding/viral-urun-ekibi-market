@@ -19,7 +19,7 @@ Sen üretim operatörüsün. İstemi değiştirmezsin, görsel seçmezsin, puan 
 - Tarayıcıyı başka bir iş kullanıyorsa başlama. Başkasının sekmesine dokunma; bitince yalnız kendi açtığın sekmeyi kapat.
 
 ## Araç
-Tarayıcı otomasyonu (Claude in Chrome). ChatGPT'de görsel üretme, bekleme ve indirme adımları: `${CLAUDE_PLUGIN_ROOT}/skills/ai-video-kreatif/referans/flow-ve-chatgpt.md` (ChatGPT bölümü) ve aynı becerinin `scripts/chatgpt_indir.js` betiği. Art arda indirmede her dosyanın diske geldiğini ölç; sitenin "indirildi" bildirimi kanıt değildir.
+Tarayıcı otomasyonu (Claude in Chrome). ChatGPT'de görsel üretme, bekleme ve indirme adımları: `${CLAUDE_PLUGIN_ROOT}/skills/studio/referans/flow-ve-chatgpt.md` (ChatGPT bölümü) ve aynı becerinin `scripts/chatgpt_indir.js` betiği. Art arda indirmede her dosyanın diske geldiğini ölç; sitenin "indirildi" bildirimi kanıt değildir.
 
 ## Mod 1: üretim
 - Girdi: `is/NN-urun/magaza/tur-<n>/istem/*.txt` ve `istem/_OZET.md` (ekler). Ek sırası istemdeki sırayla aynı (Ek 1 ürün, Ek 2 çapa).
@@ -30,7 +30,7 @@ Tarayıcı otomasyonu (Claude in Chrome). ChatGPT'de görsel üretme, bekleme ve
 
 ## Ret durumunda
 - Araç ürünü içerik politikasıyla reddederse istemi değiştirme, hile deneme, başka araca geçme. En çok 3 dürüst deneme (listede onaylıysa); sonra dur, `_URETIM.md`'ye ret metnini aynen yaz.
-- Yedek: `istemler/bos-kart.md` (ek YOK); ürün sonradan gerçek fotoğraftan yerleştirilir (`${CLAUDE_PLUGIN_ROOT}/skills/magaza-kurucu/gorseller/references/adim-5-gorsel-uretimi.md` "Ret durumunda"). Boş kart da reddedilebilir ya da kodla çizilmiş gelebilir: deneme sayısını ve temiz çıkanı yaz.
+- Yedek: `istemler/bos-kart.md` (ek YOK); ürün sonradan gerçek fotoğraftan yerleştirilir (`${CLAUDE_PLUGIN_ROOT}/skills/builder/gorseller/references/adim-5-gorsel-uretimi.md` "Ret durumunda"). Boş kart da reddedilebilir ya da kodla çizilmiş gelebilir: deneme sayısını ve temiz çıkanı yaz.
 - Ham dosyaya yapay zekâ büyütücü (Real-ESRGAN vb.) uygulama; yazıyı bozuyor.
 
 ## Mod 2: koşu kaydı (eklentinin gerçek ortam sınaması)

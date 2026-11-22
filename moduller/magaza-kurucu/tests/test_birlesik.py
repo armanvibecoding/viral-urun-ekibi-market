@@ -55,19 +55,19 @@ class BirlesikBeceri(unittest.TestCase):
 class TekLider(unittest.TestCase):
     def test_siralayici_lideri_gosterir(self):
         t = oku(KOK, "src", "tek", "SKILL.md")
-        self.assertIn("tek lideri `ekip-lideri`", t)
+        self.assertIn("tek lideri `captain`", t)
         self.assertNotIn("yönlendirici)", t.split("\n")[5] if len(t.split("\n")) > 5 else "")
 
     def test_lider_magaza_isini_tasir(self):
-        t = oku(EKLENTI, "skills", "ekip-lideri", "SKILL.md")
-        for parca in ("`magaza-kurucu`", "urun-yaz", "magaza-oku", "video-yaz", "temasız mod", "tek lideri sensin"):
+        t = oku(EKLENTI, "skills", "captain", "SKILL.md")
+        for parca in ("`builder`", "urun-yaz", "magaza-oku", "video-yaz", "temasız mod", "tek lideri sensin"):
             self.assertIn(parca, t, parca)
 
     def test_ikinci_lider_yok(self):
         """'Ekibi başlat / nerede kalmıştık' tetiği yalnız liderde; başka beceri kendini lider diye tanıtmaz."""
         for p in glob.glob(os.path.join(EKLENTI, "skills", "*", "SKILL.md")):
             ad = os.path.basename(os.path.dirname(p))
-            if ad == "ekip-lideri":
+            if ad == "captain":
                 continue
             bas = oku(p).split("---")[1]
             self.assertNotIn("Ekibi başlat", bas, ad)

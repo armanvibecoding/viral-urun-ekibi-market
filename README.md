@@ -46,14 +46,14 @@ AliExpress'te henüz patlamamış benzerlerini avlar, Shopify mağazanı kurar, 
 
 ## Nasıl çalışır?
 
-Tek giriş `ekip-lideri`dir; işi doğru kola verir ve kollar birbirleriyle dosyayla konuşur:
+Tek giriş `captain`dir; işi doğru kola verir ve kollar birbirleriyle dosyayla konuşur:
 
 ```mermaid
 flowchart LR
     A["Ürün kolu<br/>bul, doğrula, teklif"] -- urun-paketi.json --> B["Mağaza kolu<br/>marka, görsel, metin, Shopify"]
     B -- magaza-paketi.json --> C["Video kolu<br/>senaryo, klip, kurgu"]
     C -- video-paketi.json --> B
-    L(("ekip-lideri")) -.yönetir.-> A
+    L(("captain")) -.yönetir.-> A
     L -.-> B
     L -.-> C
     H[(".ekip/ hafıza")] -.kaldığın yerden.-> L
@@ -74,7 +74,7 @@ ya da sonuç garantisi vermez. Veri ve gizlilik: [PRIVACY.md](PRIVACY.md).
 ├── claude/                      Claude parçasının rehberi (README.md)
 ├── chatgpt/                     ChatGPT parçası: README.md · proje-paketi/ (Proje yolu için yüklenecek dosyalar)
 ├── plugins/viral-urun-ekibi/    Claude eklentisinin kendisi (beceriler, ajanlar, ortak bilgi, kancalar); katalog bunu gösterir
-├── moduller/magaza-kurucu/      mağaza kolunun KAYNAĞI; skills/magaza-kurucu/ buradan üretilir, elle düzenlenmez
+├── moduller/magaza-kurucu/      mağaza kolunun KAYNAĞI; skills/builder/ buradan üretilir, elle düzenlenmez
 ├── scripts/                     doğrulama ve paket üretim betikleri (paketle.sh, anonim_kontrol, sozlesme_test ...)
 ├── docs/                        SARTNAME.md (geliştirici şartnamesi) · assets/ (görseller)
 │   └── gelistirici/             iç plan ve analiz kayıtları (okumak zorunda değilsin)

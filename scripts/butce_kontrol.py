@@ -6,7 +6,7 @@
 
 Kapılar (HATA → çıkış 1):
   1. Çekirdek beceri SKILL.md: ≤ 120 satır VE ≤ 12 000 bayt (satır sınırı uzun satırla aşılmasın diye ikisi birlikte).
-     Kapsam dışı: hyperframes*, media-use (üçüncü taraf, imzalı) ve magaza-kurucu (modülün kendi 5 120 bayt sınırı var).
+     Kapsam dışı: hyperframes*, media-use (üçüncü taraf, imzalı) ve builder (modülün kendi 5 120 bayt sınırı var).
   2. Ajan dosyası ≤ 7 000 bayt.
   3. Tek kaynak: aşağıdaki kuralların tam metni yalnız `ortak/kurallar.md`'de yaşar; izinli dosyalar dışında parmak izi
      görülürse HATA (diğer dosyalar kimliğe atıf yapar: SES-01, ICE-01 …). Kimlik `kurallar.md`'de tanımlı olmalı.
@@ -24,7 +24,7 @@ import tempfile
 
 KOK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SATIR, BAYT, AJAN_BAYT = 120, 12000, 7000
-DISARIDA = ("hyperframes", "hyperframes-cli", "hyperframes-registry", "media-use", "magaza-kurucu")
+DISARIDA = ("hyperframes", "hyperframes-cli", "hyperframes-registry", "media-use", "builder")
 # kimlik → (parmak izi, izinli yol parçaları)
 TEK_KAYNAK = {
     "SES-01": (re.compile(r"[−-] ?30 dB"), ("ortak/kurallar.md", "/scripts/", "ortak/bilgi/", "referans/ses-tasarimi.md", "ekler/")),
@@ -119,16 +119,16 @@ def kendini_sina():
         sonuc.append((ad, any(aranan in x for x in h)))
         with open(tam, "w", encoding="utf-8") as f:   # ters değişimle geri al
             f.write(eski)
-    kir("SKILL.md 121 satır → HATA", "skills/video-kurgu/SKILL.md", lambda t: t + "\n" * 40, "satır /")
+    kir("SKILL.md 121 satır → HATA", "skills/cut/SKILL.md", lambda t: t + "\n" * 40, "satır /")
     kir("SKILL.md > 12 000 bayt (uzun satır) → HATA", "skills/teklif-ve-sayfa/SKILL.md", lambda t: t + "x" * 6000, "bayt (sınır")
     kir("ajan > 7 000 bayt → HATA", "agents/video-juri.md", lambda t: t + "x" * 5000, "bayt (sınır 7000)")
-    kir("müzik kuralı başka dosyada yeniden yazıldı → HATA", "skills/video-kurgu/SKILL.md",
+    kir("müzik kuralı başka dosyada yeniden yazıldı → HATA", "skills/cut/SKILL.md",
         lambda t: t + "\nMüzik 0. sn'de −30 dB'den başlar.\n", "SES-01 kuralının metni")
     kir("fiyat kuralı başka dosyada yeniden yazıldı → HATA", "agents/icerik-stratejisti.md",
         lambda t: t + "\nOrganik videoda ekranda fiyat yok.\n", "ICE-01 kuralının metni")
-    kir("tanımsız kural kimliğine atıf → HATA", "skills/video-kurgu/SKILL.md", lambda t: t + "\nBkz. SES-99.\n", "SES-99")
+    kir("tanımsız kural kimliğine atıf → HATA", "skills/cut/SKILL.md", lambda t: t + "\nBkz. SES-99.\n", "SES-99")
     kir("tek kaynak satırı silindi → HATA", "ortak/kurallar.md", lambda t: t.replace("| SES-01 |", "| SES-XX |"), "SES-01 tanımlı değil")
-    kir("tarihli anlatı beceriye girdi → HATA", "skills/ekip-lideri/SKILL.md", lambda t: t + "\n(2026-11-17 kurucu: şöyle dedi)\n", "tarihli anlatı")
+    kir("tarihli anlatı beceriye girdi → HATA", "skills/captain/SKILL.md", lambda t: t + "\n(2026-11-17 kurucu: şöyle dedi)\n", "tarihli anlatı")
     kir("kadro modeli ajan dosyasından farklı → HATA", "agents/ses-tasarimcisi.md",
         lambda t: re.sub(r"^model: \w+$", "model: fable", t, flags=re.M), "modeli ajan dosyasıyla aynı değil")
     son, _, _, _ = denetle(gecici)

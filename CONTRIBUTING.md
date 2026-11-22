@@ -35,7 +35,7 @@ Araç ön koşulları (ffmpeg, Python paketleri, Chrome eklentisi) için [claude
 - Yeni ajan: `plugins/viral-urun-ekibi/agents/<ajan>.md` (frontmatter: `name`, `description`, `tools`).
   Açıklama ekip kalıbıyla başlar: `İngilizce unvan (Ad · Türkçe rol).` ve üye `ortak/ekip.md` tablosuna eklenir. Mağaza kolu
   ajanında frontmatter'dan sonraki ilk satır `<!-- kol: magaza -->` olur (ChatGPT paketine rol becerisi olarak girmez).
-- Mağaza kolu (`skills/magaza-kurucu/`) **üretilen** klasördür, elle düzenlenmez. Kaynak: `moduller/magaza-kurucu/` (aşamalar
+- Mağaza kolu (`skills/builder/`) **üretilen** klasördür, elle düzenlenmez. Kaynak: `moduller/magaza-kurucu/` (aşamalar
   `skills/`, ortak dosyalar `src/ortak/`). Değişiklikten sonra `python3 moduller/magaza-kurucu/tools/build.py`, sonra
   `python3 -m pytest -q moduller/magaza-kurucu/tests`. Her aşama SKILL.md ≤ 5.120 bayt.
 - Köprü dosyalarının (`urun-paketi.json`, `magaza-paketi.json`, `video-paketi.json`) alanı değişirse üçü birlikte güncellenir:
@@ -62,7 +62,7 @@ anlaşması bilgilerini ekleme — bu depo herkese açıktır.
    claude plugin validate .
    ```
    İkisi de `Validation passed` demeli.
-2. **Python betikleri** değiştiyse en az bir kez çalıştır; `video-kurgu` için `python3 plugins/viral-urun-ekibi/skills/video-kurgu/scripts/kendini_test.py`.
+2. **Python betikleri** değiştiyse en az bir kez çalıştır; `cut` için `python3 plugins/viral-urun-ekibi/skills/cut/scripts/kendini_test.py`.
 3. **Arayüz sözleşmesi** (Mağaza Kurucu ile dosya alışverişi): `python3 scripts/sozlesme_test.py` çıkış 0 vermeli.
    `plugins/viral-urun-ekibi/ortak/sozlesme/` elle düzenlenmez (kaynağı Mağaza Kurucu deposu; `docs/SARTNAME.md` §8).
 4. **Anonimlik ve güvenlik kontrolü** (aşağıda).

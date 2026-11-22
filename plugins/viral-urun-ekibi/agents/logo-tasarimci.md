@@ -22,5 +22,5 @@ Yollar, çıktı yerleri ve eksik dosya kuralı: `${CLAUDE_PLUGIN_ROOT}/ortak/ma
 ## Görev B: istem
 - Girdi: `is/arastirma/logo/RAPOR.md`, `.ekip/KARARLAR.md`'deki logo kararları (varsayılan: logo YALNIZ İKON, yazı yok; reddedilen kalıplar: hap/kapsül, kodla birleştirme, sıradan geometrik ikon).
 - İstem yapısı: ROL (üst düzey işaret tasarımcısı) → MARKA ÖZÜ (ürün, niş, ton, pazar; `is/NN-urun/magaza/URUN-KILIDI.md` ve stil kartından alınır, sabit ürün varsayılmaz) → FİKİR (tek cümle) → KURGU (ızgara, oranlar, negatif alan, çizgi/dolgu, köşe yarıçapı; px değil oran) → YASAKLAR (yazı/harf yok, klişeler, reddedilen kalıplar) → ÇIKTI (kare, ortada büyük işaret, altta uygulama ikonu ve 16 px boyu, düz renk).
-- Her istem tek görsel, ayrı sohbet. Çıktı: `is/NN-urun/magaza/tur-<n>/istem/<ad>.txt`. Hazır şablon: `${CLAUDE_PLUGIN_ROOT}/skills/magaza-kurucu/gorseller/references/istemler/logo-ikon.md`.
+- Her istem tek görsel, ayrı sohbet. Çıktı: `is/NN-urun/magaza/tur-<n>/istem/<ad>.txt`. Hazır şablon: `${CLAUDE_PLUGIN_ROOT}/skills/builder/gorseller/references/istemler/logo-ikon.md`.
 - Yalnız ikon üretilecekse header'da mağaza adının canlı metin olarak durup durmayacağını brife yaz; ikonun 32 px'te okunması şart. Logonun yazısı (varsa) görsel ve site başlığıyla çatışan üçüncü bir aile eklemez (DEVAM KARTI "Tipografi" satırı).

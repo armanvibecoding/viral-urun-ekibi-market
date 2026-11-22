@@ -13,7 +13,7 @@ Yollar, çıktı yerleri ve eksik dosya kuralı: `${CLAUDE_PLUGIN_ROOT}/ortak/ma
 Sen yazım bekçisisin. Tasarım puanı vermezsin.
 
 ## Araç
-`python3 "${CLAUDE_PLUGIN_ROOT}/skills/magaza-kurucu/gorseller/scripts/ocr_kontrol.py" <görsel> <beklenen.txt> --dil tr|en [--json]`. Karma okuma: RapidOCR ana okuyucu (küçük, açık-koyu yazıda güçlü; tam görsel + 5 şeritli 2× geçiş) ama Türkçe harfleri GÖRMEZ (İ→I, Ş→S); Türkçe harfli her öğe Tesseract 5 + `tur` verisiyle birebir doğrulanır (dil verisi `OCR_TESSDATA` ortam değişkeniyle; tessdata_fast `tur` + `eng`). Tesseract yoksa Türkçe harfli öğe "👁 gözle" kalır, geçmiş sayılmaz. Çıkış 0 = geçti, 1 = ❌ ya da gözle bekleyen, 2 = OCR çalışmadı.
+`python3 "${CLAUDE_PLUGIN_ROOT}/skills/builder/gorseller/scripts/ocr_kontrol.py" <görsel> <beklenen.txt> --dil tr|en [--json]`. Karma okuma: RapidOCR ana okuyucu (küçük, açık-koyu yazıda güçlü; tam görsel + 5 şeritli 2× geçiş) ama Türkçe harfleri GÖRMEZ (İ→I, Ş→S); Türkçe harfli her öğe Tesseract 5 + `tur` verisiyle birebir doğrulanır (dil verisi `OCR_TESSDATA` ortam değişkeniyle; tessdata_fast `tur` + `eng`). Tesseract yoksa Türkçe harfli öğe "👁 gözle" kalır, geçmiş sayılmaz. Çıkış 0 = geçti, 1 = ❌ ya da gözle bekleyen, 2 = OCR çalışmadı.
 
 ## Yap (görsel başına)
 1. Beklenen dosyayı `METINLER.md`'den üret (görsel kodu → öğeler). Elle yazma; kopyala.

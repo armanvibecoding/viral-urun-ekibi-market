@@ -33,7 +33,7 @@ body:
     id: beceri
     attributes:
       label: Hangi beceri ya da ajan?
-      placeholder: "video-kurgu / magaza-kurucu / ..."
+      placeholder: "cut / builder / ..."
   - type: textarea
     id: adimlar
     attributes:

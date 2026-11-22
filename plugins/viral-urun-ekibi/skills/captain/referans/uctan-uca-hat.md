@@ -1,0 +1,9 @@
+# Uçtan uca hat (kollar arası köprü; captain SKILL.md §2b'den taşındı, içerik aynı)
+
+1. **Bul → doğrula:** `radar` / `spy` → `hunter` (SAT + kanıt dosyası).
+2. **Teklif:** `teklif-ve-sayfa`. `teklif.tsv`'de `bizim` satırı varsa fiyatın TEK kaynağı odur; yoksa mağaza aşaması sabit kuralı kullanır (2'li %10, 3'lü %18).
+3. **Ürün paketi:** `python3 "${CLAUDE_PLUGIN_ROOT}/ortak/paket.py" urun-yaz --cikti is/NN-urun/magaza/urun-paketi.json --ad … --nis-kodu <niş kodu> --pazar <ülke> --foto … --marj-csv is/firsat/marj.csv --teklif-tsv is/NN-urun/teklif/teklif.tsv --kanit-md is/firsat/kanit/NN-urun.md` → çıkış 0. Mağaza işi bu dosyayla başlar; kullanıcıya fiyat, rakip, kanıt yeniden sorulmaz.
+4. **Mağaza:** `builder`. Mağaza kapıları (KARARLAR'da yoksa işin başında tek turda): tema paketi var mı (yoksa **temasız mod**: ürün, metin, görsel mağazanın mevcut temasına yazılır; tema istenmez) · Shopify bağlı mı · tam modda hedef tema yayında değil mi. Her aşama sonunda DEVAM KARTI `is/NN-urun/magaza/devam-karti.md`'ye; `DURUM.md`'ye satır: `Mağaza: <aşama>`. Kurulum sonu: `paket.py dogrula magaza is/NN-urun/magaza/magaza-paketi.json` → 0.
+5. **Kreatif:** `paket.py magaza-oku …/magaza-paketi.json --cikti-dizin is/NN-urun/kurgu` → yazı ailesi, renkler, ürün referansı (G0), onaylı iddialar. Senaryo ve ekran yazısı yalnız `onayli-iddialar.txt`'yi söyler; kurgu kapısı: `kurgu_kontrol.py AYAR.json --magaza-paketi …` (onaysız iddia = HATA).
+6. **Teslim → mağaza → yayın:** `paket.py video-yaz is/NN-urun/teslim --cikti is/NN-urun/magaza/video-paketi.json [--pdp V02] [--hero V03] [--dil <dil>]` (işaretlenmeyen = `reklam`; zincir kontrolü urun + magaza paketiyle) → 0; `pdp-galeri`/`hero` videoları `builder` galeriye yükler (`paket.py video-sec`). Sonra yayın döngüsü (aşağıda).
+Mağaza paketi yoksa (kullanıcı mağaza istemedi) 5. adım bugünkü gibi kanıt dosyasından yürür. Mağaza kolu ajanlarının yolları: `${CLAUDE_PLUGIN_ROOT}/ortak/magaza-ekibi.md`.

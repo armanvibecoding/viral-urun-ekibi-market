@@ -25,7 +25,7 @@ Claude Code yolunu kullan.
    /plugin install viral-urun-ekibi@viral-urun-market
    ```
    Güncellemeleri kendiliğinden almak için: `/plugin` → Marketplaces → Enable auto-update.
-3. Boş bir klasörde `claude` çalıştır ve yaz: `/viral-urun-ekibi:ekip-lideri`. Lider hafıza klasörünü (`.ekip/`) kurar, eksik araçları kontrol eder ve hedef ülkeni (Türkiye/ABD) sorar.
+3. Boş bir klasörde `claude` çalıştır ve yaz: `/viral-urun-ekibi:captain`. Lider hafıza klasörünü (`.ekip/`) kurar, eksik araçları kontrol eder ve hedef ülkeni (Türkiye/ABD) sorar.
 
 ## Gereksinimler
 
@@ -50,15 +50,15 @@ Depo herkese açıktır; ayrı erişim gerekmez. Kendi çatalını (fork) kuraca
 
 | Beceri | Ne yapar |
 |---|---|
-| `ekip-lideri` | Ekibin TEK lideri ve tek girişi: işi doğru kola verir, `.ekip/` hafızasını tutar, kollar arası köprü dosyalarını yazar, eksik araçları kontrol eder. |
-| `magaza-kurucu` | Mağaza kolu: ürün fotoğrafı + ülkeden ya da ekibin `urun-paketi.json` dosyasından Shopify mağazası (5 aşama: ürün analizi, marka, görseller, metinler, kurulum + site denetimi). Tema paketi yoksa temasız modda çalışır. |
-| `kesfet-urun-avi` | Instagram Reels/Keşfet'te viral ürün videolarını izler, ölçütlerle ayıklar, tabloya ve Excel'e kaydeder (Mac: iPhone Yansıtma; her yerde: Chrome). |
-| `aliexpress-firsat` | Viral ürünlerin ortak DNA'sından arama terimi üretir, AliExpress'te henüz viral olmamış adayları bulur ve "zaten viral mi" kontrolü yapar. |
-| `ai-video-kreatif` | Ürün kartı, 30 senaryo, ChatGPT ile başlangıç kareleri ve Google Flow ile klip üretimi. |
-| `video-kurgu` | ffmpeg ile kurgu: klip kalite kontrolü, ekran üstü yazı, efekt, ses normalizasyonu, teslim. |
-| `reklam-kutuphanesi-avi` | Meta Reklam Kütüphanesi'nde niş niş (US/TR/AB) kazanan reklam ve ürün taraması; mağaza → AliExpress eşleme, kazanan–kaybeden desen sayımı. |
+| `captain` | Ekibin TEK lideri ve tek girişi: işi doğru kola verir, `.ekip/` hafızasını tutar, kollar arası köprü dosyalarını yazar, eksik araçları kontrol eder. |
+| `builder` | Mağaza kolu: ürün fotoğrafı + ülkeden ya da ekibin `urun-paketi.json` dosyasından Shopify mağazası (5 aşama: ürün analizi, marka, görseller, metinler, kurulum + site denetimi). Tema paketi yoksa temasız modda çalışır. |
+| `radar` | Instagram Reels/Keşfet'te viral ürün videolarını izler, ölçütlerle ayıklar, tabloya ve Excel'e kaydeder (Mac: iPhone Yansıtma; her yerde: Chrome). |
+| `hunter` | Viral ürünlerin ortak DNA'sından arama terimi üretir, AliExpress'te henüz viral olmamış adayları bulur ve "zaten viral mi" kontrolü yapar. |
+| `studio` | Ürün kartı, 30 senaryo, ChatGPT ile başlangıç kareleri ve Google Flow ile klip üretimi. |
+| `cut` | ffmpeg ile kurgu: klip kalite kontrolü, ekran üstü yazı, efekt, ses normalizasyonu, teslim. |
+| `spy` | Meta Reklam Kütüphanesi'nde niş niş (US/TR/AB) kazanan reklam ve ürün taraması; mağaza → AliExpress eşleme, kazanan–kaybeden desen sayımı. |
 | `teklif-ve-sayfa` | Kazanan ürün için teklif, iniş sayfası, itiraz bankası ve e-posta taslağı; baskı/sahte indirim ifadesi denetçisi. |
-| `hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use` | Hareketli tasarım katmanı (HeyGen'in açık kaynak HyperFrames paketi, Apache-2.0, değiştirilmeden): HTML'den video, kinetik yazı, geçiş, altyazı, ~450 hazır blok; render yerelde Node 22+ ve Chrome ister. `video-kurgu` aşama 8b'de çağrılır. |
+| `hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use` | Hareketli tasarım katmanı (HeyGen'in açık kaynak HyperFrames paketi, Apache-2.0, değiştirilmeden): HTML'den video, kinetik yazı, geçiş, altyazı, ~450 hazır blok; render yerelde Node 22+ ve Chrome ister. `cut` aşama 8b'de çağrılır. |
 
 **Ajanlar** (`plugins/viral-urun-ekibi/agents/`, 27 üye): çekirdek ekip 7 (`video-juri` kör video jürisi, `firsat-avcisi`, `kanit-savcisi`, `icerik-stratejisti`,
 `kreatif-analisti`, `video-elestirmen`, `ses-tasarimcisi`) + mağaza kolu 20 (marka, görsel, site, denetim). Her üyenin İngilizce
@@ -69,7 +69,7 @@ kreatif notlar, fırsat geçmişi, üretim deneyimi, dersler.
 
 ### Mağaza kolu nasıl çalışır?
 
-- **Tek giriş:** "mağaza kur" da dahil her iş `ekip-lideri` ile başlar. Ürün ekipten geldiyse kanıt, rakipler ve onaylı teklif
+- **Tek giriş:** "mağaza kur" da dahil her iş `captain` ile başlar. Ürün ekipten geldiyse kanıt, rakipler ve onaylı teklif
   `urun-paketi.json` ile mağazaya taşınır; hiçbir şey yeniden sorulmaz. Doğrudan fotoğraf + ülke vermek de yeterlidir.
 - **Fiyatın tek kaynağı:** teklif tablosunda `bizim` satırı varsa o; yoksa sabit kural (2'li %10, 3'lü %18).
 - **Tema:** mağaza aşaması özel bir tema paketiyle (tam mod) çalışacak biçimde yazıldı; paket bu depoda yok. Paketin yoksa
@@ -84,14 +84,14 @@ kreatif notlar, fırsat geçmişi, üretim deneyimi, dersler.
 
 ## Nasıl çalışır?
 
-Tek giriş `ekip-lideri`dir; işi doğru kola verir ve kollar birbirleriyle dosyayla konuşur:
+Tek giriş `captain`dir; işi doğru kola verir ve kollar birbirleriyle dosyayla konuşur:
 
 ```mermaid
 flowchart LR
     A["Ürün kolu<br/>bul, doğrula, teklif"] -- urun-paketi.json --> B["Mağaza kolu<br/>marka, görsel, metin, Shopify"]
     B -- magaza-paketi.json --> C["Video kolu<br/>senaryo, klip, kurgu"]
     C -- video-paketi.json --> B
-    L(("ekip-lideri")) -.yönetir.-> A
+    L(("captain")) -.yönetir.-> A
     L -.-> B
     L -.-> C
     H[(".ekip/ hafıza")] -.kaldığın yerden.-> L

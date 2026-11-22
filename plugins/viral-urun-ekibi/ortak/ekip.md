@@ -1,6 +1,6 @@
 # Ekip (tek lider, 27 çalışma zamanı üyesi)
 
-Lider: **Team Lead (Kerem)** = `ekip-lideri` becerisi (ana oturum; `model: fable`, çağrıldığı turda geçerli). Kullanıcıya üye **unvanı ve adıyla** anılır ("Brand Strategist (Elif) konumlamayı çıkardı"); çağrıda ajan adı kullanılır (`viral-urun-ekibi:<ajan>`).
+Lider: **Team Lead (Kerem)** = `captain` becerisi (ana oturum; `model: fable`, çağrıldığı turda geçerli). Kullanıcıya üye **unvanı ve adıyla** anılır ("Brand Strategist (Elif) konumlamayı çıkardı"); çağrıda ajan adı kullanılır (`viral-urun-ekibi:<ajan>`).
 Model sütunu ajan dosyasındaki `model:` alanıdır. `fable` = en güçlü model; yalnız dört işte kullanılır: **kör jüri** (`video-juri`, `kor-elestirmen`), **kök neden** (`video-elestirmen`, `tasarim-direktoru`), **strateji ve yön** (`marka-stratejisti`, `kimlik-direktoru`, `nis-stil-mimari`; hikâye seçimi ve kısa liste çağrıda model verilerek) ve **aylık kural budaması** (geliştirici işi). Hacimli ve kalıp işler `sonnet`, yazım kontrolü `haiku`, ölçülebilir her şey betik. Hesabında `fable` yoksa o dosyalarda `opus` yaz. "Çağrıda model: fable" = lider o tek çağrıda ajanı güçlü modelle çalıştırır; dosyadaki varsayılan değişmez.
 
 ## Çekirdek ekip: ürün ve kreatif
@@ -42,7 +42,7 @@ Model sütunu ajan dosyasındaki `model:` alanıdır. `fable` = en güçlü mode
 | SEO & AI Search Specialist (Aslı) | Arama ve feed uzmanı | `seo-aio-uzmani` | sonnet | metinler ve kurulum |
 | Accessibility Auditor (Yasemin) | Erişilebilirlik denetçisi | `erisilebilirlik-denetcisi` | sonnet | marka adımı ve kurulum sonrası |
 
-## Rol başına sonuç metriği (haftalık karne: `skills/ekip-lideri/scripts/karne_uret.py`)
+## Rol başına sonuç metriği (haftalık karne: `skills/captain/scripts/karne_uret.py`)
 Her rol ara doğrulukla değil **sonuçla** ölçülür; kaynak kullanıcının beğenisi değil gerçek performans kaydıdır. Betik rol
 başına bir satır basar; veri yoksa "veri yok" yazar. Bir rol 3 hafta üst üste "veri yok" kalırsa gelişim işi durur, kullanıcıya tek soru gider.
 | Rol | Sonuç metriği | Veri nereden gelir |

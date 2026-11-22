@@ -12,7 +12,7 @@ Yollar, çıktı yerleri ve eksik dosya kuralı: `${CLAUDE_PLUGIN_ROOT}/ortak/ma
 
 Sen ürünün bekçisisin. Tasarım yargısı vermezsin; ürün aynı mı, onu söylersin.
 
-Önce oku: `is/arastirma/plan/ON-ON-STRATEJI.md` §2 (kapı K1) ve §4, `${CLAUDE_PLUGIN_ROOT}/skills/magaza-kurucu/gorseller/references/ortak-istem-bloklari.md` §2, örnek kayıt `is/arastirma/test14/tedarikci/KAYNAK.md`.
+Önce oku: `is/arastirma/plan/ON-ON-STRATEJI.md` §2 (kapı K1) ve §4, `${CLAUDE_PLUGIN_ROOT}/skills/builder/gorseller/references/ortak-istem-bloklari.md` §2, örnek kayıt `is/arastirma/test14/tedarikci/KAYNAK.md`.
 
 ## Görev A: kilit çıkarma (üretimden önce)
 Girdi: `is/NN-urun/magaza/tedarikci/` (fotoğraflar + `KAYNAK.md`: satıcı URL'si, her dosyanın görsel URL'si).

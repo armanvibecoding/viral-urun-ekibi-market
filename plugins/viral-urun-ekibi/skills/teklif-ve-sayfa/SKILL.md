@@ -11,30 +11,30 @@ description: SAT kararı almış ürün için kazanan mağazaların iniş sayfal
 Sayfa **yayını, fiyat değişikliği, uygulama kurulumu, reklam** kurucu kararıdır — bu beceri yalnız taslak üretir.
 
 Önce oku: `${CLAUDE_PLUGIN_ROOT}/ortak/sozluk.md` · ürünün kanıt dosyası `is/firsat/kanit/NN-*.md` · pazar katmanı
-`${CLAUDE_PLUGIN_ROOT}/skills/ai-video-kreatif/referans/pazar-katmani.md` (fiyat yeri, indirim, AI ibaresi).
+`${CLAUDE_PLUGIN_ROOT}/skills/studio/referans/pazar-katmani.md` (fiyat yeri, indirim, AI ibaresi).
 
 ## Hafıza
 | Ne zaman | Ne yapılır |
 |---|---|
-| Başlarken | `.ekip/DURUM.md`, `.ekip/KARARLAR.md` okunur. Pazar `\| pazar \|` satırından; yoksa kullanıcıya **bir kez** sorulur ve yazılır. Ürünün SAT kaydı yoksa dur: önce `aliexpress-firsat`. |
+| Başlarken | `.ekip/DURUM.md`, `.ekip/KARARLAR.md` okunur. Pazar `\| pazar \|` satırından; yoksa kullanıcıya **bir kez** sorulur ve yazılır. Ürünün SAT kaydı yoksa dur: önce `hunter`. |
 | Her rakip sayfası okununca | `teklif.tsv`'ye `tur=rakip` satırı (aynı URL ikinci kez okunmaz — dosyada ara). |
 | Aşama sonunda | `.ekip/DURUM.md` üzerine yazılır. Kurucu fiyat/paket onaylarsa `.ekip/KARARLAR.md`'ye eklenir. |
 
 ## Akış
-1. **Rakip teklifleri topla** — kaynak: `reklam-kutuphanesi-avi` çıktısındaki ölçeklenen mağazalar, kanıt dosyasındaki rakip URL'leri,
+1. **Rakip teklifleri topla** — kaynak: `spy` çıktısındaki ölçeklenen mağazalar, kanıt dosyasındaki rakip URL'leri,
    pazarın büyük pazar yeri. Sayfa tarayıcıdan (Claude in Chrome) açılır; `get_page_text` + ekran. Her mağaza bir satır,
    şema `${CLAUDE_SKILL_DIR}/referans/teklif-semasi.md`. Görülmeyen alan `yok` değil **`gorulmedi`** yazılır. Hedef ≥10 satır
    (aynı pazardan ≥5). Rakibin sahte aciliyeti/yorumu **gözlem** olarak aynen yazılır (`sosyal_kanit_turu=uydurma_supheli`) — kopyalanmaz.
 2. **Desen** — sütun başına sayım (ör. "2'li paket 7/10, 30 gün garanti 6/10, COD 4/5 TR"). n≥3 olmayan desen "tek örnek" yazılır,
    kural yapılmaz. → `is/NN-urun/teklif-deseni.md`.
 3. **Teklif tasarımı** — desen + pazar kuralları (`${CLAUDE_SKILL_DIR}/referans/pazar-teklif-kurallari.md`) + iniş maliyeti
-   (`aliexpress-firsat` `marj_hesap.py` çıktısı: paket indirimi sonrası çarpan hâlâ ≥2× mı?). Sonuç `tur=bizim` satırı.
+   (`hunter` `marj_hesap.py` çıktısı: paket indirimi sonrası çarpan hâlâ ≥2× mı?). Sonuç `tur=bizim` satırı.
    Bu satır mağazanın fiyatının TEK kaynağıdır: `urun-paketi.json` `teklif` alanına birebir girer, mağaza aşaması yeniden fiyat önermez
-   (`ekip-lideri` §2b). `bizim` satırı yoksa mağaza sabit kuralı kullanır (2'li %10, 3'lü %18).
+   (`captain` §2b). `bizim` satırı yoksa mağaza sabit kuralı kullanır (2'li %10, 3'lü %18).
 4. **Sayfa iskeleti** — `${CLAUDE_SKILL_DIR}/sablon/sayfa-iskeleti.md` → `is/NN-urun/sayfa.md`. Her özellik, sayı ve karşılaştırma
    iddiası kanıt dosyasındaki bir satıra bağlanır (`[K: kanit/NN#bölüm]`); bağlanamayan özellik/sayı sayfaya girmez (IDD-02).
    Sağlık/sonuç cümlesi kanıt bağı olmadan da kalır, bilgi notuyla (IDD-01).
-   **Mağaza kolu çalışacaksa:** tema paketi olan kurulumda (tam mod) sayfa metnini `magaza-kurucu` metinler aşaması temanın bölümlerine
+   **Mağaza kolu çalışacaksa:** tema paketi olan kurulumda (tam mod) sayfa metnini `builder` metinler aşaması temanın bölümlerine
    göre yazar; bu beceri ona teklifi, iddia–kanıt listesini, SSS'yi ve e-postayı verir. Tema paketi yoksa (temasız mod) bu iskelet
    ürün sayfasının düzenidir. İki durumda da site metni aynı yasak-ifade kapısından geçer (`teklif_kontrol.py tara`).
 5. **İtiraz SSS** — `${CLAUDE_SKILL_DIR}/referans/itiraz-bankasi.md` (pazar başına) + rakip reklam yorumlarında gerçekten geçen sorular.

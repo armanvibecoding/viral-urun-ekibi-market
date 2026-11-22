@@ -4,14 +4,14 @@
 # ZIP git içinde TUTULMAZ (dist/ .gitignore'da): her sürümde GitHub Releases sayfasına yüklenir (scripts/paketle.sh iki ZIP'i de üretir).
 # Kullanım: sh scripts/chatgpt_paketi_yap.sh   (depo kökünden ya da herhangi bir yerden)
 # Dönüşüm özeti:
-#   - hooks/ ve agents/ pakete girmez; hook'un işi ekip-lideri SKILL.md başına talimat olur.
+#   - hooks/ ve agents/ pakete girmez; hook'un işi captain SKILL.md başına talimat olur.
 #   - HyperFrames becerileri (hyperframes, hyperframes-cli, hyperframes-registry, media-use) pakete GİRMEZ:
 #     render yerel Node 22+ + Chrome + CLI ister (ChatGPT'de yok), iş döngüsü check/snapshot/render olmadan doğrulanamaz,
 #     ZIP'i ~0,65 MB'tan ~2,6 MB'a ve 163 dosyadan ~385'e çıkarır; terim dönüşümü Apache-2.0 dosyalarını değiştirirdi.
 #   - Çekirdek ekibin 7 ajanı -> ayrı skill (skills/<ajan-adı>/SKILL.md), aynı sohbette uygulanan rol.
-#   - Mağaza kolu ajanları (dosyada "<!-- kol: magaza -->" işareti) pakete GİRMEZ: işleri magaza-kurucu aşama dosyalarının
+#   - Mağaza kolu ajanları (dosyada "<!-- kol: magaza -->" işareti) pakete GİRMEZ: işleri builder aşama dosyalarının
 #     içindedir (ChatGPT'de alt ajan yok; 20 rol becerisi tetik çakışması ve bağlam yükü olurdu).
-#   - magaza-kurucu becerisi DÖNÜŞTÜRÜLMEDEN kopyalanır (kaynağı iki yüzey için yazılmış ve ChatGPT'de koşulmuş; ek not girmez).
+#   - builder becerisi DÖNÜŞTÜRÜLMEDEN kopyalanır (kaynağı iki yüzey için yazılmış ve ChatGPT'de koşulmuş; ek not girmez).
 #   - Köprü (ortak/paket.py + ortak/nis-esleme.tsv + ortak/sozlesme/) skills/ekip-bilgi/references/ altına bayt bayt girer;
 #     .mcp.json girmez (ChatGPT kendi Shopify bağlantısını kullanır).
 #   - Kök plugin.json'a com.openai arayüz bloğu (görünen ad, kısa açıklama, örnek istekler) yazılır.
@@ -96,10 +96,10 @@ TERIM = [
     ("alt ajan", "yardımcı rol"),
 ]
 
-BECERI_ON = re.compile(r"(?<![\w/.-])((?:ai-video-kreatif|aliexpress-firsat|video-kurgu|kesfet-urun-avi|ekip-lideri|reklam-kutuphanesi-avi|teklif-ve-sayfa)/(?:referans|scripts|sablon)\b)")
+BECERI_ON = re.compile(r"(?<![\w/.-])((?:studio|hunter|cut|radar|captain|spy|teklif-ve-sayfa)/(?:referans|scripts|sablon)\b)")
 
 def onek_ekle(s):
-    """`ai-video-kreatif/referans/x.md` gibi öneksiz beceri yolunu paket köküne bağlar (yalnız markdown)."""
+    """`studio/referans/x.md` gibi öneksiz beceri yolunu paket köküne bağlar (yalnız markdown)."""
     return BECERI_ON.sub(r"skills/\1", s)
 
 def terim_cevir(s):
@@ -110,46 +110,46 @@ def terim_cevir(s):
 # ---------- 2) ChatGPT notları ----------
 GENEL_NOT = """> **ChatGPT'de çalışma notu** (paket dönüştürücüsü ekledi; aşağıdaki adımlar silinmedi, burada nasıl okunacağı yazıyor)
 > 1. **Cevap biçimi:** her mesaj ADHD dostu — ilk satır yapılacak iş, numaralı adımlar, her mesajda durum, liste ≤5, giriş/kapanış nezaketi yok. Tam kurallar: `skills/ekip-bilgi/references/adhd-kurallari.md`.
-> 2. **Hafıza:** `.ekip/` klasörü yok. `DURUM.md` / `KARARLAR.md` / `DERSLER.md` okunur/yazılır denen her yerde cevabın sonundaki **DURUM bloğunu** kullan (biçim: `skills/ekip-lideri/SKILL.md`). Kullanıcı eski bir DURUM bloğu yapıştırırsa oradan devam et; bloktaki kararları yeniden sorma.
+> 2. **Hafıza:** `.ekip/` klasörü yok. `DURUM.md` / `KARARLAR.md` / `DERSLER.md` okunur/yazılır denen her yerde cevabın sonundaki **DURUM bloğunu** kullan (biçim: `skills/captain/SKILL.md`). Kullanıcı eski bir DURUM bloğu yapıştırırsa oradan devam et; bloktaki kararları yeniden sorma.
 > 3. **`is/` dosyaları:** kod yorumlayıcı açıksa orada üret ve indirilebilir dosya olarak ver; kapalıysa içeriği sohbete parça parça yaz.
 > 4. **Yollar** paket köküne göredir (`skills/...`); ortak bilgi `skills/ekip-bilgi/references/` altında. Kod yorumlayıcının paket dosyalarını görüp görmediği **doğrulanmadı**; göremiyorsa kullanıcıdan gereken betiği ya da dosyayı sohbete yüklemesini iste.
 > 5. **Araçlar:** tarayıcı otomasyonu, bilgisayar/telefon kontrolü (iPhone Yansıtma), yerel terminal ve Google Flow otomasyonu burada yok. Bu adımları **kullanıcı yapar** ve sonucu (ekran görüntüsü, sayfa metni, dosya) sohbete yükler. ChatGPT ajan modu web sayfası açabilir ama bu paketle sınanmadı (**doğrulanmadı**). Python betikleri kod yorumlayıcıda koşulabilir; ffmpeg'i kullanmadan önce `ffmpeg -version` ile ölç.
-> 6. **Ekip rolleri:** çekirdek ekipte "ajan" ya da "yardımcı rol" denen üye aynı adlı beceridir (`skills/<ad>/SKILL.md`). Ayrı süreç yok: role aynı sohbette sen geçersin, brief'i kendine yazarsın, çıktıyı yine sınarsın. Mağaza kolu üyeleri (marka, görsel, site, denetim) ayrı beceri DEĞİLDİR: işleri `skills/magaza-kurucu/<aşama>/` dosyalarının içindedir; site denetimini o aşama kendisi uygular.
+> 6. **Ekip rolleri:** çekirdek ekipte "ajan" ya da "yardımcı rol" denen üye aynı adlı beceridir (`skills/<ad>/SKILL.md`). Ayrı süreç yok: role aynı sohbette sen geçersin, brief'i kendine yazarsın, çıktıyı yine sınarsın. Mağaza kolu üyeleri (marka, görsel, site, denetim) ayrı beceri DEĞİLDİR: işleri `skills/builder/<aşama>/` dosyalarının içindedir; site denetimini o aşama kendisi uygular.
 > 7. **Mağaza ve köprü:** Shopify işlemleri ChatGPT'nin Shopify bağlantısıyla, Çalışma (Work) modunda yapılır. Köprü betiği `skills/ekip-bilgi/references/paket.py` kod yorumlayıcıda koşulur; `is/NN-urun/magaza/` dosyaları sohbete eklenir ya da indirilebilir dosya olarak verilir.
 """
 
 OZEL = {
-    "ekip-lideri": [
+    "captain": [
         "Bu paketteki bütün ekip becerileri ve roller aşağıdaki tabloda; ortam kontrolü (`referans/kurulum-kontrol.md`) yerine ChatGPT'de yalnız şunu sor: kod yorumlayıcı ve dosya yükleme açık mı.",
         "**Kullanıcının elle yaptığı adımlar** (ilk oturumda bir kez söyle): (1) Instagram/Reels taraması → ekran görüntüsü, link ya da hesap adı yükler · (2) AliExpress, Trendyol, Amazon, Meta Reklam Kütüphanesi, rakip mağaza → sayfayı açar, metnini ya da ekran görüntüsünü yükler · (3) Google Flow klip üretimi → kendisi üretir (kredi = önce onay), sen promptu dosya olarak verirsin · (4) müzik → kendisi indirir ve yükler · (5) yeni sohbete geçerken son DURUM bloğunu yapıştırır.",
         "**Kod yorumlayıcıda senin yaptıkların:** Python betikleri, ffmpeg kurgusu, Excel/CSV/TSV dosyaları. Tarayıcı JS betikleri (`*.js`) ve macOS/iPhone araçları (`*.swift`, iPhone `.sh` betikleri) burada çalışmaz.",
         "`scripts/yayin_olc.py` (48. saat ölçümü) kod yorumlayıcıda koşulur; içgörü sayılarını kullanıcı girer.",
-        "Mağaza işi (`magaza-kurucu`) bu pakette tam çalışır: görsel üretimi bu sohbette, Shopify yazımı ChatGPT'nin Shopify bağlantısıyla (Çalışma modu şart). Mağaza kolu ajanları yoktur; aşama dosyaları aynı işi tek seste yürütür. Oturum modeli notu (Fable) burada geçersizdir.",
-        "HyperFrames becerileri (`viral-urun-ekibi:hyperframes` vb.) bu pakette **yok**: hareketli tasarım render'ı yerel Node + Chrome ister. Yönlendirme tablosundaki hareketli tasarım satırı burada `video-kurgu` notundaki yolla yürür.",
+        "Mağaza işi (`builder`) bu pakette tam çalışır: görsel üretimi bu sohbette, Shopify yazımı ChatGPT'nin Shopify bağlantısıyla (Çalışma modu şart). Mağaza kolu ajanları yoktur; aşama dosyaları aynı işi tek seste yürütür. Oturum modeli notu (Fable) burada geçersizdir.",
+        "HyperFrames becerileri (`viral-urun-ekibi:hyperframes` vb.) bu pakette **yok**: hareketli tasarım render'ı yerel Node + Chrome ister. Yönlendirme tablosundaki hareketli tasarım satırı burada `cut` notundaki yolla yürür.",
     ],
-    "kesfet-urun-avi": [
+    "radar": [
         "Instagram/telefon taramasını **kullanıcı yapar**: Reels ekran görüntüsü, video linki ya da hesap adı yükler; sen okur, ayıklar, tabloya yazarsın.",
         "`kur.sh`, `*.swift`, `izle.sh`, `kaydir.sh`, `dokun.sh`, `begen.sh` yalnız macOS + iPhone Yansıtma içindir — ChatGPT'de çalışmaz.",
         "`baslat.sh` / `ekle.sh` / `kontrol.sh` yerine tabloyu kod yorumlayıcıda tut; `excel_yap.py` kod yorumlayıcıda koşulabilir (openpyxl gerekir; doğrulanmadı).",
     ],
-    "aliexpress-firsat": [
+    "hunter": [
         "AliExpress / Trendyol / Amazon / Meta Reklam Kütüphanesi sayfalarını **kullanıcı açar** ve ürün sayfası metnini ya da ekran görüntüsünü yükler (ajan modu sınanmadı). Görmediğin satış sayısını yazma: `doğrulanamadı`.",
         "`firsat_kontrol.py`, `marj_hesap.py`, `ivme_olc.py`, `kirma_testi.py` kod yorumlayıcıda koşulabilir.",
-        "`urun-paketi.json` (mağaza kolunun girdisi) `skills/ekip-bilgi/references/paket.py urun-yaz` ile kod yorumlayıcıda yazılır ve indirilebilir dosya olarak verilir; mağaza işi aynı paketteki `magaza-kurucu` becerisiyle bu dosyadan başlar.",
+        "`urun-paketi.json` (mağaza kolunun girdisi) `skills/ekip-bilgi/references/paket.py urun-yaz` ile kod yorumlayıcıda yazılır ve indirilebilir dosya olarak verilir; mağaza işi aynı paketteki `builder` becerisiyle bu dosyadan başlar.",
     ],
-    "ai-video-kreatif": [
+    "studio": [
         "Başlangıç karelerini ChatGPT'nin görsel üretimiyle bu sohbette üretebilirsin (kullanılabiliyorsa; her kare yine ölçülerek kontrol edilir).",
         "Google Flow klip üretimini **kullanıcı yapar** (kredi harcar → önce onay, tutar DURUM bloğundaki Kararlar satırına). Promptları dosya olarak ver; `chatgpt_indir.js`, `flow_yukle.js` tarayıcı otomasyonu içindir, burada kullanılmaz.",
         "`magaza-paketi.json` kullanıcı tarafından sohbete eklenir; `skills/ekip-bilgi/references/paket.py magaza-oku <dosya>` kod yorumlayıcıda koşulur, çıkan marka kilidi DURUM bloğunun Kararlar satırına tek satır özetle girer.",
         "TikTok / Meta viral referansı: kullanıcı link ve ekran görüntüsü verir; izlenme sayısı görünmüyorsa `doğrulanamadı`. `senaryo_kontrol.py`, `prompt_uret.py`, `kare_hazirla.py`, `malzeme_kontrol.py` kod yorumlayıcıda koşulabilir.",
     ],
-    "video-kurgu": [
-        "Kurgu kod yorumlayıcıda ffmpeg ile yapılır; kullanıcı klipleri sohbete yükler. Daha önceki bir ölçümde kod ortamında ffmpeg 7.x vardı, moviepy yoktu (`skills/ekip-bilgi/references/chatgpt/video-kurgu.md`) — yine de `ffmpeg -version` ile ölç.",
-        "`video-paketi.json`: `skills/ekip-bilgi/references/paket.py video-yaz <teslim klasörü>` kod yorumlayıcıda; indirilebilir dosya olarak verilir (mağaza koluna geri dönüş: `magaza-kurucu` › `shopify-kurulum`).",
+    "cut": [
+        "Kurgu kod yorumlayıcıda ffmpeg ile yapılır; kullanıcı klipleri sohbete yükler. Daha önceki bir ölçümde kod ortamında ffmpeg 7.x vardı, moviepy yoktu (`skills/ekip-bilgi/references/chatgpt/cut.md`) — yine de `ffmpeg -version` ile ölç.",
+        "`video-paketi.json`: `skills/ekip-bilgi/references/paket.py video-yaz <teslim klasörü>` kod yorumlayıcıda; indirilebilir dosya olarak verilir (mağaza koluna geri dönüş: `builder` › `shopify-kurulum`).",
         "Müzik indirme (Pixabay `curl`) burada yok: kullanıcı müziği indirir ve yükler. Sesi dinleyemezsin: kullanıcı videoyu bir kez sesli izler.",
         "**Aşama 8b (HyperFrames hareketli katman) ChatGPT'de çalışmaz** (yerel Node + Chrome + CLI). Burada: yazıyı `hizli_kurgu.py` ile göm ve hareketli katman planını yaz (hangi saniyede hangi öğe: kinetik yazı, geçiş, sayaç, UI kartı). Render, eklentinin yerel kurulumunda (Node + Chrome olan bilgisayar) yapılır; bunu teslim raporunda \"hareketli katman yok\" diye belirt.",
     ],
-    "reklam-kutuphanesi-avi": [
+    "spy": [
         "Meta Reklam Kütüphanesi taramasını **kullanıcı yapar**: sorguyu açar, sonuç sayfasının metnini ya da ekran görüntüsünü yükler. `meta_topla.js`, `meta_aktar.js`, `magaza_oku.js` tarayıcı otomasyonu içindir, burada çalışmaz.",
         "`meta_kayit.py`, `nis_kelime.py`, `magaza_gecis.py`, `haftalik_rapor.py`, `desen_say.py` kod yorumlayıcıda koşulabilir. Günde ≤30 sorgu kuralı kullanıcı için de geçerli.",
     ],
@@ -241,7 +241,7 @@ skills_h = os.path.join(hedef, "skills")
 # HyperFrames (Apache-2.0, yerel render) ChatGPT paketine girmez — gerekçe dosya başında.
 HARIC = {"hyperframes", "hyperframes-cli", "hyperframes-registry", "media-use"}
 # Dönüştürülmeden kopyalanan beceriler (iki yüzey için yazılmış kaynak; içinde ${CLAUDE_...} olmamalı — sondaki kapı ölçer).
-HAM = {"magaza-kurucu"}
+HAM = {"builder"}
 skill_adlari = sorted(d for d in os.listdir(skills_k) if os.path.isdir(os.path.join(skills_k, d)) and d not in HARIC)
 
 for ad in sorted(HAM & set(skill_adlari)):
@@ -266,7 +266,7 @@ for ad in skill_adlari:
             s = terim_cevir(yol_cevir(oku(kp), ad))
             if f == "SKILL.md" and kok == os.path.join(skills_k, ad):
                 alan, govde = frontmatter_ayir(s)
-                if ad == "ekip-lideri":
+                if ad == "captain":
                     govde = govde.replace("| Unvan | Rol | Ajan |", "| Unvan | Rol | Beceri (rol) |")
                     govde = govde.replace("çağrıda ajan adını kullan.", "role geçerken beceri adını kullan (`skills/<ad>/SKILL.md`).")
                     govde = "\n".join(l for l in govde.split("\n") if "ChatGPT'de yapmak istiyor" not in l and "THIRD_PARTY_NOTICES" not in l)
@@ -285,7 +285,7 @@ for ad in skill_adlari:
 
 # ---------- 4) Ajanlar -> rol skill'leri ----------
 ajan_k = os.path.join(kaynak, "agents")
-AJAN_BECERI = {"ses-tasarimcisi": "video-kurgu"}
+AJAN_BECERI = {"ses-tasarimcisi": "cut"}
 MAGAZA_ISARET = "<!-- kol: magaza -->"
 tum_ajan = sorted(f[:-3] for f in os.listdir(ajan_k) if f.endswith(".md"))
 magaza_ajan = [a for a in tum_ajan if MAGAZA_ISARET in oku(os.path.join(ajan_k, a + ".md"))]
@@ -403,7 +403,7 @@ for ad in tum_beceri + ["ekip-bilgi"]:
 yaz(os.path.join(hedef, "README.md"), """# Viral Ürün Ekibi — ChatGPT paketi
 
 Bu klasör `scripts/chatgpt_paketi_yap.sh` ile üretildi; elle düzenleme (bir sonraki üretimde silinir).
-Başlangıç: sohbette "ekibi başlat" yaz → `ekip-lideri` becerisi devreye girer. Hafıza her cevabın sonundaki DURUM bloğudur.
+Başlangıç: sohbette "ekibi başlat" yaz → `captain` becerisi devreye girer. Hafıza her cevabın sonundaki DURUM bloğudur.
 
 | Beceri | Tür |
 |---|---|

@@ -12,13 +12,13 @@ Yollar, çıktı yerleri ve eksik dosya kuralı: `${CLAUDE_PLUGIN_ROOT}/ortak/ma
 
 Sen ölçen ve panoyu kuran kişisin. Ölçülebilen her şeyi Python ile ölçersin, gözle karar gerekeni gözle söylersin. Zevk puanı vermezsin (o iş kör eleştirmenin).
 
-Önce oku: `is/arastirma/plan/ON-ON-STRATEJI.md` §2 ve §4, `${CLAUDE_PLUGIN_ROOT}/skills/magaza-kurucu/gorseller/references/kabul-kontrolu.md` §2b–§4.
+Önce oku: `is/arastirma/plan/ON-ON-STRATEJI.md` §2 ve §4, `${CLAUDE_PLUGIN_ROOT}/skills/builder/gorseller/references/kabul-kontrolu.md` §2b–§4.
 
 ## Girdi
 `is/NN-urun/magaza/tur-<n>/aday/*.png`, `istem/*.txt`, `METINLER.md`, stil kartındaki HEX'ler ve kör pano referans listesi (`is/NN-urun/magaza/STIL-KARTI.md`).
 
 ## 1. Düzeltilebileni düzelt (ölçmeden önce)
-- Zemin: `python ${CLAUDE_PLUGIN_ROOT}/skills/magaza-kurucu/gorseller/scripts/duzelt.py zemin <girdi> <çıktı> <#HEX>`. Çıkış 3 = ürün kenarda, yeniden üretim listesine yaz.
+- Zemin: `python ${CLAUDE_PLUGIN_ROOT}/skills/builder/gorseller/scripts/duzelt.py zemin <girdi> <çıktı> <#HEX>`. Çıkış 3 = ürün kenarda, yeniden üretim listesine yaz.
 - Kenar payı: en küçük payı ölç (`kabul-kontrolu.md` §3 kodu). %6'dan azsa ve ürün kesik değilse `duzelt.py kenar <girdi> <çıktı> <oran>`, sonra yeniden ölç. Kesikse yeniden üretim.
 - Ölçü: galeri 1:1, B1 1920×800, B2 1080×1350. Ham dosyayı silme; düzeltilmiş dosya `secili/` altına aynı adla.
 

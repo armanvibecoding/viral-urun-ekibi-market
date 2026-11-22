@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Tek paket (magaza-kurucu.zip): kökte tek SKILL.md, geçerli YAML, router yolları pakette,
+"""Tek paket (builder.zip): kökte tek SKILL.md, geçerli YAML, router yolları pakette,
 aşama dosyaları ASAMA.md (frontmatter'sız), Unix izinleri, LF, boyut. Zip bellekte kurulur."""
 import importlib.util
 import io
@@ -49,7 +49,7 @@ class TekPaket(unittest.TestCase):
         m = re.match(r"^---\n(.*?)\n---\n", metin, re.S)
         self.assertIsNotNone(m)
         fm = yaml.safe_load(m.group(1))
-        self.assertEqual(fm["name"], "magaza-kurucu")
+        self.assertEqual(fm["name"], "builder")
         self.assertIsInstance(fm["description"], str)
         self.assertLessEqual(len(fm["description"]), build.DESC_MAX)
         self.assertIn("mağaza kur", fm["description"].lower())

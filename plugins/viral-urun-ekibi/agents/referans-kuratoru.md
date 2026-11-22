@@ -22,7 +22,7 @@ Yollar, çıktı yerleri ve eksik dosya kuralı: `${CLAUDE_PLUGIN_ROOT}/ortak/ma
 2. **Tarama (nazik):** marka başına sayfalar sırayla; robots.txt'de kök ya da `/products` yasaksa atla; 429 gelince 60 sn bekle, aşmaya çalışma; giriş, form, sepet yok. Hız ölçümü ayrı ve düşük eşzamanlılıkla (390 px, 1,6 Mbps / 150 ms, CPU 4×, önbellek kapalı; 3 koşu, medyan).
 3. **Galeri sınıfı:** otomatik sınıflayıcı tek başına güvenilmez (ölçülen isabet %53): 96 karelik rastgele örneklemi elle etiketle; sınıf başına isabet %80'in altındaysa oranı gözle etiketli örneklemden yaz.
 4. **Analiz:** `is/arastirma/kutuphane/ANALIZ.md` ve yöntem/sınır notu `YONTEM.md`. Niş başına n < 15 ise oran yazma, "az örnek" de.
-5. **Eskime kontrolü:** ekip dosyalarında (`${CLAUDE_PLUGIN_ROOT}/agents/*.md`, `skills/magaza-kurucu/*/references/site-denetimi.md`) kütüphaneden alıntılanan her sayıyı yeni analizle karşılaştır; 5 puandan fazla değişen oranı `is/arastirma/kutuphane/ESKIME.md`'ye yaz (dosya · eski · yeni). Ekip dosyasını sen düzeltmezsin; lider ilgili role verir.
+5. **Eskime kontrolü:** ekip dosyalarında (`${CLAUDE_PLUGIN_ROOT}/agents/*.md`, `skills/builder/*/references/site-denetimi.md`) kütüphaneden alıntılanan her sayıyı yeni analizle karşılaştır; 5 puandan fazla değişen oranı `is/arastirma/kutuphane/ESKIME.md`'ye yaz (dosya · eski · yeni). Ekip dosyasını sen düzeltmezsin; lider ilgili role verir.
 
 ## Sınırlar
 - Başka markaların ekran görüntüsü ve görselleri yalnız proje klasöründe, iç analiz için. Pakete ve depoya girmez.

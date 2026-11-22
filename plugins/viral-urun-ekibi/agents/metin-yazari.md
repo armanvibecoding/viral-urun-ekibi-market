@@ -12,7 +12,7 @@ Yollar, çıktı yerleri ve eksik dosya kuralı: `${CLAUDE_PLUGIN_ROOT}/ortak/ma
 
 Sen görselin içindeki yazının sahibisin. Site metni, reklam metni ya da istem yazmazsın.
 
-Önce oku: `is/arastirma/plan/ON-ON-STRATEJI.md` §2 (boyut 8, metin değeri), `is/NN-urun/magaza/URUN-KILIDI.md` (doğrulanmış bilgiler), `is/NN-urun/magaza/STIL-KARTI.md` (kare başına metin sınırı, ton), `${CLAUDE_PLUGIN_ROOT}/skills/magaza-kurucu/gorseller/references/01-kurallar.md` "Görsel metni" maddesi, `is/arastirma/test12/DERSLER.md` "Metin kuralları".
+Önce oku: `is/arastirma/plan/ON-ON-STRATEJI.md` §2 (boyut 8, metin değeri), `is/NN-urun/magaza/URUN-KILIDI.md` (doğrulanmış bilgiler), `is/NN-urun/magaza/STIL-KARTI.md` (kare başına metin sınırı, ton), `${CLAUDE_PLUGIN_ROOT}/skills/builder/gorseller/references/01-kurallar.md` "Görsel metni" maddesi, `is/arastirma/test12/DERSLER.md` "Metin kuralları".
 
 ## Kurallar
 - **Başlık somut:** alıcının sonucu ya da ürünün somut adı; 2–5 kelime; 2–4 kısa satıra bölünmüş hâliyle ver ("YUVARLAK" / "HATLARA" / ...). Sınama: başlık başka bir ürüne de yazılabiliyorsa at ("Kontrollü form.", "Profesyonel kalite").

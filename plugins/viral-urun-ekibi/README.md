@@ -1,10 +1,10 @@
 # viral-urun-ekibi (eklenti)
 
 Tek liderli Türkçe e-ticaret ekibi: ürün bul → doğrula → teklif → Shopify mağazasını kur → kreatif üret → yayınla. Sekiz iş akışı
-(`ekip-lideri`, `kesfet-urun-avi`, `aliexpress-firsat`, `reklam-kutuphanesi-avi`, `teklif-ve-sayfa`, `magaza-kurucu`, `ai-video-kreatif`,
-`video-kurgu`), 27 alt ajan (kadro: `ortak/ekip.md`), kollar arası köprü (`ortak/sozlesme/` + `ortak/paket.py`) ve ortak bir bilgi bankası içerir.
-Tek giriş `ekip-lideri` becerisidir. Mağaza kolu Shopify bağlantısını (`.mcp.json`) getirir; özel tema paketi yoksa **temasız mod**da
-çalışır (ürün, metin ve görseller mağazanın mevcut temasına yazılır). `skills/magaza-kurucu/` üretilen klasördür; kaynağı depodaki
+(`captain`, `radar`, `hunter`, `spy`, `teklif-ve-sayfa`, `builder`, `studio`,
+`cut`), 27 alt ajan (kadro: `ortak/ekip.md`), kollar arası köprü (`ortak/sozlesme/` + `ortak/paket.py`) ve ortak bir bilgi bankası içerir.
+Tek giriş `captain` becerisidir. Mağaza kolu Shopify bağlantısını (`.mcp.json`) getirir; özel tema paketi yoksa **temasız mod**da
+çalışır (ürün, metin ve görseller mağazanın mevcut temasına yazılır). `skills/builder/` üretilen klasördür; kaynağı depodaki
 `moduller/magaza-kurucu/`.
 Hareketli tasarım için HyperFrames becerileri de pakette: `hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use`
 (çağrı adı `viral-urun-ekibi:hyperframes` vb.).
@@ -15,9 +15,9 @@ Kurulum (Claude Code içinde):
 /plugin install viral-urun-ekibi@viral-urun-market
 ```
 
-Başlamak için boş bir klasörde `/viral-urun-ekibi:ekip-lideri` çalıştır.
+Başlamak için boş bir klasörde `/viral-urun-ekibi:captain` çalıştır.
 
-Mağaza kolu (`magaza-kurucu` becerisi) aynı eklentinin içindedir; kollar dosya üzerinden çalışır:
+Mağaza kolu (`builder` becerisi) aynı eklentinin içindedir; kollar dosya üzerinden çalışır:
 bulunan ürün `urun-paketi.json` olarak mağaza koluna gider, kurulan mağaza `magaza-paketi.json` ile video ekibine döner,
 videolar `video-paketi.json` ile mağazaya girer. Sözleşme ve doğrulayıcı: `ortak/sozlesme/`, yardımcı betik: `ortak/paket.py`.
 
