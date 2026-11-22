@@ -1,0 +1,29 @@
+name: Özellik önerisi
+description: Yeni beceri, ajan, kapı ya da bilgi bankası katkısı fikri
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Çözmek istediğin sorun
+      description: Hangi işte takılıyorsun? Bugün nasıl yapıyorsun?
+    validations:
+      required: true
+  - type: textarea
+    id: oneri
+    attributes:
+      label: Önerin
+      description: Hangi beceri ya da ajan etkilenir? Yeni bir kapı (ölçülebilir kontrol) gerekir mi?
+    validations:
+      required: true
+  - type: textarea
+    id: kanit
+    attributes:
+      label: Kanıt ya da kaynak
+      description: Bilgi bankası önerisiyse ölçümün kaynağını ve tarihini yaz; doğrulanmamış sayı ekleme.
+  - type: checkboxes
+    id: katki
+    attributes:
+      label: Katkı
+      options:
+        - label: Bunu kendim PR olarak gönderebilirim

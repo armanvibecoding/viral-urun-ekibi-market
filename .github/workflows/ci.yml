@@ -1,0 +1,97 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  testler:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Bağımlılıkları kur (Python + ffmpeg)
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest pyyaml openpyxl pillow numpy imageio-ffmpeg
+          # ffmpeg gerektiren kurgu testleri için; kurulamazsa imageio-ffmpeg'in gömülü ikilisi kullanılır
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg || echo "apt ffmpeg kurulamadı, imageio-ffmpeg kullanılacak"
+
+      - name: Manifestler ve sürüm tutarlılığı
+        run: |
+          python - <<'PY'
+          import json, re, sys
+          p = json.load(open("plugins/viral-urun-ekibi/.claude-plugin/plugin.json", encoding="utf-8"))
+          json.load(open(".claude-plugin/marketplace.json", encoding="utf-8"))
+          m = re.search(r"^## \[(\d+\.\d+\.\d+)\]", open("CHANGELOG.md", encoding="utf-8").read(), re.M)
+          if not m or m.group(1) != p["version"]:
+              sys.exit("plugin.json sürümü (%s) ile CHANGELOG.md'deki son sürüm (%s) farklı" % (p["version"], m and m.group(1)))
+          print("sürüm tutarlı:", p["version"])
+          PY
+
+      - name: claude plugin validate (CLI yoksa atlanır)
+        run: |
+          if command -v claude >/dev/null 2>&1; then
+            claude plugin validate plugins/viral-urun-ekibi && claude plugin validate .
+          else
+            echo "atlandı: claude CLI bu çalıştırıcıda yok"
+          fi
+
+      - name: Anonimlik denetimi (kara liste yoksa atlanır)
+        run: |
+          if [ -s "$HOME/.config/viral-urun-ekibi/yasak.txt" ]; then
+            sh scripts/anonim_kontrol.sh
+          else
+            echo "atlandı: kişisel kara liste depo dışında durur, bu çalıştırıcıda yok (yerelde: sh scripts/anonim_kontrol.sh)"
+          fi
+
+      - name: Arayüz sözleşmesi
+        run: python scripts/sozlesme_test.py
+
+      - name: Talimat bütçesi kapısı
+        run: |
+          python scripts/butce_kontrol.py
+          python scripts/butce_kontrol.py --kendini-sina
+
+      - name: Mağaza kolu (üretilen klasör kaynakla aynı mı + testler)
+        run: |
+          python moduller/magaza-kurucu/tools/build.py --check
+          python -m pytest -q moduller/magaza-kurucu/tests
+
+      - name: Ekip lideri kapıları
+        run: |
+          python plugins/viral-urun-ekibi/skills/ekip-lideri/scripts/kapi_test.py
+          python plugins/viral-urun-ekibi/skills/ekip-lideri/scripts/karne_test.py
+
+      - name: Video kurgu testleri
+        run: |
+          python plugins/viral-urun-ekibi/skills/video-kurgu/scripts/kendini_test.py
+          python plugins/viral-urun-ekibi/skills/video-kurgu/scripts/juri_test.py
+
+      - name: Reklam kütüphanesi toplayıcı testleri
+        run: |
+          python plugins/viral-urun-ekibi/skills/reklam-kutuphanesi-avi/scripts/kendini_test.py
+          python plugins/viral-urun-ekibi/skills/reklam-kutuphanesi-avi/scripts/toplayici_test.py
+
+      - name: Teklif ve AliExpress kırma testleri
+        run: |
+          python plugins/viral-urun-ekibi/skills/teklif-ve-sayfa/scripts/kirma_testi.py
+          python plugins/viral-urun-ekibi/skills/aliexpress-firsat/scripts/kirma_testi.py
+
+      - name: ChatGPT paketi üretilebiliyor mu
+        run: |
+          sh scripts/proje_paketi_yap.sh
+          sh scripts/chatgpt_paketi_yap.sh

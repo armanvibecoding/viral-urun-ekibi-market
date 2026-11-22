@@ -1,0 +1,54 @@
+name: Hata bildirimi
+description: Bir beceri, ajan ya da betik beklenen gibi çalışmadı
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Bildirmeden önce kişisel bilgiyi (ad, e-posta, mağaza ve hesap adı, ev klasörü yolu, anahtar) çıktılardan sil.
+  - type: input
+    id: surum
+    attributes:
+      label: Eklenti sürümü
+      description: "`/plugin` listesinde ya da plugin.json içindeki `version`"
+      placeholder: "0.3.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: yuzey
+    attributes:
+      label: Hangi yüzeyde?
+      options:
+        - Claude Code eklentisi
+        - ChatGPT paketi (ZIP)
+        - claude.ai / ChatGPT Projesi (proje paketi)
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: İşletim sistemi ve araç sürümleri
+      placeholder: "macOS 15, Claude Code x.y, ffmpeg 7.x, Python 3.12"
+  - type: input
+    id: beceri
+    attributes:
+      label: Hangi beceri ya da ajan?
+      placeholder: "video-kurgu / magaza-kurucu / ..."
+  - type: textarea
+    id: adimlar
+    attributes:
+      label: Yeniden üretme adımları
+      placeholder: "1. ...\n2. ...\n3. ..."
+    validations:
+      required: true
+  - type: textarea
+    id: beklenen
+    attributes:
+      label: Ne bekliyordun, ne oldu?
+    validations:
+      required: true
+  - type: textarea
+    id: cikti
+    attributes:
+      label: Hata çıktısı ya da ilgili log
+      render: shell
