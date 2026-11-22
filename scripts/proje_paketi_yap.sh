@@ -4,7 +4,7 @@
 set -e
 KOK="$(cd "$(dirname "$0")/.." && pwd)"
 E="$KOK/plugins/viral-urun-ekibi"
-H="$E/ekler/proje-paketi/yuklenecek"
+H="$KOK/chatgpt/proje-paketi/yuklenecek"
 mkdir -p "$H"
 rm -f "$H"/*.md
 # Proje içinde klasör yok: "../x.md" atıfları düz ada çevrilir, README "bilgi-rehberi" olur.

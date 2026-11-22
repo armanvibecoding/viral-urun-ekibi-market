@@ -105,7 +105,7 @@ aliexpress-firsat (SAT) ──urun-paketi.json──▶ magaza-kurucu ──maga
   uçtan uca zincir. Çıkış 0 olmalı.
 
 ## 9. Commit öncesi kapılar (hepsi çıkış 0)
-`sh scripts/anonim_kontrol.sh` · `sh scripts/proje_paketi_yap.sh` · `sh scripts/chatgpt_paketi_yap.sh` · `claude plugin validate plugins/viral-urun-ekibi` ·
+`sh scripts/anonim_kontrol.sh` · `sh scripts/proje_paketi_yap.sh` · `sh scripts/chatgpt_paketi_yap.sh` · `sh scripts/paketle.sh` (iki ZIP) · `claude plugin validate plugins/viral-urun-ekibi` ·
 `python3 scripts/sozlesme_test.py` · `python3 scripts/butce_kontrol.py` (+ `--kendini-sina`) · `cd moduller/magaza-kurucu && python3 -m pytest -q tests` ·
 eklenti içi: `skills/ekip-lideri/scripts/kapi_test.py`, `karne_test.py` · `skills/video-kurgu/scripts/kendini_test.py`, `juri_test.py` ·
 `skills/reklam-kutuphanesi-avi/scripts/kendini_test.py`, `toplayici_test.py` · `skills/teklif-ve-sayfa/scripts/kirma_testi.py` ·

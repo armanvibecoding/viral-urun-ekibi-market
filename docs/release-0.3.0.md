@@ -1,7 +1,7 @@
 # Release 0.3.0: yayın notu taslağı
 
 > Taslak: GitHub Releases sayfasına yapıştırılır. Etiket: `v0.3.0` · Başlık: `0.3.0: tek kapı, kör jüri, sade depo`
-> Eklenecek dosya: `viral-urun-ekibi-chatgpt.zip` (`sh scripts/chatgpt_paketi_yap.sh` ile `dist/` altında üretilir; depoda tutulmaz).
+> Eklenecek iki dosya (`sh scripts/paketle.sh` ile `dist/` altında üretilir; depoda tutulmaz): `viral-urun-ekibi-CLAUDE-v0.3.0.zip` ve `viral-urun-ekibi-CHATGPT-v0.3.0.zip`.
 
 ---
 
@@ -21,7 +21,7 @@ ayrıntılar `referans/` dosyalarına taşındı. Hiçbir kapı ya da test kald�
 İç plan ve analiz belgeleri `docs/gelistirici/`, betikler `scripts/` altına taşındı.
 
 ## Dikkat: değişenler
-- ChatGPT ZIP'i artık depoda yok; aşağıdaki dosyadan indir.
+- Depo iki parçaya ayrıldı: `claude/` ve `chatgpt/`. ZIP'ler depoda yok; aşağıdaki iki dosyadan indir. Proje paketi `plugins/.../ekler/proje-paketi` yerine `chatgpt/proje-paketi/` altında.
 - Betik yolları değişti: `docs/*.sh|py` → `scripts/`. Kendi komutlarında ya da CI'nda eski yolu kullanıyorsan güncelle.
 - Sağlık ve sonuç dili artık yasak değil, uyarı ve bilgi notu üretir; uydurma veri kapıları aynen duruyor.
 
@@ -34,7 +34,13 @@ Claude Code:
 ```
 Mevcut kullanıcılar: `/plugin` → Marketplaces → viral-urun-market → Update.
 
-ChatGPT: aşağıdaki `viral-urun-ekibi-chatgpt.zip` dosyasını indir, açmadan ChatGPT → Plugins → yükle.
+| Kullandığın uygulama | İndir | Nereye yükle |
+|---|---|---|
+| Claude Code | ZIP gerekmez (yukarıdaki komutlar) | Claude Code |
+| claude.ai / Claude uygulaması | `viral-urun-ekibi-CLAUDE-v0.3.0.zip` (açma) | Customize → Plugins → Add → Upload plugin |
+| ChatGPT | `viral-urun-ekibi-CHATGPT-v0.3.0.zip` (açma) | ChatGPT → Plugins → yükle |
+
+İki ZIP'i karıştırma: CLAUDE yalnız Claude'a, CHATGPT yalnız ChatGPT'ye.
 
 ## Doğrulama
 `claude plugin validate plugins/viral-urun-ekibi` uyarısız geçer; arayüz sözleşmesi 49/49, mağaza kolu testleri, kurgu, kapı, toplayıcı ve kırma testleri geçer.

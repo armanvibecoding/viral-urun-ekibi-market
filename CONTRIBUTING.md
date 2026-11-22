@@ -23,7 +23,7 @@ Claude Code içinde yerel çalışma kopyanı katalog olarak ekle — böylece d
 ```
 
 Değişiklikten sonra `/plugin` → Marketplaces → viral-urun-market → Update (ya da Claude Code'u yeniden başlat).
-Araç ön koşulları (ffmpeg, Python paketleri, Chrome eklentisi) için [README.md](README.md) içindeki "Yol A" bölümüne bak.
+Araç ön koşulları (ffmpeg, Python paketleri, Chrome eklentisi) için [claude/README.md](claude/README.md) içindeki "Gereksinimler" bölümüne bak.
 
 ## 2. Beceri eklemek veya değiştirmek
 
@@ -43,7 +43,7 @@ Araç ön koşulları (ffmpeg, Python paketleri, Chrome eklentisi) için [README
   `surum` artar, alan silinmez. Sonra `python3 scripts/sozlesme_esitle.py` (kopya `plugins/viral-urun-ekibi/ortak/sozlesme/`),
   `python3 moduller/magaza-kurucu/tools/build.py` ve `python3 scripts/sozlesme_test.py` çıkış 0 olmalı. Betik: `ortak/paket.py`.
 - Ortak bilgi (`ortak/`) birden çok becerinin kullandığı bilgidir. Bilgi bankasını (`ortak/bilgi/`) değiştirdiysen
-  claude.ai/ChatGPT proje paketini yeniden üret: `sh scripts/proje_paketi_yap.sh`.
+  claude.ai/ChatGPT proje paketini yeniden üret: `sh scripts/proje_paketi_yap.sh` (çıktı `chatgpt/proje-paketi/yuklenecek/`). Yükleme ZIP'lerini `sh scripts/paketle.sh` üretir.
 - Kullanıcıya görünen metin **Türkçe**; kod, değişken ve dosya adları İngilizce ya da ASCII Türkçe olabilir.
 - Kullanıcı verisi eklentiye yazılmaz; çalışma çıktısı kullanıcının proje klasöründe (`.ekip/`, `is/`) durur.
 - Davranışı değiştiren her PR'da `plugins/viral-urun-ekibi/.claude-plugin/plugin.json` içindeki `version`'ı artır ve `CHANGELOG.md`'ye bir satır ekle.

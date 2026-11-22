@@ -91,7 +91,7 @@ jobs:
           python plugins/viral-urun-ekibi/skills/teklif-ve-sayfa/scripts/kirma_testi.py
           python plugins/viral-urun-ekibi/skills/aliexpress-firsat/scripts/kirma_testi.py
 
-      - name: ChatGPT paketi üretilebiliyor mu
+      - name: Yükleme paketleri üretilebiliyor mu (Claude ZIP + ChatGPT ZIP)
         run: |
           sh scripts/proje_paketi_yap.sh
-          sh scripts/chatgpt_paketi_yap.sh
+          sh scripts/paketle.sh

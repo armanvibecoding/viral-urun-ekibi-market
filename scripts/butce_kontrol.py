@@ -73,7 +73,7 @@ def denetle(kok):
                 for no, s in enumerate(t.splitlines(), 1):
                     if iz.search(s):
                         hata.append("%s:%d: %s kuralının metni tekrar yazılmış → kimliğe atıf yap (tek kaynak ortak/kurallar.md)" % (g, no, k))
-        if not g.startswith("ortak/bilgi/") and not g.startswith("ekler/proje-paketi/yuklenecek/"):
+        if not g.startswith("ortak/bilgi/"):
             for kim in set(KIMLIK.findall(t)) - tanimli:
                 hata.append("%s: %s kimliğine atıf var ama ortak/kurallar.md'de tanımlı değil" % (g, kim))
     for y in beceriler + ajanlar:

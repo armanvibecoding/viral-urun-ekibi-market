@@ -4,9 +4,8 @@ Kod bilmen gerekmez. 10 dakikada bir Proje açıp talimatı ve bilgi dosyaların
 "şu ürün viral olur mu", "buna benzer ne var", "şu ürüne 30 video yaz" diye sorarsın.
 
 ## 0) Dosyaları bilgisayarına indir
-Sana paylaşılan GitHub sayfasında yeşil **Code** düğmesine bas → **Download ZIP**. İnen ZIP'e çift tıkla.
-Açılan klasörde şu yola gir: `plugins` → `viral-urun-ekibi` → `ekler` → `proje-paketi`. Aşağıdaki dosyalar orada.
-(Sana ZIP yerine doğrudan `proje-paketi` klasörü gönderildiyse bu adımı atla.)
+GitHub deposunda yeşil **Code** düğmesine bas → **Download ZIP**. İnen ZIP'e çift tıkla ve açılan klasörde `chatgpt` → `proje-paketi`
+yoluna gir. Aşağıdaki dosyalar orada. (Sana doğrudan `proje-paketi` klasörü gönderildiyse bu adımı atla.)
 
 ## Bu klasörde ne var
 | Dosya | Ne yapacaksın |

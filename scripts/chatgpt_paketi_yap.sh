@@ -1,10 +1,10 @@
 #!/bin/sh
 # Viral Ürün Ekibi eklentisinden ChatGPT'ye yüklenebilir plugin ZIP'i üretir. Kaynağa DOKUNMAZ.
-# Çıktı: dist/chatgpt/viral-urun-ekibi/ (dönüştürülmüş kopya) + dist/viral-urun-ekibi-chatgpt.zip
-# ZIP git içinde TUTULMAZ (dist/ .gitignore'da): her sürümde GitHub Releases sayfasına yüklenir (gh release create vX.Y.Z dist/viral-urun-ekibi-chatgpt.zip).
+# Çıktı: dist/chatgpt/viral-urun-ekibi/ (dönüştürülmüş kopya) + dist/viral-urun-ekibi-CHATGPT-v<sürüm>.zip
+# ZIP git içinde TUTULMAZ (dist/ .gitignore'da): her sürümde GitHub Releases sayfasına yüklenir (scripts/paketle.sh iki ZIP'i de üretir).
 # Kullanım: sh scripts/chatgpt_paketi_yap.sh   (depo kökünden ya da herhangi bir yerden)
 # Dönüşüm özeti:
-#   - hooks/, agents/, ekler/ (proje-paketi) pakete girmez; hook'un işi ekip-lideri SKILL.md başına talimat olur.
+#   - hooks/ ve agents/ pakete girmez; hook'un işi ekip-lideri SKILL.md başına talimat olur.
 #   - HyperFrames becerileri (hyperframes, hyperframes-cli, hyperframes-registry, media-use) pakete GİRMEZ:
 #     render yerel Node 22+ + Chrome + CLI ister (ChatGPT'de yok), iş döngüsü check/snapshot/render olmadan doğrulanamaz,
 #     ZIP'i ~0,65 MB'tan ~2,6 MB'a ve 163 dosyadan ~385'e çıkarır; terim dönüşümü Apache-2.0 dosyalarını değiştirirdi.
@@ -25,7 +25,8 @@ KOK="$(cd "$(dirname "$0")/.." && pwd)"
 KAYNAK="$KOK/plugins/viral-urun-ekibi"
 DIST="$KOK/dist"
 HEDEF="$DIST/chatgpt/viral-urun-ekibi"
-ZIP="$DIST/viral-urun-ekibi-chatgpt.zip"
+SURUM="$(python3 -I -c 'import json,sys;print(json.load(open(sys.argv[1],encoding="utf-8"))["version"])' "$KAYNAK/.claude-plugin/plugin.json")"
+ZIP="$DIST/viral-urun-ekibi-CHATGPT-v$SURUM.zip"
 
 [ -f "$KAYNAK/.claude-plugin/plugin.json" ] || { echo "HATA: kaynak eklenti yok: $KAYNAK"; exit 1; }
 command -v python3 >/dev/null || { echo "HATA: python3 gerekli"; exit 1; }

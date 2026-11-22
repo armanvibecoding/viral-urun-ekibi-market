@@ -20,7 +20,8 @@ Her sürümün tam geçmişi `git log` içindedir; burada kullanıcıya görüne
 - Model tablosu: en güçlü model yalnızca kör jüri, kök neden ve strateji rollerinde; hacimli işler `sonnet`, ölçülebilir her şey betik.
 - README ilk ekranı yeniden yazıldı (tek cümle, rozetler, akış diyagramı, 3 adımlık kurulum); terimler tek biçime getirildi (eklenti, beceri, ajan).
 - Depo düzeni: iç plan ve analiz belgeleri `docs/gelistirici/`, betikler `scripts/` altına taşındı.
-- ChatGPT ZIP'i artık depoda tutulmaz; her sürümle birlikte Releases sayfasına yüklenir (`scripts/chatgpt_paketi_yap.sh` ile üretilir).
+- Depo iki parçaya ayrıldı: `claude/` (Claude Code ve claude.ai rehberi) ve `chatgpt/` (ChatGPT rehberi + `proje-paketi/`); kök README yalnız iki kapı gösterir. `ekler/proje-paketi` → `chatgpt/proje-paketi`.
+- Yükleme paketleri depoda tutulmaz; her sürümle Releases'a iki ZIP yüklenir: `viral-urun-ekibi-CLAUDE-v<sürüm>.zip` ve `viral-urun-ekibi-CHATGPT-v<sürüm>.zip` (`sh scripts/paketle.sh` ile üretilir).
 - Beceri ve ajan dosyaları budandı: `ekip-lideri`, `ai-video-kreatif`, `video-kurgu` ve eleştirmen kısaldı, ayrıntı `referans/` dosyalarına taşındı (kapı hiçbir şeyi kaldırmadı).
 
 ### Düzeltildi

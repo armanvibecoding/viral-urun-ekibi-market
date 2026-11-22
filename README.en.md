@@ -39,12 +39,12 @@ All user-facing text is Turkish; contributions and issues in English are welcome
 
 **ChatGPT**
 
-1. Download `viral-urun-ekibi-chatgpt.zip` from the [latest release](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) (do not unzip).
+1. Download `viral-urun-ekibi-CHATGPT-v0.3.0.zip` from the [latest release](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) (do not unzip). Claude.ai / Claude app users take `viral-urun-ekibi-CLAUDE-v0.3.0.zip` instead (Customize → Plugins → Add → Upload plugin).
 2. ChatGPT → **Plugins** → upload the ZIP.
 3. Start a new chat: `Ekibi başlat. Pazarım Türkiye.` ("Start the team. My market is Turkey.")
 
 Prerequisites: Claude Pro/Max/Ultra, Google Chrome, `ffmpeg` and `python3 -m pip install --user openpyxl pillow imageio-ffmpeg numpy`.
-The iPhone-mirroring mode is Mac-only; the browser mode works everywhere. Full setup (Windows included) is in the Turkish [README](README.md).
+The iPhone-mirroring mode is Mac-only; the browser mode works everywhere. Full setup (Windows included): [claude/README.md](claude/README.md) and [chatgpt/README.md](chatgpt/README.md) (Turkish).
 
 ## How it works
 
