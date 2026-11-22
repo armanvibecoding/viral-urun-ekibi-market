@@ -63,7 +63,7 @@ Kilit yoksa akış aynen sürer. Dosya biçimi: `<eklenti kökü>/ortak/sozlesme
   numarala, parça başına ✅/❌ + renk + yazı harf harf + fazladan/eksik parça. Pano dosyası yoksa ✅ geçersiz.
 - ❌ olanı orijinalden tek düzeltmeyle yeniden üret; 2 denemede tutmazsa o açıyı bırak.
 
-## Aşama 3 — 30 senaryo (alt ajan: icerik-stratejisti)
+## Aşama 3 — 30 senaryo (alt ajan: story)
 **Bilgi tabanı**
 - Görüntü izlenmeyi, kanca paylaşımı taşır; zayıf görüntüyü kanca kurtarmaz. İlk saniyede ürün çalışıyor ya da problem
   görünüyor. 8–15 sn, konuşma yok, gerçek ürün sesi + sentetik efekt + açık lisanslı müzik. Kopya ölür: aynı fikir, YENİ an.

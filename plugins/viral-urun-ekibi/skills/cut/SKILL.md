@@ -59,12 +59,12 @@ her karede bindirme ekranın içinde mi. Yöntem ve ayarlar: `${CLAUDE_SKILL_DIR
 yalnız genel kurallar ve ürün kontratı (`is/NN/kurgu/KURALLAR.md`) geçerlidir.
 - En güçlü an ilk karede; ilk karede ses de olsun. Plan = 2 ya da 4 vuruş, 2 vuruştan kısa plan yok; toplam 12–15 sn.
 - Yazı ürünü örtmez; alt %20 ve sağ %15 boş; emoji videoya girmez (caption'a). Ekranda fiyat: ICE-01.
-- **Ses:** `ses-tasarimcisi` ajanı `ses_tasarla.py`dan önce efekt planını çıkarır. Müzik videoda olmalı (SES-02) ve müzik girişi
+- **Ses:** `mixer` ajanı `ses_tasarla.py`dan önce efekt planını çıkarır. Müzik videoda olmalı (SES-02) ve müzik girişi
   kuralına uyar (SES-01); müzik stem'i `is/NN/ses/stem_VNN/muz.wav` olarak kaydedilir (kapı onu ölçer). Yöntem: `referans/ses-tasarimi.md`.
 - **Ön-kontrol (kurgudan sonra, jüriden önce):** `hizli_kurgu.py ayar.json --katı` (okunma UYARI'sı = çıkış 1), sonra
   `kurgu_kontrol.py ayar.json --video VIDEO.mp4` → çıkış 0. Klip içerikleri `klipler/klip_etiket.json`dan okunur (biçim betiğin başında).
-- **Hüküm:** kör jüri (`juri.py pano --mod teslim` → `video-juri` 3 kopya → `juri.py birlestir`; akış `captain` "Hüküm hattı")
-  videoyu gerçek viral referanslarla yan yana puanlar. Kalırsa kök nedeni `video-elestirmen` yazar.
+- **Hüküm:** kör jüri (`juri.py pano --mod teslim` → `jury` 3 kopya → `juri.py birlestir`; akış `captain` "Hüküm hattı")
+  videoyu gerçek viral referanslarla yan yana puanlar. Kalırsa kök nedeni `fixer` yazar.
 - **Teslim geçişinin tek kapısı:** `python3 "${CLAUDE_PLUGIN_ROOT}/skills/captain/scripts/kapi.py" yayin is/NN --proje . --kopyala`
   (teknik, kurgu, görüntü, ses, iddia, hüküm, defter, sözleşme); çıkış 0 olmadan `teslim/` klasörüne video konmaz.
 

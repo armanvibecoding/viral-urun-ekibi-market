@@ -60,8 +60,8 @@ Depo herkese açıktır; ayrı erişim gerekmez. Kendi çatalını (fork) kuraca
 | `teklif-ve-sayfa` | Kazanan ürün için teklif, iniş sayfası, itiraz bankası ve e-posta taslağı; baskı/sahte indirim ifadesi denetçisi. |
 | `hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use` | Hareketli tasarım katmanı (HeyGen'in açık kaynak HyperFrames paketi, Apache-2.0, değiştirilmeden): HTML'den video, kinetik yazı, geçiş, altyazı, ~450 hazır blok; render yerelde Node 22+ ve Chrome ister. `cut` aşama 8b'de çağrılır. |
 
-**Ajanlar** (`plugins/viral-urun-ekibi/agents/`, 27 üye): çekirdek ekip 7 (`video-juri` kör video jürisi, `firsat-avcisi`, `kanit-savcisi`, `icerik-stratejisti`,
-`kreatif-analisti`, `video-elestirmen`, `ses-tasarimcisi`) + mağaza kolu 20 (marka, görsel, site, denetim). Her üyenin İngilizce
+**Ajanlar** (`plugins/viral-urun-ekibi/agents/`, 27 üye): çekirdek ekip 7 (`jury` kör video jürisi, `scout`, `skeptic`, `story`,
+`decoder`, `fixer`, `mixer`) + mağaza kolu 20 (marka, görsel, site, denetim). Her üyenin İngilizce
 unvanı, adı, Türkçe rolü ve modeli: `plugins/viral-urun-ekibi/ortak/ekip.md`.
 
 **Ortak bilgi** (`plugins/viral-urun-ekibi/ortak/`): marka skoru, viral DNA, sözlük ve `bilgi/` altında ürün kataloğu,

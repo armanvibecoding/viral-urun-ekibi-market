@@ -36,14 +36,14 @@ kadro dosyasında "çağrıda model" yazan işlerde (hikâye seçimi, kısa list
 | Kullanıcı ne istiyor | Beceri | Ağır işi kim yapar |
 |---|---|---|
 | Instagram'dan viral ürün bul / listele | `radar` | sen (telefon/tarayıcı alt ajana verilmez) |
-| Viral ürünlerin ortak noktası, desen | `radar` notları → `kreatif-analisti` ajanı | ajan |
-| AliExpress'ten henüz viral olmamış ürün | `hunter` | `firsat-avcisi`, sonra `kanit-savcisi` |
-| Bir ürün için 30 video / senaryo / kare | `studio` | `icerik-stratejisti` |
+| Viral ürünlerin ortak noktası, desen | `radar` notları → `decoder` ajanı | ajan |
+| AliExpress'ten henüz viral olmamış ürün | `hunter` | `scout`, sonra `skeptic` |
+| Bir ürün için 30 video / senaryo / kare | `studio` | `story` |
 | Klipleri kurgula, yazı/ses ekle, teslim | `cut` | sen (betikler) |
 | Kinetik yazı, geçiş, overlay, UI kartı | `cut` Aşama 8b → `viral-urun-ekibi:hyperframes` | sen (yerel Node + Chrome) |
 | Yayınla / 48. saat ölç | `sablon/yayin-PLAN.md` + `sablon/olcum.csv` → `scripts/yayin_olc.py` | sen (veriyi kurucu girer) |
 | Niş niş trend ürün / kazanan reklam (Meta Reklam Kütüphanesi) | `spy` | sen; eşleşen ürün `hunter`'a `META-<kod>` ile girer |
-| SAT olmuş ürüne teklif / ürün sayfası / upsell / e-posta | `teklif-ve-sayfa` | sen; `kanit-savcisi` sayfa iddialarını çürütür |
+| SAT olmuş ürüne teklif / ürün sayfası / upsell / e-posta | `teklif-ve-sayfa` | sen; `skeptic` sayfa iddialarını çürütür |
 | Mağaza kur / ürünü Shopify'a aç / marka adı, logo, galeri görseli, site metni | `builder` (5 aşama, §2b) | sen; marka, görsel ve site işi mağaza kolu ajanlarında |
 | Kurulu mağazayı denetle | `builder` Adım 8 (`shopify-kurulum/references/site-denetimi.md`) | 5 denetçi paralel (`ortak/ekip.md`) |
 | Videolar mağazayla aynı görünsün | `ortak/paket.py magaza-oku` (§2b) | sen |
@@ -54,9 +54,9 @@ kadro dosyasında "çağrıda model" yazan işlerde (hikâye seçimi, kısa list
 
 **Hüküm hattı (ön-üretimde kredi onayından önce ve teslimde; üç ayrı el — komutlar `${CLAUDE_SKILL_DIR}/referans/hukum-hatti.md`):**
 1. **Ölçü = betik:** ölçülebilir her şey `kapi.py` altındadır (§5c); ajan ölçülebilir şeyi puanlamaz.
-2. **Zevk = kör jüri:** `juri.py pano` (bizim video + ≥ 3 gerçek viral referans, adsız) → `video-juri` **3 ayrı çağrı** (brief yalnız pano
+2. **Zevk = kör jüri:** `juri.py pano` (bizim video + ≥ 3 gerçek viral referans, adsız) → `jury` **3 ayrı çağrı** (brief yalnız pano
    klasörü + kopya no) → `juri.py birlestir`. GEÇTİ/KALDI betiğindir.
-3. **Kök neden = direktör:** kaldıysa `video-elestirmen` bir kez; `hikâye`, `malzeme` ya da `tavan` çıkarsa kurgu turu açma. En fazla 3 tur.
+3. **Kök neden = direktör:** kaldıysa `fixer` bir kez; `hikâye`, `malzeme` ya da `tavan` çıkarsa kurgu turu açma. En fazla 3 tur.
 "En iyi" beğeniden değil performanstan öğrenilir: jüri `juri.py kalibrasyon` ile gerçek sonuca (izlenme/takipçi, kaydetme + paylaşım,
 reklam süresi, sepete ekleme) karşı sınanır; UYUMLU değilse hüküm DENEME'dir, kullanıcıya böyle söyle. Kullanıcıdan "beğendin mi" toplanmaz.
 

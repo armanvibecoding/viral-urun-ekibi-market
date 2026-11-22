@@ -79,8 +79,8 @@ video modeli (kesme/dönüşüm → kırp ya da yeniden üret).
   sonra `kurgu_kontrol.py ayar.json --video VIDEO.mp4` → çıkış 0 olmadan jüriye gönderme. Klip içerikleri
   `klipler/klip_etiket.json`dan okunur (biçim betiğin başında; yeni klip = yeni etiket satırı, bilinmeyen "bilinmiyor").
   Betik ölçülebilir kuralları alır; kanca gücü, gerçekçilik, ritim yargısı kör jüride kalır.
-- Teslimden önce kör jüri (`juri.py pano --mod teslim` → `video-juri` 3 kopya → `juri.py birlestir`; akış `captain` "Hüküm hattı")
-  videoyu gerçek viral referanslarla yan yana puanlar; `gecti: true` olmadan teslim yok. Kalırsa kök nedeni `video-elestirmen` yazar.
+- Teslimden önce kör jüri (`juri.py pano --mod teslim` → `jury` 3 kopya → `juri.py birlestir`; akış `captain` "Hüküm hattı")
+  videoyu gerçek viral referanslarla yan yana puanlar; `gecti: true` olmadan teslim yok. Kalırsa kök nedeni `fixer` yazar.
   Teslim geçişinin tek kapısı: `python3 "${CLAUDE_PLUGIN_ROOT}/skills/captain/scripts/kapi.py" yayin is/NN --proje . --kopyala`
   (teknik, kurgu, görüntü, ses, iddia, hüküm, defter, sözleşme); çıkış 0 olmadan `teslim/` klasörüne video konmaz.
 
@@ -90,7 +90,7 @@ Kurallar (ayrıntı `referans/kurgu-kurallari.md`):
 - Font: betik Türkçe harfleri (çğıİöşü) ölçerek seçer; ilk kurulumda font test karesine bak.
 - Ses: klibin gerçek sesi + sentetik efekt: `ses_tasarla.py --sfx tik@sn,vurus@sn` (tık = dokunuş, vuruş = değişim);
   **efekt dosyası istenmez.** Kullanıcı kendi efektini verirse `sfx` + `hizala: true` gerçek ses anına oturtur. Hedef −14 LUFS.
-- **Ses tasarımcısı (ses_tasarla'dan önce):** `ses-tasarimcisi` ajanı ayar dosyasından efekt planı (sn · efekt · dB · neden)
+- **Ses tasarımcısı (ses_tasarla'dan önce):** `mixer` ajanı ayar dosyasından efekt planı (sn · efekt · dB · neden)
   çıkarır ve komutu üretir: dosya efekti `--sfx_dosya "ad.mp3@sn:dB" --sfx_klasor is/NN/sfx/kaynak` (lisans `sfx/LISANS.md`'de),
   sentetik `boom/whoosh`, drop reçetesi `--riser <drop−0,2>:1.0:-18 --sessizlik_vurusu 0.2`. Kapılar: 10 sn'de ≤ 5 efekt,
   `drop_tuttu`, **müzik girişi** (SES-01).

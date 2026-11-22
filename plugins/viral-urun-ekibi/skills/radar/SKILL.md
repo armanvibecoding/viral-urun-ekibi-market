@@ -62,7 +62,7 @@ Yeni oturumda "devam et" = DURUM.md'deki "Sıradaki adım"dan sürdür; listeyi 
 ## 4. Ekip ve bağlam
 - Ekran kontrolü (iPhone/Chrome) alt ajana verilmez; tarama bu oturumda yapılır. Bağlamı korumak için
   kareleri ve uzun notları dosyaya yaz, sohbete her turda 3–5 satır özet ver.
-- `is/kesfet/kreatif/notlar/`'da en az 10 MARKA notu birikince desen çıkarımı için `kreatif-analisti`
+- `is/kesfet/kreatif/notlar/`'da en az 10 MARKA notu birikince desen çıkarımı için `decoder`
   ajanını çağır (brief: okunacak klasör, yazılacak dosyalar, bilinen/elenen desenler). Sonucundan 2 desenin
   not numaralarını açıp gerçekten orada mı bak; tutmuyorsa çıktıyı "şüpheli" say.
 

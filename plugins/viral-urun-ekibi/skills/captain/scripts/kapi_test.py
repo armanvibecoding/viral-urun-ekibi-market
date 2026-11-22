@@ -129,7 +129,7 @@ def kredi_testleri(kok):
           defterli("t1", ["| 1 | 2000-01-01 | kullanıcı | ani-muzik | müzik ani | skills/cut/SKILL.md:Ses | İŞLENDİ | evet |\n"]), 1,
           ["tek örnekten eklenti kuralı"])
     bekle("terfi: ilk örnek kontrata, ikinci örnek üretici dosyaya (TEKRAR-DÜZELTİLDİ) -> 0",
-          defterli("t2", [ILK_URUN, "| 2 | 2000-01-05 | direktör | ani-muzik | yine ani | agents/ses-tasarimcisi.md:Kurallar | TEKRAR-DÜZELTİLDİ | evet |\n"]), 0,
+          defterli("t2", [ILK_URUN, "| 2 | 2000-01-05 | direktör | ani-muzik | yine ani | agents/mixer.md:Kurallar | TEKRAR-DÜZELTİLDİ | evet |\n"]), 0,
           ["GEÇTİ      defter"])
     bekle("kırma: ikinci örnek yine yalnız kontrata yazılmış -> 1 (üretici düzeltilmemiş)",
           defterli("t3", [ILK_URUN, "| 2 | 2000-01-05 | direktör | ani-muzik | yine ani | is/01-urun/kurgu/KURALLAR.md:K3 | İŞLENDİ | evet |\n"]), 1,

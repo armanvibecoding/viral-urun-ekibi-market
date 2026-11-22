@@ -43,13 +43,13 @@ Sayfa **yayını, fiyat değişikliği, uygulama kurulumu, reklam** kurucu karar
 7. **Doğrulama (zorunlu, çıkış 0 olmadan "hazır" denmez)**
    `python3 "${CLAUDE_SKILL_DIR}/scripts/teklif_kontrol.py" sema is/NN-urun/teklif.tsv`
    `python3 "${CLAUDE_SKILL_DIR}/scripts/teklif_kontrol.py" tara --pazar <TR|US|UK|DE|FR|ES> is/NN-urun/sayfa.md is/NN-urun/itiraz-sss.md is/NN-urun/eposta-upsell.md`
-   Sonra `${CLAUDE_SKILL_DIR}/referans/kontrol-listesi.md` madde madde. İsteğe bağlı: sayfa iddialarını `kanit-savcisi` ajanına
+   Sonra `${CLAUDE_SKILL_DIR}/referans/kontrol-listesi.md` madde madde. İsteğe bağlı: sayfa iddialarını `skeptic` ajanına
    "çürüt" brief'iyle ver (kanıt dosyası + sayfa.md); çürütülen özellik/sayı çıkarılır, sağlık/sonuç cümlesi bilgi notuyla kalır.
 
 ## Kurallar (pazarlıksız)
 - **Uydurma yasak:** yorum, yıldız, müşteri sayısı, satış sayısı, stok sayısı, "X kişi bakıyor", uzman/doktor onayı, önce-sonra,
   sertifika — gerçek ve belgeli değilse yazılmaz. Sayı gerekiyorsa yer tutucu: `{GERCEK_YORUM_SAYISI}`; kurucu gerçek değeri girer.
-  Bu, `kanit-savcisi`'nin "sayı uydurmak yasak, bulunamayan = doğrulanamadı" kuralının sayfa karşılığıdır.
+  Bu, `skeptic`'nin "sayı uydurmak yasak, bulunamayan = doğrulanamadı" kuralının sayfa karşılığıdır.
 - **Sağlık ve sonuç dili yasak değil** (IDD-01, `${CLAUDE_PLUGIN_ROOT}/ortak/kurallar.md`): "ağrıyı geçirir", "garantili sonuç" yazılabilir;
   metin elenmez, yumuşatılmaz. `teklif_kontrol.py` bu cümlelerde `UYARI … Bilgi notu (kullanıcının sorumluluğu): …` basar (çıkış
   değişmez); o satır sayfa taslağının ve kullanıcı özetinin sonuna aynen eklenir.

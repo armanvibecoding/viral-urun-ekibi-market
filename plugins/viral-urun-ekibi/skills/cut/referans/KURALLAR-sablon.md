@@ -1,6 +1,6 @@
 # Kurgu kuralları kontratı — şablon (`is/NN/kurgu/KURALLAR.md`)
 
-Ürün başına bir dosya. **Üretimden ÖNCE**, ön-üretim hükmünden sonra (Aşama 5, kredi onayından önce) `video-elestirmen` doldurur.
+Ürün başına bir dosya. **Üretimden ÖNCE**, ön-üretim hükmünden sonra (Aşama 5, kredi onayından önce) `fixer` doldurur.
 Kurgucu brief'i yalnız bu dosyaya işaret eder; kör jüri bu dosyayı GÖRMEZ. Bu ürüne özgü her yeni kural önce buraya girer
 (kural terfisi URE-02: eklentiye ancak ikinci örnekte). Kontratta olmayan bulgu aşağıdaki öneri bölümüne girer.
 Seri ortasında kontrat değişmez; değişiklik ancak sonraki seride ya da kullanıcı açık talimatıyla (tarih + gerekçe).

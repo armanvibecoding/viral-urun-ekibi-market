@@ -36,12 +36,12 @@ Uzun tablo sohbete yazılmaz, dosyaya yazılır. Sohbete yalnız özet + dosya y
    yüksek izlenmeli (M3, M2) gruplardan en az birer tane. Kullanıcının kendi keşif notları (`radar` çıktısı) varsa
    onlardaki milyonluk ürünler akraba olarak eklenir.
 3. **Arama terimleri** — mekanizmadan üretilir, ürün adından değil: `${CLAUDE_SKILL_DIR}/referans/aliexpress-okuma.md` §2.
-4. **Aday listesi** — ağır tarama `firsat-avcisi` ajanına verilir. Her aday: ürün sayfası linki, normal fiyat,
+4. **Aday listesi** — ağır tarama `scout` ajanına verilir. Her aday: ürün sayfası linki, normal fiyat,
    **ürün sayfasındaki** satış, görsele bakıldı mı, mekanizma + akraba not no, DNA. Hedef varsayılan 20–30 aday.
 5. **Zaten viral mi** — `${CLAUDE_SKILL_DIR}/referans/zaten-viral-kontrolu.md` (TR: Trendyol; ABD: Amazon + TikTok Shop; ayrıca video ve Meta Reklam Kütüphanesi).
 6. **Denetim + sınama** — `firsat_kontrol.py denetle is/firsat/adaylar.md` hatasız dönmeli; sonra `sinama` ile rastgele 3 satır
    ürün sayfasından açılıp kontrol edilir (`${CLAUDE_SKILL_DIR}/referans/kanit-ve-karar.md` §4).
-7. **Kanıt dosyası** — sıra puanı en yüksek ≤5 aday `kanit-savcisi` ajanına (son 3 adayda çağrıda en güçlü model); `is/firsat/kanit/NN-urun-adi.md`.
+7. **Kanıt dosyası** — sıra puanı en yüksek ≤5 aday `skeptic` ajanına (son 3 adayda çağrıda en güçlü model); `is/firsat/kanit/NN-urun-adi.md`.
    Kısa listeye giren her aday için aynı gün: `is/firsat/marj.csv` satırı (iniş maliyeti: gümrük/tarife, aracı, ödeme,
    iade/COD reddi, teslim günü) ve `is/firsat/ivme.csv` `t0` satırı. `marj_hesap.py` çıkış 0 olmadan marj yazılmaz;
    7 gün sonra `t7` ölçülür, `ivme_olc.py bant` → ERKEN DALGA / BOŞ / DOYMUŞ. Kanıt dosyasına 10 ölçütlü puan (0–20) tablosu

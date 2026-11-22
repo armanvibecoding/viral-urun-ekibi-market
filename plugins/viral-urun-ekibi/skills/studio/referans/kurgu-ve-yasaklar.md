@@ -157,7 +157,7 @@ müstehcen içerik buraya düşer) · **B. hesap öneri dışı** (A'nın tekrar
 hiçbir içerik takipçi dışına gitmez) · **C. kaldırma / hesap kapanması** (çıplaklık, ima edilen cinsel aktivite — çizim ve AI
 dahil, grafik cinsel dil, cinsel talep). Mizahi cinsel metafor kaldırılmaz ama 18+ ile sınırlanır (Keşfet'e gidemez).
 Kaynak: https://www.facebook.com/help/1257205004624246 · https://transparency.meta.com/policies/community-standards/sexual-solicitation/
-- **İmâ seviyesi (0–3; direktör `video-elestirmen` yazar):** 0 imâ yok (işlev hissedilmez → ağır kusur) · **1 obje/duygu/ilişki imâsı = hedef**
+- **İmâ seviyesi (0–3; direktör `fixer` yazar):** 0 imâ yok (işlev hissedilmez → ağır kusur) · **1 obje/duygu/ilişki imâsı = hedef**
   · 2 yatak odası/ilişki-anı imâsı = yalnız deneme gönderisi (Trial Reels, ana grid değil) · 3 cinsel karşılaşma imâsı =
   YAYINLANMAZ (ağır kusur). Metafor ilişkiyi/duyguyu/nesneyi anlatır; yatakta ne olduğunu anlatmaz.
 - **Kelime kapısı (ekran yazısı + caption + hashtag + ses dökümü):** ürün kategorisinin açık adı, anatomik kelime, "sex/toy/

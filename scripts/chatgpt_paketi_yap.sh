@@ -156,25 +156,25 @@ OZEL = {
     "teklif-ve-sayfa": [
         "Rakip mağaza sayfalarını **kullanıcı açar** ve metnini/ekran görüntüsünü yükler (ya da web araması). `teklif_kontrol.py` kod yorumlayıcıda koşulabilir.",
     ],
-    "firsat-avcisi": [
+    "scout": [
         "AliExpress sayfalarını kullanıcı açar ve yükler; tarayıcı yoksa yalnız arama terimlerini ve web araması bulgularını yaz, \"AliExpress taranamadı (tarayıcı yok)\" de.",
     ],
-    "kanit-savcisi": [
+    "skeptic": [
         "Pazar ve mağaza aramalarını kullanıcı açar ya da web araması yapılır; açılmayan kaynak `bulunamadı` / `doğrulanamadı`.",
     ],
-    "icerik-stratejisti": [
+    "story": [
         "`senaryo_kontrol.py` kod yorumlayıcıda koşulur; çıkış 0 olmadan senaryo teslim edilmez.",
     ],
-    "kreatif-analisti": [
+    "decoder": [
         "Kreatif notları kullanıcı yükler; yoksa `skills/ekip-bilgi/references/bilgi/kreatif-notlar.md` kaynak alınır.",
     ],
-    "video-elestirmen": [
+    "fixer": [
         "Jüri hükmü ve `kapi.py` çıktısı sohbette yoksa kök neden yazma; önce onları iste.",
     ],
-    "video-juri": [
+    "jury": [
         "**Aynı sohbet kör değildir.** Bu rol YENİ ve boş bir sohbette uygulanır: kullanıcı yalnız bu dosyayı ve `juri.py pano`nun ürettiği pano görsellerini yükler (senaryo, kontrat, hangi ögenin bizim olduğu yüklenmez). 3 kopya = 3 ayrı yeni sohbet; her birinin JSON çıktısı `KOR-<n>.json` olarak kaydedilir ve asıl sohbette `juri.py birlestir` ile birleştirilir.",
     ],
-    "ses-tasarimcisi": [
+    "mixer": [
         "`ses_tasarla.py` / `ses_olc.py` kod yorumlayıcıda (ffmpeg gerekir) koşulur; dinleyemediğini `doğrulanamadı` diye yaz.",
     ],
 }
@@ -285,7 +285,7 @@ for ad in skill_adlari:
 
 # ---------- 4) Ajanlar -> rol skill'leri ----------
 ajan_k = os.path.join(kaynak, "agents")
-AJAN_BECERI = {"ses-tasarimcisi": "cut"}
+AJAN_BECERI = {"mixer": "cut"}
 MAGAZA_ISARET = "<!-- kol: magaza -->"
 tum_ajan = sorted(f[:-3] for f in os.listdir(ajan_k) if f.endswith(".md"))
 magaza_ajan = [a for a in tum_ajan if MAGAZA_ISARET in oku(os.path.join(ajan_k, a + ".md"))]

@@ -73,7 +73,7 @@ Bilinen ChatGPT sınırları (ölçüldü):
 - **Tek kaynak:** kalıcı kural bir kez `ortak/kurallar.md`'ye kimlikle yazılır; başka dosyada metni tekrarlanmaz (kapı HATA verir).
 - **Kural terfisi iki basamak (URE-02):** tek örnekten eklenti kuralı çıkmaz. Yeni kural önce ürün kontratına; eklentiye aynı
   kusur ikinci kez (başka ürün/video) görülünce, kapsam etiketiyle girer. Sektöre özgü kural `referans/sektor/<sektör>.md`'ye.
-- **Hüküm üç elde:** ölçü betikte (`kapi.py`), zevk kör jüride (`video-juri`, performans kalibrasyonlu), kök neden direktörde.
+- **Hüküm üç elde:** ölçü betikte (`kapi.py`), zevk kör jüride (`jury`, performans kalibrasyonlu), kök neden direktörde.
   Ölçülebilir bir kuralı ajan talimatına yazma; betiğe eşik + kırma testi olarak yaz.
 - **Sağlık/sonuç dili yasak değil** (IDD-01: bilgi notu); uydurma veri yasak (IDD-02). Yeni hukuki yasak kullanıcıya sorulmadan eklenmez.
 - **Model:** en güçlü model yalnız jüri, kök neden, strateji ve aylık budamada; mekanik iş betikte ya da ucuz modelde (`ortak/ekip.md`).

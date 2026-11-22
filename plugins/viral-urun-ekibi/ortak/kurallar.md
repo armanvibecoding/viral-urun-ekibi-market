@@ -27,6 +27,6 @@ metin betikle çelişirse betik kazanır.
 ## Üretim
 | Kimlik | Kural | Kapı (betik → çıkış) |
 |---|---|---|
-| URE-01 | **Bir Flow klibi ≈ 4,03 saniyedir; video süresi = Σ klip aralığı** (+ kredisiz katman). Senaryo klip başına daha uzun süre varsayamaz; süre anlamlı kredisiz katmanla uzatılır, aynı klibin ikinci kırpımı uzatma sayılmaz. | `video-elestirmen` ön-üretim süre bütçesi (kök neden `malzeme`); kontrat K1 |
+| URE-01 | **Bir Flow klibi ≈ 4,03 saniyedir; video süresi = Σ klip aralığı** (+ kredisiz katman). Senaryo klip başına daha uzun süre varsayamaz; süre anlamlı kredisiz katmanla uzatılır, aynı klibin ikinci kırpımı uzatma sayılmaz. | `fixer` ön-üretim süre bütçesi (kök neden `malzeme`); kontrat K1 |
 | URE-02 | **Kural terfisi iki basamaklıdır:** yeni kural önce ürün kontratına (`is/NN/kurgu/KURALLAR.md`) ya da `.ekip/DERSLER.md`'ye girer; eklenti dosyasına ancak aynı kusur anahtarı ikinci kez (başka ürün ya da video) görülünce, üretici dosyada yerinde düzeltilerek girer. | `geri_bildirim_kontrol.py` → 1 (`kapi.py` `defter`) |
 

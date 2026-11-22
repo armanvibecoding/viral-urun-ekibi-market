@@ -50,14 +50,14 @@ videoların kareleri kör jürinin referansıdır. Yöntem: `${CLAUDE_SKILL_DIR}
 **Hikâye bankası (Aşama 1 sonu, sahne üretiminden önce):** `is/NN/hikaye-bankasi.md`, en az 10 aday; senaryo yalnız bankadan
 seçilir. Bir sahne 2 kez yeniden üretilip tutmadıysa 3. üretim yerine bankaya dön. Satır biçimi: `uretim-kurallari.md` §2.
 
-Aşama 3 ağır iştir: `icerik-stratejisti` alt ajanına ver (30 senaryonun yazımı ajanın varsayılan modelinde; hikâye bankası ve
+Aşama 3 ağır iştir: `story` alt ajanına ver (30 senaryonun yazımı ajanın varsayılan modelinde; hikâye bankası ve
 ilk 5 senaryonun seçimi için ayrı çağrı, çağrıda en güçlü model). Brief'te: `is/NN/kart.md`, `kilit.txt`, pazar, CTA kelimesi,
 dağılım kuralları (`asamalar.md` §3), çıktı biçimi `${CLAUDE_SKILL_DIR}/referans/senaryo-formati.md`, betik klasörü
 `${CLAUDE_SKILL_DIR}/scripts/` (ajan değişkeni bilmez, yolu açık yaz), durma ölçütü "`senaryo_kontrol.py` çıkış 0". Ana oturuma yalnız özet + dosya yolu döner. Sonra betiği **sen de** koştur (ajan çıktısı sınanır).
 
 **Ön-üretim hükmü (Aşama 5 sonu, kredi onayından önce):** ilk 5 videonun kareleri kör jüriye gider (`juri.py pano --mod onuretim`,
-gerçek viral referansların ilk kareleriyle yan yana; `video-juri` 3 kopya; `juri.py birlestir`). Kalan video Flow'a gitmez;
-kök nedeni `video-elestirmen` yazar, geçenler için kontratı (`kurgu/KURALLAR.md`) doldurur. Akış: `captain` "Hüküm hattı".
+gerçek viral referansların ilk kareleriyle yan yana; `jury` 3 kopya; `juri.py birlestir`). Kalan video Flow'a gitmez;
+kök nedeni `fixer` yazar, geçenler için kontratı (`kurgu/KURALLAR.md`) doldurur. Akış: `captain` "Hüküm hattı".
 Kredi geçişinin tek kapısı: `python3 "${CLAUDE_PLUGIN_ROOT}/skills/captain/scripts/kapi.py" kredi is/NN --proje .` (senaryo,
 kontrat, hüküm, kredi onayı, defter). Çıkış 0 olmadan Flow'da üretim başlamaz; aşım yalnız kurucu kararıyla (`captain` §5c).
 

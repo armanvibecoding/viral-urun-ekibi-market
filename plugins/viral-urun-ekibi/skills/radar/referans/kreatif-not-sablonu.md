@@ -3,7 +3,7 @@
 Ne zaman: marka skoru ≥7 (MARKA) ya da gerekçeli YARI bir hesabın çok izlenen videosu.
 Nereye: `is/kesfet/kreatif/notlar/NNN-hesap.md` (dosya başına bir video; NNN = urunler.md numarası,
 listede yoksa `x01`, `x02`…). Görmediğini yazma; okunamayan alan = "görünmüyor".
-`kreatif-analisti` ajanı desenleri yalnız bu notlardan çıkarır.
+`decoder` ajanı desenleri yalnız bu notlardan çıkarır.
 
 ```markdown
 # NNN — @hesap — ürün adı
