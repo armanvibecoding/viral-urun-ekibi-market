@@ -61,6 +61,11 @@ jobs:
       - name: Arayüz sözleşmesi
         run: python scripts/sozlesme_test.py
 
+      - name: Ad sistemi kapısı
+        run: |
+          python scripts/ad_testi.py
+          python scripts/ad_testi.py --kendini-sina
+
       - name: Talimat bütçesi kapısı
         run: |
           python scripts/butce_kontrol.py
@@ -86,10 +91,16 @@ jobs:
           python plugins/viral-urun-ekibi/skills/spy/scripts/kendini_test.py
           python plugins/viral-urun-ekibi/skills/spy/scripts/toplayici_test.py
 
-      - name: Teklif ve AliExpress kırma testleri
+      - name: Teklif, AliExpress ve Trendyol (Bazaar) kırma testleri
         run: |
-          python plugins/viral-urun-ekibi/skills/teklif-ve-sayfa/scripts/kirma_testi.py
+          python plugins/viral-urun-ekibi/skills/builder/teklif/scripts/kirma_testi.py
           python plugins/viral-urun-ekibi/skills/hunter/scripts/kirma_testi.py
+          python plugins/viral-urun-ekibi/skills/bazaar/scripts/kirma_testi.py
+
+      - name: Ortak Excel yazıcısı (openpyxl gerekir)
+        run: |
+          python -m pip install openpyxl
+          python plugins/viral-urun-ekibi/ortak/excel_test.py
 
       - name: Yükleme paketleri üretilebiliyor mu (Claude ZIP + ChatGPT ZIP)
         run: |

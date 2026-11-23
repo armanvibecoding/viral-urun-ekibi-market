@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue"></a>
-  <img alt="Version 0.3.0" src="https://img.shields.io/badge/version-0.3.0-brightgreen">
+  <img alt="Version 0.4.0" src="https://img.shields.io/badge/version-0.4.0-brightgreen">
   <a href="https://github.com/armanvibecoding/viral-urun-ekibi-market/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/armanvibecoding/viral-urun-ekibi-market/actions/workflows/ci.yml/badge.svg"></a>
 </p>
 
@@ -39,7 +39,7 @@ All user-facing text is Turkish; contributions and issues in English are welcome
 
 **ChatGPT**
 
-1. Download `viral-urun-ekibi-CHATGPT-v0.3.0.zip` from the [latest release](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) (do not unzip). Claude.ai / Claude app users take `viral-urun-ekibi-CLAUDE-v0.3.0.zip` instead (Customize → Plugins → Add → Upload plugin).
+1. Download `viral-urun-ekibi-CHATGPT-v0.4.0.zip` from the [latest release](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) (do not unzip). Claude.ai / Claude app users take `viral-urun-ekibi-CLAUDE-v0.4.0.zip` instead (Customize → Plugins → Add → Upload plugin).
 2. ChatGPT → **Plugins** → upload the ZIP.
 3. Start a new chat: `Ekibi başlat. Pazarım Türkiye.` ("Start the team. My market is Turkey.")
 

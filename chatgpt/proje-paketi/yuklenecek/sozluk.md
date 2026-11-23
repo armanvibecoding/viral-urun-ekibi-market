@@ -36,4 +36,6 @@ Tüm beceriler ve ajanlar bu anlamları kullanır. Yeni terim gerekirse buraya e
 | **Tema modu** | Tam mod = kullanıcıda kayıtlı tema paketi var, şablonlar yazılır. Temasız mod = paket yok; ürün, metin, görsel mağazanın mevcut temasına yazılır, tema istenmez. |
 | **Pazar kodu** | Köprü dosyalarında ISO 3166 (`US`, `TR`, `GB`, `DE`…); kullanıcıya Türkçe ad. Teklif tablosundaki `UK` = `GB`. |
 | **Niş eki** | Mağazanın niş şablonu (`nis-pet`, `nis-gadget`…). Reklam avının niş kodu `ortak/nis-esleme.tsv` ile çevrilir (`paket.py urun-yaz --nis-kodu`). |
+| **Kod adı** | Beceri ve ajanın tek kelimelik İngilizce adı (Radar, Atlas …); kullanıcıya `Kod adı (Türkçe rol)` diye anılır. Tek kaynak `ortak/ad-haritasi.tsv`. |
+| **Alias** | Eski beceri adının yönlendirme klasörü (yalnız `SKILL.md`, `<!-- alias: yeni -->` işaretli); 0.4.0'da çalışır, 0.5.0'da silinir. |
 | **DEVAM KARTI** | Mağaza aşamalarının hafızası: onaylı ad, renk, yazı, fiyat, metin ve dosya adları. Proje klasöründe `is/NN-urun/magaza/devam-karti.md`; sohbette yapıştırılır. Karttaki onaylı değer değişmez. |

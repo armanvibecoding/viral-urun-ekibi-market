@@ -108,6 +108,6 @@ hunter (SAT) ──urun-paketi.json──▶ builder ──magaza-paketi.json─
 `sh scripts/anonim_kontrol.sh` · `sh scripts/proje_paketi_yap.sh` · `sh scripts/chatgpt_paketi_yap.sh` · `sh scripts/paketle.sh` (iki ZIP) · `claude plugin validate plugins/viral-urun-ekibi` ·
 `python3 scripts/sozlesme_test.py` · `python3 scripts/butce_kontrol.py` (+ `--kendini-sina`) · `cd moduller/magaza-kurucu && python3 -m pytest -q tests` ·
 eklenti içi: `skills/captain/scripts/kapi_test.py`, `karne_test.py` · `skills/cut/scripts/kendini_test.py`, `juri_test.py` ·
-`skills/spy/scripts/kendini_test.py`, `toplayici_test.py` · `skills/teklif-ve-sayfa/scripts/kirma_testi.py` ·
-`skills/hunter/scripts/kirma_testi.py`. Aylık budama ve çıkarılanlar: `docs/gelistirici/BUDAMA-0.3.0.md`, `docs/gelistirici/ESKIDI/`.
+`skills/spy/scripts/kendini_test.py`, `toplayici_test.py` · `skills/builder/teklif/scripts/kirma_testi.py` ·
+`skills/hunter/scripts/kirma_testi.py` · `skills/bazaar/scripts/kirma_testi.py` · `ortak/excel_test.py` · `python3 scripts/ad_testi.py` (+ `--kendini-sina`). Aylık budama ve çıkarılanlar: `docs/gelistirici/BUDAMA-0.3.0.md`, `docs/gelistirici/ESKIDI/`.
 - Alan adı değişmez; yeni alan kaynakta (modül) eklenir, `surum` artar, sonra eşitlenir.

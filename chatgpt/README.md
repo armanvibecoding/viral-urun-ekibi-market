@@ -1,18 +1,18 @@
 # ChatGPT parçası: Viral Ürün Ekibi
 
 Aynı ekibin ChatGPT sürümü: 16 beceri (8 iş akışı + 7 ekip rolü + bilgi bankası). Mağaza kolu tam çalışır (görsel üretimi sohbette,
-Shopify ChatGPT'nin kendi bağlantısıyla, Çalışma modu şart). Betikler kod yorumlayıcıda koşar. Sürüm: 0.3.0.
+Shopify ChatGPT'nin kendi bağlantısıyla, Çalışma modu şart). Betikler kod yorumlayıcıda koşar. Sürüm: 0.4.0.
 
 ## Hangi yoldan kuracağım?
 
 | Ne istiyorsun? | Ne indir | Nereye yükle |
 |---|---|---|
-| **ChatGPT plugin** (önerilen) | [Releases](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) → `viral-urun-ekibi-CHATGPT-v0.3.0.zip` (açma) | ChatGPT → **Plugins** → yükleme seçeneği |
+| **ChatGPT plugin** (önerilen) | [Releases](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) → `viral-urun-ekibi-CHATGPT-v0.4.0.zip` (açma) | ChatGPT → **Plugins** → yükleme seçeneği |
 | **Proje** (plugin yoksa; claude.ai'de de olur) | bu klasördeki [`proje-paketi/`](proje-paketi/KURULUM.md) | ChatGPT ya da claude.ai → **Projects** |
 
 ## Plugin kurulumu (3 adım)
 
-1. `viral-urun-ekibi-CHATGPT-v0.3.0.zip` dosyasını Releases'tan indir. ZIP'i açma.
+1. `viral-urun-ekibi-CHATGPT-v0.4.0.zip` dosyasını Releases'tan indir. ZIP'i açma.
 2. ChatGPT → **Plugins** → yükleme seçeneği. İş alanında: yönetici konsolu → **Plugins** → **Add** → **Upload plugin**. Seçenek yoksa
    **Plugins → Skills → Create → Upload** ile ZIP'in içindeki `skills/` altındaki klasörleri tek tek yükle (önce `ekip-bilgi` ve `captain`).
    Kişisel hesapta hangi planın gerektiği belgelerde net değil.
@@ -32,7 +32,7 @@ Plugin yüklenemezse Proje yolu (`proje-paketi/KURULUM.md`, 10 dakika) aynı bil
 | Hareketli tasarım (HyperFrames) | Pakette yok | Yerel Node 22+ ve Chrome ister; Claude Code parçasını kullan |
 | Shopify bağlantısı | ChatGPT'nin kendi bağlantısı | Çalışma modunda bağla; `.mcp.json` pakete girmez |
 
-Tam liste `captain` becerisinin başındadır. Tam hat (otomatik gezinme, 27 ajan, hafıza) için [Claude parçası](../claude/README.md).
+Tam liste `captain` becerisinin başındadır. Tam hat (otomatik gezinme, 17 ajan, hafıza) için [Claude parçası](../claude/README.md).
 
 ## ZIP'i kendin üretmek
 

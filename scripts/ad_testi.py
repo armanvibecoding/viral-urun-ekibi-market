@@ -181,12 +181,17 @@ def kendini_sina():
     def kir(ad, yol, degistir, harf):
         eski = oku(yol) if os.path.isfile(yol) else None
         yeni = degistir(eski)
+        klasor = os.path.dirname(yol)
+        yeni_klasor = not os.path.isdir(klasor)
+        os.makedirs(klasor, exist_ok=True)
         with open(yol, "w", encoding="utf-8") as f:
             f.write(yeni)
         bulunan = denetle(gecici)
         sonuc.append((ad, any(x.startswith(harf + ")") for x in bulunan)))
         if eski is None:
             os.remove(yol)
+            if yeni_klasor:
+                os.rmdir(klasor)
         else:
             with open(yol, "w", encoding="utf-8") as f:
                 f.write(eski)
@@ -194,8 +199,9 @@ def kendini_sina():
     kir("a) name klasör adından farklı → HATA", os.path.join(skills, b0["yeni"], "SKILL.md"),
         lambda t: re.sub(r"^name: .*$", "name: yanlis", t, count=1, flags=re.M), "a")
     kir("b) fazladan ajan dosyası → HATA", os.path.join(agents, "fazlalik.md"), lambda t: "---\nname: fazlalik\n---\n", "b")
-    kir("c) beceri adı ajan havuzunda da → HATA", os.path.join(skills, a0["yeni"], "SKILL.md"),
-        lambda t: "---\nname: %s\ndescription: %s (x)\n---\n" % (a0["yeni"], a0["kod_adi"]), "c")
+    b1 = next(r for r in h if r["tur"] == "beceri")
+    kir("c) beceri adı ajan havuzunda da → HATA", os.path.join(gecici, HARITA),
+        lambda t: t.replace("\t%s\t%s\t" % (a0["yeni"], a0["kod_adi"]), "\t%s\t%s\t" % (b1["yeni"], a0["kod_adi"])), "c")
     kir("d) alias klasörüne ikinci dosya → HATA", os.path.join(skills, b0["eski"], "EKSTRA.md"), lambda t: "x\n", "d")
     kir("e) eski kimlik serbest metinde → HATA", os.path.join(gecici, "README.md"),
         lambda t: t + "\nBkz. %s becerisi.\n" % b0["eski"], "e")

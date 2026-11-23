@@ -1,8 +1,8 @@
 # viral-urun-ekibi (eklenti)
 
 Tek liderli Türkçe e-ticaret ekibi: ürün bul → doğrula → teklif → Shopify mağazasını kur → kreatif üret → yayınla. Sekiz iş akışı
-(`captain`, `radar`, `hunter`, `spy`, `teklif-ve-sayfa`, `builder`, `studio`,
-`cut`), 27 alt ajan (kadro: `ortak/ekip.md`), kollar arası köprü (`ortak/sozlesme/` + `ortak/paket.py`) ve ortak bir bilgi bankası içerir.
+(`captain`, `radar`, `hunter`, `spy`, `bazaar`, `builder`, `studio`,
+`cut`), 17 alt ajan (kadro: `ortak/ekip.md`), kollar arası köprü (`ortak/sozlesme/` + `ortak/paket.py`) ve ortak bir bilgi bankası içerir.
 Tek giriş `captain` becerisidir. Mağaza kolu Shopify bağlantısını (`.mcp.json`) getirir; özel tema paketi yoksa **temasız mod**da
 çalışır (ürün, metin ve görseller mağazanın mevcut temasına yazılır). `skills/builder/` üretilen klasördür; kaynağı depodaki
 `moduller/magaza-kurucu/`.

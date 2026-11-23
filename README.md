@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="LICENSE"><img alt="Lisans: MIT" src="https://img.shields.io/badge/lisans-MIT-blue"></a>
-  <img alt="Sürüm 0.3.0" src="https://img.shields.io/badge/s%C3%BCr%C3%BCm-0.3.0-brightgreen">
+  <img alt="Sürüm 0.4.0" src="https://img.shields.io/badge/s%C3%BCr%C3%BCm-0.4.0-brightgreen">
   <a href="https://github.com/armanvibecoding/viral-urun-ekibi-market/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/armanvibecoding/viral-urun-ekibi-market/actions/workflows/ci.yml/badge.svg"></a>
   <img alt="Claude Code eklentisi" src="https://img.shields.io/badge/Claude%20Code-eklenti-orange">
 </p>
@@ -26,8 +26,8 @@ AliExpress'te henüz patlamamış benzerlerini avlar, Shopify mağazanı kurar, 
 | Hangisini kullanıyorsun? | İndir (Releases) | Nereye yükle | Ayrıntı |
 |---|---|---|---|
 | **Claude Code** (terminal; önerilen, hattın tamamı) | ZIP gerekmez: `/plugin marketplace add armanvibecoding/viral-urun-ekibi-market` | Claude Code içinde | [claude/README.md](claude/README.md) |
-| **claude.ai / Claude uygulaması** | [`viral-urun-ekibi-CLAUDE-v0.3.0.zip`](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) | Customize → Plugins → Add → **Upload plugin** | [claude/README.md](claude/README.md) |
-| **ChatGPT** | [`viral-urun-ekibi-CHATGPT-v0.3.0.zip`](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) | ChatGPT → **Plugins** → yükle | [chatgpt/README.md](chatgpt/README.md) |
+| **claude.ai / Claude uygulaması** | [`viral-urun-ekibi-CLAUDE-v0.4.0.zip`](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) | Customize → Plugins → Add → **Upload plugin** | [claude/README.md](claude/README.md) |
+| **ChatGPT** | [`viral-urun-ekibi-CHATGPT-v0.4.0.zip`](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) | ChatGPT → **Plugins** → yükle | [chatgpt/README.md](chatgpt/README.md) |
 | **Proje** (kurulumsuz; claude.ai ya da ChatGPT Projesi) | [`chatgpt/proje-paketi/`](chatgpt/proje-paketi/KURULUM.md) klasörü | Projects → talimat + dosyalar | [chatgpt/proje-paketi/KURULUM.md](chatgpt/proje-paketi/KURULUM.md) |
 
 İki ZIP'i karıştırma: **CLAUDE** olan yalnız Claude'a, **CHATGPT** olan yalnız ChatGPT'ye yüklenir. ZIP'ler depoda tutulmaz, her sürümde Releases'a eklenir.
@@ -36,8 +36,9 @@ AliExpress'te henüz patlamamış benzerlerini avlar, Shopify mağazanı kurar, 
 
 1. **Ürün bulur:** Instagram Reels/Keşfet'te viral ürün videolarını izler, ölçütlerle ayıklar, tabloya yazar.
 2. **Fırsat avlar:** viral ürünlerin ortak DNA'sından AliExpress'te henüz viral olmamış adayları bulur, "zaten viral mi" kontrolü yapar, SAT / İZLE / ELE diye sıralar.
-3. **Mağaza kurar:** marka, görsel, metin, Shopify kurulumu ve site denetimi (27 ajanlık kadro).
-4. **Video üretir:** ürün kartı, 30 senaryo, ChatGPT ile başlangıç kareleri, Google Flow ile klipler, ffmpeg ile kurgu ve teslim.
+3. **Trendyol fırsatı avlar (`bazaar`):** Trendyol'da ilgi gören, henüz viral olmamış ucuz ürünü bulur; net marj ve fiyat şeffaflığı riskini hesaplar.
+4. **Mağaza kurar (`builder`):** 3 aşamada: Plan (araştırma, teklif, marka, site metinleri), Görseller, Site (Shopify kurulumu ve denetim). 10 rollü kadro, toplam 17 ajan.
+5. **Video üretir:** ürün kartı, 30 senaryo, ChatGPT ile başlangıç kareleri, Google Flow ile klipler, ffmpeg ile kurgu ve teslim.
 
 ## Kimin için?
 

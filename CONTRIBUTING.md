@@ -33,11 +33,11 @@ Araç ön koşulları (ffmpeg, Python paketleri, Chrome eklentisi) için [claude
 - Yol yazımı: beceri içinden `${CLAUDE_SKILL_DIR}/referans/x.md`, eklenti kökünden `${CLAUDE_PLUGIN_ROOT}/ortak/x.md`.
   **Mutlak yol (ev klasörünü ya da sürücü harfini içeren yol) yazma.** Bu değişkenler yalnız markdown gövdesinde açılır; Bash ortamında yoktur.
 - Yeni ajan: `plugins/viral-urun-ekibi/agents/<ajan>.md` (frontmatter: `name`, `description`, `tools`).
-  Açıklama ekip kalıbıyla başlar: `İngilizce unvan (Ad · Türkçe rol).` ve üye `ortak/ekip.md` tablosuna eklenir. Mağaza kolu
+  Kimlik tek kelimelik küçük harfli İngilizce kod adıdır (`[a-z]+`); beceri ve ajan adları tek havuzda benzersizdir. Açıklama `Kod adı (Türkçe rol). Tek satır İngilizce görev.` ile başlar; üye `ortak/ad-haritasi.tsv` ve `ortak/ekip.md` tablosuna eklenir (`python3 scripts/ad_testi.py` çıkış 0). Mağaza kolu
   ajanında frontmatter'dan sonraki ilk satır `<!-- kol: magaza -->` olur (ChatGPT paketine rol becerisi olarak girmez).
 - Mağaza kolu (`skills/builder/`) **üretilen** klasördür, elle düzenlenmez. Kaynak: `moduller/magaza-kurucu/` (aşamalar
   `skills/`, ortak dosyalar `src/ortak/`). Değişiklikten sonra `python3 moduller/magaza-kurucu/tools/build.py`, sonra
-  `python3 -m pytest -q moduller/magaza-kurucu/tests`. Her aşama SKILL.md ≤ 5.120 bayt.
+  `python3 -m pytest -q moduller/magaza-kurucu/tests`. Her bölüm SKILL.md ≤ 5.120 bayt (3 aşama, 6 bölüm).
 - Köprü dosyalarının (`urun-paketi.json`, `magaza-paketi.json`, `video-paketi.json`) alanı değişirse üçü birlikte güncellenir:
   kaynak `moduller/magaza-kurucu/src/ortak/sozlesme/` (şemalar, `ornek/`, `paket_dogrula.py`) + `src/ortak/arayuz-sozlesmesi.md`;
   `surum` artar, alan silinmez. Sonra `python3 scripts/sozlesme_esitle.py` (kopya `plugins/viral-urun-ekibi/ortak/sozlesme/`),

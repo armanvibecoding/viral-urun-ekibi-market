@@ -10,7 +10,7 @@
 #     ZIP'i ~0,65 MB'tan ~2,6 MB'a ve 163 dosyadan ~385'e çıkarır; terim dönüşümü Apache-2.0 dosyalarını değiştirirdi.
 #   - Çekirdek ekibin 7 ajanı -> ayrı skill (skills/<ajan-adı>/SKILL.md), aynı sohbette uygulanan rol.
 #   - Mağaza kolu ajanları (dosyada "<!-- kol: magaza -->" işareti) pakete GİRMEZ: işleri builder aşama dosyalarının
-#     içindedir (ChatGPT'de alt ajan yok; 20 rol becerisi tetik çakışması ve bağlam yükü olurdu).
+#     içindedir (ChatGPT'de alt ajan yok; 10 mağaza rolü tetik çakışması ve bağlam yükü olurdu).
 #   - builder becerisi DÖNÜŞTÜRÜLMEDEN kopyalanır (kaynağı iki yüzey için yazılmış ve ChatGPT'de koşulmuş; ek not girmez).
 #   - Köprü (ortak/paket.py + ortak/nis-esleme.tsv + ortak/sozlesme/) skills/ekip-bilgi/references/ altına bayt bayt girer;
 #     .mcp.json girmez (ChatGPT kendi Shopify bağlantısını kullanır).
@@ -96,7 +96,7 @@ TERIM = [
     ("alt ajan", "yardımcı rol"),
 ]
 
-BECERI_ON = re.compile(r"(?<![\w/.-])((?:studio|hunter|cut|radar|captain|spy|teklif-ve-sayfa)/(?:referans|scripts|sablon)\b)")
+BECERI_ON = re.compile(r"(?<![\w/.-])((?:studio|hunter|cut|radar|captain|spy|bazaar)/(?:referans|scripts|sablon)\b)")
 
 def onek_ekle(s):
     """`studio/referans/x.md` gibi öneksiz beceri yolunu paket köküne bağlar (yalnız markdown)."""
@@ -153,8 +153,8 @@ OZEL = {
         "Meta Reklam Kütüphanesi taramasını **kullanıcı yapar**: sorguyu açar, sonuç sayfasının metnini ya da ekran görüntüsünü yükler. `meta_topla.js`, `meta_aktar.js`, `magaza_oku.js` tarayıcı otomasyonu içindir, burada çalışmaz.",
         "`meta_kayit.py`, `nis_kelime.py`, `magaza_gecis.py`, `haftalik_rapor.py`, `desen_say.py` kod yorumlayıcıda koşulabilir. Günde ≤30 sorgu kuralı kullanıcı için de geçerli.",
     ],
-    "teklif-ve-sayfa": [
-        "Rakip mağaza sayfalarını **kullanıcı açar** ve metnini/ekran görüntüsünü yükler (ya da web araması). `teklif_kontrol.py` kod yorumlayıcıda koşulabilir.",
+    "bazaar": [
+        "Trendyol sayfalarını **kullanıcı açar** ve ürün sayfası metnini ya da ekran görüntüsünü yükler (Trendyol düz isteği engeller; tarayıcı otomasyonu burada yok). `bazaar_kontrol.py`, `tr_marj.py` ve `excel_hazirla.py` kod yorumlayıcıda koşulabilir (Excel için openpyxl gerekir).",
     ],
     "scout": [
         "AliExpress sayfalarını kullanıcı açar ve yükler; tarayıcı yoksa yalnız arama terimlerini ve web araması bulgularını yaz, \"AliExpress taranamadı (tarayıcı yok)\" de.",
@@ -242,7 +242,12 @@ skills_h = os.path.join(hedef, "skills")
 HARIC = {"hyperframes", "hyperframes-cli", "hyperframes-registry", "media-use"}
 # Dönüştürülmeden kopyalanan beceriler (iki yüzey için yazılmış kaynak; içinde ${CLAUDE_...} olmamalı — sondaki kapı ölçer).
 HAM = {"builder"}
-skill_adlari = sorted(d for d in os.listdir(skills_k) if os.path.isdir(os.path.join(skills_k, d)) and d not in HARIC)
+def alias_mi(d):
+    y = os.path.join(skills_k, d, "SKILL.md")
+    return os.path.isfile(y) and "<!-- alias:" in oku(y)
+
+# Eski ad yönlendirmeleri (alias işaretli) ChatGPT paketine girmez.
+skill_adlari = sorted(d for d in os.listdir(skills_k) if os.path.isdir(os.path.join(skills_k, d)) and d not in HARIC and not alias_mi(d))
 
 for ad in sorted(HAM & set(skill_adlari)):
     shutil.copytree(os.path.join(skills_k, ad), os.path.join(skills_h, ad),
@@ -307,9 +312,10 @@ for ad in ajanlar:
 # ---------- 5) Ortak bilgi -> ekip-bilgi skill'i ----------
 bilgi_h = os.path.join(skills_h, "ekip-bilgi")
 for kok, dirs, files in os.walk(os.path.join(kaynak, "ortak")):
-    dirs[:] = sorted(d for d in dirs if d not in ATLA_AD)
+    # ortak/roller/ (mağaza rol mod dosyaları) ChatGPT paketine girmez: mağaza ajanları da girmiyor.
+    dirs[:] = sorted(d for d in dirs if d not in ATLA_AD and not (d == "roller" and os.path.samefile(kok, os.path.join(kaynak, "ortak"))))
     for f in sorted(files):
-        if f in ATLA_AD:
+        if f in ATLA_AD or f.endswith("_test.py"):
             continue
         kp = os.path.join(kok, f)
         hp = os.path.join(bilgi_h, "references", os.path.relpath(kp, os.path.join(kaynak, "ortak")))

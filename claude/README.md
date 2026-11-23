@@ -1,15 +1,15 @@
 # Claude parçası: Viral Ürün Ekibi eklentisi
 
-Hattın tamamı burada çalışır: Instagram'da ürün bulma, AliExpress tarama, Shopify mağaza kurulumu ve site denetimi (27 ajan),
+Hattın tamamı burada çalışır: Instagram'da ürün bulma, AliExpress ve Trendyol tarama, Shopify mağaza kurulumu ve site denetimi (17 ajan),
 Google Flow'da üretim, ffmpeg ile kurgu, kendiliğinden tutulan hafıza. Eklentinin kendisi `plugins/viral-urun-ekibi/` klasöründedir
-(katalog `.claude-plugin/marketplace.json` bunu gösterir). Sürüm: 0.3.0.
+(katalog `.claude-plugin/marketplace.json` bunu gösterir). Sürüm: 0.4.0. Güncelledikten sonra oturumu yeniden başlat.
 
 ## Hangi yoldan kuracağım?
 
 | Nerede kullanıyorsun? | Ne indir / yaz | Nereye yükle |
 |---|---|---|
 | **Claude Code** (terminal, önerilen) | ZIP gerekmez: aşağıdaki iki `/plugin` komutu | Claude Code içinde |
-| **claude.ai veya Claude uygulaması** | [Releases](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) → `viral-urun-ekibi-CLAUDE-v0.3.0.zip` (açma) | **Customize → Plugins → Add → Upload plugin** |
+| **claude.ai veya Claude uygulaması** | [Releases](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) → `viral-urun-ekibi-CLAUDE-v0.4.0.zip` (açma) | **Customize → Plugins → Add → Upload plugin** |
 
 Claude ZIP'inde tam eklenti vardır (beceriler, ajanlar, kancalar, ortak bilgi, HyperFrames). Ajanlar ve kancalar Cowork ile Claude Code'da çalışır;
 claude.ai sohbeti bunları hata vermeden yok sayar (resmî doküman: [claude.com/docs/plugins/build](https://claude.com/docs/plugins/build)).
@@ -51,18 +51,18 @@ Depo herkese açıktır; ayrı erişim gerekmez. Kendi çatalını (fork) kuraca
 | Beceri | Ne yapar |
 |---|---|
 | `captain` | Ekibin TEK lideri ve tek girişi: işi doğru kola verir, `.ekip/` hafızasını tutar, kollar arası köprü dosyalarını yazar, eksik araçları kontrol eder. |
-| `builder` | Mağaza kolu: ürün fotoğrafı + ülkeden ya da ekibin `urun-paketi.json` dosyasından Shopify mağazası (5 aşama: ürün analizi, marka, görseller, metinler, kurulum + site denetimi). Tema paketi yoksa temasız modda çalışır. |
-| `radar` | Instagram Reels/Keşfet'te viral ürün videolarını izler, ölçütlerle ayıklar, tabloya ve Excel'e kaydeder (Mac: iPhone Yansıtma; her yerde: Chrome). |
+| `builder` | Mağaza kolu: ürün fotoğrafı + ülkeden ya da ekibin `urun-paketi.json` dosyasından Shopify mağazası (3 aşama: ① Plan = araştırma, teklif, marka, site metinleri; ② Görseller; ③ Site = kurulum ve denetim). Tema paketi yoksa temasız modda çalışır. |
+| `radar` | Instagram Reels/Keşfet'te viral ürün videolarını izler, ölçütlerle ayıklar, tabloya ve ortak şablonlu Excel'e kaydeder (Mac: iPhone Yansıtma; her yerde: Chrome). |
 | `hunter` | Viral ürünlerin ortak DNA'sından arama terimi üretir, AliExpress'te henüz viral olmamış adayları bulur ve "zaten viral mi" kontrolü yapar. |
 | `studio` | Ürün kartı, 30 senaryo, ChatGPT ile başlangıç kareleri ve Google Flow ile klip üretimi. |
 | `cut` | ffmpeg ile kurgu: klip kalite kontrolü, ekran üstü yazı, efekt, ses normalizasyonu, teslim. |
 | `spy` | Meta Reklam Kütüphanesi'nde niş niş (US/TR/AB) kazanan reklam ve ürün taraması; mağaza → AliExpress eşleme, kazanan–kaybeden desen sayımı. |
-| `teklif-ve-sayfa` | Kazanan ürün için teklif, iniş sayfası, itiraz bankası ve e-posta taslağı; baskı/sahte indirim ifadesi denetçisi. |
+| `bazaar` | Trendyol'da ilgi gören, henüz viral olmamış, ucuz ürünü bulur; net marj, tedarik ve fiyat şeffaflığı riskini hesaplar. Satış kendi Shopify mağazamızda. |
 | `hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use` | Hareketli tasarım katmanı (HeyGen'in açık kaynak HyperFrames paketi, Apache-2.0, değiştirilmeden): HTML'den video, kinetik yazı, geçiş, altyazı, ~450 hazır blok; render yerelde Node 22+ ve Chrome ister. `cut` aşama 8b'de çağrılır. |
 
-**Ajanlar** (`plugins/viral-urun-ekibi/agents/`, 27 üye): çekirdek ekip 7 (`jury` kör video jürisi, `scout`, `skeptic`, `story`,
-`decoder`, `fixer`, `mixer`) + mağaza kolu 20 (marka, görsel, site, denetim). Her üyenin İngilizce
-unvanı, adı, Türkçe rolü ve modeli: `plugins/viral-urun-ekibi/ortak/ekip.md`.
+**Ajanlar** (`plugins/viral-urun-ekibi/agents/`, 17 üye): ürün ve video tarafında 7 (`scout`, `skeptic`, `decoder`, `story`, `jury` kör video jürisi,
+`fixer`, `mixer`) + mağaza kolu 10 (`atlas`, `muse`, `copy`, `forge`, `sentinel`, `panel`, `director`, `architect`, `probe`, `shopper`). Her üyenin kod adı,
+Türkçe rolü ve modeli: `plugins/viral-urun-ekibi/ortak/ekip.md`. Eski adlar için: `ortak/ad-haritasi.tsv`. Eski beceri adları bu sürümde yönlendirme olarak çalışır (liste: `ortak/ad-haritasi.tsv`), 0.5.0'da kalkar.
 
 **Ortak bilgi** (`plugins/viral-urun-ekibi/ortak/`): marka skoru, viral DNA, sözlük ve `bilgi/` altında ürün kataloğu,
 kreatif notlar, fırsat geçmişi, üretim deneyimi, dersler.
