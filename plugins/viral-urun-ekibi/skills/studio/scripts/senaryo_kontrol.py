@@ -47,6 +47,9 @@ def norm(s):
 
 
 def main():
+    if any(x in ("-h", "--help") for x in sys.argv[1:]):
+        print(__doc__)
+        return 0
     if len(sys.argv) < 2:
         sys.exit(__doc__)
     yol = sys.argv[1]

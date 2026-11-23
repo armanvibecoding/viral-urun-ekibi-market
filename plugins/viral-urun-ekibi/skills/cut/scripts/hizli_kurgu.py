@@ -192,6 +192,9 @@ def yazilari_bindir(ff, video, yazilar, a, tmp, cikti):
 
 
 def main():
+    if any(x in ("-h", "--help") for x in sys.argv[1:]):
+        print(__doc__)
+        return 0
     argv = [x for x in sys.argv[1:] if x not in ("--katı", "--kati")]
     kati = len(argv) != len(sys.argv) - 1
     if not argv:
