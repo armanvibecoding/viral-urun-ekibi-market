@@ -4,7 +4,7 @@
   python3 hikaye_kur.py ayar.json [--dogrula]       (--dogrula: yalnız ayar kapıları, dosya yazmaz)
 
 Ayar şeması: bkz. ayar-ornek.json ve ortak/tarifler/02-hikaye-videosu-organik.md. Yollar ayar dosyasına göre göreli.
-Kapılar (HATA → çıkış 2): kanca ilk karede (bas=0) · kesimler artan ve süre içinde · kesim aralığı başına klip ya da ürün sahnesi ·
+Kapılar (HATA → çıkış 2): ön-üretim kartı geçerli (ayar "on_uretim_karti"; yoksa hat çalışmaz) · kanca ilk karede (bas=0) · kesimler artan ve süre içinde · kesim aralığı başına klip ya da ürün sahnesi ·
 görünür metinde fiyat/para birimi yok (ayar "fiyat_izin": true ile açılır) · stok klip dosyası var.
 """
 import json
@@ -26,8 +26,17 @@ def ayar_oku(yol):
         return json.load(f)
 
 
+def kart_kontrol(a, kok):
+    """Ön-üretim kartı kapısı: kart yoksa/geçersizse hat çalışmaz (studio/scripts/on_uretim_karti.py)."""
+    sys.path.insert(0, os.path.join(BURADA, "..", "..", "..", "studio", "scripts"))
+    from on_uretim_karti import kart_kapisi
+    yol = a.get("on_uretim_karti")
+    ok, h = kart_kapisi(os.path.join(kok, yol) if yol else None)
+    return ["ön-üretim kartı: " + x for x in h] if not ok else []
+
+
 def dogrula(a, kok):
-    hata = []
+    hata = kart_kontrol(a, kok)
     sure = float(a["sure"])
     ks = [float(x) for x in a["kesimler"]]
     if ks != sorted(ks) or (ks and (ks[0] <= 0 or ks[-1] >= sure)):

@@ -21,6 +21,8 @@ Web bilgisi ayrı blokta, URL'li (önceki turda okundu; bu turda yeniden açılm
 
 ---
 
+> **Saha notu (S24, 2026-11-24):** Keşfet bu hesapta ABD'ye ayarlı; 26 ürün videosunun ~23'ü ABD, 1–2 AB (FR kimlik [S24-G1x08], İskandinav DIY [S24-G1x10]), 1 Filipinler, **TR 0**. TR kanıtı ayrı yöntemle toplanacak (TR hesaplı/konumlu oturum ya da TR reklam kütüphanesi); o zamana kadar TR kuralları GÖZLEM düzeyindedir.
+
 ## 1. ABD (varsayılan)
 
 **Saha:**

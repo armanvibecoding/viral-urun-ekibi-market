@@ -18,6 +18,8 @@ Niş/ilgi alanı ipuçları (yoksa viral-DNA'dan) · TR oran tablosu (`bazaar/re
 8. 5 niş × 5 ürün tablosu → `ortak/excel_yaz.py` (tarif 07).
 9. Rapor: "Önerim: <ürün> — çünkü … İtirazın yoksa onunla devam ediyorum." (liste değil tek öneri; tarif captain'de).
 
+Pazar: bu tarif TR içindir; TR verisi zayıf (1 milyon kayıt), eşikler `esikler.tsv`'de `deneme`/`varsayim` durumunda ve ilk 20 üründen sonra kalibre edilir. ABD/AB ürün avı için `radar`/`hunter`.
+
 ## Kalite çıtası
 5 niş × 5 ürün (eksik niş belirtilir) · her satırda ürün sayfası linki · satış sayıları ürün sayfasından (arama kartından değil) · AliExpress satıcı/toplam ayrımı yazılı · öneri bölümü sayısı yok · her kararda gerekçe · uydurma oran/sayı yok.
 

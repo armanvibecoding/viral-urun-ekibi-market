@@ -1,33 +1,140 @@
 {
   "ad": "ornek_hikaye",
+  "on_uretim_karti": "on-uretim-karti.json",
   "sure": 25.0,
-  "kesimler": [2.4, 5.4, 8.4, 11.4, 15.4, 18.4, 22.0],
-  "tema": {"navy": "#0A1030", "zemin": "#060a1e", "ivory": "#F6EFE6", "gold": "#E7C08F", "sans": "'Inter', sans-serif", "serif": "'Playfair Display', serif"},
-  "urun": {"png": "stok/urun.png", "genislik": 380},
+  "kesimler": [
+    2.4,
+    5.4,
+    8.4,
+    11.4,
+    15.4,
+    18.4,
+    22.0
+  ],
+  "tema": {
+    "navy": "#0A1030",
+    "zemin": "#060a1e",
+    "ivory": "#F6EFE6",
+    "gold": "#E7C08F",
+    "sans": "'Inter', sans-serif",
+    "serif": "'Playfair Display', serif"
+  },
+  "urun": {
+    "png": "stok/urun.png",
+    "genislik": 380
+  },
   "klipler": [
-    {"dosya": "stok/klip1.mp4", "ss": 0.5},
-    {"dosya": "stok/klip1.mp4", "ss": 3.0},
-    {"dosya": "stok/klip1.mp4", "ss": 6.0, "filtre": "eq=brightness=-0.10:saturation=0.9:gamma=0.85"},
-    {"dosya": "stok/klip1.mp4", "ss": 9.0},
+    {
+      "dosya": "stok/klip1.mp4",
+      "ss": 0.5
+    },
+    {
+      "dosya": "stok/klip1.mp4",
+      "ss": 3.0
+    },
+    {
+      "dosya": "stok/klip1.mp4",
+      "ss": 6.0,
+      "filtre": "eq=brightness=-0.10:saturation=0.9:gamma=0.85"
+    },
+    {
+      "dosya": "stok/klip1.mp4",
+      "ss": 9.0
+    },
     null,
-    {"dosya": "stok/klip1.mp4", "ss": 12.0},
-    {"dosya": "stok/klip1.mp4", "ss": 15.0},
-    {"dosya": "stok/klip1.mp4", "ss": 18.0}
+    {
+      "dosya": "stok/klip1.mp4",
+      "ss": 12.0
+    },
+    {
+      "dosya": "stok/klip1.mp4",
+      "ss": 15.0
+    },
+    {
+      "dosya": "stok/klip1.mp4",
+      "ss": 18.0
+    }
   ],
   "sahneler": [
-    {"tur": "kanca", "bas": 0, "sure": 2.4, "ust": "When the lighthouse / takes too long", "buyuk": "to turn on.", "boy": 150, "top": 560},
-    {"tur": "blok", "i": 1, "ana": "Sometimes the body / *is* *ready,*", "boy": 104},
-    {"tur": "blok", "i": 2, "ana": "but the signal / *gets* *lost.*", "boy": 120},
-    {"tur": "blok", "i": 3, "ana": "It is not broken — / *just* *needs* *the* / *right* *connection.*", "boy": 100},
-    {"tur": "urun", "i": 4, "kick": "BRAND · PRODUCT NAME", "ust1": "Because small things", "ust2": "*feel* *like* *a* *big* *win.*", "cips": "ONE REAL FEATURE FROM THE PRODUCT PAGE", "ust": 700, "boy1": 74, "boy2": 80, "flas": false},
-    {"tur": "blok", "i": 5, "ana": "The light / *finds* *the* *boat.*", "boy": 120},
-    {"tur": "flas", "bas": 18.4},
-    {"tur": "blok", "i": 6, "ana": "Find your signal / *again.*", "boy": 128},
-    {"tur": "bilgi", "i": 6, "gec": 1.3, "html": "<b>Info note:</b> not medical advice; ask a professional if it persists."},
-    {"tur": "son", "bas": 22.0, "sure": 3.0, "a": "Save this for later.", "b": "You might need it.", "marka": "PRODUCT · <b>BRAND</b>", "boy": 104}
+    {
+      "tur": "kanca",
+      "bas": 0,
+      "sure": 2.4,
+      "ust": "When the lighthouse / takes too long",
+      "buyuk": "to turn on.",
+      "boy": 150,
+      "top": 560
+    },
+    {
+      "tur": "blok",
+      "i": 1,
+      "ana": "Sometimes the body / *is* *ready,*",
+      "boy": 104
+    },
+    {
+      "tur": "blok",
+      "i": 2,
+      "ana": "but the signal / *gets* *lost.*",
+      "boy": 120
+    },
+    {
+      "tur": "blok",
+      "i": 3,
+      "ana": "It is not broken — / *just* *needs* *the* / *right* *connection.*",
+      "boy": 100
+    },
+    {
+      "tur": "urun",
+      "i": 4,
+      "kick": "BRAND · PRODUCT NAME",
+      "ust1": "Because small things",
+      "ust2": "*feel* *like* *a* *big* *win.*",
+      "cips": "ONE REAL FEATURE FROM THE PRODUCT PAGE",
+      "ust": 700,
+      "boy1": 74,
+      "boy2": 80,
+      "flas": false
+    },
+    {
+      "tur": "blok",
+      "i": 5,
+      "ana": "The light / *finds* *the* *boat.*",
+      "boy": 120
+    },
+    {
+      "tur": "flas",
+      "bas": 18.4
+    },
+    {
+      "tur": "blok",
+      "i": 6,
+      "ana": "Find your signal / *again.*",
+      "boy": 128
+    },
+    {
+      "tur": "bilgi",
+      "i": 6,
+      "gec": 1.3,
+      "html": "<b>Info note:</b> not medical advice; ask a professional if it persists."
+    },
+    {
+      "tur": "son",
+      "bas": 22.0,
+      "sure": 3.0,
+      "a": "Save this for later.",
+      "b": "You might need it.",
+      "marka": "PRODUCT · <b>BRAND</b>",
+      "boy": 104
+    }
   ],
   "ses": {
-    "muzik": "muzik/parca.wav", "muzik_bas": 22.88, "drop": 18.4, "giris_hedef": 8, "drop_oncesi_db": -8, "taban": 4, "tavan": 3,
+    "muzik": "muzik/parca.wav",
+    "muzik_bas": 22.88,
+    "drop": 18.4,
+    "giris_hedef": 8,
+    "drop_oncesi_db": -8,
+    "taban": 4,
+    "tavan": 3,
     "sfx": "pop.wav@0.10:-2,kopuk.wav@0.25:-14,tok.wav@2.5:-12,tok.wav@5.5:-12,tok.wav@8.5:-12,tik.wav@15.4:-8,tik.wav@16.4:-8,tik.wav@17.4:-8,fisek.wav@18.4:-1,fisek.wav@19.6:-9",
     "riser": "18.4:1.0:-12"
   }

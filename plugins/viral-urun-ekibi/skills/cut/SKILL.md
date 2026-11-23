@@ -10,6 +10,7 @@ ekran yazısı ve CTA **pazarın dilinde** (`.ekip/KARARLAR.md`'deki son `| paza
 Betikler `${CLAUDE_SKILL_DIR}/scripts/` altında; Python komutu: macOS/Linux `python3`, Windows `py -3` (Windows'ta `python3` yazmak Microsoft Store'u açar).
 Gereken: Python 3.8+, Pillow, ffmpeg (PATH ya da `imageio-ffmpeg` paketi). Kurulum: `${CLAUDE_SKILL_DIR}/referans/kurulum.md`.
 **Varsayılan kurgu tarifi:** `${CLAUDE_PLUGIN_ROOT}/ortak/tarifler/01-urun-videosu-tr-reels.md` (ayarda `"yazi_stil": "kutulu"`; ekransız üründe `"urun_tipi": "ekransiz"`). 25 sn organik hikâye: tarif 02, betikler `scripts/hikaye/` (`uret.py ayar.json`).
+**Her video önce ön-üretim kartı ister** (`studio/scripts/on_uretim_karti.py`; kart yoksa kutulu `hizli_kurgu` ve `hikaye_kur` çalışmaz). Aynı çekimden 10+ kanca: tarif 10 (`scripts/kanca_varyasyon.py`). VO'lu videoda ses kapısı `ses_olc.py --vo` (sıçrama müzik katmanında).
 İlk kullanımda öz-testi koştur (kredi harcamaz): `python3 "${CLAUDE_SKILL_DIR}/scripts/kendini_test.py" --klasor kurgu_testi`
 → son satırlar GEÇTİ ve `ara_kare_10sn.png`'de Türkçe harfler doğru olmalı.
 

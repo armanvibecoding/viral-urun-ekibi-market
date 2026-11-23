@@ -1,0 +1,15 @@
+{
+  "pazar": "US",
+  "kanca_ailesi": "K1",
+  "kanca_metni": "DO NOT show this to a DOG MOM",
+  "kanit": [
+    "[037]"
+  ],
+  "sahne_sablonu": "S1",
+  "format": "hikaye",
+  "muzik": {
+    "karar": "açık lisanslı parça, ilk karede diegetik ses, 1,5–2 sn rampa",
+    "dayanak": "kural-rampa"
+  },
+  "ilk_1sn": "ürün elde, sonuç ilk karede"
+}

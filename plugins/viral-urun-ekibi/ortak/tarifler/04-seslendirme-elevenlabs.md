@@ -18,13 +18,15 @@ Giriş yapma, hesap açma, satın alma, plan/kredi satın alma YOK; oturum kapal
    d. Alıcı `is/NN/ses/voNN.mp3` dosyasını yazar; `ffprobe` ile süresini ölç; işin sonunda alıcıyı kapat.
 3. Süre bütçesi: VO'nun sahne penceresine sığdığını kontrol et (kelime başına ≈ 0,35–0,45 sn). Sığmıyorsa cümleyi kısalt (A sürümünde kısaltma yasak → sahne süresini uzat).
 4. Karıştırma: ayar `ses.vo = [{"dosya":"ses/vo01.mp3","bas":0.3}, …]`, `vo_duck_db: -10` (−8…−12 arası). `ses.py` müziği VO altında duck eder, −14 LUFS'a çeker.
-5. Ölç: `ses_olc.py TESLIM/<ad>.mp4 --kapi` çıkış 0; VO'nun anlaşılırlığı için VO'lu bölümde müzik VO'dan en az 8 dB geride.
+5. Ölç: `ses_olc.py TESLIM/<ad>.mp4 --muzik_stem ses/stem_<ad>/muz_duck_vo.wav --vo --kapi` çıkış 0. **`--vo`: drop dışı sıçrama MÜZİK katmanında (duck uygulanmış stem) ölçülür**; konuşma heceleri müzik sıçraması sayılmaz, kapı gevşetilmez (kırma testi: VO + duck −10 dB GEÇER, rampasız ani müzik KALIR). `ses.py` bunu kendisi yapar. VO'lu bölümde müzik VO'dan en az 8 dB geride.
+
+Pazar: VO dili pazarın dili (ABD/AB-UK İngilizce; TR Türkçe, TR verisi zayıf → ilk testten sonra kalibre). Müzik: ölçülmedi, kural = rampa.
 
 ## Kalite çıtası
 −14 ±1 LUFS · tepe ≤ −1 dBTP · müzik VO altında −8…−12 dB duck · VO başlangıçları sahne başlangıcından ≤ 0,4 sn sonra · cümle başına tek dosya, adı `voNN`.
 
 ## Kapılar
-`ses_olc --kapi` 0 · her `voNN.mp3` süresi > 0 ve sahne penceresine sığıyor · kredi tablosu yazıldı.
+`ses_olc --vo --kapi` 0 · her `voNN.mp3` süresi > 0 ve sahne penceresine sığıyor · kredi tablosu yazıldı.
 
 ## Sık hata ve düzeltmesi
 - İkinci dosya inmiyor → indirme yolunu bırak, `data:` URI yöntemini kullan.

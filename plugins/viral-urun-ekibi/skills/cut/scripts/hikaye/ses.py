@@ -47,6 +47,17 @@ def vo_karistir(girdi, cikti, vo, duck_db, sure):
     r(cmd)
 
 
+def duck_stem(muz, vo, duck_db, cikti):
+    """Müzik stem'ine aynı VO sidechain duck'ını uygular: ses_olc --vo sıçramayı bu katmanda (konuşmasız) ölçer."""
+    cmd = [FF, "-v", "error", "-y", "-i", muz]
+    for v in vo:
+        cmd += ["-i", v["dosya"]]
+    parca = ["[%d:a]adelay=%d|%d[v%d]" % (k + 1, int(round(v.get("bas", 0) * 1000)), int(round(v.get("bas", 0) * 1000)), k) for k, v in enumerate(vo)]
+    parca.append("%samix=inputs=%d:normalize=0[vot]" % ("".join("[v%d]" % k for k in range(len(vo))), len(vo)))
+    parca.append("[0:a][vot]sidechaincompress=threshold=0.02:ratio=%.1f:attack=15:release=350:makeup=1[d]" % max(2.0, abs(duck_db) / 2.0))
+    r(cmd + ["-filter_complex", ";".join(parca), "-map", "[d]", cikti])
+
+
 def main():
     if len(sys.argv) < 2:
         sys.exit(__doc__)
@@ -127,7 +138,10 @@ def main():
     if s.get("vo"):
         vo = [dict(v, dosya=os.path.join(D, v["dosya"])) for v in s["vo"]]
         vo_karistir(ara, cikti, vo, float(s.get("vo_duck_db", -10)), sure)
-    o = subprocess.run([sys.executable, os.path.join(CUT, "ses_olc.py"), cikti, "--drop", str(drop), "--muzik_stem", muz, "--kapi"], capture_output=True, text=True)
+        muz_duck = os.path.join(stem, "muz_duck_vo.wav")
+        duck_stem(muz, vo, float(s.get("vo_duck_db", -10)), muz_duck)
+        muz = muz_duck
+    o = subprocess.run([sys.executable, os.path.join(CUT, "ses_olc.py"), cikti, "--drop", str(drop), "--muzik_stem", muz, "--kapi"] + (["--vo"] if s.get("vo") else []), capture_output=True, text=True)
     with open(os.path.join(D, "ses", "ses_olc_%s.json" % ad), "w") as f:
         f.write(o.stdout)
     try:

@@ -34,6 +34,8 @@ Kurallar (SKILL.md "Viral kurgu" + eleştiri turları; eşikler ESIK sözlüğü
  okunma    yazı ekranda ≥ 0,5 + 0,25 × kelime sn (hizli_kurgu ile aynı hesap) — ihlal HATA.
  plan      plan ≥ 2 vuruş (0,857 sn − tolerans); toplam 10–15 sn.
  dongu     son planın ekran içeriği ilk planınkiyle aynı (son plan ilk kareye bağlanır).
+ format=dongu (ayar "format": "dongu", tarif 01 döngü sürümü): toplam 6–10,5 sn · 3–6 plan · son plan = ilk plan (aynı klip ya da aynı etiketli içerik) ·
+           "tatmin_ani" {bas,bit} ≥ 0,5 sn · ekranda CTA yazısı var ve kancayla aynı anda değil, kancadan sonra (kural dongu/tatmin/cta).
  ses       (--video) ses_olc.py: drop_artis ≥ 6 dB, ≥ 0,3 sn −28 dB altı delik yok, −14 ± 1 LUFS.
  iddia     (--magaza-paketi) ayardaki her ekran yazısı: uydurma veri sinyali (sayı, belge/otorite, ölçülebilir üstünlük)
            taşıyorsa mağazanın onaylı listesinde (onayli_metinler.iddialar/faydalar/başlık) olmalı; mağaza fiyatı birebir
@@ -46,6 +48,7 @@ import argparse
 import json
 import numpy as np
 import os
+import re
 import subprocess
 import sys
 
@@ -67,6 +70,8 @@ ESIK = {
     "min_plan_sn": 0.80,       # 2 vuruş = 0,857 sn; 0,83'lük ızgara kayması tolere
     "toplam_min": 10.0,
     "toplam_max": 15.0,
+    "dongu_min": 6.0,          # format=dongu: 6–10,5 sn (4/4 hit 6–10 sn)
+    "dongu_max": 10.5,
     "drop_db": 6.0,
     "delik_db": -28.0,
     "delik_sn": 0.3,
@@ -310,8 +315,28 @@ def kontrol(ayar_yol, args, esik):
         if pl["sure"] < esik["min_plan_sn"]:
             H_("plan", f"plan {pl['i']} {pl['ad']} {f2(pl['sure'])} sn < 2 vuruş ({esik['min_plan_sn']})")
     toplam = planlar[-1]["t1"] if planlar else 0
-    if not esik["toplam_min"] <= toplam <= esik["toplam_max"]:
-        H_("plan", f"toplam {f2(toplam)} sn ({esik['toplam_min']}–{esik['toplam_max']} dışında)")
+    dongu_fmt = a.get("format") == "dongu"   # tarif 01 döngü sürümü: 6–10,5 sn, başa saran (saha S24: 4/4 hit 6–10 sn döngü)
+    tmin, tmax = (esik["dongu_min"], esik["dongu_max"]) if dongu_fmt else (esik["toplam_min"], esik["toplam_max"])
+    if not tmin <= toplam <= tmax:
+        H_("plan", f"toplam {f2(toplam)} sn ({tmin}–{tmax} dışında{'; döngü formatı' if dongu_fmt else ''})")
+    if dongu_fmt and planlar:
+        ilk, son = planlar[0], planlar[-1]
+        if len(planlar) < 3 or len(planlar) > 6:
+            H_("dongu", f"döngü formatı 3–6 plan ister, {len(planlar)} plan var")
+        if ilk["p"]["klip"] != son["p"]["klip"] and not (ekran(ilk) and ekran(ilk) == ekran(son)):
+            H_("dongu", f"son plan ({son['ad']}) ilk plana ({ilk['ad']}) bağlanmıyor: aynı klip ya da aynı etiketli içerik olmalı (döngü kapanışı)")
+        ta = a.get("tatmin_ani")
+        if not ta or not (0 <= ta.get("bas", -1) < ta.get("bit", -1) <= toplam + 0.01) or ta["bit"] - ta["bas"] < 0.5:
+            H_("tatmin", "döngü formatında tek tatmin/kanıt anı zorunlu: ayarda \"tatmin_ani\": {\"bas\":…, \"bit\":…} (≥ 0,5 sn, video içinde)")
+        yl = yazi_listesi(a, planlar)
+        ctaler = [(b, e, y) for b, e, y, k in yl if k == "cta" or re.search(r"comment|link in bio|bio'|yorum|\bDM\b", y["yazi"] + " " + y.get("satir2", ""), re.I)]
+        kancalar = [(b, e, y) for b, e, y, k in sorted(yl, key=lambda x: x[0]) if (b, e, y) not in ctaler and b < 0.05]
+        if not ctaler:
+            H_("cta", "döngü formatında ekranda CTA yazısı yok (Comment \"KELİME\" / LINK IN BIO)")
+        elif kancalar and any(ortusme(kb, ke, cb, ce) > 0.05 for kb, ke, _ in kancalar for cb, ce, _ in ctaler):
+            H_("cta", "kanca yazısı ile CTA yazısı aynı anda ekranda; dönüşümlü olmalı (saha S24: ayrı bitiş kartı yok, yazılar sırayla değişir)")
+        elif kancalar and min(c[0] for c in ctaler) <= kancalar[0][0]:
+            H_("cta", "CTA yazısı kancadan önce başlıyor; kanca ilk karede, CTA sonra gelir")
 
     # döngü
     if len(planlar) > 1:

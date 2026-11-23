@@ -19,7 +19,7 @@ ayar.json (yollar ayar dosyasına göre göreli):
           "plan": 7, "konum": 0.16},
   "cikti": "kurgu/V01_hizli.mp4"
 }
-"yazi_stil": "kutulu" → tarif 01 stili (yarı saydam kutu, kontursuz, güvenli alan: üst %12 / alt %20 boş, yazı kutu içinde kalır).
+"yazi_stil": "kutulu" → tarif 01 stili (ayarda "on_uretim_karti": "kart.json" şart; kart geçersizse kurgu çalışmaz) (yarı saydam kutu, kontursuz, güvenli alan: üst %12 / alt %20 boş, yazı kutu içinde kalır).
 gecis: kesim | flas (0,12 sn parlama, tam beyaz değil) | punch (ilk 0,15 sn'de punch katsayısından 1'e ölçek).
 konum: yazının üst kenarı, kare yüksekliğinin oranı (0,15–0,17 üst; 0,68–0,74 alt). Alt %20'ye ve ürüne koyma.
 """
@@ -216,6 +216,12 @@ def main():
     global KONTUR_ORAN, KUTULU
     KONTUR_ORAN = a.get("kontur_oran", KONTUR_ORAN)
     KUTULU = a.get("yazi_stil") == "kutulu"
+    if KUTULU:  # tarif 01 stili: ön-üretim kartı olmadan kurgu çalışmaz
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "studio", "scripts"))
+        from on_uretim_karti import kart_kapisi
+        ok, hk = kart_kapisi(os.path.join(kok, a["on_uretim_karti"]) if a.get("on_uretim_karti") else None)
+        if not ok:
+            sys.exit("ÖN-ÜRETİM KARTI KALDI:\n  " + "\n  ".join(hk))
     a["font"] = os.path.join(kok, a["font"]) if not os.path.isabs(a["font"]) else a["font"]
     ff = ffmpeg()
     tmp = tempfile.mkdtemp(prefix="hizli_")

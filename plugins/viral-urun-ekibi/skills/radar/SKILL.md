@@ -43,6 +43,8 @@ rubriğiyle puanla, `is/kesfet/marka-skorlari.md`'ye satır ekle (DROP-MARKA / G
 Skoru ≥7 hesabın çok izlenen videosu için `${CLAUDE_SKILL_DIR}/referans/kreatif-not-sablonu.md` ile
 `is/kesfet/kreatif/notlar/`'a not yaz — kullanıcı kreatif analiz istiyorsa ya da hedefte varsa.
 
+**Profil derin tarama:** ≥ 1MN'lik ürün videosunda profile gir → takipçi/gönderi/bio/link → Reels izlenme dağılımı (medyan vs hit) → hit videoyu tam izle → kanca varyasyonları listesi → kalıcı profil notu. Adımlar ve şablon: `${CLAUDE_SKILL_DIR}/referans/profil-notu.md` (kullanıcı adı yazma; kanıt kodu).
+
 Akış reklama veya tek kategoriye kayarsa Keşfet'e dön/yenile. Aynı aileden 3. ürünü eklemeden önce düşün:
 liste çeşitli olmalı.
 

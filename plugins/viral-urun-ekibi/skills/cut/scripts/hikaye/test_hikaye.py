@@ -61,6 +61,8 @@ def kur(d):
     muzik_yaz(os.path.join(d, "muzik", "parca.wav"))
     a = json.load(open(os.path.join(BURADA, "ayar-ornek.json"), encoding="utf-8"))
     a["ses"].update({"giris_hedef": 18, "drop_oncesi_db": -12})  # sentetik müzik gerçek parçadan daha düz: drop kontrastı ayarla büyütülür
+    import shutil
+    shutil.copy(os.path.join(BURADA, "on-uretim-karti-ornek.json"), os.path.join(d, "on-uretim-karti.json"))
     yol = os.path.join(d, "ayar.json")
     json.dump(a, open(yol, "w"), ensure_ascii=False, indent=1)
     return yol, a
@@ -80,6 +82,16 @@ def main():
         p = os.path.join(d, "kir_fiyat.json"); json.dump(k, open(p, "w"))
         r = kos(sys.executable, os.path.join(BURADA, "hikaye_kur.py"), p, "--dogrula")
         kontrol("kırma: fiyatlı metin → çıkış 2", r.returncode == 2 and "fiyat" in r.stdout, r.stdout + r.stderr)
+        k = copy.deepcopy(a)
+        k["on_uretim_karti"] = "yok.json"
+        p = os.path.join(d, "kir_kart.json"); json.dump(k, open(p, "w"))
+        r = kos(sys.executable, os.path.join(BURADA, "hikaye_kur.py"), p, "--dogrula")
+        kontrol("kırma: ön-üretim kartı yok → hat çalışmaz, çıkış 2", r.returncode == 2 and "ön-üretim kartı" in r.stdout, r.stdout + r.stderr)
+        k = copy.deepcopy(a)
+        del k["on_uretim_karti"]
+        p = os.path.join(d, "kir_kart2.json"); json.dump(k, open(p, "w"))
+        r = kos(sys.executable, os.path.join(BURADA, "hikaye_kur.py"), p, "--dogrula")
+        kontrol("kırma: ayarda kart alanı yok → çıkış 2", r.returncode == 2 and "ön-üretim kartı" in r.stdout, r.stdout + r.stderr)
         k = copy.deepcopy(a)
         k["sahneler"][0]["bas"] = 1.0
         p = os.path.join(d, "kir_kanca.json"); json.dump(k, open(p, "w"))
@@ -107,6 +119,16 @@ def main():
             kontrol("kurgu_kontrol --goruntu GEÇTİ (çıkış 0)", g.returncode == 0, g.stdout[-400:] + g.stderr[-300:])
             for dosya in ("_pano_4fps.jpg", "_pano10.jpg", "_kontrol.jpg"):
                 kontrol("pano " + dosya, os.path.exists(os.path.join(d, "TESLIM", a["ad"] + dosya)))
+        # VO'lu ses adımı: sentetik konuşma (5 Hz hece) + müzik duck −10 dB; kapı müzik katmanında (ses_olc --vo) ölçer
+        voyol = os.path.join(d, "ses", "vo1.wav")
+        subprocess.run([FF, "-v", "error", "-y", "-f", "lavfi", "-i", "aevalsrc='0.5*sin(2*PI*300*t)*gt(sin(2*PI*5*t),0)':s=48000:d=3", voyol], check=True)
+        av = json.load(open(yol, encoding="utf-8"))
+        av["ses"]["vo"] = [{"dosya": "ses/vo1.wav", "bas": 6.0}]
+        av["ses"]["vo_duck_db"] = -10
+        yol_vo = os.path.join(d, "ayar_vo.json")
+        json.dump(av, open(yol_vo, "w"))
+        r2 = kos(sys.executable, os.path.join(BURADA, "ses.py"), yol_vo)
+        kontrol("VO + duck −10 dB: ses.py çıkış 0 (ses_olc --vo müzik katmanında)", r2.returncode == 0, r2.stdout[-500:] + r2.stderr[-300:])
         kontrol("hf/index.html yazıldı ve kanca bas=0", os.path.exists(os.path.join(d, "hf", "index.html")) and 'data-start="0"' in open(os.path.join(d, "hf", "index.html")).read())
         if not hf:
             print("NOT: HyperFrames render ATLANDI (ffmpeg yedeği kullanıldı); gerçek render için: python3 test_hikaye.py --hf")

@@ -15,6 +15,9 @@ Betik yolları `${CLAUDE_PLUGIN_ROOT}/…`; her tarif aynı iskelet: Amaç → G
 | [07 Excel teslim](07-excel-teslim.md) | ürün listesini dosya olarak ver | `ortak/excel_yaz.py … --kopya <dosya.xlsx>` | `excel_yaz` · `excel_test` 0 | `.xlsx` (3 sayfa) |
 | [08 geri bildirim döngüsü](08-geri-bildirim-dongusu.md) | kullanıcı/ortak geri bildirimi geldi | kontrata/derslere yaz → eklenti kuralı | `geri_bildirim_kontrol` 0 | kalıcı kural, ikinci kez gelmeyen madde |
 | [09 limit ve devam](09-limit-ve-devam.md) | limit/bağlam/ağ kesintisi | `DURUM.md` + `schedule`/`CronCreate` | devam sonrası `ls` + kapı çıktısı | güncel DURUM.md + devam zamanlayıcısı |
+| [10 kanca varyasyon testi](10-kanca-varyasyon-testi.md) | aynı çekimden 10+ kanca sürümü | `cut/scripts/kanca_varyasyon.py ayar.json kancalar.json --render` | `kanca_varyasyon_test` 0 + tarif 01 kapıları | N video + yayın planı + kayıt tablosu |
+
+**Video tarifleri (01, 02, 03, 10) önce ön-üretim kartı ister:** `studio/scripts/on_uretim_karti.py` (pazar kartı → kanca ailesi + kanıt → sahne şablonu → müzik kararı → ilk 1 sn). Kart yoksa hat çalışmaz. Pazar ayrımı her video tarifinde: ABD güçlü veri · AB/UK eşik ABD'nin yarısı · TR verisi zayıf.
 
 ## Yeni tarif yazma
 1. Tek dosya `NN-ad.md`; kural metnini çoğaltma, kimliğe atıf yap (SES-01, ICE-01 … `ortak/kurallar.md`).

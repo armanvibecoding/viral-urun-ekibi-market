@@ -141,6 +141,7 @@ def main():
     ap.add_argument("--delik_db", type=float, default=-45.0)
     ap.add_argument("--delik_sn", type=float, default=0.25)
     ap.add_argument("--muzik_stem", help="video zaman çizgisindeki müzik stem'i (ses_tasarla --stem_klasoru → muz.wav)")
+    ap.add_argument("--vo", action="store_true", help="videoda seslendirme var: drop dışı sıçrama MÜZİK stem'inde (duck uygulanmış) ölçülür; konuşma heceleri müzik sıçraması sayılmaz. Gevşetme değil, doğru katman")
     ap.add_argument("--kapi", action="store_true", help="müzik girişi/delik → çıkış 3; drop dışı sıçrama > +10 dB → çıkış 4")
     a = ap.parse_args()
     FF = ffmpeg_yolu()
@@ -181,9 +182,13 @@ def main():
         if len(tepe) == 5:
             break
     rapor["tepe_anlari"] = tepe
-    rapor["drop_disi_sicrama"] = drop_disi_sicrama(x, a.drop)
+    if a.vo and not a.muzik_stem:
+        sys.exit("--vo için --muzik_stem şart: sıçrama müzik katmanında ölçülür (stem yoksa ölçülemedi = kaldı)")
+    stem = oku_mono(FF, a.muzik_stem) if a.muzik_stem else None
+    rapor["drop_disi_sicrama"] = drop_disi_sicrama(stem if a.vo else x, a.drop)
+    rapor["drop_disi_sicrama"]["katman"] = "muzik_stem" if a.vo else "karisim"
     if a.muzik_stem:
-        rapor["muzik_giris"] = muzik_giris(oku_mono(FF, a.muzik_stem), karisim=x)
+        rapor["muzik_giris"] = muzik_giris(stem, karisim=x)
     print(json.dumps(rapor, ensure_ascii=False, indent=1))
     if a.kapi:
         k3 = []

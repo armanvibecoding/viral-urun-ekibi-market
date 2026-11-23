@@ -18,7 +18,8 @@ Etiket: **KURAL** ≥3 · **ADAY** 2 · **GÖZLEM** 1. Gerçek marka/karakter ad
 
 ## 1. Kanca aileleri
 
-### K1. Yasak — "DO NOT show this to a [KİMLİK]…" — KURAL (15)
+### K1. Yasak — "DO NOT show this to a [KİMLİK]…" — KURAL (15 + saha S24: 3)
+S24 ek kanıt (milyon): "Do not let a mechanic see this" 4,6MN [S24-G1x01] · "DON'T show this to your passenger princess…" 25,2MN [S24-G1x04] · "Don't send this to your short girlfriend" 10,5MN [S24-G2x08]. Kimlik kancası S24 turunda 14/19 ürün videosunda (yasak, gönder, her X'in ihtiyacı, POV + kimlik); yeni kimlik tipleri: meme kimliği (passenger princess, BATMOM), sorunlu kimlik (sinusitis sufferer, mom with carpal tunnel).
 Kanıt (milyon video): "DO NOT show this to a car guy…🤫" [037] · "Do not let an ADULT with money see this…👀😭" [040] · "DON'T let baby MOM see this… 🥹🍼" [056] ·
 "DO NOT show this to a DOG Mom… 🥰🐶🎁" [064] · "Don't let Italy fans see this.. 😳🇮🇹" [067] · "DO NOT show this to a [oyun] fan.. 🧟" [072] ·
 "DON'T show this to a DOG MOM... 🫣🐶" [081] · "Don't show this to a DOG Mom 🐶❤️" [082] · "Do NOT send this to a [karakter] lover.. 🤣💚" [088] ·
@@ -92,9 +93,25 @@ Kartlar: `The problem 😭` → `Vs…` → `The solution 🤩` · `The Concept 
 Kanıt: "Watch what happens when the handle gets close to the magnetic drain" [060] · "How would you rate this LED Puffer from 1-10" [062] ·
 "Which team are you? (2) / (3) / or 5…?" [068] · "What if you could keep them with you forever 🤍" [104]
 
-### K13. Yazısız — KURAL (12 kayıtta kanca alanı "yazı yok")
+### K13. Yazısız — KURAL (12 kayıtta kanca alanı "yazı yok" + S24: 4 milyon)
+S24 ek kanıt: matkaba takılan açı aparatı 36,7MN [S24-G2x06] · 3 kuşak tansiyon aleti 8,8MN [S24-G3x02] · matara-kap 1MN [S24-G2x02] · betimleme yazılı dans eden Noel Baba 14,6MN [S24-G2x01]. Durduran şey hareket/insan anı (N2 yeniden doğrulandı).
 004, 006, 038, 065, 085, 090, 093, 094, 095, 102, 114, 117. İlk görüntü kancadır; caption'da tek fayda cümlesi ya da CTA.
 Ölçülen: 085 yazısız 30,2MN vs yazılı 7,5B; 102 yazısız 5,1MN vs yazılı 983–2.275; 117 yazısız 4MN vs metinli 2.461–3.590.
+
+### Saha turu S24 (2026-11-24, Keşfet, 28 video, 1–51MN; ABD'ye ayarlı hesap) — yeni aileler
+Kanıt kodu = S24-<ızgara kodu>. Etiket kuralı aynı (KURAL ≥3 · ADAY 2 · GÖZLEM 1).
+
+| Aile | Etiket | Kanıt | Şablon / not |
+|---|---|---|---|
+| **K14. İtiraz/diyalog alıntısı** (tırnak içinde şüpheci cümle, ürün çürütür) | **KURAL (4)** | "The perfect gift for grandma doesn't EXI…" 3,5MN [S24-G1x06] · "Am from France, NO WAY our id is gonna fit…" 11,1MN [S24-G1x08] · "Perfect gift doesn't exist" 3,8MN [S24-G3x03] · "If you buy one, I'll buy one" 1,3MN [S24-G3x04] | `"[şüpheci cümle]"` → ürün cümleyi bitirir/çürütür; K3 ve K5 ile akraba (K5'in kimliksiz varyantı) |
+| **K15. Ekranda yorum-anahtar-kelime CTA, kancayla dönüşümlü** | **KURAL (8)** | ekranda: [S24-G1x07] [S24-G2x03] [S24-G2x05] [S24-G3x05] · caption'da: [S24-G101] [S24-G1x11] [S24-G3x04] [S24-G3x07] | `Comment "KELİME" and I'll DM you the link` kanca yazısıyla sırayla değişir; ayrı bitiş kartı yok |
+| Şaşkınlık tepkisi: "I'm sorry but WHAT?" → ürün adı sonra | GÖZLEM (1) | 51,4MN [S24-G3x07] (en yüksek tek kayıt) | ürün adı ikinci yazıda; döngü başa sarar |
+| Keşke bilseydim + kimlik | GÖZLEM (1) | "I wish I knew this as a first-time mom" 19,6MN [S24-G3x08] | `I wish I knew this as a [KİMLİK]` |
+| Sezon şarkı sözü kalıbı | GÖZLEM (1) | "all I want for Christmas… is ear seeds" 12,8MN [S24-G3x09] | şarkı cümlesi ürünle biter; yalnız sezon penceresinde |
+| İlk fikir vs son ürün (prototip gag) | GÖZLEM (1) | "Our final hoodies" ↔ "The first idea of our hoodies" 17MN [S24-G101] | S3 akrabası |
+| Katılım sorusu CTA (AB) | GÖZLEM (1) | "Which country ID should we do next?" [S24-G1x08] | yorum getirir |
+| Aile otoritesi / hile | GÖZLEM (1) | "My Grandma did this!!!" 5,3MN [S24-G3x06] | ürünsüz hile; Keşfet'te ürünlerle yarışır |
+Ayrıca: sezon müziği → `muzik-kutuphanesi.md`; video yapısı (döngü, plan temposu) → `sahne-sablonlari.md` "Ortak: süre ve döngü".
 
 ### Daha az kanıtlı aileler
 | Aile | Etiket | Kanıt | Şablon |

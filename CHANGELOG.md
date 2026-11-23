@@ -14,6 +14,12 @@ Her sürümün tam geçmişi `git log` içindedir; burada kullanıcıya görüne
 - `juri.py yapilamadi`: referans < 3 iken işi durdurmadan "jüri yapılamadı" notuyla teslim.
 - Bazaar: `SAT (koşullu)` kararı (marj ya da viral doğrulanamadı), oran turu, 5 niş × 5 ürün, estetik filtre.
 
+- **Ön-üretim kartı** (`studio/scripts/on_uretim_karti.py`): video tarifleri (01, 02, 03, 10) pazar kartı → kanca ailesi + kanıt numarası → sahne şablonu → müzik kararı → ilk 1 sn kartıyla başlar; kart yoksa hikâye kurucu ve kutulu kurgu çalışmaz.
+- **Tarif 10** kanca varyasyon testi (`cut/scripts/kanca_varyasyon.py`): aynı çekimden 10+ kanca sürümü, yayın planı, kayıt tablosu.
+- Döngü formatı (6–10,5 sn): `kurgu_kontrol` kuralları dongu/tatmin/cta; kütüphane: K14 itiraz alıntısı, K15 yorum-anahtar-kelime CTA, `muzik-kutuphanesi.md`, saha S24 kanıtları; radar profil derin tarama (`profil-notu.md`).
+- `ses_olc.py --vo`: seslendirmeli videoda sıçrama kapısı müzik katmanında ölçülür (kapı gevşetilmedi).
+- ChatGPT paketi: her tarifin betiksiz sürümü (talimat, çıta, 10 maddelik öz-denetim, kanca/sahne/pazar özeti, hazır istemler).
+
 ### Değişti
 - Studio ve Cut varsayılanı tarif 01 oldu (ilk turda geri bildirim gerektirmeyen stil).
 - Captain seçenek listesi yerine tek gerekçeli öneri verir ("itirazın yoksa devam ediyorum").

@@ -43,6 +43,14 @@ Konuşma yok: milyonlarda konuşan tek video GERÇEK-MARKA kurucu anlatımı [03
 
 ---
 
+## Ortak: süre ve döngü (saha S24, 4 tam izlenen hit: 51,4MN · 8,8MN · 6,8MN · 3,8MN) — KURAL (4/4)
+- **Varsayılan ürün videosu = 7–10 sn başa saran DÖNGÜ** (son kare ilk kareye bağlanır; izleyici 2–3 tur döner, izlenme süresi > %100) [S24-P01..P04]. 25 sn hikâye ayrı formattır (tarif 02).
+- Plan başına ~1,3–2 sn; tek mekân; 3–6 plan; aynı plan döngüde tekrar edebilir.
+- **Tek "tatmin/kanıt anı"** (kaşık soğuyor · kirli su gidere dökülüyor · buzlu cam tek hamlede temizleniyor · ekranda sayı çıkıyor); video bu anın etrafında kurulur.
+- **Kanca yazısı ile CTA yazısı dönüşümlü** (ayrı bitiş kartı yok): K15 (`kanca-kutuphanesi.md`).
+- El + ürün (3/4), yüz yok ya da konuşmasız; konuşma/seslendirme 0/4. Yazısız da olur (K13).
+- Ölçüm tuzağı: Keşfet kutusundaki izlenme ile profildeki Reels izlenmesi ayrı gönderi olabilir; "profil medyanı" ve "hit" ayrı yazılır.
+
 ## S1 — Tek sahne gag / mekanizma — KURAL (17)
 Kanıt: 014, 038, 060, 063, 066, 072, 085, 089, 090, 097, 105, 114, 117, 123, 134 (AI market kuyruğu, kimse fark etmiyor, 20,9MN), 135 (örtü reveal, gerçek), 138 (AI uçak, iki kişi uyuyor). Örnek sayılar: 085 30,2MN · 063 15MN · 114 6,1MN (profilde 20,1MN) · 123 4,8MN · 117 4MN.
 Hesap-içi: aynı ürünün AI kamusal sahneli versiyonları 16,5B–52,4B [123]; yazılı versiyon 983–2.275 [102].
@@ -255,6 +263,7 @@ Sahne 3: `CONTINUITY LOCK … SCENE: a man wearing the jacket in the garage, a h
 Yazı: `DO NOT let a CAR GUY see this...` (K1) · CTA `Comment "JACKET"`.
 
 ---
+- **Vekil nesne testi (GÖZLEM, 1):** ürünü önce yerine geçen nesneyle dene (muz = pati), sonra gerçek hedefle [S24-G3x05, 6,8MN]. Gerçek hedef (pati, cilt) kamusal/rıza sorunu çıkarıyorsa vekil nesne güvenli kanıt anıdır.
 
 ## S9 — POV sorun anı → idealize sonuç (AI-5) — KURAL (6 AI-5; K7 kancası 5)
 Kanıt: 099 3,2MN (uçakta 15 saat) · 094 1,1MN (çözülmüş aile anı) · 119 5,1MN (titreyen köpek → huzur) · 078 1,4MN (oda dönüşümü) · 133 araç yolcu koltuğunda yastıkla uyuyan kadın (profil 6,4MN) · 138 4,1MN (uçakta iki kişi uyuyor) · 139 1,2MN (masa altı ısıtıcı POV, gerçek-görünümlü AI) · K7: 053, 092, 099.

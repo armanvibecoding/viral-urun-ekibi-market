@@ -15,7 +15,10 @@
 #   - Köprü (ortak/paket.py + ortak/nis-esleme.tsv + ortak/sozlesme/) skills/ekip-bilgi/references/ altına bayt bayt girer;
 #     .mcp.json girmez (ChatGPT kendi Shopify bağlantısını kullanır).
 #   - Kök plugin.json'a com.openai arayüz bloğu (görünen ad, kısa açıklama, örnek istekler) yazılır.
-#   - ortak/ -> skills/ekip-bilgi/references/ (ayrı bilgi skill'i); ekler/chatgpt/ -> skills/ekip-bilgi/references/chatgpt/
+#   - skills/cut/scripts/hikaye/ (HyperFrames hikâye hattı) pakete GİRMEZ.
+#   - ortak/ -> skills/ekip-bilgi/references/ (ayrı bilgi skill'i); ekler/chatgpt/ (alt klasörler dahil) -> skills/ekip-bilgi/references/chatgpt/
+#   - Tarifler: ortak/tarifler/ (betik sürümü) pakete GİRMEZ; ekler/chatgpt/tarifler/ (betiksiz: talimat + çıta + 10 maddelik öz-denetim + kanca/sahne/pazar özeti + hazır istemler) girer;
+#     \${CLAUDE_PLUGIN_ROOT}/ortak/tarifler/ yolları betiksiz sürüme çevrilir.
 #   - ${CLAUDE_SKILL_DIR} / ${CLAUDE_PLUGIN_ROOT} -> paket köküne göreli yol; Claude'a özgü terimler nötr dile.
 #   - Kökte plugin.json (agent-plugins şeması) + .claude-plugin/plugin.json (aynı ad/sürüm/açıklama).
 #   - ortak/sozlesme/ (kollar arası arayüz sözleşmesi) ve ortak/ altındaki betik/veri dosyaları (.py, .tsv, .json) dönüştürülmeden,
@@ -56,6 +59,8 @@ def yaz(p, s):
 # ---------- 1) Metin dönüşümü ----------
 def yol_cevir(s, skill):
     """skill: dosyanın ait olduğu skill adı (CLAUDE_SKILL_DIR için) ya da None."""
+    # Tarifler: betik sürümü pakete girmez; her yol betiksiz ChatGPT sürümüne (ekler/chatgpt/tarifler/) bağlanır.
+    s = s.replace("${CLAUDE_PLUGIN_ROOT}/ortak/tarifler/", "skills/ekip-bilgi/references/chatgpt/tarifler/")
     s = s.replace("${CLAUDE_PLUGIN_ROOT}/ortak/", "skills/ekip-bilgi/references/")
     s = s.replace("${CLAUDE_PLUGIN_ROOT}/ekler/chatgpt/", "skills/ekip-bilgi/references/chatgpt/")
     s = s.replace("${CLAUDE_PLUGIN_ROOT}/", "")
@@ -115,6 +120,7 @@ GENEL_NOT = """> **ChatGPT'de çalışma notu** (paket dönüştürücüsü ekle
 > 4. **Yollar** paket köküne göredir (`skills/...`); ortak bilgi `skills/ekip-bilgi/references/` altında. Kod yorumlayıcının paket dosyalarını görüp görmediği **doğrulanmadı**; göremiyorsa kullanıcıdan gereken betiği ya da dosyayı sohbete yüklemesini iste.
 > 5. **Araçlar:** tarayıcı otomasyonu, bilgisayar/telefon kontrolü (iPhone Yansıtma), yerel terminal ve Google Flow otomasyonu burada yok. Bu adımları **kullanıcı yapar** ve sonucu (ekran görüntüsü, sayfa metni, dosya) sohbete yükler. ChatGPT ajan modu web sayfası açabilir ama bu paketle sınanmadı (**doğrulanmadı**). Python betikleri kod yorumlayıcıda koşulabilir; ffmpeg'i kullanmadan önce `ffmpeg -version` ile ölç.
 > 6. **Ekip rolleri:** çekirdek ekipte "ajan" ya da "yardımcı rol" denen üye aynı adlı beceridir (`skills/<ad>/SKILL.md`). Ayrı süreç yok: role aynı sohbette sen geçersin, brief'i kendine yazarsın, çıktıyı yine sınarsın. Mağaza kolu üyeleri (marka, görsel, site, denetim) ayrı beceri DEĞİLDİR: işleri `skills/builder/<aşama>/` dosyalarının içindedir; site denetimini o aşama kendisi uygular.
+> 8. **Tarifler betiksizdir:** `skills/ekip-bilgi/references/chatgpt/tarifler/` — her tarif adım adım talimat, ölçülebilir çıta ve "kendi çıktını 10 maddeyle denetle" listesidir; video tarifleri (01, 02, 03, 10) önce ön-üretim kartı ister (`ozet-kanca-sahne-pazar.md`'deki kanıt numaralarıyla). Hazır görsel/video istemleri: `uretim-istemleri.md`. Betik kapıları yok: denetimi sen maddelerle yaparsın ve ✓/✗ kanıtını yazarsın.
 > 7. **Mağaza ve köprü:** Shopify işlemleri ChatGPT'nin Shopify bağlantısıyla, Çalışma (Work) modunda yapılır. Köprü betiği `skills/ekip-bilgi/references/paket.py` kod yorumlayıcıda koşulur; `is/NN-urun/magaza/` dosyaları sohbete eklenir ya da indirilebilir dosya olarak verilir.
 """
 
@@ -309,11 +315,15 @@ for ad in ajanlar:
         govde = "\n" + ust + govde
     yaz(os.path.join(skills_h, ad, "SKILL.md"), fm_yaz(alan["name"], alan["description"]) + govde)
 
+# Hikâye hattı (HyperFrames render + yerel ffmpeg/Node) ChatGPT'de çalışmaz: pakete girmez (betiksiz tarif 02 anlatır).
+shutil.rmtree(os.path.join(skills_h, "cut", "scripts", "hikaye"), ignore_errors=True)
+
 # ---------- 5) Ortak bilgi -> ekip-bilgi skill'i ----------
 bilgi_h = os.path.join(skills_h, "ekip-bilgi")
 for kok, dirs, files in os.walk(os.path.join(kaynak, "ortak")):
     # ortak/roller/ (mağaza rol mod dosyaları) ChatGPT paketine girmez: mağaza ajanları da girmiyor.
-    dirs[:] = sorted(d for d in dirs if d not in ATLA_AD and not (d == "roller" and os.path.samefile(kok, os.path.join(kaynak, "ortak"))))
+    # ortak/tarifler/ (betik sürümü) de girmez: ChatGPT'ye ekler/chatgpt/tarifler/ (betiksiz) gider.
+    dirs[:] = sorted(d for d in dirs if d not in ATLA_AD and not (d in ("roller", "tarifler") and os.path.samefile(kok, os.path.join(kaynak, "ortak"))))
     for f in sorted(files):
         if f in ATLA_AD or f.endswith("_test.py"):
             continue
@@ -329,9 +339,12 @@ for kok, dirs, files in os.walk(os.path.join(kaynak, "ortak")):
         yaz(hp, terim_cevir(yol_cevir(oku(kp), None)))
 cg = os.path.join(kaynak, "ekler", "chatgpt")
 if os.path.isdir(cg):
-    for f in sorted(os.listdir(cg)):
-        if f.endswith(".md"):
-            yaz(os.path.join(bilgi_h, "references", "chatgpt", f), terim_cevir(yol_cevir(oku(os.path.join(cg, f)), None)))
+    for kok2, dirs2, files2 in os.walk(cg):   # alt klasör (tarifler/) dahil
+        dirs2[:] = sorted(d for d in dirs2 if d not in ATLA_AD)
+        for f in sorted(files2):
+            if f.endswith(".md"):
+                kp2 = os.path.join(kok2, f)
+                yaz(os.path.join(bilgi_h, "references", "chatgpt", os.path.relpath(kp2, cg)), terim_cevir(yol_cevir(oku(kp2), None)))
 
 
 tum_beceri = skill_adlari + ajanlar

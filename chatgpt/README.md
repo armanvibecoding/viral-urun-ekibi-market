@@ -47,3 +47,6 @@ sh scripts/proje_paketi_yap.sh     # proje-paketi/yuklenecek/ dosyalarını bilg
 `proje-paketi/yuklenecek/` bilgi bankasının (`plugins/viral-urun-ekibi/ortak/`) üretilmiş kopyasıdır; elle düzenleme, betikle yeniden üret.
 
 Ana sayfa: [../README.md](../README.md)
+
+## Tarifler (betiksiz)
+ChatGPT betik çalıştıramaz; paketin `skills/ekip-bilgi/references/chatgpt/tarifler/` klasörü her tarifin **betiksiz** sürümünü içerir: adım adım talimat, ölçülebilir kalite çıtası, kanca/sahne/pazar özeti (kanıt numaralı, `ozet-kanca-sahne-pazar.md`), hazır görsel/video istemleri (`uretim-istemleri.md`) ve her tarifte "kendi çıktını 10 maddeyle denetle" listesi. Video tarifleri (01, 02, 03, 10) önce **ön-üretim kartı** ister. Render ve ölçüm betikleri (HyperFrames, ffmpeg kapıları) ChatGPT'de yoktur: montajı kullanıcı CapCut/InShot'ta çizelgeyle yapar; hareketli katman eklentinin yerel kurulumunda üretilir.

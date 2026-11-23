@@ -124,6 +124,52 @@ def main():
         F.calistir([ff, "-v", "error", "-y", "-f", "lavfi", "-i", f"aevalsrc='{ifade}':s=48000:d=6", w])
         r = subprocess.run([py, os.path.join(BURASI, "ses_olc.py"), w, "--kapi"], capture_output=True, text=True)
         sonuc.append((f"ses_olc --kapi {ad} -> çıkış {bek}", r.returncode == bek))
+    # format=dongu kuralları (tarif 01 döngü sürümü): geçerli ayar temiz; her bozma kendi kuralını tetikler
+    dk = os.path.join(d, "dongu")
+    os.makedirs(os.path.join(dk, "klipler"), exist_ok=True)
+    with open(os.path.join(dk, "klipler", "klip_etiket.json"), "w", encoding="utf-8") as f:
+        json.dump({"klipler": {n: {"arac": None, "tur": "urun", "icerik": "ic_" + n} for n in ("A", "B", "C")}, "araclar": {}}, f)
+
+    def dongu_ayar(**ov):
+        a = {"format": "dongu", "font": "font/x.ttf", "cikti": "k.mp4", "tatmin_ani": {"bas": 3.0, "bit": 4.5},
+             "planlar": [{"klip": "klipler/A.mp4", "bas": 0, "bit": 2.7}, {"klip": "klipler/B.mp4", "bas": 0, "bit": 2.7}, {"klip": "klipler/A.mp4", "bas": 0, "bit": 2.7}],
+             "yazilar": [{"bas": 0, "bit": 2.7, "yazi": "Perfect gift doesn't exist"}],
+             "cta": {"satir1": "Comment DOG", "satir2": "and I'll DM you the link", "plan": 2, "konum": 0.6}}
+        a.update(ov)
+        return a
+    bos = {"klipler/A.mp4": 0}
+    for ad, ayar_d, beklenen_kural in (
+            ("geçerli döngü ayarı: dongu/tatmin/cta/plan hatası yok", dongu_ayar(), None),
+            ("son plan ilk plana bağlanmıyor -> dongu", dongu_ayar(planlar=[{"klip": "klipler/A.mp4", "bas": 0, "bit": 2.7}, {"klip": "klipler/B.mp4", "bas": 0, "bit": 2.7}, {"klip": "klipler/C.mp4", "bas": 0, "bit": 2.7}]), "dongu"),
+            ("tatmin anı yok -> tatmin", dongu_ayar(tatmin_ani=None), "tatmin"),
+            ("CTA yazısı yok -> cta", dongu_ayar(cta=None), "cta"),
+            ("kanca ile CTA aynı anda -> cta", dongu_ayar(yazilar=[{"bas": 0, "bit": 8.1, "yazi": "Perfect gift doesn't exist"}]), "cta"),
+            ("14 sn video döngü sayılmaz -> plan", dongu_ayar(planlar=[{"klip": "klipler/A.mp4", "bas": 0, "bit": 4.6}, {"klip": "klipler/B.mp4", "bas": 0, "bit": 4.6}, {"klip": "klipler/A.mp4", "bas": 0, "bit": 4.6}], tatmin_ani={"bas": 3, "bit": 5}), "plan")):
+        yol = os.path.join(dk, "ayar.json")
+        with open(yol, "w", encoding="utf-8") as f:
+            json.dump(ayar_d, f)
+        r = subprocess.run([py, os.path.join(BURASI, "kurgu_kontrol.py"), yol, "--json"], capture_output=True, text=True)
+        try:
+            h = json.loads(r.stdout)["hatalar"]
+        except Exception:
+            h = [{"kural": "PARSE", "mesaj": r.stdout + r.stderr}]
+        kurallar = {x["kural"] for x in h if x["kural"] in ("dongu", "tatmin", "cta", "PARSE") or (x["kural"] == "plan" and "döngü formatı" in x["mesaj"])}
+        ok = (not kurallar) if beklenen_kural is None else (beklenen_kural in kurallar)
+        sonuc.append((f"kurgu_kontrol {ad}", ok))
+    # VO + müzik duck (−10 dB): sıçrama MÜZİK katmanında ölçülür. VO'lu karışım --vo ile GEÇER (0), --vo'suz konuşma hecesine takılır (4),
+    # rampasız ani müzik --vo ile bile KALIR (3). Kapı gevşetilmedi: doğru katman ölçülür.
+    tik = "0.8*exp(-80*t)*sin(2*PI*900*t)"
+    mus = "0.3*pow(10,-1.5*(1-min(1,t/2.1)))*sin(2*PI*220*t)"
+    duck = "(1-0.68*between(t,2.4,5.6))"
+    vo = "0.5*sin(2*PI*300*t)*gt(sin(2*PI*5*t),0)*between(t,2.6,5.6)"
+    for ad, ifade in (("vo_karisim", f"{mus}*{duck}+{vo}+{tik}"), ("vo_stem", f"{mus}*{duck}"), ("ani_stem", f"0.3*sin(2*PI*220*t)*{duck}")):
+        F.calistir([ff, "-v", "error", "-y", "-f", "lavfi", "-i", f"aevalsrc='{ifade}':s=48000:d=9", os.path.join(d, ad + ".wav")])
+    vk, vs, an = (os.path.join(d, n + ".wav") for n in ("vo_karisim", "vo_stem", "ani_stem"))
+    for ad, ek, bek in (("VO + duck −10 dB, --vo", [vk, "--muzik_stem", vs, "--vo"], 0),
+                        ("aynı karışım --vo'suz (konuşma hecesi sıçrama sayılır)", [vk, "--muzik_stem", vs], 4),
+                        ("rampasız ani müzik + VO, --vo ile bile", [vk, "--muzik_stem", an, "--vo"], 3)):
+        r = subprocess.run([py, os.path.join(BURASI, "ses_olc.py")] + ek + ["--kapi"], capture_output=True, text=True)
+        sonuc.append((f"ses_olc --kapi {ad} -> çıkış {bek}", r.returncode == bek))
     # kurgu_kontrol --goruntu: kesim dışı RGB sıçraması / son 2 sn gürültü → 3
     kl = os.path.join(d, "klipler")
     gur = os.path.join(kl, "_gurultu.mp4")
