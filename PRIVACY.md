@@ -33,4 +33,4 @@ verinizin nasıl işlendiği o servislerin kendi gizlilik politikalarına tabidi
 ## İletişim
 Gizlilikle ilgili soru ve bildirimler için GitHub deposunda issue açın; güvenlik açığı için [SECURITY.md](SECURITY.md).
 
-Son güncelleme: 2026-11-23 · Sürüm 0.4.0
+Son güncelleme: 2026-11-23 · Sürüm 0.5.0

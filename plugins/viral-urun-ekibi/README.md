@@ -17,6 +17,8 @@ Kurulum (Claude Code içinde):
 
 Başlamak için boş bir klasörde `/viral-urun-ekibi:captain` çalıştır.
 
+Her yetenek bir **tarif**tir: `ortak/tarifler/README.md` (video, seslendirme, Flow, ürün avı, Excel, geri bildirim, limit/devam).
+
 Mağaza kolu (`builder` becerisi) aynı eklentinin içindedir; kollar dosya üzerinden çalışır:
 bulunan ürün `urun-paketi.json` olarak mağaza koluna gider, kurulan mağaza `magaza-paketi.json` ile video ekibine döner,
 videolar `video-paketi.json` ile mağazaya girer. Sözleşme ve doğrulayıcı: `ortak/sozlesme/`, yardımcı betik: `ortak/paket.py`.

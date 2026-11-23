@@ -2,18 +2,20 @@
 
 Hattın tamamı burada çalışır: Instagram'da ürün bulma, AliExpress ve Trendyol tarama, Shopify mağaza kurulumu ve site denetimi (17 ajan),
 Google Flow'da üretim, ffmpeg ile kurgu, kendiliğinden tutulan hafıza. Eklentinin kendisi `plugins/viral-urun-ekibi/` klasöründedir
-(katalog `.claude-plugin/marketplace.json` bunu gösterir). Sürüm: 0.4.0. Güncelledikten sonra oturumu yeniden başlat.
+(katalog `.claude-plugin/marketplace.json` bunu gösterir). Sürüm: 0.5.0. Güncelledikten sonra oturumu yeniden başlat.
 
 ## Hangi yoldan kuracağım?
 
 | Nerede kullanıyorsun? | Ne indir / yaz | Nereye yükle |
 |---|---|---|
 | **Claude Code** (terminal, önerilen) | ZIP gerekmez: aşağıdaki iki `/plugin` komutu | Claude Code içinde |
-| **claude.ai veya Claude uygulaması** | [Releases](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) → `viral-urun-ekibi-CLAUDE-v0.4.0.zip` (açma) | **Customize → Plugins → Add → Upload plugin** |
+| **claude.ai veya Claude uygulaması** | [Releases](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) → `viral-urun-ekibi-CLAUDE-v0.5.0.zip` (açma) | **Customize → Plugins → Add → Upload plugin** |
 
 Claude ZIP'inde tam eklenti vardır (beceriler, ajanlar, kancalar, ortak bilgi, HyperFrames). Ajanlar ve kancalar Cowork ile Claude Code'da çalışır;
 claude.ai sohbeti bunları hata vermeden yok sayar (resmî doküman: [claude.com/docs/plugins/build](https://claude.com/docs/plugins/build)).
-Bu yüzden hattın tamamı için Claude Code önerilir. ZIP'in boyut sınırı resmî dokümanda kişisel hesap için belirtilmemiş; yükleme reddederse
+Bu yüzden hattın tamamı için Claude Code önerilir.
+
+> **Claude'a yüklenecek dosya `viral-urun-ekibi-CLAUDE-vX.zip` (~4 MB).** Releases → Assets altından indir; GitHub'ın otomatik "Source code" arşivi yanlış dosyadır. Dosya 18 kB gibi küçükse yanlış dosyayı indirmişsin demektir. ZIP'in boyut sınırı resmî dokümanda kişisel hesap için belirtilmemiş; yükleme reddederse
 Claude Code yolunu kullan.
 
 ## Claude Code kurulumu (3 adım)

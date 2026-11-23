@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="LICENSE"><img alt="Lisans: MIT" src="https://img.shields.io/badge/lisans-MIT-blue"></a>
-  <img alt="Sürüm 0.4.0" src="https://img.shields.io/badge/s%C3%BCr%C3%BCm-0.4.0-brightgreen">
+  <img alt="Sürüm 0.5.0" src="https://img.shields.io/badge/s%C3%BCr%C3%BCm-0.5.0-brightgreen">
   <a href="https://github.com/armanvibecoding/viral-urun-ekibi-market/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/armanvibecoding/viral-urun-ekibi-market/actions/workflows/ci.yml/badge.svg"></a>
   <img alt="Claude Code eklentisi" src="https://img.shields.io/badge/Claude%20Code-eklenti-orange">
 </p>
@@ -26,11 +26,13 @@ AliExpress'te henüz patlamamış benzerlerini avlar, Shopify mağazanı kurar, 
 | Hangisini kullanıyorsun? | İndir (Releases) | Nereye yükle | Ayrıntı |
 |---|---|---|---|
 | **Claude Code** (terminal; önerilen, hattın tamamı) | ZIP gerekmez: `/plugin marketplace add armanvibecoding/viral-urun-ekibi-market` | Claude Code içinde | [claude/README.md](claude/README.md) |
-| **claude.ai / Claude uygulaması** | [`viral-urun-ekibi-CLAUDE-v0.4.0.zip`](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) | Customize → Plugins → Add → **Upload plugin** | [claude/README.md](claude/README.md) |
-| **ChatGPT** | [`viral-urun-ekibi-CHATGPT-v0.4.0.zip`](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) | ChatGPT → **Plugins** → yükle | [chatgpt/README.md](chatgpt/README.md) |
+| **claude.ai / Claude uygulaması** | [`viral-urun-ekibi-CLAUDE-v0.5.0.zip`](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) | Customize → Plugins → Add → **Upload plugin** | [claude/README.md](claude/README.md) |
+| **ChatGPT** | [`viral-urun-ekibi-CHATGPT-v0.5.0.zip`](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) | ChatGPT → **Plugins** → yükle | [chatgpt/README.md](chatgpt/README.md) |
 | **Proje** (kurulumsuz; claude.ai ya da ChatGPT Projesi) | [`chatgpt/proje-paketi/`](chatgpt/proje-paketi/KURULUM.md) klasörü | Projects → talimat + dosyalar | [chatgpt/proje-paketi/KURULUM.md](chatgpt/proje-paketi/KURULUM.md) |
 
 İki ZIP'i karıştırma: **CLAUDE** olan yalnız Claude'a, **CHATGPT** olan yalnız ChatGPT'ye yüklenir. ZIP'ler depoda tutulmaz, her sürümde Releases'a eklenir.
+
+> **Claude'a yüklenecek dosya `viral-urun-ekibi-CLAUDE-vX.zip` (~4 MB).** Releases sayfasında "Assets" altından indir; **"Source code" (zip/tar.gz) bağlantısı yanlış dosyadır.** İndirdiğin dosya 18 kB gibi küçükse yanlış dosyadır (doğru dosya yaklaşık 4 MB).
 
 ## Ne yapar?
 

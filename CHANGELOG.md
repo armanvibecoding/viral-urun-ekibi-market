@@ -5,6 +5,22 @@ Her sürümün tam geçmişi `git log` içindedir; burada kullanıcıya görüne
 
 ## [Yayımlanmamış]
 
+## [0.5.0] - 2026-11-24
+
+### Eklendi
+- **Tarifler** (`ortak/tarifler/`): her yetenek tek dosyalık, çalıştırılabilir tarif — 01 ürün videosu TR Reels (varsayılan), 02 organik hikâye videosu, 03 müşteri senaryosu (A sadık + B yorum), 04 ElevenLabs seslendirme, 05 Flow klibi, 06 Trendyol + AliExpress avı, 07 Excel teslim, 08 geri bildirim döngüsü, 09 limit ve devam. Her tarifte ölçülebilir kalite çıtası, kapılar ve "bitti" tanımı var.
+- **Hikâye hattı** (`skills/cut/scripts/hikaye/`): ayar JSON'dan 25 sn organik video — stok klip hazırlama, HyperFrames kinetik tipografi blokları, müzik girişi düzleme + ses tasarımı + VO duck, panolar, görüntü ve ses kapıları, Pexels/Mixkit stok araçları (lisans kaydıyla), yerel alıcı. Uçtan uca test: `test_hikaye.py`.
+- `hizli_kurgu.py`: `"yazi_stil": "kutulu"` (kutulu yazı, kontursuz, Reels güvenli alanı).
+- `juri.py yapilamadi`: referans < 3 iken işi durdurmadan "jüri yapılamadı" notuyla teslim.
+- Bazaar: `SAT (koşullu)` kararı (marj ya da viral doğrulanamadı), oran turu, 5 niş × 5 ürün, estetik filtre.
+
+### Değişti
+- Studio ve Cut varsayılanı tarif 01 oldu (ilk turda geri bildirim gerektirmeyen stil).
+- Captain seçenek listesi yerine tek gerekçeli öneri verir ("itirazın yoksa devam ediyorum").
+- `kurgu_kontrol.py`: ekransız üründe (`"urun_tipi": "ekransiz"`) ekranlı plan aranmaz.
+- `excel_yaz.py`: `--kopya` dosya yolu verilirse dosyaya kopyalar (önceden dosya adıyla klasör açıyordu).
+- README: Claude'a yüklenecek dosya `viral-urun-ekibi-CLAUDE-vX.zip` (~4 MB); 18 kB ise yanlış dosya.
+
 ## [0.4.0] - 2026-11-23
 
 ### Eklendi
