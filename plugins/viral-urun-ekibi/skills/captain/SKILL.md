@@ -38,14 +38,14 @@ kadro dosyasında "çağrıda model" yazan işlerde (hikâye seçimi, kısa list
 | Instagram'dan viral ürün bul / listele | `radar` | sen (telefon/tarayıcı alt ajana verilmez) |
 | Viral ürünlerin ortak noktası, desen | `radar` notları → `decoder` ajanı | ajan |
 | AliExpress'ten henüz viral olmamış ürün | `hunter` | `scout`, sonra `skeptic` |
+| Trendyol'dan ilgi gören, viral olmamış ürün | `bazaar` | `scout`, sonra `skeptic` |
 | Bir ürün için 30 video / senaryo / kare | `studio` | `story` |
 | Klipleri kurgula, yazı/ses ekle, teslim | `cut` | sen (betikler) |
 | Kinetik yazı, geçiş, overlay, UI kartı | `cut` Aşama 8b → `viral-urun-ekibi:hyperframes` | sen (yerel Node + Chrome) |
 | Yayınla / 48. saat ölç | `sablon/yayin-PLAN.md` + `sablon/olcum.csv` → `scripts/yayin_olc.py` | sen (veriyi kurucu girer) |
 | Niş niş trend ürün / kazanan reklam (Meta Reklam Kütüphanesi) | `spy` | sen; eşleşen ürün `hunter`'a `META-<kod>` ile girer |
-| SAT olmuş ürüne teklif / ürün sayfası / upsell / e-posta | `teklif-ve-sayfa` | sen; `skeptic` sayfa iddialarını çürütür |
-| Mağaza kur / ürünü Shopify'a aç / marka adı, logo, galeri görseli, site metni | `builder` (5 aşama, §2b) | sen; marka, görsel ve site işi mağaza kolu ajanlarında |
-| Kurulu mağazayı denetle | `builder` Adım 8 (`shopify-kurulum/references/site-denetimi.md`) | 5 denetçi paralel (`ortak/ekip.md`) |
+| Mağaza kur / ürünü Shopify'a aç / teklif, fiyat, paket, upsell / marka adı, logo, galeri görseli, site metni | `builder` (3 aşama, §2b) | sen; marka, görsel ve site işi mağaza kolu ajanlarında |
+| Kurulu mağazayı denetle | `builder` Aşama 3 (`shopify-kurulum/references/site-denetimi.md`) | 5 denetçi paralel (`ortak/ekip.md`) |
 | Videolar mağazayla aynı görünsün | `ortak/paket.py magaza-oku` (§2b) | sen |
 | Haftalık ekip karnesi | `python3 "${CLAUDE_SKILL_DIR}/scripts/karne_uret.py" --proje .` | sen (betik; veri yoksa "veri yok" yazar) |
 | ChatGPT'de yapmak istiyor | `${CLAUDE_PLUGIN_ROOT}/ekler/chatgpt/` içindeki ilgili dosyayı ver | kullanıcı |

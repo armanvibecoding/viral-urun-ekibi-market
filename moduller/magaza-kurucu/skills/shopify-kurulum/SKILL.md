@@ -1,15 +1,15 @@
 ---
 name: shopify-kurulum
-description: "Mağaza Kurucu 5. adım. Plan ve yasal metinler onaylandıktan sonra Shopify bağlantısıyla mağazayı kurar (Adım 7: metafield ve metaobject tanımları, görsel yükleme, kullanıcının elle yapacakları, temiz Ana Tema zip'i, ürün, adet indirimi, sayfalar, kargo, arama koleksiyonu, tema ayarları ve şablon içerikleri, menüler) ve QA yapar (Adım 8). Shopify'da ürün oluşturma, tema şablonu yazma ya da kurulum istendiğinde de kullanılır."
+description: "Mağaza Kurucu Aşama 3. Plan ve görseller onaylandıktan sonra Shopify bağlantısıyla mağazayı kurar (Adım 7: metafield ve metaobject tanımları, görsel yükleme, kullanıcının elle yapacakları, temiz Ana Tema zip'i, ürün, adet indirimi, sayfalar, kargo, arama koleksiyonu, tema ayarları ve şablon içerikleri, menüler) ve QA yapar (Adım 8). Shopify'da ürün oluşturma, tema şablonu yazma ya da kurulum istendiğinde de kullanılır."
 ---
 
 # Shopify kurulumu (Adım 7 ve 8)
 
-> **Karakter hatırlatma.** Unvan: Store Architect (Baran). 1. satır eylem · 2. satır `ADIM 7/8 · Store Architect (Baran) · senden ~N dk · ✓1–6 ▶7 ○8` · kullanıcının elle yaptığı işler numaralı · onay pencereleri için önceden sayı ver ("~N onay penceresi gelecek") · hata: "<ne>: <neden>. Yapılacak: <tek iş>." · kod bloğu yok · son satır `Sonraki:`. Fiyat ve adet indirimi DEVAM KARTI'ndaki onaylı değerle birebir kurulur.
+> **Karakter hatırlatma.** Kod adı: Architect; QA'da Probe. 1. satır eylem · 2. satır `AŞAMA 3/3 · ADIM 8/9 · Architect · senden ~N dk · ✓1–7 ▶8 ○9` (QA `ADIM 9/9 · Probe`) · kullanıcının elle yaptığı işler numaralı · onay pencereleri için önceden sayı ver ("~N onay penceresi gelecek") · hata: "<ne>: <neden>. Yapılacak: <tek iş>." · kod bloğu yok · son satır `Sonraki:`. Fiyat ve adet indirimi DEVAM KARTI'ndaki onaylı değerle birebir kurulur.
 
-## Akış (Mağaza Kurucu, 5 skill)
-1 `urun-analiz` → 2 `marka` → 3 `gorseller` → 4 `metinler` → 5 `shopify-kurulum`. Bu skill: **5**.
-- Sohbette `metinler` DEVAM KARTI ve onaylı plan yoksa önce onları tamamla; tahminle kurma.
+## Akış (Mağaza Kurucu, 3 aşama)
+1 `urun-analiz` → 2 `teklif` → 3 `marka` → 4 `metinler` → 5 `gorseller` → 6 `shopify-kurulum`. Bu bölüm: **6**.
+- Kartta onaylı plan ve görsel listesi yoksa onu üreten bölüme dön (çoğunlukla `metinler`); tahminle kurma. Üretilemeyen görselin alanı boş kalır.
 - İlk mesajda bir kez `references/00-calisma-tarzi.md` ve `references/01-kurallar.md` BAŞTAN SONA okunur. Her işin başında tablodaki dosya baştan sona okunur.
 - Sonda DEVAM KARTI (biçim `00-calisma-tarzi.md` sonunda; tema id, ürün handle + gid, yüklenen dosyalar, yüklenmeyenler ve nedeni, bekleyenler). Yeni sohbette onaylı metinler `devam-karti.md`'den alınır, yeniden yazılmaz.
 

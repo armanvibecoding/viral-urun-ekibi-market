@@ -75,21 +75,21 @@ class TekLider(unittest.TestCase):
 
 
 class EkipKalibi(unittest.TestCase):
-    KALIP = re.compile(r"^description: ([A-Z][A-Za-z&() ]+) \(([A-ZÇĞİÖŞÜ][a-zçğıöşü]+) · ([^)]+)\)\. ", re.M)
+    KALIP = re.compile(r"^description: \"?([A-Z][a-z]+) \(([^)]+)\)\. ", re.M)
 
-    def test_her_ajan_unvan_ad_rol(self):
+    def test_her_ajan_kod_adi_rol(self):
         kadro = oku(EKLENTI, "ortak", "ekip.md")
         adlar, unvanlar = [], []
         ajanlar = sorted(glob.glob(os.path.join(EKLENTI, "agents", "*.md")))
-        self.assertEqual(len(ajanlar), 27)
+        self.assertEqual(len(ajanlar), 17)
         for p in ajanlar:
             t = oku(p)
             m = self.KALIP.search(t)
             self.assertIsNotNone(m, os.path.basename(p))
             unvan, ad = m.group(1), m.group(2)
-            adlar.append(ad)
-            unvanlar.append(unvan)
-            self.assertIn("%s (%s)" % (unvan, ad), kadro, os.path.basename(p))
+            adlar.append(unvan)
+            unvanlar.append(ad)
+            self.assertIn("| %s | %s |" % (unvan, ad), kadro, os.path.basename(p))
             self.assertIn("`%s`" % os.path.basename(p)[:-3], kadro)
             model = re.search(r"^model: (\w+)$", t, re.M)
             self.assertIsNotNone(model, os.path.basename(p))
@@ -99,7 +99,7 @@ class EkipKalibi(unittest.TestCase):
 
     def test_magaza_kolu_isareti(self):
         isaretli = [p for p in glob.glob(os.path.join(EKLENTI, "agents", "*.md")) if "<!-- kol: magaza -->" in oku(p)]
-        self.assertEqual(len(isaretli), 20)
+        self.assertEqual(len(isaretli), 10)
 
     def test_kisisel_iz_yok(self):
         for p in glob.glob(os.path.join(EKLENTI, "agents", "*.md")) + glob.glob(os.path.join(DEPO, ".claude", "agents", "*.md")):
@@ -110,7 +110,7 @@ class EkipKalibi(unittest.TestCase):
 
 class Kopru(unittest.TestCase):
     def test_kopru_dosyasi_uc_asamada(self):
-        for asama in ("urun-analiz", "metinler", "shopify-kurulum"):
+        for asama in ("urun-analiz", "teklif", "metinler", "shopify-kurulum"):
             self.assertIn("references/ekip-koprusu.md", oku(KOK, "skills", asama, "SKILL.md"), asama)
         t = oku(KOK, "src", "ortak", "ekip-koprusu.md")
         for parca in ("Temasız mod", "`teklif.kaynak` = `teklif.tsv`", "2'li %10, 3'lü %18", "dogrula magaza", "video-sec"):

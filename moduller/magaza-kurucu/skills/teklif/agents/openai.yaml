@@ -1,0 +1,7 @@
+# ChatGPT/Codex skill arayüzü (alan adları resmi dokümanda doğrulanmadı)
+interface:
+  display_name: "Mağaza Kurucu 2 · Atlas"
+  short_description: "Teklif, SSS ve e-posta taslağı"
+  default_prompt: "Bu ürün için teklifi kur"
+policy:
+  allow_implicit_invocation: true

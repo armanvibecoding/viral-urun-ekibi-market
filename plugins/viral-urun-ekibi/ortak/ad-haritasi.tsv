@@ -21,8 +21,8 @@ ajan	nis-stil-mimari	atlas	Atlas	Sets brand positioning, identity directions and
 ajan	referans-kuratoru	muse	Muse	Collects measured design references and logo directions.	Referans ve logo araştırmacısı	sonnet	referans
 ajan	logo-tasarimci	muse	Muse	Collects measured design references and logo directions.	Referans ve logo araştırmacısı	sonnet	logo
 ajan	metin-yazari	copy	Copy	Writes the in-image copy from verified facts only.	Metin yazarı	sonnet	
-ajan	prompt-muhendisi	forge	Forge	Writes image prompts and runs the approved production list.	İstem yazarı ve üretim operatörü	sonnet	istem
-ajan	gorsel-uretici	forge	Forge	Writes image prompts and runs the approved production list.	İstem yazarı ve üretim operatörü	sonnet	uretim
+ajan	prompt-muhendisi	forge	Forge	Writes image prompts and runs the approved production list.	İstem yazarı ve görsel üretim operatörü	sonnet	istem
+ajan	gorsel-uretici	forge	Forge	Writes image prompts and runs the approved production list.	İstem yazarı ve görsel üretim operatörü	sonnet	uretim
 ajan	urun-kilidi-analisti	sentinel	Sentinel	Guards image gates K1–K4: product fidelity, spelling, set consistency.	Görsel kapı bekçisi	sonnet	kilit
 ajan	gorsel-qa	sentinel	Sentinel	Guards image gates K1–K4: product fidelity, spelling, set consistency.	Görsel kapı bekçisi	sonnet	yazim
 ajan	seri-tutarlilik-denetcisi	sentinel	Sentinel	Guards image gates K1–K4: product fidelity, spelling, set consistency.	Görsel kapı bekçisi	sonnet	seri

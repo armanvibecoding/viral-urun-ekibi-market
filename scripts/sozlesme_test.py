@@ -89,7 +89,7 @@ def yerel_testler(k):
     test("kırma: paket.py dogrula iddialar silindi -> çıkış 1", kod == 1 and "iddialar" in c, c)
 
     # urun-yaz: ekibin dosyalarından paket; fiyatın TEK kaynağı
-    tb = oku(os.path.join(EKLENTI, "skills", "teklif-ve-sayfa", "sablon", "teklif.tsv"))
+    tb = oku(os.path.join(EKLENTI, "skills", "builder", "teklif", "assets", "teklif.tsv"))
     mb = oku(os.path.join(EKLENTI, "skills", "hunter", "sablon", "marj.csv"))
     rakip = teklif_satir(tb, tur="rakip", kaynak_url="https://www.ornek-magaza.example/products/rampa", fiyat="44.95")
     teklif = yaz(k, "teklif.tsv", tb + rakip + teklif_satir(tb))

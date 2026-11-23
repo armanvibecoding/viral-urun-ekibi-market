@@ -45,7 +45,7 @@ def denetle(kok):
     hata, uyari = [], []
     goreli = lambda y: os.path.relpath(y, e).replace(os.sep, "/")
     beceriler = [y for y in sorted(glob.glob(os.path.join(e, "skills", "*", "SKILL.md")))
-                 if os.path.basename(os.path.dirname(y)) not in DISARIDA]
+                 if os.path.basename(os.path.dirname(y)) not in DISARIDA and "<!-- alias:" not in oku(y)]
     if len(beceriler) < 5:
         hata.append("çekirdek beceri sayısı %d (< 5): kapı ölçecek dosya bulamadı" % len(beceriler))
     for y in beceriler:
@@ -120,7 +120,7 @@ def kendini_sina():
         with open(tam, "w", encoding="utf-8") as f:   # ters değişimle geri al
             f.write(eski)
     kir("SKILL.md 121 satır → HATA", "skills/cut/SKILL.md", lambda t: t + "\n" * 40, "satır /")
-    kir("SKILL.md > 12 000 bayt (uzun satır) → HATA", "skills/teklif-ve-sayfa/SKILL.md", lambda t: t + "x" * 6000, "bayt (sınır")
+    kir("SKILL.md > 12 000 bayt (uzun satır) → HATA", "skills/studio/SKILL.md", lambda t: t + "x" * 6000, "bayt (sınır")
     kir("ajan > 7 000 bayt → HATA", "agents/jury.md", lambda t: t + "x" * 5000, "bayt (sınır 7000)")
     kir("müzik kuralı başka dosyada yeniden yazıldı → HATA", "skills/cut/SKILL.md",
         lambda t: t + "\nMüzik 0. sn'de −30 dB'den başlar.\n", "SES-01 kuralının metni")

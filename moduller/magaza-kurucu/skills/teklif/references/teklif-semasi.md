@@ -1,6 +1,6 @@
 # teklif.tsv şeması
 
-Ne zaman okunur: rakip sayfası okunurken ve `bizim` satırı yazılırken. Başlık: `${CLAUDE_SKILL_DIR}/sablon/teklif.tsv` (sekmeyle ayrılmış).
+Ne zaman okunur: rakip sayfası okunurken ve `bizim` satırı yazılırken. Başlık: `assets/teklif.tsv` (sekmeyle ayrılmış).
 Denetim: `teklif_kontrol.py sema` — eksik sütun, bilinmeyen değer, kanıtsız çizili fiyat, `bizim` satırında yasak ifade → çıkış 1.
 
 | Sütun | Ne yazılır | Kural |

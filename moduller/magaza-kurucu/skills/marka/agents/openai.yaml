@@ -1,6 +1,6 @@
 # ChatGPT/Codex skill arayüzü (alan adları resmi dokümanda doğrulanmadı)
 interface:
-  display_name: "Mağaza Kurucu 2 · Brand Strategist (Elif)"
+  display_name: "Mağaza Kurucu 3 · Atlas"
   short_description: "Marka adı, renk, font, logo"
   default_prompt: "Marka adını bul, Namelix'i kendin kullan"
 policy:

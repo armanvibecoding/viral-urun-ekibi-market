@@ -1,6 +1,6 @@
-# Namelix: ajanla otomatik ad bulma (ADIM 3/8 · Brand Strategist (Elif))
+# Namelix: ajanla otomatik ad bulma (AŞAMA 1/3 · ADIM 4/9 · Atlas)
 
-Biçim: KARAKTER bloğu (1. satır eylem · 2. satır `ADIM 3/8 · Brand Strategist (Elif)` · ≤5 madde · kod bloğu yok · son satır `Sonraki:`).
+Biçim: KARAKTER bloğu (1. satır eylem · 2. satır `AŞAMA 1/3 · ADIM 4/9 · Atlas` · ≤5 madde · kod bloğu yok · son satır `Sonraki:`).
 Ölçüm: 2026-11-16, Playwright ile 6 koşu (hesap, giriş, captcha yok). ChatGPT ajan tarayıcısında denenmedi [DOĞRULA]; arayüz değişirse "Yedek yol".
 
 ## Ne zaman
@@ -56,7 +56,7 @@ En yüksek 5 aday için **"more info"** panelini aç: "AI feedback"i 1 satıra i
 
 ## Çıktı (kullanıcıya tek mesaj, kod bloğu yok)
 - 1. satır: `Marka adı için 1–5 arasından bir numara yaz. Önerim 1: <ad>.`
-- 2. satır: `ADIM 3/8 · Brand Strategist (Elif) · senden ~30 sn · ✓1 ✓2 ▶3 ○4–8`
+- 2. satır: `AŞAMA 1/3 · ADIM 4/9 · Atlas · senden ~30 sn · ✓1–3 ▶4 ○5–9`
 - Tablo: `# | Ad | Neden (1 satır) | .com | Risk` (5 satır; önerilen ad 1. satırda, kalın, "önerim" etiketli).
 - Tek satır: `Namelix: <tur> tur, <N> aday okundu, <M> ön elemeyi geçti.` (gerçek sayılar; saymadıysan yazma)
 - Son satır: `Sonraki: numara yaz (10 sn). Kendi adın varsa onu yaz.`

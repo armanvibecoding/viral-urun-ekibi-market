@@ -78,7 +78,7 @@ python3 "<eklenti kökü>/ortak/paket.py" urun-yaz --cikti is/NN-urun-adi/magaza
 | `--ad`, `--foto` (≥1), `--pazar` ya da `--ulke` | zorunlu. Ad ve görseller ürün sayfasından; ilk görsel en temiz ürün karesi. Pazar KARARLAR.md pazar satırından (TR, US, ABD, DE …; `--pazar` dil ve parayı kendisi doldurur, `--ulke` ile `--dil`/`--para` elle verilir) |
 | `--tedarik` ya da `--marj-csv` | `--tedarik "13.63 USD"`: `adaylar.md` normal fiyatı (yeni müşteri fiyatı değil); `--marj-csv`: `marj.csv`'de ürün adıyla eşleşen son satırın `urun_maliyeti` |
 | `--kanit-md` | kanıt dosyasının URL + ölçü içeren her satırı `kanit[]` olur (satırda tarih yoksa dosyadaki ilk tarih); ölçüsüz URL alınmaz |
-| `--teklif-tsv` | `teklif-ve-sayfa` çalıştıysa: `bizim` satırı = fiyatın TEK kaynağı, `rakip` satırları `rakipler[]`; dosya sürüm 2 olur. `bizim` satırı yoksa sabit kural (2'li %10, 3'lü %18) |
+| `--teklif-tsv` | `builder` `teklif` bölümü çalıştıysa: `bizim` satırı = fiyatın TEK kaynağı, `rakip` satırları `rakipler[]`; dosya sürüm 2 olur. `bizim` satırı yoksa sabit kural (2'li %10, 3'lü %18) |
 | `--ozellik` (tekrarlanır) | ürün sayfasında OKUNAN değer; 4. parça kaynak linki. Kaynaksız özellik "doğrulanmış" sayılmaz |
 | `--varyant` (tekrarlanır) | ürün sayfasındaki seçenekler; stok `var` / `yok` |
 | `--rakip` (tekrarlanır) | zaten-viral kontrolünde bulunan mağaza / pazar yeri satırları |

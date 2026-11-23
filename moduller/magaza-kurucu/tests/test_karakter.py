@@ -7,7 +7,7 @@ import re
 import yaml
 
 KOK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SKILLER = ["urun-analiz", "marka", "gorseller", "metinler", "shopify-kurulum"]
+SKILLER = ["urun-analiz", "teklif", "marka", "metinler", "gorseller", "shopify-kurulum"]
 
 
 def oku(*p):
@@ -18,8 +18,8 @@ def oku(*p):
 def test_ortak_blokta_karakter_kurallari():
     t = oku("src", "ortak", "00-calisma-tarzi.md")
     blok = t[t.index("## KARAKTER VE MESAJ BİÇİMİ"):t.index("MASTER PROMPT")]
-    for parca in ("`ADIM n/8 · <Uzman unvanı> · senden ~N dk · <şerit>`",
-                  "`ADIM 3/8 · Brand Strategist (Elif) · senden ~30 sn · ✓1 ✓2 ▶3 ○4–8`",
+    for parca in ("`AŞAMA a/3 · ADIM n/9 · <Kod adı> · senden ~N dk · <şerit>`",
+                  "`AŞAMA 1/3 · ADIM 4/9 · Atlas · senden ~30 sn · ✓1–3 ▶4 ○5–9`",
                   "en çok 5 madde", "≤5 madde", "`Sonraki: <tek iş> (<süre>)`",
                   "ONAYLI DEĞER DEĞİŞMEZ", "KOD BLOĞU YOK", "önce sonuç + önerin",
                   '"sen" diye konuşursun', "Giriş cümlesi yok"):
@@ -32,7 +32,7 @@ def test_her_skill_ve_adim_dosyasinda_hatirlatma():
     for s in SKILLER:
         t = oku("skills", s, "SKILL.md")
         assert "**Karakter hatırlatma.**" in t, s
-        assert re.search(r"`ADIM \d/8 · [^`]+ · senden ~[^`]+`", t), s
+        assert re.search(r"`AŞAMA \d/3 · ADIM \d/9 · [^`]+ · senden ~[^`]+`", t), s
         assert "`Sonraki:`" in t and "kod bloğu yok" in t, s
     adimlar = glob.glob(os.path.join(KOK, "skills", "*", "references", "adim-*.md"))
     assert len(adimlar) == 7
@@ -52,7 +52,7 @@ def test_kullaniciya_kod_blogu_talimati_yok():
 def test_namelix_ajan_ve_sablon_tutarli():
     assert "references/namelix-ajan.md" in oku("skills", "marka", "SKILL.md")
     ajan = oku("skills", "marka", "references", "namelix-ajan.md")
-    assert "ADIM 3/8 · Brand Strategist (Elif)" in ajan and "Yedek yol" in ajan
+    assert "AŞAMA 1/3 · ADIM 4/9 · Atlas" in ajan and "Yedek yol" in ajan
     sablon = oku("skills", "marka", "references", "namelix-sablonu.md")
     m = re.search(r"`\{K\}=([a-z ]+)`", sablon)
     assert m, "örnek anahtar kelime satırı yok"
@@ -64,7 +64,7 @@ def test_namelix_ajan_ve_sablon_tutarli():
 def test_kisa_aciklama_30_karakter():
     yamllar = glob.glob(os.path.join(KOK, "skills", "*", "agents", "openai.yaml")) + [
         os.path.join(KOK, "src", "tek", "agents", "openai.yaml")]
-    assert len(yamllar) == 6
+    assert len(yamllar) == 7
     for f in yamllar:
         with open(f, encoding="utf-8") as h:
             kisa = yaml.safe_load(h)["interface"]["short_description"]

@@ -1,12 +1,12 @@
-# Mağaza Kurucu modülü (sürüm 0.5.0)
+# Mağaza Kurucu modülü (sürüm 0.6.0)
 
 Viral Ürün Ekibi eklentisinin mağaza kurma kolunun KAYNAĞI. Kullanıcıya giden beceri buradan üretilir:
 `plugins/viral-urun-ekibi/skills/builder/` (elle düzenlenmez; `tools/build.py` yazar).
 
 | Klasör | Ne |
 |---|---|
-| `skills/<aşama>/` | 5 aşamanın kaynağı: `urun-analiz`, `marka`, `gorseller`, `metinler`, `shopify-kurulum` (her SKILL.md ≤ 5.120 bayt) |
-| `src/tek/SKILL.md` | beceri girişi (aşama yönlendiricisi). Ekibin tek lideri `captain` becerisidir; bu dosya yalnız aşamaları sıralar |
+| `skills/<bölüm>/` | 3 aşama, 6 bölümün kaynağı (sıra: `urun-analiz`, `teklif`, `marka`, `metinler`, `gorseller`, `shopify-kurulum`; her SKILL.md ≤ 5.120 bayt) |
+| `src/tek/SKILL.md` | beceri girişi (bölüm yönlendiricisi). Ekibin tek lideri `captain` becerisidir; bu dosya yalnız bölümleri sıralar |
 | `src/ortak/` | birden çok aşamanın paylaştığı dosyalar (derleme aşama klasörlerine kopyalar) |
 | `config/tema.json` | tam modda yüklenecek tema zip'inin kaydı (zip depoda yok; yoksa temasız mod) |
 | `kaynak/KAYNAK-PROMPT.md` | aşamalara bölünen kaynak metnin anlık kopyası (`tests/test_kaynak_kapsam.py` kapsamı ölçer) |

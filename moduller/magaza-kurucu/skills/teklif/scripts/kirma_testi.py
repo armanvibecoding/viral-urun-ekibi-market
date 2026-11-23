@@ -7,7 +7,7 @@ import tempfile
 
 BURADA = os.path.dirname(os.path.abspath(__file__))
 BETIK = os.path.join(BURADA, "teklif_kontrol.py")
-SABLON = os.path.join(BURADA, "..", "sablon")
+SABLON = os.path.join(BURADA, "..", "assets")
 BASLIK = open(os.path.join(SABLON, "teklif.tsv"), encoding="utf-8").read()
 SONUC = []
 

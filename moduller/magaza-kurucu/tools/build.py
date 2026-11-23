@@ -9,7 +9,7 @@ paylaştığı references) + config/tema.json.
                                   # SKILL.md boyut/frontmatter, references linkleri, manifest sürümleri,
                                   # tek paket yapısı bellekte kurularak)
 
-Derleme hedefleri (hepsi TEK paket düzeni: src/tek/SKILL.md sıralayıcısı + 5 aşama klasörü; aşama SKILL.md'leri
+Derleme hedefleri (hepsi TEK paket düzeni: src/tek/SKILL.md sıralayıcısı + 6 bölüm klasörü (3 aşama); aşama SKILL.md'leri
 <aşama>/ASAMA.md olarak, frontmatter'sız girer: iç içe SKILL.md tek skill'de yanlış tetiklenebilir):
   1) BİRLEŞİK beceri klasörü (Viral Ürün Ekibi eklentisinin içinde; depoya girer, elle düzenlenmez):
        ../../plugins/viral-urun-ekibi/skills/builder/
@@ -17,7 +17,7 @@ Derleme hedefleri (hepsi TEK paket düzeni: src/tek/SKILL.md sıralayıcısı + 
   2) Tek başına zip'ler (depoya girmez):
        dist/chatgpt/builder.zip      (agents/openai.yaml dahil)
        dist/claude/magaza-kurucu-tek.zip   (agents/ hariç)
-Ayrı 5 skill zip'i ve ayrı plugin zip'i ÜRETİLMEZ: ekibin tek girişi vardır (captain).
+Ayrı bölüm zip'i ve ayrı plugin zip'i ÜRETİLMEZ: ekibin tek girişi vardır (captain).
 
 Çıkış kodu: 0 = geçti, 1 = hata.
 """
@@ -31,7 +31,7 @@ import sys
 import zipfile
 
 KOK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SKILLER = ["urun-analiz", "marka", "gorseller", "metinler", "shopify-kurulum"]  # akış sırası
+SKILLER = ["urun-analiz", "teklif", "marka", "metinler", "gorseller", "shopify-kurulum"]  # akış sırası
 TUM = SKILLER
 SKILL_MAX_BAYT = 5120          # SKILL.md ≤ 5 KB
 DESC_MAX = 1024                # frontmatter description
@@ -47,7 +47,7 @@ KOPYALAR = {
     "src/ortak/tasarim-dili.md": ["gorseller", "marka"],
     "src/ortak/arayuz-sozlesmesi.md": ["urun-analiz", "shopify-kurulum"],
     "src/ortak/site-denetimi.md": ["shopify-kurulum", "metinler"],
-    "src/ortak/ekip-koprusu.md": ["urun-analiz", "metinler", "shopify-kurulum"],
+    "src/ortak/ekip-koprusu.md": ["urun-analiz", "teklif", "metinler", "shopify-kurulum"],
     "config/tema.json": ["shopify-kurulum"],
 }
 MANIFESTLER = ["surum.json"]       # modül sürümü; eklenti manifesti plugins/viral-urun-ekibi/.claude-plugin/plugin.json

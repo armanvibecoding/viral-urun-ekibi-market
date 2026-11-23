@@ -1,6 +1,6 @@
 # ChatGPT/Codex skill arayüzü (alan adları resmi dokümanda doğrulanmadı)
 interface:
-  display_name: "Mağaza Kurucu 1 · Product Research Lead (Kaan)"
+  display_name: "Mağaza Kurucu 1 · Scout"
   short_description: "Ürün, rakip ve fiyat analizi"
   default_prompt: "Bu ürün için mağaza kur. Ülke: Türkiye"
 policy:

@@ -22,14 +22,14 @@ Mağaza Kurucu, Viral Ürün Ekibi'nin mağaza koludur. Ekibin tek lideri `capta
 - **Temasız mod:** zip yok. Tema istenmez, kullanıcı tema aramaya gönderilmez. Mağazanın mevcut temasına dokunulmaz:
   - Yapılır: metafield ve metaobject tanımları, görsel yükleme, ürün (başlık, açıklama, galeri, varyant, fiyat), adet indirimi, sayfalar ve yasal sayfalar, kargo, koleksiyon, menüler.
   - Atlanır ve "temasız mod" notuyla listelenir: tema zip'i yüklemesi, T4.5 şablon yazımı, tema ayarları (font, renk, logo bağlama), niş şablonu (`templateSuffix`).
-  - Ürün sayfası metni: tema bölüm haritası yerine `teklif-ve-sayfa` becerisinin sayfa iskeleti sırası kullanılır (ilk ekran → fayda → kanıt → itiraz → SSS). Metin ürün açıklamasına ve sayfalara yazılır; temadaki bölümlere yerleştirmeyi kullanıcı tema düzenleyicisinde yapar. Kullanıcıya verilecek tek liste: hangi metin hangi bölüme, hangi font ve HEX tema ayarına.
+  - Ürün sayfası metni: tema bölüm haritası yerine `teklif` bölümünün sayfa iskeleti (`assets/sayfa-iskeleti.md`) sırası kullanılır (ilk ekran → fayda → kanıt → itiraz → SSS). Metin ürün açıklamasına ve sayfalara yazılır; temadaki bölümlere yerleştirmeyi kullanıcı tema düzenleyicisinde yapar. Kullanıcıya verilecek tek liste: hangi metin hangi bölüme, hangi font ve HEX tema ayarına.
   - QA'da tema kaynaklı maddeler "ölçülmedi (temasız mod)" yazılır; site denetimi yine yapılır.
 - `magaza-paketi.json` `magaza.tema_modu`: `tam` ya da `temasiz`.
 
 ## 4. Site metni kapısı (metinler aşaması)
-- Yasak ifade listesi tek yerdedir: `teklif-ve-sayfa/referans/yasak-ifadeler.tsv`. Kod aracı varsa onaydan önce: `python3 <teklif_kontrol.py> tara --pazar <ülke kodu> <metin dosyası>` → çıkış 0 şart (yeri: `find / -name teklif_kontrol.py 2>/dev/null | head -1`).
+- Yasak ifade listesi tek yerdedir: `teklif/references/yasak-ifadeler.tsv`. Kod aracı varsa onaydan önce: `python3 <teklif_kontrol.py> tara --pazar <ülke kodu> <metin dosyası>` → çıkış 0 şart (yeri: `find / -name teklif_kontrol.py 2>/dev/null | head -1`).
 - Kapı sağlık ya da sonuç cümlesinde takılırsa metni kendin yumuşatma ve silme: kullanıcıya tek satırla sor (cümle kalsın mı), kararı DEVAM KARTI'na yaz. Kalan cümlenin altına "Bilgi notu (kullanıcının sorumluluğu)" satırı girer.
-- Teklif becerisi çalıştıysa iddia–kanıt listesi, SSS ve itiraz yanıtları oradan alınır; yeniden yazılmaz, yalnız temanın alan sınırlarına sığdırılır.
+- `teklif` bölümü çalıştıysa iddia–kanıt listesi, SSS ve itiraz yanıtları oradan alınır; yeniden yazılmaz, yalnız temanın alan sınırlarına sığdırılır.
 
 ## 5. Çıktı: `magaza-paketi.json` (kurulum sonunda)
 1. DEVAM KARTI'ndan `arayuz-sozlesmesi.md` tablosuna göre yaz: `surum` "2". Renk, font adı, onaylı metin ve fiyat birebir.
@@ -40,4 +40,4 @@ Mağaza Kurucu, Viral Ürün Ekibi'nin mağaza koludur. Ekibin tek lideri `capta
 - `python3 <paket.py> video-sec <dosya>` yalnız `pdp-galeri` ve `hero` videolarını listeler; yalnız onlar yüklenir. Video galerinin sonuna girer, G0'ın yerini almaz. `reklam` videosu mağazaya yüklenmez.
 
 ## 7. Site denetimi ekibi (kurulum sonrası; alt ajan olan ortamda)
-`site-denetimi.md` maddelerini lider şu ekip üyelerine paralel verir, her biri `is/NN-urun/magaza/` altına rapor yazar: CRO & UX Auditor (`CRO.md`), Performance Engineer (`HIZ.md`), SEO & AI Search Specialist (`SEO.md`), Accessibility Auditor (`ERISIM.md`), Brand Voice Auditor (`SES.md`). Alt ajan yoksa aynı kontrol listesini bu aşama kendisi uygular.
+`site-denetimi.md` maddelerini lider şu ekip üyelerine paralel verir, her biri `is/NN-urun/magaza/` altına rapor yazar: `shopper` mod `donusum` (`CRO.md`), `probe` mod `hiz` (`HIZ.md`), `probe` mod `arama` (`SEO.md`), `probe` mod `erisim` (`ERISIM.md`), `shopper` mod `ses` (`SES.md`); brief'te `mod:` satırı zorunludur. Alt ajan yoksa aynı kontrol listesini bu aşama kendisi uygular.

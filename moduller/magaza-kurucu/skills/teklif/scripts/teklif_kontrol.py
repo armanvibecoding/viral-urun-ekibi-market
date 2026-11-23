@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""teklif-ve-sayfa dogrulayicisi (yalniz Python 3 standart kutuphanesi).
+"""teklif bolumu dogrulayicisi (yalniz Python 3 standart kutuphanesi).
 
 Kullanim:
   teklif_kontrol.py sema TEKLIF.tsv                 sema + izinli degerler + 'bizim' satirinda yasak ifade
   teklif_kontrol.py tara [--pazar P] DOSYA...       sayfa/SSS/e-posta taslaginda yasak ifade taramasi
 
-Yasak desenler kodda degil: referans/yasak-ifadeler.tsv (pazar '*' = hepsi). '{YER_TUTUCU}' icindeki metin taranmaz.
+Yasak desenler kodda degil: references/yasak-ifadeler.tsv (pazar '*' = hepsi). '{YER_TUTUCU}' icindeki metin taranmaz.
 Sutun `islem`: `engel` = uydurma veri / sahte aciliyet (cikis 1) · `bilgi-notu` = saglik ve sonuc dili: ENGEL DEGIL,
 metin elenmez ve yumusatilmaz; betik "Bilgi notu (kullanicinin sorumlulugu)" satirini basar, cikis degismez.
 'rakip' satirlari gozlemdir, yasak ifade icin taranmaz (rakibin sahte aciliyetini kaydetmek serbest, kopyalamak yasak).
@@ -18,7 +18,7 @@ import re
 import sys
 
 BURADA = os.path.dirname(os.path.abspath(__file__))
-YASAK_DOSYASI = os.path.join(BURADA, "..", "referans", "yasak-ifadeler.tsv")
+YASAK_DOSYASI = os.path.join(BURADA, "..", "references", "yasak-ifadeler.tsv")
 PARA = {"US": "USD", "TR": "TRY", "UK": "GBP", "DE": "EUR", "FR": "EUR", "ES": "EUR"}
 SUTUNLAR = ["tur", "tarih", "pazar", "urun", "kaynak_url", "para", "fiyat", "karsilastirma_fiyati",
             "karsilastirma_kaniti", "paket", "garanti", "kargo_vaadi", "odeme_yontemleri", "sosyal_kanit_turu",
@@ -78,7 +78,7 @@ def sema(yol):
         alanlar = r.fieldnames or []
         eksik = [c for c in SUTUNLAR if c not in alanlar]
         if eksik:
-            print(f"HATA: eksik sutun: {', '.join(eksik)} (sablon/teklif.tsv basligini kullan; ayrac TAB)")
+            print(f"HATA: eksik sutun: {', '.join(eksik)} (assets/teklif.tsv basligini kullan; ayrac TAB)")
             return 1
         fazla = [c for c in alanlar if c not in SUTUNLAR]
         satirlar = list(r)

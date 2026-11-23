@@ -1,0 +1,30 @@
+pazar	desen	sebep	islem
+*	\bson\s+\d+\s*(ürün|urun|adet|stok|paket)	sahte kıtlık (stok sayısı uydurma)	engel
+*	stokta\s+(yalnız|yalnızca|sadece|son|kalan)	sahte kıtlık	engel
+*	(sınırlı|sinirli|limitli)\s+stok	sahte kıtlık	engel
+*	tükenmek\s+üzere|tükeniyor|tukeniyor	sahte kıtlık	engel
+*	\d+\s*kişi\s+(şu\s*an|şimdi|su\s*an)?\s*(bakıyor|inceliyor|görüntülüyor|sepete)	sahte talep sayacı	engel
+*	(sadece|yalnızca|yalnız)\s+bugün|bugüne\s+özel	sahte aciliyet	engel
+*	fiyat(lar)?\s+(yarın|yakında|gece\s+yarısı)\s+(artıyor|artacak|zamlanıyor)	sahte aciliyet	engel
+*	geri\s+sayım|countdown	geri sayım sayacı	engel
+*	\bonly\s+\d+\s+(left|remaining)|\d+\s+left\s+in\s+stock|low\s+stock|almost\s+gone|selling\s+(out\s+)?fast|limited\s+stock	sahte kıtlık (FTC/DMCC/UCPD)	engel
+*	\d+\s+(people|others|shoppers)\s+(are\s+)?(viewing|looking|watching)	sahte talep sayacı	engel
+*	today\s+only|ends\s+tonight|last\s+chance|hurry\b	sahte aciliyet	engel
+*	nur\s+noch\s+\d+|(fast|bald)\s+ausverkauft|nur\s+heute|letzte\s+chance	sahte kıtlık/aciliyet (DE)	engel
+*	plus\s+que\s+\d+|stock\s+limité|dernière\s+chance|aujourd'hui\s+seulement	sahte kıtlık/aciliyet (FR)	engel
+*	solo\s+quedan\s+\d+|últimas\s+unidades|solo\s+hoy|stock\s+limitado|última\s+oportunidad	sahte kıtlık/aciliyet (ES)	engel
+*	(%\s*[7-9]\d|\b[7-9]\d\s*%)\s*(indirim|off|rabatt|de\s+réduction|de\s+descuento)	sahte indirim kalıbı (≥%70; çizili fiyat kanıtı teklif.tsv'de olmalı)	engel
+*	\b(was|statt|au\s+lieu\s+de|antes)\s*[$€£]?\s*\d+[.,]?\d*\s*[$€£]?\s*(now|jetzt|maintenant|ahora)	metinde çizili fiyat iddiası (kanıt yalnız teklif.tsv)	engel
+*	normal\s+fiyat[ıi]?\s*\d|yerine\s+(sadece|yalnızca)\s*\d	metinde çizili fiyat iddiası (kanıt yalnız teklif.tsv)	engel
+*	\d[\d.,]*\s*\+?\s*(mutlu\s+müşteri|happy\s+customers|zufriedene\s+kunden|clients\s+satisfaits|clientes\s+satisfechos)	uydurma müşteri sayısı (yer tutucu kullan)	engel
+*	\d[\d.,]*\s*\+?\s*(yorum|değerlendirme|reviews|bewertungen|avis|reseñas|opiniones)\b	sayılı yorum iddiası (yer tutucu {GERCEK_YORUM_SAYISI} kullan)	engel
+*	\d[\d.,]*\s*\+?\s*(adet\s+satıldı|satış|sold|verkauft|vendus|vendidos)\b	sayılı satış iddiası (yer tutucu kullan)	engel
+*	(doktor|dermatolog|veteriner|doctor|dermatologist|vet|arzt|médecin|médico)\w*\s+(önerisi|onaylı|tavsiyesi|recommended|approved|empfohlen|recommandé|recomendado)	uzman onayı iddiası (belge yoksa yasak)	engel
+*	fda\s+(approved|onaylı)|klinik\s+olarak\s+(kanıtlanmış|test\s+edilmiş)|clinically\s+proven|klinisch\s+getestet|cliniquement\s+prouvé	düzenlenmiş iddia	engel
+*	(%\s*100|\b100\s*%)\s*(garantili\s+sonuç|sonuç\s+garantisi|guaranteed\s+results|erfolgsgarantie)|garantili\s+sonuç|guaranteed\s+results	sonuç dili (garanti sözü)	bilgi-notu
+*	tedavi\s+eder|iyileştirir|\bcures?\b|heilt\b|guérit\b|\bcura\b	sağlık/sonuç dili	bilgi-notu
+TR	acele\s+et|kaçırma(yın)?\b|son\s+fırsat|stoklar(la)?\s+sınırlı	TR baskı cümlesi (güven kırar)	engel
+*	\b(doğal|organik|eco|temiz\s+içerik)\b	kanıtsız nitelik sözü (mağaza site metni kuralı; belge yoksa yazılmaz)	engel
+*	(en\s+)?çok\s+satan|best[\s-]?sell(er|ing)	kanıtsız satış üstünlüğü	engel
+*	\d[\d.,]*\s*(bin|k)\s+(müşteri|customers?)	uydurma müşteri sayısı (yer tutucu kullan)	engel
+*	ağrı(yı|sını|ları|larını)?\s+(giderir|geçirir|azaltır|keser|dindirir)|zayıflatır|kilo\s+verdirir|horlamayı\s+keser|relieves?\s+pain|pain\s+relief|lindert\s+schmerzen|soulage\s+la\s+douleur|alivia\s+el\s+dolor	sağlık/sonuç dili	bilgi-notu
