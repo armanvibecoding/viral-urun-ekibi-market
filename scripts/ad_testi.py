@@ -141,7 +141,7 @@ def denetle(kok):
             except (UnicodeDecodeError, OSError):
                 continue
             for i, s in enumerate(satirlar, 1):
-                s2 = s.replace(YOL_KORU, "\x00")
+                s2 = s.replace(YOL_KORU, "\x00").replace('"moduller", "magaza-kurucu"', "\x00")
                 if goreli.endswith("analiz_db_aktar.py") and '"kaynak"' in s:
                     continue
                 if i == 1 and "/ortak/roller/" in "/" + goreli and "(eski:" in s:

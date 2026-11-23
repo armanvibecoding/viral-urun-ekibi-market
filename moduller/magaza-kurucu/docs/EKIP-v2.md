@@ -17,11 +17,11 @@ Tarih: 2026-11-18. Kaynaklar: `research/kutuphane-v2/` (ölçülen kütüphane: 
 | 2 | Galeri karışımı (192 kare): insanlı %39 ±7, düz ürün %28, yazılı grafik kart %27, sahne %7; kahraman ürün galerisi medyan 7 görsel (p25 4,5 · p75 10), %64'ü kare | Galeri G0 + 8 kare makul (p75 içinde); insan yerine insansız ölçek kartı | orta (örneklem) |
 | 3 | Kullanıcının sevdiği dil (insansız, düz zemin, büyük başlık, gerçekçi ürün kartı) galerisi okunan 172 markanın yalnız ≈ %2'sinde ağırlıklı; koyu zeminli kare %16; sitede dar grotesk başlık %4, koyu gövde zemini %4 | Dil korunur ama "farklılaşma, ölçülmüş başarı kalıbı değil" diye etiketlenir; kör pano + kullanıcı karar verir | orta |
 | 4 | Site tipografisi: başlık ve gövde aynı aile %55, kullanılan aile medyanı 2, başlık BÜYÜK HARF %17; en sık başlık aileleri Poppins ve Montserrat | Tek yazı sistemi (görsel = site), 2 aile; geniş geometrik yasağı bilinçli ayrışma | orta |
-| 5 | Hız (aynı laboratuvar profili, 221 marka): hızlı %20 → toplam 1,0 MB, JS 0,42 MB, 9,5 alan adı; yavaş %20 → 2,6 MB, JS 1,1 MB, 18 alan adı. LCP ↔ toplam bayt Spearman 0,71, TTFB 0,09. LCP görselinin %16'sı hâlâ `lazy`, yalnız %56'sı `fetchpriority=high` | `site-denetimi` bayt bütçesi; `hiz-muhendisi` kapıları | orta (laboratuvar, alan verisi değil) |
+| 5 | Hız (aynı laboratuvar profili, 221 marka): hızlı %20 → toplam 1,0 MB, JS 0,42 MB, 9,5 alan adı; yavaş %20 → 2,6 MB, JS 1,1 MB, 18 alan adı. LCP ↔ toplam bayt Spearman 0,71, TTFB 0,09. LCP görselinin %16'sı hâlâ `lazy`, yalnız %56'sı `fetchpriority=high` | `site-denetimi` bayt bütçesi; `probe` kapıları | orta (laboratuvar, alan verisi değil) |
 | 6 | Ürün sayfası (343): mobilde sepete ekle ilk ekranda yalnız %18, yapışkan çubuk %51; başlık yanında yıldız %43; paket/adet indirimi %30; kargo/iade satırı %27; teslimat tahmini %7 | Mobil CTA kuralı; toplam maliyet satırı (Baymard: sepet terkinin 1. nedeni ek maliyet %40) | orta + güçlü (KANIT 7.6) |
-| 7 | Ana sayfa: bölüm medyanı 9 (p25 7 · p75 12); hero %79, görsel-metin %73, ürün ızgarası %66 (3. sıra), yorum %39; duyuru şeridi %55 | `site-bolum-mimari` iskeleti ve bölüm sayısı aralığı | orta |
+| 7 | Ana sayfa: bölüm medyanı 9 (p25 7 · p75 12); hero %79, görsel-metin %73, ürün ızgarası %66 (3. sıra), yorum %39; duyuru şeridi %55 | `architect` iskeleti ve bölüm sayısı aralığı | orta |
 | 8 | Logo: kelime logosu %62, kombinasyon %13, yalnız ikon/monogram %9; %63'ü SVG | "Yalnız ikon" kararı azınlık: header'da ad görünürlüğü riski brife yazılır | orta |
-| 9 | Arama/AI: Product JSON-LD %91 (aggregateRating %53); AI botlarını engelleyen %2; mağazaların %84'ünde Shopify'ın kendiliğinden ürettiği "Agent Instructions" llms.txt (Shop skill/UCP) | `seo-aio-uzmani`: ek "GEO" işi yok; feed ve yapılandırılmış veri tamlığı | güçlü (Google: ek şart yok) |
+| 9 | Arama/AI: Product JSON-LD %91 (aggregateRating %53); AI botlarını engelleyen %2; mağazaların %84'ünde Shopify'ın kendiliğinden ürettiği "Agent Instructions" llms.txt (Shop skill/UCP) | `probe`: ek "GEO" işi yok; feed ve yapılandırılmış veri tamlığı | güçlü (Google: ek şart yok) |
 
 Kör deneme (bir müşteri ürün sayfasıyla; görseller ve panolar repo dışında): galeri kartı istemi eski 25/50 → v2 35/50; ürün sayfası ilk ekranı 3 bağımsız eleştirmen medyanı eski 5,57 → v2 6,86 (Dame 6,86, Maude 7,57). v2'yi tutan: ürün gerçekliği (CG/AI render 5–6 puan), mobilde fiyat/buton ilk ekranda değil, mor hızlı ödeme düğmesi.
 
@@ -72,27 +72,27 @@ Yeni roller (10) **kalın**. Her rolde: girdi, ölçülebilir kontrol listesi, �
 
 | Rol | İş | Ne zaman |
 |---|---|---|
-| marka-stratejisti | konumlama, rakip haritası (artık kütüphane sayılarıyla) | görselden önce |
-| referans-kuratoru | üst düzey referans + kütüphane v2 havuzu | strateji sonrası |
+| atlas | konumlama, rakip haritası (artık kütüphane sayılarıyla) | görselden önce |
+| muse | üst düzey referans + kütüphane v2 havuzu | strateji sonrası |
 | kreatif-direktor | 3 kimlik yönü; başlık ailesi Shopify kütüphanesinden ve iki yüzeyde aynı | yön |
-| nis-stil-mimari | niş stil kartı; kütüphane oranları, zevk dilinin nadirliği | yeni niş |
-| **tipografi-sistemcisi** | görsel ↔ site tek yazı sistemi, tema font ayarları | marka + her tur |
+| atlas | niş stil kartı; kütüphane oranları, zevk dilinin nadirliği | yeni niş |
+| **architect** | görsel ↔ site tek yazı sistemi, tema font ayarları | marka + her tur |
 | tasarim-dili | çekirdek dil; yalnız kanıtlı kural çekirdeğe | sürüm |
-| urun-kilidi-analisti | ürün kilidi, sadakat; G0 en sıkı kapı; yapay görünüm işaretleri | üretim öncesi/sonrası |
-| metin-yazari | görsel içi metin; zayıf sayı başlık olmaz; metrik + imperial | istem öncesi |
-| prompt-muhendisi | istem; G0, ölçek kartı, birim kilidi | üretim |
-| gorsel-uretici | ChatGPT'de üretim (onaylı liste) | üretim |
-| **gorsel-qa** | OCR ile yazım kapısı (RapidOCR + Tesseract `tur`), G0 kontrolü | her görsel |
-| seri-tutarlilik-denetcisi | K2–K4, set tutarlılığı, kör pano | tur sonu |
-| kor-elestirmen | kör puan; artık site bölümü ve istem panoları da | tur sonu |
-| tasarim-direktoru | kök neden sınıfı + tek değişkenli emir; yeni sınıflar | tur sonu |
-| logo-arastirmaci / logo-tasarimci | logo; kütüphanede kelime logosu %62 | marka |
-| **site-bolum-mimari** | ana sayfa ve ürün sayfası bölüm planı (kütüphane kalıbı) | metinlerden önce |
-| **marka-sesi-denetcisi** | site metni: uydurma iddia, yapay zekâ kalıbı, tekrar | metinler sonrası |
-| **cro-ux-denetcisi** | Baymard kontrol listesi, satın alma kutusu, mobil CTA | kurulum sonrası |
-| **hiz-muhendisi** | laboratuvar ölçümü, bayt bütçesi, LCP kuralları | kurulum sonrası |
-| **seo-aio-uzmani** | feed görseli, JSON-LD, alt metin, AI arama | metinler + kurulum |
-| **erisilebilirlik-denetcisi** | WCAG 2.2 AA kontrast/hedef/metin görseli | marka + kurulum |
+| sentinel | ürün kilidi, sadakat; G0 en sıkı kapı; yapay görünüm işaretleri | üretim öncesi/sonrası |
+| copy | görsel içi metin; zayıf sayı başlık olmaz; metrik + imperial | istem öncesi |
+| forge | istem; G0, ölçek kartı, birim kilidi | üretim |
+| forge | ChatGPT'de üretim (onaylı liste) | üretim |
+| **sentinel** | OCR ile yazım kapısı (RapidOCR + Tesseract `tur`), G0 kontrolü | her görsel |
+| sentinel | K2–K4, set tutarlılığı, kör pano | tur sonu |
+| panel | kör puan; artık site bölümü ve istem panoları da | tur sonu |
+| director | kök neden sınıfı + tek değişkenli emir; yeni sınıflar | tur sonu |
+| logo-arastirmaci / muse | logo; kütüphanede kelime logosu %62 | marka |
+| **architect** | ana sayfa ve ürün sayfası bölüm planı (kütüphane kalıbı) | metinlerden önce |
+| **shopper** | site metni: uydurma iddia, yapay zekâ kalıbı, tekrar | metinler sonrası |
+| **shopper** | Baymard kontrol listesi, satın alma kutusu, mobil CTA | kurulum sonrası |
+| **probe** | laboratuvar ölçümü, bayt bütçesi, LCP kuralları | kurulum sonrası |
+| **probe** | feed görseli, JSON-LD, alt metin, AI arama | metinler + kurulum |
+| **probe** | WCAG 2.2 AA kontrast/hedef/metin görseli | marka + kurulum |
 | **platform-uyum-muhendisi** | ChatGPT ↔ Claude paket ve arayüz sözleşmesi | her sürüm |
 | **kutuphane-bakimci** | kütüphaneyi yeniden tarar, eskimiş sayıları işaretler | çeyrekte bir |
 | benchmark-kosucusu | gerçek ChatGPT koşusu; artık site ölçümleriyle | onaylı koşu |

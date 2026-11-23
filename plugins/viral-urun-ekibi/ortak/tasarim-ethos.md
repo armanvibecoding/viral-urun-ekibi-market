@@ -21,9 +21,9 @@ Kullanıcı 10 turda 7 kez "berbat" dedi. Ortak kök neden üç tane:
 10. **Kullanıcıya karar değil, gerekçeli öneri götür.** En fazla 3 yön, her biri referans panosuyla. Seçim sonrası sistemi ekip kurar.
 
 ## Süreç
-1. **Strateji** (marka-stratejisti): konumlama, rakip görsel haritası, marka fikri, kişilik, 3 stratejik yön.
-2. **Referans** (referans-kuratoru): her yön için üst düzey referans panosu (en az 12 görsel/yön), neden seçildiği.
+1. **Strateji** (atlas): konumlama, rakip görsel haritası, marka fikri, kişilik, 3 stratejik yön.
+2. **Referans** (muse): her yön için üst düzey referans panosu (en az 12 görsel/yön), neden seçildiği.
 3. **Yön** (kreatif-direktor): 3 kimlik yönü (fikir, palet, font adları, görsel yön, düzen ilkeleri, logo brifi) ve gerekçeli öneri. Kullanıcı seçer.
 4. **Sistem** (tasarim-dili): seçilen yönün ölçülü sistemi.
-5. **Üretim** (prompt-muhendisi + gorsel-uretici): görseller; logo insan tasarımcı ya da vektör araçla.
-6. **Kör eleştiri** (kor-elestirmen) + teknik kontrol (tasarim-direktoru): ikisinden geçmeyen gösterilmez.
+5. **Üretim** (forge, mod `istem` ve `uretim`): görseller; logo insan tasarımcı ya da vektör araçla.
+6. **Kör eleştiri** (panel) + teknik kontrol (director): ikisinden geçmeyen gösterilmez.

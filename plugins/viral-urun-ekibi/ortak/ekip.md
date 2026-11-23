@@ -1,46 +1,33 @@
-# Ekip (tek lider, 27 çalışma zamanı üyesi)
+# Ekip (tek lider, 17 çalışma zamanı üyesi)
 
-Lider: **Team Lead (Kerem)** = `captain` becerisi (ana oturum; `model: fable`, çağrıldığı turda geçerli). Kullanıcıya üye **unvanı ve adıyla** anılır ("Brand Strategist (Elif) konumlamayı çıkardı"); çağrıda ajan adı kullanılır (`viral-urun-ekibi:<ajan>`).
-Model sütunu ajan dosyasındaki `model:` alanıdır. `fable` = en güçlü model; yalnız dört işte kullanılır: **kör jüri** (`jury`, `kor-elestirmen`), **kök neden** (`fixer`, `tasarim-direktoru`), **strateji ve yön** (`marka-stratejisti`, `kimlik-direktoru`, `nis-stil-mimari`; hikâye seçimi ve kısa liste çağrıda model verilerek) ve **aylık kural budaması** (geliştirici işi). Hacimli ve kalıp işler `sonnet`, yazım kontrolü `haiku`, ölçülebilir her şey betik. Hesabında `fable` yoksa o dosyalarda `opus` yaz. "Çağrıda model: fable" = lider o tek çağrıda ajanı güçlü modelle çalıştırır; dosyadaki varsayılan değişmez.
+Lider: **Captain** = `captain` becerisi (ana oturum; `model: fable`, çağrıldığı turda geçerli). Kullanıcıya üye **kod adı ve Türkçe rolüyle** anılır ("Jury (kör video jürisi) videoyu puanladı"); çağrıda ajan kimliği kullanılır (`viral-urun-ekibi:<ajan>`). Eski ad ile yeni ad eşlemesi: `ortak/ad-haritasi.tsv`.
+Model sütunu ajan dosyasındaki `model:` alanıdır. `fable` = en güçlü model; yalnız dört işte kullanılır: **kör jüri** (`jury`, `panel`), **kök neden** (`fixer`, `director`), **strateji ve yön** (`atlas`; hikâye seçimi ve kısa liste çağrıda model verilerek) ve **aylık kural budaması** (geliştirici işi). Hacimli ve kalıp işler `sonnet`, ölçülebilir her şey betik. Hesabında `fable` yoksa o dosyalarda `opus` yaz. "Çağrıda model: fable" = lider o tek çağrıda ajanı güçlü modelle çalıştırır; dosyadaki varsayılan değişmez. Yeni not: `forge` mod `istem` aynı görselde iki tur üst üste Panel eşiğinin altında kalırsa o çağrıda model: opus.
 
-## Çekirdek ekip: ürün ve kreatif
-| Unvan (ad) | Türkçe rol | Ajan | Model | Ne zaman |
+## Ürün ve video (7)
+| Kod adı | Türkçe rol | Ajan | Model | Ne zaman |
 |---|---|---|---|---|
-| Product Research Lead (Kaan) | Fırsat avcısı | `scout` | sonnet | AliExpress taraması; mağaza kolunda pazar ve rakip araştırması |
-| Risk & Validation Analyst (Selin) | Kanıt savcısı | `skeptic` | opus | SAT kararından önce; sayfa iddialarını çürütür; yalnız son 3 adayda çağrıda model: fable |
-| Creative Strategy Analyst (Arda) | Kreatif analisti | `decoder` | sonnet | viral video desenleri (sayım betik ve SQL işi; desen yorumu ayda bir, çağrıda model: fable) |
-| Content Strategist (Ece) | İçerik stratejisti | `story` | sonnet | 30 senaryonun yazımı; hikâye bankası ve ilk 5 seçimi için çağrıda model: fable |
-| Blind Video Panelist (Aras) | Kör video jürisi | `jury` | fable | kredi onayından ve teslimden önce, 3 bağımsız kopya; kalibrasyon turu |
-| Creative Director (QA) (Deniz) | Kök neden ve düzeltme direktörü | `fixer` | fable | jüri hükmü açıklandıktan sonra, tur başına bir kez |
-| Sound Designer (Ozan) | Ses tasarımcısı | `mixer` | sonnet | kurgu aşama 8 (ölçüm okuyup komut üretir; yargı betik eşiklerinde) |
+| Scout | Fırsat avcısı | `scout` | sonnet | AliExpress ve Trendyol taraması; mağaza kolunda pazar ve rakip araştırması |
+| Skeptic | Kanıt savcısı | `skeptic` | opus | SAT kararından önce; sayfa iddialarını çürütür; yalnız son 3 adayda çağrıda model: fable |
+| Decoder | Kreatif analisti | `decoder` | sonnet | viral video desenleri (sayım betik ve SQL işi; desen yorumu ayda bir, çağrıda model: fable) |
+| Story | İçerik stratejisti | `story` | sonnet | 30 senaryonun yazımı; hikâye bankası ve ilk 5 seçimi için çağrıda model: fable |
+| Jury | Kör video jürisi | `jury` | fable | kredi onayından ve teslimden önce, 3 bağımsız kopya; kalibrasyon turu |
+| Fixer | Video kök neden direktörü | `fixer` | fable | jüri hükmü açıklandıktan sonra, tur başına bir kez |
+| Mixer | Ses tasarımcısı | `mixer` | sonnet | kurgu aşama 8 (ölçüm okuyup komut üretir; yargı betik eşiklerinde) |
 
-## Mağaza kolu: marka ve görsel
-| Unvan (ad) | Türkçe rol | Ajan | Model | Ne zaman |
+## Mağaza (10)
+Birleşen rollerde brief'te `mod:` satırı zorunludur; mod dosyaları `ortak/roller/<ajan>/<mod>.md`.
+| Kod adı | Türkçe rol | Ajan | Model | Ne zaman |
 |---|---|---|---|---|
-| Brand Strategist (Elif) | Marka stratejisti | `marka-stratejisti` | fable | görsel kararlardan önce |
-| Reference Curator (Mert) | Referans küratörü ve kütüphane bakımcısı | `referans-kuratoru` | sonnet | strateji sonrası; yeni niş |
-| Brand Identity Director (Defne) | Marka kimliği direktörü | `kimlik-direktoru` | fable | 3 kimlik yönü |
-| Logo Designer (Lale) | Logo araştırmacısı ve tasarımcısı | `logo-tasarimci` | opus | marka adımı, logo brifi |
-| Niche Art Director (Zeynep) | Niş stil mimarı | `nis-stil-mimari` | fable | yeni niş; nişe uygunluk düşükse |
-| Typography Systems Designer (Emre) | Tipografi sistemcisi | `tipografi-sistemcisi` | opus | marka adımı; her görsel/site turu |
-| Product Fidelity Analyst (Burak) | Ürün kilidi analisti | `urun-kilidi-analisti` | opus | üretimden önce ve her turdan sonra |
-| Copywriter (Naz) | Görsel metin yazarı | `metin-yazari` | opus | istemlerden önce |
-| Prompt Engineer (Can) | İstem mühendisi | `prompt-muhendisi` | opus | üretim istemleri |
-| Image Production Operator (Tolga) | Görsel üretim operatörü ve koşu kaydedicisi | `gorsel-uretici` | sonnet | onaylı üretim listesi; gerçek ortam koşusu |
-| Visual QA Inspector (İpek) | Görsel yazım bekçisi (OCR) | `gorsel-qa` | haiku | her görsel |
-| Set Consistency Auditor (Onur) | Seri tutarlılık denetçisi | `seri-tutarlilik-denetcisi` | opus | tur sonu, kör panodan önce |
-| Blind Review Panelist (Derin) | Kör eleştirmen | `kor-elestirmen` | fable | tur sonu, 3 bağımsız kopya |
-| Design Director (Ufuk) | Tasarım direktörü (kök neden, düzeltme emri) | `tasarim-direktoru` | fable | tur sonu, eşleşme açıldıktan sonra |
-
-## Mağaza kolu: site ve denetim
-| Unvan (ad) | Türkçe rol | Ajan | Model | Ne zaman |
-|---|---|---|---|---|
-| Store Architect (Baran) | Site bölüm mimarı | `site-bolum-mimari` | opus | metinlerden önce |
-| Brand Voice Auditor (Seda) | Marka sesi denetçisi | `marka-sesi-denetcisi` | sonnet | metinlerden sonra |
-| CRO & UX Auditor (Cem) | Dönüşüm ve kullanılabilirlik denetçisi | `cro-ux-denetcisi` | sonnet | kurulum sonrası |
-| Performance Engineer (Umut) | Hız mühendisi | `hiz-muhendisi` | sonnet | kurulum sonrası |
-| SEO & AI Search Specialist (Aslı) | Arama ve feed uzmanı | `seo-aio-uzmani` | sonnet | metinler ve kurulum |
-| Accessibility Auditor (Yasemin) | Erişilebilirlik denetçisi | `erisilebilirlik-denetcisi` | sonnet | marka adımı ve kurulum sonrası |
+| Atlas | Marka ve stil stratejisti | `atlas` | fable | modlar: strateji, kimlik, stil; Aşama 1 ve Aşama 2 başı |
+| Muse | Referans ve logo araştırmacısı | `muse` | sonnet | modlar: referans, logo; Aşama 1 |
+| Copy | Metin yazarı | `copy` | sonnet | Aşama 1, istemlerden önce |
+| Forge | İstem yazarı ve görsel üretim operatörü | `forge` | sonnet | modlar: istem, uretim; Aşama 2 |
+| Sentinel | Görsel kapı bekçisi | `sentinel` | sonnet | modlar: kilit, yazim, seri; üretimden önce ve her turdan sonra |
+| Panel | Kör görsel jürisi | `panel` | fable | tur sonu, 3 bağımsız kopya |
+| Director | Görsel kök neden direktörü | `director` | fable | tur sonu, eşleşme açıldıktan sonra |
+| Architect | Site ve tipografi mimarı | `architect` | sonnet | modlar: bolum, tipografi; Aşama 1 ve Aşama 3 |
+| Probe | Teknik denetçi | `probe` | sonnet | modlar: hiz, erisim, arama; Aşama 1 (renk kontrastı) ve Aşama 3 |
+| Shopper | Müşteri gözü denetçisi | `shopper` | sonnet | modlar: donusum, ses; Aşama 1 sonu ve Aşama 3 |
 
 ## Rol başına sonuç metriği (haftalık karne: `skills/captain/scripts/karne_uret.py`)
 Her rol ara doğrulukla değil **sonuçla** ölçülür; kaynak kullanıcının beğenisi değil gerçek performans kaydıdır. Betik rol
@@ -59,12 +46,18 @@ başına bir satır basar; veri yoksa "veri yok" yazar. Bir rol 3 hafta üst üs
 | Mağaza kolu (marka, görsel, site, denetim) | sepete ekleme oranı (sepete ekleme / oturum), düzeltme öncesi ve sonrası | `is/NN/magaza/analitik.csv` (Shopify analitiğinden yalnız okunur) |
 
 ## Birleşen roller (aynı işi yapanlar tek üyede)
-| Eski iki rol | Yeni üye | Neden |
+| Eski roller | Yeni üye | Modlar |
 |---|---|---|
-| logo araştırmacısı + logo tasarımcısı | Logo Designer (Lale) | araştırma istemin girdisidir; ayrı ajan aynı raporu iki kez okuyordu |
-| görsel üretici + gerçek ortam koşucusu | Image Production Operator (Tolga) | ikisi de aynı tarayıcıda aynı hesabı sürer, aynı izin kapısı |
-| referans küratörü + kütüphane bakımcısı | Reference Curator (Mert) | ikisi de aynı referans havuzunu toplar ve günceller |
+| marka stratejisti + kimlik direktörü + niş stil mimarı | Atlas | strateji · kimlik · stil |
+| referans küratörü + logo tasarımcısı | Muse | referans · logo |
+| istem mühendisi + görsel üretici | Forge | istem · uretim |
+| ürün kilidi analisti + görsel QA + seri tutarlılık denetçisi | Sentinel | kilit · yazim · seri |
+| site bölüm mimarı + tipografi sistemcisi | Architect | bolum · tipografi |
+| hız mühendisi + erişilebilirlik denetçisi + SEO/AIO uzmanı | Probe | hiz · erisim · arama |
+| CRO/UX denetçisi + marka sesi denetçisi | Shopper | donusum · ses |
 
-Mağaza aşamalarındaki durum satırı (`ADIM n/8 · <Unvan>`) aynı unvanları kullanır: 1–2 Product Research Lead (Kaan) · 3 Brand Strategist (Elif) / Brand Identity Director (Defne) · 4–5 Niche Art Director (Zeynep) / Design Director (Ufuk) · 6 Copywriter (Naz) · 7–8 Store Architect (Baran).
+Bağımsızlık korunur: Panel hiçbir üreticiyle birleşmedi; Director, Panel'den ayrıdır; üreten ölçmez (Forge ↔ Sentinel ↔ Panel ayrı roller); yazan denetlemez (Copy ↔ Shopper mod `ses`).
+
+Mağaza aşamalarındaki durum satırı (`AŞAMA a/3 · ADIM n/9 · <Kod adı>`) aynı kod adlarını kullanır: 1–2 Scout · 3–4 Atlas · 5 Copy · 6 Atlas · 7 Forge (kabulde Director) · 8 Architect · 9 Probe.
 
 Geliştirme ekibi (pakete girmez, yalnız eklenti deposunda): Platform Compatibility Engineer (Tuna), Design Language Lead (Kuzey) → depo kökünde `.claude/agents/`.

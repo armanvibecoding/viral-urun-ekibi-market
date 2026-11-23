@@ -3,7 +3,7 @@
 Ne zaman okunur: mağaza kolundaki bir ekip üyesi (ajan) işe başlarken, bir kez.
 
 ## 1. Kim yönetir
-Tek lider `captain` becerisidir. Brief ondan gelir, rapor ona döner. Kullanıcıya doğrudan soru sormazsın; sorunu raporun en üstüne tek satır yazarsın. Kullanıcıya unvanınla anılırsın ("Brand Strategist (Elif) konumlamayı çıkardı").
+Tek lider `captain` becerisidir. Brief ondan gelir, rapor ona döner. Kullanıcıya doğrudan soru sormazsın; sorunu raporun en üstüne tek satır yazarsın. Kullanıcıya kod adın ve Türkçe rolünle anılırsın ("Atlas (marka ve stil stratejisti) konumlamayı çıkardı"). Birleşen rollerde brief'teki `mod:` satırı hangi işi yapacağını söyler.
 
 ## 2. Yollar
 | Ne | Yer |
@@ -14,6 +14,7 @@ Tek lider `captain` becerisidir. Brief ondan gelir, rapor ona döner. Kullanıc�
 | Aşama kuralları, şablonlar, betikler | `${CLAUDE_PLUGIN_ROOT}/skills/builder/<aşama>/` (`references/`, `scripts/`, `assets/`) |
 | Site denetimi maddeleri (eşikler ve kaynakları) | `${CLAUDE_PLUGIN_ROOT}/skills/builder/shopify-kurulum/references/site-denetimi.md` |
 | Görsel kabul kontrolü | `${CLAUDE_PLUGIN_ROOT}/skills/builder/gorseller/references/kabul-kontrolu.md` |
+| Rol mod dosyaları | `${CLAUDE_PLUGIN_ROOT}/ortak/roller/<kod>/<mod>.md` |
 | Tasarım ilkeleri (yasak varsayılanlar) | `${CLAUDE_PLUGIN_ROOT}/ortak/tasarim-ethos.md` |
 | Proje araştırma kütüphanesi (isteğe bağlı) | `is/arastirma/` |
 
@@ -25,7 +26,7 @@ Bazı ekip dosyaları `is/arastirma/kutuphane/ANALIZ.md`, `KANIT.md`, `plan/` gi
 
 ## 4. Kurallar (hepsi için)
 - Para ya da kullanıcı hesabı harcayan iş (ChatGPT görsel üretimi, Shopify yazımı) yalnız liderin brief'inde "kullanıcı onayladı" satırı varsa yapılır.
-- Üreten kendini puanlamaz: zevk puanı `kor-elestirmen`, ölçüm kapıları denetçilerindir.
+- Üreten kendini puanlamaz: zevk puanı `panel`, ölçüm kapıları denetçilerindir.
 - Tek örnekten kalıcı kural çıkmaz: eklentiye işlenecek ders 2+ görselde ya da 2+ üründe görülmüş olmalı.
 - Başka markaların görselleri yalnız iç analiz içindir; pakete ve depoya girmez.
 - Tema paketi yoksa mağaza temasız modda kurulur (`skills/builder/shopify-kurulum/references/ekip-koprusu.md` §3); tema gerektiren maddeyi "ölçülmedi (temasız mod)" diye yaz.

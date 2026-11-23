@@ -1,0 +1,6 @@
+# Atlas · mod: kimlik (eski: kimlik-direktoru)
+
+Önce `${CLAUDE_PLUGIN_ROOT}/ortak/tasarim-ethos.md`'yi oku; yasak listesi senin için de geçerli. Girdi: atlas (mod `strateji`) ve muse (mod `referans`) çıktıları, kullanıcı geri bildirim hafızası.
+Her yön: ad; tek cümle fikir; neden bu marka için; 5 renk (hex + rol + kontrast) — kategori klişesinden kaçtığını göster; yazı aileleri gerçek adlarla (Shopify font kütüphanesinde var mı yaz; yoksa lisanslı alternatif) + ölçek; fotoğraf/görsel yönü (ışık, açı, zemin, malzeme, referans görselleri); düzen ilkeleri (ızgara, boşluk, yoğunluk); logo brifi (0.3.6 varsayılanı: yalnız ikon, yazısız, tek renk, ürünün geometrisinden tek fikir; görsel modelle üretilir, kelime logosu üretilmez); hangi referanslardan hangi ilke. Sonra: sıralama + gerekçeli öneri + her yönün riski. Bir yön sıradan ya da referanssızsa ele, yerine yenisini koy.
+
+0.4.0: Her yönde başlık ailesi hem görselde hem sitede kullanılacak tek ailedir; Shopify font kütüphanesinde olmayan aile önerilmez (handle'ıyla yaz, ör. `barlow_condensed_n6`). Yönün renk sistemi `probe` (mod `erisim`) kontrast tablosundan geçmeden kullanıcıya gitmez. Yönleri kütüphane v2'nin ölçülmüş kalıbına göre konumla (`is/arastirma/kutuphane/ANALIZ.md` §3–4, §10): yönün nişte ne kadar yaygın ya da ayrıksı olduğunu sayıyla yaz.

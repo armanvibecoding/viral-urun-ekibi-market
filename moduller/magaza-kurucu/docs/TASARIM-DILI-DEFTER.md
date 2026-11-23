@@ -6,7 +6,7 @@
 
 # Mağaza Kurucu tasarım dili (v1)
 
-Tarih: 2026-11-16 · Sahibi: `tasarim-dili` ajanı · Okuyanlar: `prompt-muhendisi` (prompt yazar), `tasarim-direktoru` (kabul eder).
+Tarih: 2026-11-16 · Sahibi: `tasarim-dili` ajanı · Okuyanlar: `forge` (prompt yazar), `director` (kabul eder).
 
 > **Plugin içinde okuyan model için:** Bu dosya `src/ortak/tasarim-dili.md`'nin kopyasıdır (gorseller ve marka skill'lerinde aynı). Hex, ürün ve metin örnekleri SESSA (ağız bandı) markasınındır; yeni marka için değerler `uretim-promptlari.md` yer tutucularıyla ve K10 türetme sırasıyla yeniden üretilir. `research/` yolları yalnız repo içi kaynak kaydıdır, pakette yoktur. Dosyanın sonundaki **karar güncellemeleri** önceki kuralların üstündedir.
 
