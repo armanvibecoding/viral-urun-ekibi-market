@@ -5,6 +5,24 @@ Her sürümün tam geçmişi `git log` içindedir; burada kullanıcıya görüne
 
 ## [Yayımlanmamış]
 
+## [0.4.0] - 2026-11-23
+
+### Eklendi
+- Bazaar becerisi: Trendyol'da ilgi gören, henüz viral olmamış ürünleri bulur; net marj, tedarik ve fiyat şeffaflığı riskini hesaplar. Satış kendi Shopify mağazasında.
+- Tek Excel şablonu (`ortak/excel_yaz.py`): bütün ürün bulma becerileri aynı 3 sayfalı, 10 sütunlu dosyayı üretir.
+- Ad haritası (`ortak/ad-haritasi.tsv`) ve ad kapısı (`scripts/ad_testi.py`).
+
+### Değişti
+- Beceri adları kod adı oldu: Captain, Radar, Spy, Hunter, Builder, Studio, Cut. Eski adlar bu sürümde yönlendirme olarak çalışır.
+- Ekip rolleri kod adıyla anılır; insan adları ve İngilizce unvanlar kalktı.
+- Mağaza kurulumu 3 aşama: Plan, Görseller, Site. Site metinleri artık görsellerden önce yazılır; adım sayısı 8 → 9.
+- Teklif ayrı beceri olmaktan çıktı; Builder'ın 1. aşamasında `teklif` bölümü oldu.
+- Mağaza rolleri 20 → 10 (toplam ajan 27 → 17). Kör jüri ve kök neden rolleri ayrı kaldı.
+- Radar Excel'i: Marka Skorları, Rakip & Notlar ve Özet sayfaları dosyadan çıktı (`.md` dosyalarında duruyor).
+
+### Kaldırılacak (0.5.0)
+- Eski beceri adlarının yönlendirmeleri: ekip-lideri, kesfet-urun-avi, reklam-kutuphanesi-avi, aliexpress-firsat, magaza-kurucu, teklif-ve-sayfa, ai-video-kreatif, video-kurgu.
+
 ## [0.3.0] - 2026-11-23
 
 ### Eklendi
