@@ -1,119 +1,134 @@
 #!/usr/bin/env python3
-"""excel_yap.py [PROJE_KLASORU] [CIKTI.xlsx]
+"""excel_yap.py [PROJE_KLASORU] [CIKTI.xlsx] [--md urunler.md]
 
-is/kesfet/urunler.md (+ rakipler.md, marka-skorlari.md) → is/kesfet/kesfet-urunler.xlsx
-Sayfalar: Ürünler (renkli karar, filtre, donmuş başlık) · Marka Skorları · Rakip & Notlar · Özet.
-Yazdıktan sonra dosyayı yeniden açar ve satır sayısını md ile karşılaştırır; tutmazsa çıkış kodu 1.
-Gerekli paket: openpyxl  (kur: python3 -m pip install --user openpyxl  ·  Windows: py -m pip install openpyxl)
+Radar hazırlayıcısı (0.4.0): is/kesfet/urunler.md → ortak şablonlu Excel (3 sayfa, 10 sütun).
+Bu betik yalnız iki iş yapar: urunler.tsv hazırlar, sonra ortak/excel_yaz.py'yi alt süreç olarak çağırıp çıkış kodunu aynen döndürür.
+Karar eşlemesi: AL ve AL (sezonluk) → SAT (sezonluk notu Neden'in başına) · YEDEK → İZLE · ELE → ELE.
+İlgi = izlenme. Tarih = urunler.md'nin son değişiklik günü (satırlarda okuma tarihi tutulmuyor).
+Marka Skorları, Rakip & Notlar ve Özet sayfaları Excel'e girmez; marka-skorlari.md ve rakipler.md dosyalarında durur.
+Çıkış: excel_yaz.py ile aynı (0 TAMAM · 1 veri hatası · 2 kullanım · 3 openpyxl yok).
 """
+import datetime
 import os
 import re
+import subprocess
 import sys
-from collections import Counter
+import tempfile
 
-try:
-    from openpyxl import Workbook, load_workbook
-    from openpyxl.styles import Alignment, Font, PatternFill
-    from openpyxl.utils import get_column_letter
-except ImportError:
-    sys.exit("HATA: openpyxl yok. Kur: python3 -m pip install --user openpyxl  (Windows: py -m pip install openpyxl)")
-
-BASLIK = ["#", "Ürün", "Hesap", "İzlenme", "Beğeni", "Profil notu", "Site / fiyat", "Karar", "Neden"]
-GENISLIK = [5, 45, 22, 11, 10, 45, 35, 14, 70]
-RENK = {"AL": "C6EFCE", "YEDEK": "FFEB9C", "ELE": "FFC7CE"}
-KOYU = PatternFill("solid", fgColor="1F2937")
+BURADA = os.path.dirname(os.path.abspath(__file__))
+ALANLAR = ["urun", "link", "ilgi", "ilgi_sayi", "alis", "satis", "para", "marj_kat", "karar", "neden", "kaynak", "tarih"]
+KARAR = {"AL": "SAT", "YEDEK": "İZLE", "ELE": "ELE"}
+NEDEN_MAX = 140
 
 
-def tablo_oku(yol, ilk_hucre_sayi=True):
+def excel_yaz_yolu():
+    adaylar = [os.path.join(BURADA, "..", "..", "..", "ortak", "excel_yaz.py"),
+               os.path.join(BURADA, "..", "..", "ekip-bilgi", "references", "excel_yaz.py"),
+               os.path.join(BURADA, "excel_yaz.py")]
+    kok = os.environ.get("CLAUDE_PLUGIN_ROOT")
+    if kok:
+        adaylar.insert(0, os.path.join(kok, "ortak", "excel_yaz.py"))
+    for a in adaylar:
+        if os.path.isfile(a):
+            return os.path.abspath(a)
+    sys.exit("HATA: ortak/excel_yaz.py bulunamadı")
+
+
+def kisalt(s, n=NEDEN_MAX):
+    s = " ".join((s or "").split())
+    if len(s) <= n:
+        return s
+    kes = s[:n - 1].rsplit(" ", 1)[0] if " " in s[:n - 1] else s[:n - 1]
+    return kes.rstrip(" ,;:.-") + "…"
+
+
+def kisa_ad(urun, n=70):
+    """Ürün hücresi kısa ad olmalı: uzunsa ilk parantez ya da tireden önceki kısmı al."""
+    u = " ".join((urun or "").split())
+    if len(u) > n:
+        for ayrac in (" (", " — ", " - "):
+            if ayrac in u:
+                u = u.split(ayrac)[0]
+                break
+    return kisalt(u, n)
+
+
+def tablo_oku(yol):
     satirlar = []
-    if not os.path.exists(yol):
-        return satirlar
     for line in open(yol, encoding="utf-8"):
         if not line.startswith("|") or re.match(r"^\|\s*-", line):
             continue
         hucre = [c.strip() for c in line.strip().strip("|").split("|")]
-        if ilk_hucre_sayi and not re.match(r"^\d+$", hucre[0]):
-            continue
-        satirlar.append(hucre)
+        if re.match(r"^\d+$", hucre[0]):
+            satirlar.append(hucre)
     return satirlar
 
 
-def baslik_yaz(ws, basliklar, genislikler):
-    ws.append(basliklar)
-    for c in ws[1]:
-        c.font = Font(bold=True, color="FFFFFF")
-        c.fill = KOYU
-        c.alignment = Alignment(vertical="center", wrap_text=True)
-    for i, w in enumerate(genislikler, 1):
-        ws.column_dimensions[get_column_letter(i)].width = w
+def izlenme(metin):
+    """'22,2M' → (22200000.0, '22,2 Mn izlenme'); '412B' → (412000.0, '412 Bin izlenme'); '9.949' → (9949.0, '9.949 izlenme')."""
+    t = (metin or "").strip()
+    m = re.match(r"^(\d[\d.,]*)\s*(milyon|mn|m|bin|b|k)?(?![A-Za-zÇĞİÖŞÜçğıöşü])", t, re.I)
+    if not m:
+        return None, (t + " izlenme" if t and t != "-" else "")
+    ham, ek = m.group(1), (m.group(2) or "").lower()
+    try:
+        if ek:
+            deger = float(ham.replace(",", "."))
+            if ek in ("m", "mn", "milyon"):
+                return deger * 1e6, "%s Mn izlenme" % ham
+            return deger * 1e3, "%s Bin izlenme" % ham
+        return float(ham.replace(".", "").replace(",", ".")), "%s izlenme" % ham
+    except ValueError:
+        return None, t + " izlenme"
 
 
-def karar_anahtari(deger):
-    deger = str(deger or "").strip()
-    return deger.split()[0] if deger else ""
+def link_yap(site):
+    ilk = (site or "").split()[0] if (site or "").strip() else ""
+    if re.match(r"^https?://", ilk):
+        return ilk
+    if re.match(r"^[\w.-]+\.[a-z]{2,}(/\S*)?$", ilk, re.I):
+        return "https://" + ilk
+    return ""
+
+
+def hazirla(md, tsv):
+    tarih = datetime.date.fromtimestamp(os.path.getmtime(md)).isoformat()
+    satirlar = [(r + [""] * 9)[:9] for r in tablo_oku(md)]
+    with open(tsv, "w", encoding="utf-8", newline="") as f:
+        f.write("\t".join(ALANLAR) + "\n")
+        for no, urun, hesap, izl, begeni, profil, site, karar, neden in satirlar:
+            anahtar = karar.split()[0].upper() if karar.split() else ""
+            if anahtar not in KARAR:
+                continue
+            sezonluk = "sezonluk" in karar.lower()
+            sayi, ilgi = izlenme(izl)
+            neden = ("Sezonluk: " if sezonluk else "") + (neden or "")
+            alan = [kisa_ad(urun), link_yap(site), ilgi, "" if sayi is None else "%d" % sayi, "", "", "", "",
+                    KARAR[anahtar], kisalt(neden.replace("\t", " ")), "Instagram", tarih]
+            f.write("\t".join(h.replace("\t", " ").replace("\n", " ") for h in alan) + "\n")
+    return len(satirlar)
 
 
 def main():
-    proje = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("CLAUDE_PROJECT_DIR", os.getcwd())
+    arg = sys.argv[1:]
+    md = None
+    if "--md" in arg:
+        i = arg.index("--md")
+        md = arg[i + 1]
+        del arg[i:i + 2]
+    proje = arg[0] if len(arg) > 0 else os.environ.get("CLAUDE_PROJECT_DIR", os.getcwd())
     kesfet = os.path.join(proje, "is", "kesfet")
-    cikti = sys.argv[2] if len(sys.argv) > 2 else os.path.join(kesfet, "kesfet-urunler.xlsx")
-    md = os.path.join(kesfet, "urunler.md")
+    cikti = arg[1] if len(arg) > 1 else os.path.join(kesfet, "kesfet-urunler.xlsx")
+    md = md or os.path.join(kesfet, "urunler.md")
     if not os.path.exists(md):
-        sys.exit(f"HATA: {md} yok — önce baslat.sh")
-
-    urunler = [(r[:9] + [""] * 9)[:9] for r in tablo_oku(md)]
-    wb = Workbook()
-    ws = wb.active
-    ws.title = "Ürünler"
-    baslik_yaz(ws, BASLIK, GENISLIK)
-    for r in urunler:
-        r[0] = int(r[0])
-        ws.append(r)
-    for row in ws.iter_rows(min_row=2):
-        for c in row:
-            c.alignment = Alignment(vertical="top", wrap_text=True)
-        k = karar_anahtari(row[7].value)
-        if k in RENK:
-            row[7].fill = PatternFill("solid", fgColor=RENK[k])
-            row[7].font = Font(bold=True)
-    ws.freeze_panes = "C2"
-    ws.auto_filter.ref = ws.dimensions
-
-    skorlar = tablo_oku(os.path.join(kesfet, "marka-skorlari.md"), ilk_hucre_sayi=False)
-    skorlar = [s for s in skorlar if s and s[0] != "# (urunler.md)"]
-    ws_s = wb.create_sheet("Marka Skorları")
-    baslik_yaz(ws_s, ["# (urunler.md)", "Hesap", "Odak", "Süreklilik", "Kimlik", "Site", "Tekrar", "TOPLAM",
-                      "Sınıf", "Etiket", "Not"], [10, 24, 7, 10, 8, 6, 8, 9, 12, 14, 60])
-    for s in skorlar:
-        ws_s.append(s)
-
-    ws_r = wb.create_sheet("Rakip & Notlar")
-    baslik_yaz(ws_r, ["Not"], [160])
-    rak = os.path.join(kesfet, "rakipler.md")
-    if os.path.exists(rak):
-        for line in open(rak, encoding="utf-8"):
-            line = line.strip()
-            if line and not line.startswith("# "):
-                ws_r.append([line.lstrip("- ")])
-                ws_r.cell(ws_r.max_row, 1).alignment = Alignment(wrap_text=True)
-
-    sayim = Counter(karar_anahtari(r[7]) for r in urunler)
-    ws_o = wb.create_sheet("Özet")
-    baslik_yaz(ws_o, ["Karar", "Adet"], [14, 10])
-    for k in ["AL", "YEDEK", "ELE"]:
-        ws_o.append([k, sayim.get(k, 0)])
-    ws_o.append(["Toplam", len(urunler)])
-
-    os.makedirs(os.path.dirname(os.path.abspath(cikti)), exist_ok=True)
-    wb.save(cikti)
-
-    # Doğrulama: dosyayı yeniden aç, satır sayısı md ile aynı mı?
-    okunan = load_workbook(cikti, read_only=True)["Ürünler"].max_row - 1
-    durum = "TAMAM" if okunan == len(urunler) else "UYUŞMAZLIK"
-    print(f"{durum}: {cikti} | md={len(urunler)} excel={okunan} | "
-          f"AL={sayim.get('AL', 0)} YEDEK={sayim.get('YEDEK', 0)} ELE={sayim.get('ELE', 0)} | marka skoru={len(skorlar)}")
-    sys.exit(0 if durum == "TAMAM" else 1)
+        sys.exit("HATA: %s yok — önce baslat.sh" % md)
+    with tempfile.TemporaryDirectory(prefix="radar_excel_") as d:
+        tsv = os.path.join(d, "urunler.tsv")
+        hazirla(md, tsv)
+        r = subprocess.run([sys.executable, excel_yaz_yolu(), "--urunler", tsv, "--kaynak", "radar",
+                            "--cikti", cikti, "--ayrinti", md])
+    return r.returncode
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

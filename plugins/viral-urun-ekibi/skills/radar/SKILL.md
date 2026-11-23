@@ -77,7 +77,7 @@ hafıza dosyalarını güncelle → kullanıcıya en fazla 10 satır: toplam ve 
 |---|---|
 | `${CLAUDE_SKILL_DIR}/scripts/baslat.sh` · `platform.sh` | Dosyaları kurar · modu seçer |
 | `${CLAUDE_SKILL_DIR}/scripts/kontrol.sh` · `ekle.sh` | Tekrar kontrolü · numaralı satır ekleme (8 alan, hesap tekrarını reddeder) |
-| `${CLAUDE_SKILL_DIR}/scripts/excel_yap.py` | md → Excel (Ürünler / Marka Skorları / Rakip & Notlar / Özet); openpyxl gerekir |
+| `${CLAUDE_SKILL_DIR}/scripts/excel_yap.py` | md → ortak Excel (Ürünler / Ayrıntı / Nasıl okunur; `ortak/excel_yaz.py`); openpyxl gerekir. Marka skorları ve rakip notları `.md` dosyalarında kalır |
 | `${CLAUDE_SKILL_DIR}/scripts/kur.sh` | Yalnız macOS: Swift araçlarını derler → `.ekip/arac/` |
 | `${CLAUDE_SKILL_DIR}/referans/` | iphone.md · tarayici.md · urun-tanima.md · kreatif-not-sablonu.md |
 

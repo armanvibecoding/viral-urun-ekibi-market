@@ -91,6 +91,8 @@ veri ver. Aynı anda en fazla 2 ajan. Ajan çıktısı sınamadan geçmeden kull
 | `${CLAUDE_PLUGIN_ROOT}/ortak/marka-skoru.md` | Akraba ürün hesabının örnek alınabilir marka olup olmadığı |
 | `${CLAUDE_PLUGIN_ROOT}/ortak/sozlesme/arayuz-sozlesmesi.md` | `urun-paketi.json` alanları (mağaza koluyla dosya sözleşmesi) |
 
+Tur sonunda: `python3 "${CLAUDE_SKILL_DIR}/scripts/excel_hazirla.py"` → `is/firsat/firsat-urunler.xlsx`; çıktıda `TAMAM` görmelisin.
+
 ## Kullanıcıya özet (her tur sonunda, ≤10 satır)
 Pazar · aranan terim sayısı · bakılan ürün sayfası · aday / elenen (sebep dağılımı) · sınama sonucu (3/3 tuttu mu) ·
 en iyi 3–5 aday (ürün, fiyat, ürün satışı, sıra puanı, karar) · doğrulanamayanlar · sıradaki adım ve gereken onay.

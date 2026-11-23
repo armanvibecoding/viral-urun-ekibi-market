@@ -86,6 +86,8 @@ puanlamak; en iyi N (öneri 300) sayfa **derin analiz kuyruğu**na girer. Ayrın
 Çıkış kodları (toplayıcı): 0 tamam · 1 yanlış veri · 3 KİLİT/ENGEL — bugün bu yol durur · 4 günlük tavan doldu · 5 çok hızlı
 (`bekle_sn` kadar bekle) · 6 kuyruk boş.
 
+Tur sonunda: `python3 "${CLAUDE_SKILL_DIR}/scripts/excel_hazirla.py"` → `is/meta/reklam-urunler.xlsx`; çıktıda `TAMAM` görmelisin.
+
 ## Kendini sınama
 `python3 "$S/kendini_test.py" [--gercek-ozet <eski-ozet.tsv>]` — 7 kırma testi; her kapı önce bozuk girdiyle ≠0 görülür, sonra geçer.
 Betik değiştiyse bu test çıkış 0 vermeden kullanılmaz.
