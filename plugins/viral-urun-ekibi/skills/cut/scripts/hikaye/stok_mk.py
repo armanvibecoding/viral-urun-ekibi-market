@@ -7,7 +7,7 @@ import sys, re, os, subprocess, concurrent.futures as cf, urllib.request
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36"
 import sys as _s
 _s.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from _arac import FF, FP
+from _arac import FF, sure
 SP = os.environ.get("STOK_CALISMA", "stok_calisma")
 os.makedirs(SP, exist_ok=True)
 def get(u, bin=False):
@@ -47,7 +47,7 @@ elif k == "on":
                 try: d = get("https://assets.mixkit.co/videos/%s/%s-%s.mp4" % (i, i, q), True); open(p, "wb").write(d); break
                 except Exception: pass
         j = SP + "/on/%s.jpg" % i
-        d = float(subprocess.run([FP, "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", p], capture_output=True, text=True).stdout or 6)
+        d = sure(p) or 6.0
         subprocess.run([FF, "-v", "error", "-y", "-i", p, "-vf", "fps=6/%f,scale=-2:150,tile=6x1" % d, "-frames:v", "1", j])
         return j
     with cf.ThreadPoolExecutor(8) as ex: js = list(ex.map(bir, ids))

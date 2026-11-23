@@ -23,7 +23,7 @@ import urllib.parse
 import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from _arac import FF, FP  # noqa: E402
+from _arac import FF, sure, akis_bilgi  # noqa: E402
 
 args = sys.argv[1:]
 CAL = "stok_calisma"
@@ -135,7 +135,7 @@ def main():
             j = os.path.join(od, "px_%s.jpg" % i)
             try:
                 get("https://videos.pexels.com/video-files/%s/%s" % (i, V[i][1]), p)
-                d = float(subprocess.run([FP, "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", p], capture_output=True, text=True).stdout or 6)
+                d = sure(p) or 6.0
                 subprocess.run([FF, "-v", "error", "-y", "-i", p, "-vf", "fps=4/%f,scale=90:160:force_original_aspect_ratio=increase,crop=90:160,tile=4x1" % d, "-frames:v", "1", j])
                 return i, j, d
             except Exception:
@@ -162,8 +162,7 @@ def main():
             p = os.path.join(d, "px_%s.mp4" % i)
             yeni = not os.path.exists(p)
             get("https://videos.pexels.com/video-files/%s/%s" % (i, V[i][2]), p)
-            w = subprocess.run([FP, "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height,r_frame_rate:format=duration", "-of", "csv=p=0", p],
-                               capture_output=True, text=True).stdout.replace("\n", " ")
+            w = akis_bilgi(p)
             if yeni:
                 open(os.path.join(d, "LISANS-ham.tsv"), "a", encoding="utf-8").write("px_%s.mp4\thttps://www.pexels.com/video/%s/\tPexels License\t%s\n" % (i, V[i][0], w))
             print(i, os.path.getsize(p) // 1024, "KB", w, V[i][0])
