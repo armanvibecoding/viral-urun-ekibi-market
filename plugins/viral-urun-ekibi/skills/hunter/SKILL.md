@@ -12,6 +12,7 @@ description: Hunter (AliExpress fırsat avı). Finds AliExpress products that ar
 
 Önce oku: `${CLAUDE_PLUGIN_ROOT}/ortak/viral-dna.md` (ölçüt) ve `${CLAUDE_PLUGIN_ROOT}/ortak/sozluk.md` (terimler).
 Terimler (aday, kanıt, tutmamış, tutabilir, SAT/İZLE/ELE) yalnız sözlükteki anlamıyla kullanılır.
+**Tarif:** `${CLAUDE_PLUGIN_ROOT}/ortak/tarifler/06-trendyol-ve-aliexpress-avi.md` (ürün SAYFASINDAN oku; AliExpress "This seller: N | Total sales: M" ayrımı; öneri bölümü sayıları alınmaz; sınama 3/3; estetik filtre).
 
 ## Hafıza protokolü (her aşamada)
 | Ne zaman | Ne yapılır |

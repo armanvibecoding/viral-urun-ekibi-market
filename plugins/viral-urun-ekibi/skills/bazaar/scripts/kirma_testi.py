@@ -124,7 +124,15 @@ def main():
         r, k = on_karar(d, viral_db="ayni-urun-viral")
         kontrol("ayni-urun-viral -> ELE", k == "ELE", k)
         r, k = on_karar(d, viral_db="")
-        kontrol("viral_db boş (doğrulanamadı) -> İZLE", k == "İZLE", k)
+        kontrol("viral_db boş (doğrulanamadı), diğer ölçütler SAT -> SAT-KOSULLU", k == "SAT-KOSULLU", k)
+        r, k = on_karar(d, viral_db="", yorum="100")
+        kontrol("viral doğrulanamadı + yorum 100 (İZLE) -> İZLE (koşullu değil)", k == "İZLE", k)
+        r, k = on_karar(d, viral_db="", puan="3,9")
+        kontrol("viral doğrulanamadı + puan 3,9 (ELE) -> ELE", k == "ELE", k)
+        r, k = on_karar(d, onerilen_satis_tl="")
+        kontrol("marj (kat) hesaplanamadı, diğer ölçütler SAT -> SAT-KOSULLU", k == "SAT-KOSULLU", k)
+        r, k = on_karar(d, viral_db="", satici_sayisi="")
+        kontrol("viral + satıcı sayısı doğrulanamadı -> İZLE (satıcı koşul olamaz)", k == "İZLE", k)
 
         # --- şema ve veri hataları ---
         y = os.path.join(d, "bozuk.tsv")

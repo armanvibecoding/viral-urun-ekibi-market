@@ -3,7 +3,7 @@
 
 Kullanım:
   python3 excel_yaz.py --urunler <urunler.tsv> --kaynak <radar|spy|hunter|bazaar> --cikti <dosya.xlsx>
-                       [--ayrinti <ham.tsv|.csv|.md>] [--kopya <klasör>]
+                       [--ayrinti <ham.tsv|.csv|.md>] [--kopya <klasör ya da dosya.xlsx>]
 
 Girdi urunler.tsv (sekme, başlıklı, UTF-8), 12 alan:
   urun, link, ilgi, ilgi_sayi, alis, satis, para, marj_kat, karar, neden, kaynak, tarih
@@ -22,9 +22,9 @@ import shutil
 import sys
 
 ALANLAR = ["urun", "link", "ilgi", "ilgi_sayi", "alis", "satis", "para", "marj_kat", "karar", "neden", "kaynak", "tarih"]
-KARARLAR = ["SAT", "İZLE", "ELE"]
+KARARLAR = ["SAT", "SAT (koşullu)", "İZLE", "ELE"]
 PARALAR = {"TRY": '#,##0.00 "₺"', "USD": '"$"#,##0.00', "EUR": '#,##0.00 "€"', "GBP": '"£"#,##0.00'}
-KARAR_RENK = {"SAT": "C6EFCE", "İZLE": "FFEB9C", "ELE": "FFC7CE"}
+KARAR_RENK = {"SAT": "C6EFCE", "SAT (koşullu)": "E2F0D9", "İZLE": "FFEB9C", "ELE": "FFC7CE"}
 KAYNAKLAR = {"radar": "Instagram", "spy": "Meta reklam", "hunter": "AliExpress", "bazaar": "Trendyol"}
 ILGI_TANIMI = {
     "radar": "Videonun izlenme sayısı (ör. 2,4 Mn izlenme).",
@@ -147,7 +147,7 @@ def nasil_okunur(kaynak):
         ("Alış", "Ürünü bizim alış fiyatı; para birimi hücre biçiminde (₺ $ € £). Bilinmiyorsa boş."),
         ("Satış", "Önerilen ya da gözlenen satış fiyatı; aynı para birimi."),
         ("Marj (kat)", "Marj betiğinin verdiği satış / maliyet çarpanı. Bu dosya kendisi hesaplamaz; yoksa boş."),
-        ("Karar", "SAT = kanıt dosyası olan aday · İZLE = izlenecek ya da eksik kanıtlı · ELE = elenen."),
+        ("Karar", "SAT = kanıt dosyası olan aday · SAT (koşullu) = diğer ölçütler güçlü, marj ya da viral doğrulanamadı (neden sütununda hangisi) · İZLE = izlenecek ya da eksik kanıtlı · ELE = elenen."),
         ("Neden", "Kararın tek cümlelik gerekçesi (en çok 140 karakter)."),
         ("Kaynak", "Ürünün bulunduğu yer: Instagram, Meta reklam, AliExpress ya da Trendyol."),
         ("Tarih", "Verinin okunduğu gün (yyyy-aa-gg)."),
@@ -277,10 +277,13 @@ def main(argv=None):
             print("HATA: ölçüm tutmadı: %s" % h)
         return 1
     if a.kopya:
-        os.makedirs(a.kopya, exist_ok=True)
-        shutil.copy2(a.cikti, os.path.join(a.kopya, os.path.basename(a.cikti)))
+        # dosya yolu (.xlsx ile biten ya da var olan dosya) → o dosyaya; aksi halde klasör
+        dosya_mi = a.kopya.lower().endswith(".xlsx") or os.path.isfile(a.kopya)
+        hedef_dizin = os.path.dirname(os.path.abspath(a.kopya)) if dosya_mi else a.kopya
+        os.makedirs(hedef_dizin, exist_ok=True)
+        shutil.copy2(a.cikti, a.kopya if dosya_mi else os.path.join(a.kopya, os.path.basename(a.cikti)))
     say = {k: sum(1 for r in urunler if r["karar"] == k) for k in KARARLAR}
-    print("TAMAM %s · %d ürün (SAT %d / İZLE %d / ELE %d)" % (a.cikti, len(urunler), say["SAT"], say["İZLE"], say["ELE"]))
+    print("TAMAM %s · %d ürün (SAT %d / SAT-koşullu %d / İZLE %d / ELE %d)" % (a.cikti, len(urunler), say["SAT"], say["SAT (koşullu)"], say["İZLE"], say["ELE"]))
     return 0
 
 

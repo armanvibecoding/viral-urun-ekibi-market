@@ -4,7 +4,7 @@
 Bazaar hazırlayıcısı (0.4.0): KLASOR/adaylar.tsv (+ marj-sonuc.tsv) → ortak şablonlu Excel (3 sayfa, 10 sütun).
 KLASOR varsayılanı is/firsat/trendyol; çıktı varsayılanı KLASOR/urunler.xlsx.
 Bu betik yalnız iki iş yapar: urunler.tsv hazırlar, sonra ortak/excel_yaz.py'yi alt süreç olarak çağırıp çıkış kodunu aynen döndürür.
-Karar: `karar` sütunu aynen; boşsa on_karar (SAT-ADAYI → İZLE). SAT yalnız kanıt dosyası (is/firsat/kanit/NN-*.md) varsa yazılır.
+Karar: `karar` sütunu aynen; boşsa on_karar (SAT-ADAYI → İZLE). SAT ve SAT (koşullu) yalnız kanıt dosyası (is/firsat/kanit/NN-*.md) varsa yazılır; SAT (koşullu) = marj ya da viral doğrulanamadı, diğer ölçütler SAT.
 İlgi = "N yorum · puan". Marj çarpanı tr_marj.py'nin marj-sonuc.tsv dosyasından gelir; betik kendi hesaplamaz.
 Çıkış: excel_yaz.py ile aynı (0 TAMAM · 1 veri hatası · 2 kullanım · 3 openpyxl yok).
 """
@@ -69,14 +69,16 @@ def hazirla(klasor, marj_yol, tsv_cikti):
         f.write("\t".join(ALANLAR) + "\n")
         for ham in s[1:]:
             r = dict(zip(ADAY_ALANLAR, [h.strip() for h in ham + [""] * (len(ADAY_ALANLAR) - len(ham))]))
-            karar = r["karar"] or {"SAT-ADAYI": "İZLE", "İZLE": "İZLE", "ELE": "ELE"}.get(r["on_karar"], "")
+            karar = r["karar"] or {"SAT-ADAYI": "İZLE", "SAT-KOSULLU": "İZLE", "İZLE": "İZLE", "ELE": "ELE"}.get(r["on_karar"], "")
             if not karar:
                 continue
             neden = r["neden"]
-            if karar == "SAT":
+            if karar in ("SAT", "SAT (koşullu)"):
                 no = re.sub(r"\D", "", r["no"]).zfill(2)
                 if not glob.glob(os.path.join(kanit_dir, no + "-*.md")):
-                    karar, neden = "İZLE", "SAT denmiş ama kanıt dosyası yok; kanıt yazılana kadar İZLE."
+                    karar, neden = "İZLE", "%s denmiş ama kanıt dosyası yok; kanıt yazılana kadar İZLE." % karar
+                elif karar == "SAT (koşullu)" and not re.search(r"koşul|doğrulanamad|dogrulanamad", neden, re.I):
+                    neden = (neden + " " if neden else "") + "Koşul: marj ya da viral doğrulanamadı (kanıt dosyasına bak)."
             puan = r["puan"].replace(".", ",")
             ilgi = ("%s yorum" % r["yorum"]) + ((" · " + puan) if puan else "") if r["yorum"] else ""
             yorum_sayi = re.sub(r"[.,\s]", "", r["yorum"])

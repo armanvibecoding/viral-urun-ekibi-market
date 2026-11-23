@@ -24,7 +24,7 @@ tur: urun · stok · arac_stok · urun_elde · sokum · telefon · bilinmiyor.  
 
 Kurallar (SKILL.md "Viral kurgu" + eleştiri turları; eşikler ESIK sözlüğünde, --esik ile değişir):
  stok      durağan stok rozet (tur=stok) toplamı; ilk ya da son plan stok olamaz. Ayarda "meme": true ise atlanır.
- urun      değişmiş ekran (tur=urun) ilk 0,9 sn içinde başlar.
+ urun      değişmiş ekran (tur=urun) ilk 0,9 sn içinde başlar. Ayarda "urun_tipi": "ekransiz" ise ekranlı plan aranmaz; `urun` planı yeterli.
  kanca     ilk yazı ≤ 2 satır (hizli_kurgu satır kırması + font ölçüsü); ilk 1,71 sn'de telefon/stok plan üstünde değil.
  yazi_yeri yakın planda (kirp ≥ 1,3) yazı konumu > 0,15 ise kırpılmış öznenin (rozet) bandıyla çakışma = HATA, yoksa UYARI.
  telefon   telefonda seçilen içerik aracın içeriklerinden olmalı; sonraki ilk ürün planı ve kapanış aynı içerik;
@@ -184,13 +184,17 @@ def kontrol(ayar_yol, args, esik):
             H_("stok", f"video stok rozetle bitiyor ({planlar[-1]['ad']})")
 
     # 2 — ürün ilk 0,9 sn
-    ilk_urun = next((pl for pl in planlar if tur(pl) == "urun" or (tur(pl) == "telefon" and ekran(pl) and not str(ekran(pl)).startswith("stok"))), None)
+    ekransiz = a.get("urun_tipi") == "ekransiz"   # ekransız ürün (bant, aksesuar…): ekranlı plan aranmaz, `urun` planı yeterli
+    if ekransiz:
+        ilk_urun = next((pl for pl in planlar if tur(pl) in ("urun", "urun_elde")), None)
+    else:
+        ilk_urun = next((pl for pl in planlar if tur(pl) == "urun" or (tur(pl) == "telefon" and ekran(pl) and not str(ekran(pl)).startswith("stok"))), None)
     if ilk_urun is None:
-        H_("urun", "videoda değişmiş ekranlı plan yok")
+        H_("urun", "videoda ürün planı yok (tur=urun)" if ekransiz else "videoda değişmiş ekranlı plan yok")
     elif ilk_urun["t0"] >= esik["urun_ilk_sn"]:
         once = [pl["ad"] for pl in planlar if pl["t0"] < ilk_urun["t0"]]
         bilinmez = any(tur(pl) == "bilinmiyor" for pl in planlar if pl["t0"] < ilk_urun["t0"])
-        (U_ if bilinmez else H_)("urun", f"değişmiş ekran ilk kez {f2(ilk_urun['t0'])} sn'de (≥ {esik['urun_ilk_sn']}); önce: {once}")
+        (U_ if bilinmez else H_)("urun", f"{'ürün planı' if ekransiz else 'değişmiş ekran'} ilk kez {f2(ilk_urun['t0'])} sn'de (≥ {esik['urun_ilk_sn']}); önce: {once}")
 
     # 3 — kanca
     ylist = yazi_listesi(a, planlar)

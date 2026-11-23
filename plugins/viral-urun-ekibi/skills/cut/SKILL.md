@@ -9,6 +9,7 @@ Klipten teslim edilebilir MP4'e: 1080×1920, 30 fps, H.264 + AAC, +faststart, 8�
 ekran yazısı ve CTA **pazarın dilinde** (`.ekip/KARARLAR.md`'deki son `| pazar |` satırı; betik kendisi okur).
 Betikler `${CLAUDE_SKILL_DIR}/scripts/` altında; Python komutu: macOS/Linux `python3`, Windows `py -3` (Windows'ta `python3` yazmak Microsoft Store'u açar).
 Gereken: Python 3.8+, Pillow, ffmpeg (PATH ya da `imageio-ffmpeg` paketi). Kurulum: `${CLAUDE_SKILL_DIR}/referans/kurulum.md`.
+**Varsayılan kurgu tarifi:** `${CLAUDE_PLUGIN_ROOT}/ortak/tarifler/01-urun-videosu-tr-reels.md` (ayarda `"yazi_stil": "kutulu"`; ekransız üründe `"urun_tipi": "ekransiz"`). 25 sn organik hikâye: tarif 02, betikler `scripts/hikaye/` (`uret.py ayar.json`).
 İlk kullanımda öz-testi koştur (kredi harcamaz): `python3 "${CLAUDE_SKILL_DIR}/scripts/kendini_test.py" --klasor kurgu_testi`
 → son satırlar GEÇTİ ve `ara_kare_10sn.png`'de Türkçe harfler doğru olmalı.
 
@@ -65,6 +66,7 @@ yalnız genel kurallar ve ürün kontratı (`is/NN/kurgu/KURALLAR.md`) geçerlid
   `kurgu_kontrol.py ayar.json --video VIDEO.mp4` → çıkış 0. Klip içerikleri `klipler/klip_etiket.json`dan okunur (biçim betiğin başında).
 - **Hüküm:** kör jüri (`juri.py pano --mod teslim` → `jury` 3 kopya → `juri.py birlestir`; akış `captain` "Hüküm hattı")
   videoyu gerçek viral referanslarla yan yana puanlar. Kalırsa kök nedeni `fixer` yazar.
+  **Referans < 3 ise iş durmaz, kullanıcıya soru sorulmaz:** `juri.py yapilamadi is/NN --video VNN --referans-sayisi N --neden "…"` → kapı "JÜRİ YAPILAMADI" notuyla geçer, teslim notuna yazılır; referans bulma ayrı iş (DURUM.md).
 - **Teslim geçişinin tek kapısı:** `python3 "${CLAUDE_PLUGIN_ROOT}/skills/captain/scripts/kapi.py" yayin is/NN --proje . --kopyala`
   (teknik, kurgu, görüntü, ses, iddia, hüküm, defter, sözleşme); çıkış 0 olmadan `teslim/` klasörüne video konmaz.
 

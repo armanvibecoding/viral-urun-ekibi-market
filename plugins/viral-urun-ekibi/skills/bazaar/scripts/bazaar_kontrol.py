@@ -105,10 +105,13 @@ def olcut_karari(esik, deger):
 
 def satir_karari(r, esik):
     """Döner: (on_karar, [ölçüt notları])."""
-    notlar, kararlar = [], []
+    notlar, kararlar, adlar, dogr = [], [], [], []
 
     def ekle(ad, karar, ayrinti):
         kararlar.append(karar)
+        adlar.append(ad)
+        if ayrinti == "dogrulanamadi":
+            dogr.append(ad)
         notlar.append("%s=%s %s" % (ad, ayrinti, karar))
 
     for ad, alan, tam in (("yorum", "yorum", True), ("puan", "puan", False), ("satici_sayisi", "satici_sayisi", True),
@@ -136,6 +139,9 @@ def satir_karari(r, esik):
     else:
         ekle("viral_db", "İZLE", viral)
     en_kotu = max(kararlar, key=lambda k: SIRA[k])
+    # SAT (koşullu): diğer ölçütlerin hepsi SAT; yalnız marj (kat) ve/veya viral doğrulanamadı → "SAT-KOSULLU" (neden sütunu hangisini yazar)
+    if en_kotu == "İZLE" and dogr and set(dogr) <= {"kat", "viral_db"} and all(k == "SAT" or a in dogr for a, k in zip(adlar, kararlar)):
+        return "SAT-KOSULLU", notlar
     return ("SAT-ADAYI" if en_kotu == "SAT" else en_kotu), notlar
 
 
@@ -279,8 +285,8 @@ def denetle(yol, elenenlere_yaz=False):
                 hata.append("satır %d: %s sayı değil: %r" % (i, alan, r[alan]))
         if r["viral_db"] and r["viral_db"] not in VIRAL_DEGERLER:
             hata.append("satır %d: viral_db %r; izinli: %s" % (i, r["viral_db"], ", ".join(VIRAL_DEGERLER)))
-        if r["karar"] and r["karar"] not in ("SAT", "İZLE", "ELE"):
-            hata.append("satır %d: karar %r; izinli: SAT / İZLE / ELE" % (i, r["karar"]))
+        if r["karar"] and r["karar"] not in ("SAT", "SAT (koşullu)", "İZLE", "ELE"):
+            hata.append("satır %d: karar %r; izinli: SAT / SAT (koşullu) / İZLE / ELE" % (i, r["karar"]))
     if hata:
         for h in hata:
             print("HATA: " + h)
@@ -303,8 +309,8 @@ def denetle(yol, elenenlere_yaz=False):
                 eski.append([r["trendyol_link"], r["neden"] or "on_karar ELE", bugun])
         tsv_yaz(ey, ["link", "sebep", "tarih"], eski)
     toplam = len(satirlar)
-    say = {k: sum(1 for r in satirlar if r["on_karar"] == k) for k in ("SAT-ADAYI", "İZLE", "ELE")}
-    print("denetle: %d aday · SAT-ADAYI %d · İZLE %d · ELE %d" % (toplam, say["SAT-ADAYI"], say["İZLE"], say["ELE"]))
+    say = {k: sum(1 for r in satirlar if r["on_karar"] == k) for k in ("SAT-ADAYI", "SAT-KOSULLU", "İZLE", "ELE")}
+    print("denetle: %d aday · SAT-ADAYI %d · SAT-KOSULLU %d · İZLE %d · ELE %d" % (toplam, say["SAT-ADAYI"], say["SAT-KOSULLU"], say["İZLE"], say["ELE"]))
     deneme = [k for k, e in esik.items() if e["durum"] in ("varsayim", "deneme")]
     if deneme:
         kanitli = len([f for f in os.listdir(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(yol))), "kanit"))]) \

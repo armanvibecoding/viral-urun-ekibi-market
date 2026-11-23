@@ -128,6 +128,11 @@ def k_hukum(is_dizin, mod, video=None):
         if r is None:
             return KALDI, "%s: %s için %s hükmü yok" % (kaynak, video, mod)
         kal = (r.get("kalibrasyon") or {}).get("durum")
+        if r.get("juri") == "yapilamadi":   # referans < 3: iş durmaz, "jüri yapılamadı" notuyla teslim (juri.py yapilamadi yazar)
+            n, neden = r.get("referans_sayisi"), str(r.get("neden") or "").strip()
+            if not isinstance(n, int) or n >= 3 or not neden:
+                return KALDI, "%s: 'jüri yapılamadı' kaydı geçersiz (referans_sayisi < 3 ve neden dolu olmalı; referans ≥ 3 ise jüri koşar)" % kaynak
+            return GECTI, "JÜRİ YAPILAMADI (referans %d < 3): %s — teslim notuna yaz" % (n, neden[:120])
         if r.get("gecti") is True:
             return GECTI, "%s tur %s gecti=true%s" % (kaynak, r.get("tur"), " · jüri kalibrasyonu: %s (hüküm DENEME)" % kal if kal and kal != "UYUMLU" else "")
         return KALDI, "%s tur %s gecti=false (toplam %s)" % (kaynak, r.get("tur"), r.get("toplam", r.get("medyan")))

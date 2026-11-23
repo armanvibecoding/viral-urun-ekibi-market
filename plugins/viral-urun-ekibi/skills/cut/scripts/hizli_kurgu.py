@@ -19,6 +19,7 @@ ayar.json (yollar ayar dosyasına göre göreli):
           "plan": 7, "konum": 0.16},
   "cikti": "kurgu/V01_hizli.mp4"
 }
+"yazi_stil": "kutulu" → tarif 01 stili (yarı saydam kutu, kontursuz, güvenli alan: üst %12 / alt %20 boş, yazı kutu içinde kalır).
 gecis: kesim | flas (0,12 sn parlama, tam beyaz değil) | punch (ilk 0,15 sn'de punch katsayısından 1'e ölçek).
 konum: yazının üst kenarı, kare yüksekliğinin oranı (0,15–0,17 üst; 0,68–0,74 alt). Alt %20'ye ve ürüne koyma.
 """
@@ -33,6 +34,8 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 W, H, FPS = 1080, 1920, 30
 KONTUR_ORAN = 0.085
+KUTULU = False          # ayar "yazi_stil": "kutulu" → yarı saydam koyu kutu, kontursuz (tarif 01 varsayılanı)
+GUVENLI_UST, GUVENLI_ALT = 0.12, 0.80   # Reels güvenli alanı: üst %12 ve alt %20 boş
 
 
 def ffmpeg():
@@ -85,18 +88,26 @@ def yazi_png(cikti, satirlar, font_yol, agirlik, ust_oran):
     im = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
     y = int(H * ust_oran)
+    if KUTULU:  # toplam yükseklik güvenli alana sığmıyorsa yukarı kaydır
+        yuk = 0
+        for metin, boyut, _v, _r in satirlar:
+            f0 = font_yukle(font_yol, boyut, agirlik)
+            yuk += int(boyut * 1.12) * len(satirlara_bol(d, metin, f0, 860)) + int(boyut * 0.15)
+        y = max(int(H * GUVENLI_UST), min(y, int(H * GUVENLI_ALT) - yuk - 24))
     for metin, boyut, vurgu, renk in satirlar:
         f = font_yukle(font_yol, boyut, agirlik)
-        kontur = max(4, int(boyut * KONTUR_ORAN))
+        kontur = 0 if KUTULU else max(4, int(boyut * KONTUR_ORAN))
         bosluk = d.textlength(" ", font=f)
-        for s in satirlara_bol(d, metin, f):
+        for s in satirlara_bol(d, metin, f, 860 if KUTULU else 900):
             gen = sum(d.textlength(k, font=f) for k in s) + bosluk * (len(s) - 1)
             x = (W - gen) / 2
+            if KUTULU:
+                d.rounded_rectangle((x - 28, y - 10, x + gen + 28, y + int(boyut * 1.12) + 6), radius=26, fill=(0, 0, 0, 178))
             for k in s:
                 dolgu = renk if (vurgu and k.strip(".,!?").upper() == vurgu.strip(".,!?").upper()) else "#FFFFFF"
                 d.text((x, y), k, font=f, fill=dolgu, stroke_width=kontur, stroke_fill="#000000")
                 x += d.textlength(k, font=f) + bosluk
-            y += int(boyut * 1.12)
+            y += int(boyut * 1.12) + (14 if KUTULU else 0)
         y += int(boyut * 0.15)
     golge = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     golge.putalpha(im.getchannel("A").point(lambda v: int(v * 0.55)))
@@ -202,8 +213,9 @@ def main():
     ayar = os.path.abspath(argv[0])
     kok = os.path.dirname(ayar)
     a = json.load(open(ayar, encoding="utf-8"))
-    global KONTUR_ORAN
+    global KONTUR_ORAN, KUTULU
     KONTUR_ORAN = a.get("kontur_oran", KONTUR_ORAN)
+    KUTULU = a.get("yazi_stil") == "kutulu"
     a["font"] = os.path.join(kok, a["font"]) if not os.path.isabs(a["font"]) else a["font"]
     ff = ffmpeg()
     tmp = tempfile.mkdtemp(prefix="hizli_")

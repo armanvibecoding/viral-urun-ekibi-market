@@ -12,6 +12,7 @@ description: "Bazaar (Trendyol fırsat avı). Finds in-demand, not-yet-viral, ch
 Önce oku: `${CLAUDE_PLUGIN_ROOT}/ortak/viral-dna.md` ve `${CLAUDE_PLUGIN_ROOT}/ortak/sozluk.md` (SAT / İZLE / ELE ve "zaten viral" yalnız sözlükteki anlamıyla).
 Eşikler ve her ölçütün durumu (`deneme` / `varsayim` / `kurucu-karari`): `${CLAUDE_SKILL_DIR}/referans/esikler.tsv`. Ölçüt tablosu: `${CLAUDE_SKILL_DIR}/referans/olcutler.md`.
 Başvuru modeli: `hunter` (hafıza protokolü, brief kuralları, özet biçimi aynı kalıp).
+**Tarif:** `${CLAUDE_PLUGIN_ROOT}/ortak/tarifler/06-trendyol-ve-aliexpress-avi.md`. **İlk çalıştırma = oran turu:** `referans/tr-oranlari.tsv` boşsa önce her oranı kaynak URL'siyle doldur (kaynak yoksa boş kalır, oran uydurulmaz). Karar etiketleri: SAT · **SAT (koşullu)** (marj ya da viral doğrulanamadı, diğer ölçütler SAT; `denetle` `SAT-KOSULLU` yazar) · İZLE · ELE. Çıktı: **5 niş × 5 ürün**; görünüşü ucuz/estetiği zayıf ürün (telefon standı tipi) ELE.
 
 ## Akış (9 adım)
 1. **Hafıza:** `.ekip/DURUM.md`, `.ekip/KARARLAR.md` oku. Pazar TR sabittir, sorulmaz. `is/firsat/trendyol/` yoksa `${CLAUDE_SKILL_DIR}/sablon/adaylar.tsv` ile kur.

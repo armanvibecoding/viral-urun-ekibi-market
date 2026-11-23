@@ -137,6 +137,22 @@ def main():
         cmd = [py, os.path.join(BURASI, "kurgu_kontrol.py"), "--goruntu", yol] + (["--kesimler", kes] if kes else [])
         r = subprocess.run(cmd, capture_output=True, text=True)
         sonuc.append((f"kurgu_kontrol --goruntu {ad} -> çıkış {bek}", r.returncode == bek))
+    # kurgu_kontrol "urun" kuralı: ekransız üründe ekranlı plan aranmaz (kırma: ekranlı varsayılanda HATA, ekransızda yok)
+    ek = os.path.join(d, "ekransiz")
+    os.makedirs(os.path.join(ek, "klipler"), exist_ok=True)
+    with open(os.path.join(ek, "klipler", "klip_etiket.json"), "w", encoding="utf-8") as f:
+        json.dump({"klipler": {n: {"arac": None, "tur": "urun_elde", "icerik": "bant"} for n in ("U1", "U2", "U3")}, "araclar": {}}, f)
+    ayar_e = {"font": "font/x.ttf", "cikti": "k.mp4", "planlar": [{"klip": "klipler/%s.mp4" % n, "bas": 0, "bit": 4, "yazi": "Dizin ağrıyor mu?" if n == "U1" else ""} for n in ("U1", "U2", "U3")]}
+    for ad, ekstra, urun_hata in (("ekranlı varsayılan (kırma: HATA beklenir)", {}, True), ("urun_tipi=ekransiz (HATA yok)", {"urun_tipi": "ekransiz"}, False)):
+        yol = os.path.join(ek, "ayar.json")
+        with open(yol, "w", encoding="utf-8") as f:
+            json.dump(dict(ayar_e, **ekstra), f)
+        r = subprocess.run([py, os.path.join(BURASI, "kurgu_kontrol.py"), yol, "--json"], capture_output=True, text=True)
+        try:
+            h = [x["kural"] for x in json.loads(r.stdout)["hatalar"]]
+        except Exception:
+            h = ["PARSE"]
+        sonuc.append((f"kurgu_kontrol urun kuralı: {ad}", ("urun" in h) == urun_hata and "PARSE" not in h))
     for ad, ok in sonuc:
         print(("GEÇTİ " if ok else "KALDI ") + ad)
     print("klasör:", d)

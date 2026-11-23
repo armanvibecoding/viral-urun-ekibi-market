@@ -9,6 +9,7 @@ jürinin değeri de "sıralaması gerçek performans sıralamasıyla ne kadar uy
   juri.py birlestir is/NN/juri/tur-1 --kayit is/NN/elestiri/juri.jsonl --tur 1 [--proje .]
   juri.py kalibrasyon is/kalibrasyon/set-1 [--proje .]
   juri.py ayirt is/*/elestiri/juri.jsonl [puanlar.jsonl …]
+  juri.py yapilamadi is/NN --video V03 --mod teslim --referans-sayisi 2 --neden "viral referans < 3"   (iş durmaz; kapı "JÜRİ YAPILAMADI" notuyla geçer)
   juri.py set --analiz-db <proje>/veri/analiz.db --cikti is/kalibrasyon/set-1 [--nis evcil] [--pazar ABD] [--adet 12]
 
 pano       Her öge (video · kare klasörü · tek görsel) adsız bir pano görseline çevrilir: video ise ilk 2 sn 5 kare/sn +
@@ -502,6 +503,23 @@ def set_kur(a):
     return 0
 
 
+def yapilamadi(a):
+    """Referans < 3 iken işi durdurmaz: hüküm kaydına açık 'jüri yapılamadı' satırı yazar (gecti=true, ama kapı notu görünür kalır)."""
+    if a.referans_sayisi >= MIN_REFERANS:
+        print("HATA: referans %d ≥ %d — jüri koşabilir, 'yapılamadı' yazılamaz" % (a.referans_sayisi, MIN_REFERANS), file=sys.stderr)
+        return 1
+    if not a.neden.strip():
+        print("HATA: --neden boş olamaz", file=sys.stderr)
+        return 1
+    yol = os.path.join(a.is_dizin, "elestiri", "juri.jsonl")
+    os.makedirs(os.path.dirname(yol), exist_ok=True)
+    with open(yol, "a", encoding="utf-8") as f:
+        f.write(json.dumps({"video": a.video, "tur": 0, "mod": a.mod, "gecti": True, "juri": "yapilamadi",
+                            "referans_sayisi": a.referans_sayisi, "neden": a.neden}, ensure_ascii=False) + "\n")
+    print("kaydedildi: %s — teslim notuna 'jüri yapılamadı' yaz; referans bulma ayrı iş (DURUM.md)" % yol)
+    return 0
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     alt = ap.add_subparsers(dest="komut", required=True)
@@ -520,8 +538,11 @@ def main():
     s = alt.add_parser("set")
     s.add_argument("--analiz-db", required=True); s.add_argument("--cikti", required=True)
     s.add_argument("--nis"); s.add_argument("--pazar"); s.add_argument("--adet", type=int, default=12)
+    yp = alt.add_parser("yapilamadi")
+    yp.add_argument("is_dizin"); yp.add_argument("--video", required=True); yp.add_argument("--mod", choices=["teslim", "onuretim"], default="teslim")
+    yp.add_argument("--referans-sayisi", type=int, required=True); yp.add_argument("--neden", required=True)
     a = ap.parse_args()
-    return {"pano": pano, "birlestir": birlestir, "kalibrasyon": kalibrasyon, "ayirt": ayirt, "set": set_kur}[a.komut](a)
+    return {"yapilamadi": yapilamadi, "pano": pano, "birlestir": birlestir, "kalibrasyon": kalibrasyon, "ayirt": ayirt, "set": set_kur}[a.komut](a)
 
 
 if __name__ == "__main__":

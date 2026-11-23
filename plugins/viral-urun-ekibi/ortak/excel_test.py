@@ -94,7 +94,7 @@ def main():
 
         # --- doğru girdi: çıkış 0 ve 6 ölçüm (ayrı okuyucuyla) ---
         r = calistir("doğru girdi (3 ürün)", iyi, 0, parca="TAMAM")
-        kontrol("  ↳ özet satırı: 3 ürün (SAT 1 / İZLE 1 / ELE 1)", "3 ürün (SAT 1 / İZLE 1 / ELE 1)" in r.stdout, r.stdout)
+        kontrol("  ↳ özet satırı: 3 ürün (SAT 1 / SAT-koşullu 0 / İZLE 1 / ELE 1)", "3 ürün (SAT 1 / SAT-koşullu 0 / İZLE 1 / ELE 1)" in r.stdout, r.stdout)
         wb = load_workbook(cikti)
         ws = wb["Ürünler"]
         kontrol("  ↳ ölçüm 1: sayfa adları tam", wb.sheetnames == ["Ürünler", "Ayrıntı", "Nasıl okunur"], wb.sheetnames)
@@ -143,6 +143,17 @@ def main():
         kopya = os.path.join(d, "masaustu")
         calistir("--kopya klasörü", iyi, 0, ek=["--kopya", kopya])
         kontrol("  ↳ kopya dosyası yazıldı", os.path.isfile(os.path.join(kopya, "o.xlsx")))
+
+        # SAT (koşullu) kararı kabul edilir
+        kosullu = BASLIK + "\n" + SATIR_SAT.replace("\tSAT\t", "\tSAT (koşullu)\t") + "\n"
+        calistir("SAT (koşullu) kararı", kosullu, 0)
+        kontrol("  ↳ Ürünler: karar hücresi 'SAT (koşullu)'",
+                any(c.value == "SAT (koşullu)" for r in load_workbook(cikti)["Ürünler"].iter_rows() for c in r))
+
+        # --kopya DOSYA yolu: klasör değil dosya olarak yazılmalı (0.4.x hatası: dosya adıyla klasör açıyordu)
+        kopya_dosya = os.path.join(d, "masaustu2", "Teslim Listesi.xlsx")
+        calistir("--kopya dosya yolu", iyi, 0, ek=["--kopya", kopya_dosya])
+        kontrol("  ↳ kopya bir DOSYA (klasör değil)", os.path.isfile(kopya_dosya))
 
         # her kaynak adı çalışır
         for k in ("radar", "spy", "hunter", "bazaar"):

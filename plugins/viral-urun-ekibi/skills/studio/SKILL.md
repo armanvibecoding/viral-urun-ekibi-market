@@ -9,6 +9,7 @@ description: "Studio (AI video kreatifi). Prepares AI video creatives: scripts, 
 görsel/video promptları **İngilizce**; ekran yazısı ve CTA **pazarın dilinde** (pazar `.ekip/KARARLAR.md`'den okunur:
 Türkiye → Türkçe, yurt dışı → İngilizce). Kullanıcı kod bilmeyebilir; terminal işini sen yaparsın.
 Python komutu: macOS/Linux `python3`, Windows `py -3` (Windows'ta `python3` yazmak Microsoft Store'u açar).
+**Varsayılan üretim tarifi:** `${CLAUDE_PLUGIN_ROOT}/ortak/tarifler/01-urun-videosu-tr-reels.md` (TR Reels; kutulu yazı, güvenli alan, müzik rampası) — başka stil istenmedikçe aynen uygula. Hikâye/organik: tarif 02; seslendirme: 04; Flow: 05.
 
 ## Hafıza protokolü (her aşamada)
 - Her ürün `is/NN-urun-adi/` altında. Aşama kaydı `is/NN-urun-adi/DURUM.md`: aşama no (0–9), her videonun
@@ -58,6 +59,7 @@ dağılım kuralları (`asamalar.md` §3), çıktı biçimi `${CLAUDE_SKILL_DIR}
 **Ön-üretim hükmü (Aşama 5 sonu, kredi onayından önce):** ilk 5 videonun kareleri kör jüriye gider (`juri.py pano --mod onuretim`,
 gerçek viral referansların ilk kareleriyle yan yana; `jury` 3 kopya; `juri.py birlestir`). Kalan video Flow'a gitmez;
 kök nedeni `fixer` yazar, geçenler için kontratı (`kurgu/KURALLAR.md`) doldurur. Akış: `captain` "Hüküm hattı".
+Referans < 3 ise durma: `juri.py yapilamadi … --mod onuretim` ile "jüri yapılamadı" kaydı yaz (kapı notla geçer), referans bulma ayrı iş.
 Kredi geçişinin tek kapısı: `python3 "${CLAUDE_PLUGIN_ROOT}/skills/captain/scripts/kapi.py" kredi is/NN --proje .` (senaryo,
 kontrat, hüküm, kredi onayı, defter). Çıkış 0 olmadan Flow'da üretim başlamaz; aşım yalnız kurucu kararıyla (`captain` §5c).
 

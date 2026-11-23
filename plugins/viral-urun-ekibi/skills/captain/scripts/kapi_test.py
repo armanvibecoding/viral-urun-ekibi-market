@@ -239,6 +239,14 @@ def yayin_testleri(kok):
     bekle("yayin: ekranda sağlık cümlesi -> 0 (engel değil, bilgi notu)", kos("yayin", i, "--proje", p), 0, ["GEÇTİ      iddia@V01"])
     yaz(os.path.join(i, "magaza", "magaza-paketi.json"), {"surum": "1"})
     bekle("kırma: bozuk mağaza paketi -> 1", kos("yayin", i, "--proje", p), 1, ["KALDI      sozlesme"])
+    # jüri yapılamadı (referans < 3): iş durmaz; geçersiz kayıt (referans ≥ 3 ya da nedensiz) kapıyı KALDIRIR
+    for ad, ek, bek, parca in (("referans 2 + neden -> 0 (JÜRİ YAPILAMADI notu)", {"referans_sayisi": 2, "neden": "viral referans yok"}, 0, "JÜRİ YAPILAMADI"),
+                               ("kırma: referans 3 iken 'yapılamadı' -> 1", {"referans_sayisi": 3, "neden": "x"}, 1, "geçersiz"),
+                               ("kırma: nedensiz 'yapılamadı' -> 1", {"referans_sayisi": 1, "neden": ""}, 1, "geçersiz")):
+        p, i = kopya("yj"); os.remove(os.path.join(i, "elestiri", "juri.jsonl"))
+        with open(os.path.join(i, "elestiri", "juri.jsonl"), "a", encoding="utf-8") as f:
+            f.write(json.dumps(dict({"video": "V01", "tur": 0, "mod": "teslim", "gecti": True, "juri": "yapilamadi"}, **ek), ensure_ascii=False) + "\n")
+        bekle("yayin: jüri " + ad, kos("yayin", i, "--proje", p), bek, [parca])
 
 
 def main():
