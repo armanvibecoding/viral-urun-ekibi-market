@@ -1,0 +1,14 @@
+anahtar	tur	sat	izle	ele	durum	tarih	dayanak
+yorum	aralik	150-3000	50-149	diger	deneme	2026-11-23	deneme: 243 ve 969 aday, 10.314 doygun
+puan	aralik	>=4.2	4.0-4.19	diger	deneme	2026-11-23	deneme: 4,1–4,5
+satici_sayisi	aralik	<=5	6-15	diger	varsayim	2026-11-23	varsayım
+alis_tl	aralik	100-600	601-900	diger	deneme	2026-11-23	deneme: 170–321 TL
+kat	aralik	>=2.2	1.8-2.19	diger	kurucu-karari	2026-11-23	kurucu kararı: alışın 2–3 katı (kat = onerilen_satis_tl / alis_tl)
+satis_tl_min	sayi	399			kurucu-karari	2026-11-23	SAT için en düşük satış fiyatı (TL)
+meta_reklam	aralik	<=3	4-10	diger	varsayim	2026-11-23	Hunter kuralı
+basabas_roas	aralik	<=2.0	2.01-3.0	diger	varsayim	2026-11-23	varsayım
+seffaflik	aralik	0-1	2	3	varsayim	2026-11-23	varsayım (fiyat şeffaflığı puanı)
+viral_db	kategori	yok|aile-var	dogrulanamadi	ayni-urun-viral	varsayim	2026-11-23	ortak/sozluk.md Zaten viral
+kota_arama_gunluk	sayi	15			varsayim	2026-11-23	AliExpress'te ölçülen tempo örnek alındı; Trendyol'da ölçülmedi
+kota_urun_gunluk	sayi	40			varsayim	2026-11-23	aynı
+kota_bekleme_sn	sayi	15			varsayim	2026-11-23	aynı
