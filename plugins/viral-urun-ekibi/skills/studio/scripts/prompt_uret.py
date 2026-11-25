@@ -117,18 +117,29 @@ def flow(v, s, k):
     return "\n".join(sat)
 
 
-def panoya(metin):
+def pano_komutu():
     if sys.platform == "darwin" and shutil.which("pbcopy"):
-        cmd = ["pbcopy"]
-    elif os.name == "nt":
-        cmd = ["clip"]
-    elif shutil.which("xclip"):
-        cmd = ["xclip", "-selection", "clipboard"]
-    else:
-        print(metin)
-        return "pano aracı yok; metin yukarıda"
-    subprocess.run(cmd, input=metin.encode("utf-16" if os.name == "nt" else "utf-8"), check=True)
-    return "panoya kopyalandı"
+        return ["pbcopy"]
+    if os.name == "nt":
+        return ["clip"]
+    if shutil.which("xclip"):
+        return ["xclip", "-selection", "clipboard"]
+    return None
+
+
+def panoya(metin):
+    """Panoya kopyalar; pano aracı yoksa ya da çalışmazsa metni dosyaya yazar (Windows/Linux yedeği: dosyayı aç, elle kopyala)."""
+    cmd = pano_komutu()
+    if cmd is not None:
+        try:
+            subprocess.run(cmd, input=metin.encode("utf-16" if os.name == "nt" else "utf-8"), check=True)
+            return "panoya kopyalandı"
+        except (OSError, subprocess.CalledProcessError):
+            pass
+    yol = os.path.abspath("prompt-pano.txt")
+    with open(yol, "w", encoding="utf-8") as f:
+        f.write(metin)
+    return "pano aracı yok ya da çalışmadı; metin dosyaya yazıldı: %s (dosyayı aç, içeriği elle kopyala)" % yol
 
 
 def main():

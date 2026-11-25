@@ -1,0 +1,51 @@
+{
+  "id": "08-marka/a-kolay",
+  "ozellik": "08-marka",
+  "tur": "kolay",
+  "zorluk": "kolay: ürün tek cümlede anlatılır; marka adı ürünü tarif etmeden onu çağrıştırmalı, kimlik tutarlı olmalı; kaynak ve iddia uydurması yok",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "TR",
+  "kreatif": "organik",
+  "girdi": {
+    "urun": "Isıyla renk değiştiren kupa",
+    "urun_ozeti": "Seramik kupa; sıcak sıvı dökülünce siyah yüzey şeffaflaşır ve altındaki desen belirir (termokromik).",
+    "dogrulanmis_bilgi": [
+      "sıcak sıvıyla yüzey rengi ve deseni değişir",
+      "seramik",
+      "350 ml (paketteki ölçü)"
+    ],
+    "dogrulanmamis_bilgi": [
+      "bulaşık makinesi dayanımı",
+      "mikrodalga uygunluğu",
+      "gıda güvenliği sertifikası",
+      "garanti süresi",
+      "markanın kuruluş yılı, ödül ya da müşteri sayısı"
+    ],
+    "kanit_ani": "marka kimliği çekim anı değil ürün gerçeğinden türer: ad, slogan ve ses tonu yalnız doğrulanmış bilgiyi çağrıştırır; kaynak gösterilemeyen ad/kuruluş/ödül yazılmaz",
+    "dil": "tr",
+    "istek": "Marka stratejisi (3 yön + öneri), marka kimliği (ad, slogan, 5 HEX rolüyle, yazı ailesi), referans panosu, logo yönleri, tipografi eşlemesi; yalnız doğrulanmış bilgiden."
+  },
+  "beklenen": {
+    "yasakli_neden": "ürün paketinde olmayan teknik/sertifika iddiası ya da uydurma marka geçmişi (IDD-02)",
+    "dosyalar": [
+      "magaza-paketi.json",
+      "marka/STRATEJI.md",
+      "marka/KIMLIK.md",
+      "marka/PANO.md",
+      "marka/LOGO.md",
+      "marka/TIPOGRAFI.md"
+    ]
+  },
+  "yasakli": [
+    "ödüllü|award[- ]winning|preisgekrönt",
+    "en çok satan|#\\s?1\\b|number one|bestseller|best[- ]seller|Testsieger",
+    "(since|seit|\\bkuruluş:?|est\\.)\\s?(19|20)\\d\\d|\\b\\d{2,}\\s?(yıllık|years?|jahre)\\s?(deneyim|experience|erfahrung|tecrübe)",
+    "\\d[\\d.,]*\\s?(bin|k|\\+)?\\s?(mutlu )?(müşteri|customers?|kunden)",
+    "kırılmaz|unbreakable",
+    "BPA[- ]?(free|içermez)",
+    "lifetime|ömür boyu",
+    "\\bFDA\\b|LFGB|TSE belgeli",
+    "bulaşık makinesi(nde)? yıkanabilir|dishwasher[- ]safe"
+  ],
+  "izinli": []
+}

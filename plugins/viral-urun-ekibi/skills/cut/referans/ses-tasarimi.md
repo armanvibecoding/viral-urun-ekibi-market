@@ -116,3 +116,6 @@ varsayılan −30 dB'den 1,75 sn rampa alır ve müzik girişi kapısından geç
 - L1 https://mixkit.co/llm-info/ (Free License: ticari, atıfsız; yeniden satış yok) · L2 https://freesound.org/help/faq/ · L3 https://pixabay.com/service/license-summary/
 - C1 https://krotos.studio/blog/car-driving-sfx · C2 https://sfxengine.com/blog/car-driving-by-sound-effect · C3 https://resources.oreateai.com/resources/how-to-create-high-energy-car-edits-that-actually-go-viral
 - Nörosinema (kesme-dikkat; ses bulgusu zayıf/karışık): https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2025.1719407/full
+
+## 7. HyperFrames olaylarından otomatik SFX (2026-11-24)
+Kesme/yazı/CTA/kanıt olayları `hf-sablonlar/sfx_esle.py` ile efekte eşlenir (tablo: `tipografi-ve-kanca-gorseli.md` §5; lisans `hf-sablonlar/LISANS-SFX.md`). Açılış (0. sn) pop −4 dB hiç elenmez; kayan 10 sn pencerede ≤ 6 efekt.

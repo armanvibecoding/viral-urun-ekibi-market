@@ -1,0 +1,39 @@
+{
+ "rol": "mixer",
+ "sabit_urun": {
+  "vaka": "a-kolay",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "TR",
+  "urun_dizin": "is/01-kupa"
+ },
+ "moduller": [
+  {
+   "mod": null,
+   "brief": "kurgu ayarı V01.json + V01_sessiz.mp4 + müzik/LISANS.md + sfx/ verildi",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/ses/SES-V01.md",
+    "zorunlu_bolumler": [
+     "plan",
+     "ölçüm",
+     "doğrulanamayan"
+    ]
+   }
+  }
+ ],
+ "eksik_girdi": [
+  {
+   "mod": null,
+   "brief": "kurgu ayarı V01.json yok",
+   "eksik": "kurgu ayarı yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  }
+ ]
+}

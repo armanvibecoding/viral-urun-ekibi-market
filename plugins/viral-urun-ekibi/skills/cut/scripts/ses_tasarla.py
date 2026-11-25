@@ -41,7 +41,11 @@ AAC sonrası ölçülerek doğrulanır).
 import argparse, json, os, re, shutil, subprocess, sys, tempfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ses_olc import muzik_giris  # noqa: E402
-import numpy as np
+try:
+    import numpy as np
+except ImportError as _hata:  # ham ImportError yerine anlaşılır mesaj, çıkış 3 (kurulum eksik)
+    print("kurulum eksik: '%s' paketi bulunamadı. Kur: python3 -m pip install --user numpy (Windows: py -3 -m pip install --user numpy)" % (_hata.name or "numpy"), file=sys.stderr)
+    sys.exit(3)
 
 SR = 48000
 
@@ -229,6 +233,8 @@ def main():
     ap.add_argument("--sfx", help="sentetik efekt: 'tik@8.24,vurus@8.57' (tik = ekrana dokunma, vurus = değişim darbesi)")
     ap.add_argument("--sfx_db", type=float, default=-9.0, help="efekt tepe seviyesi (dBFS, son seviyeden önce)")
     ap.add_argument("--son_fade", type=float, default=0.8, help="müzik sonu kararma (döngülü videoda 0.12)")
+    ap.add_argument("--son_fade_egri", default=None, choices=["tri", "qsin", "hsin", "esin", "log", "par", "cub", "exp"],
+                    help="müzik sonu kararma eğrisi (varsayılan yok = ffmpeg 'tri' doğrusal, eski davranış). Yumuşak kapanış: '--son_fade 2.5 --son_fade_egri qsin' (son 2,5 sn)")
     ap.add_argument("--sfx_dosya", help="dosya efektleri: 'yol@sn[:dB[:bas-bit]]' virgüllü; dB = tepe (varsayılan --sfx_db)")
     ap.add_argument("--sfx_klasor", help="--sfx_dosya'da yalın ad verilirse aranacak klasör (ör. uretim-4/sfx)")
     ap.add_argument("--riser", help="sentetik yükseliş 'bit_sn:sure[:dB]' — drop'ta biter (ör. 3.429:1.2:-10)")
@@ -353,7 +359,8 @@ def main():
         fade_in = ""  # rampa aşağıda numpy ile (−30 dB -> 0 dB, dB-doğrusal)
         mgraf = (f"[0:a]aresample={SR},aformat=sample_fmts=flt:channel_layouts=stereo,{hiza}{fade_in}"
                  "highpass=f=30,equalizer=f=80:t=q:w=1.0:g=-3,apad,"
-                 f"atrim=end={sure:.4f},afade=t=out:st={max(0,sure-a.son_fade):.3f}:d={a.son_fade}[m]")
+                 f"atrim=end={sure:.4f},afade=t=out:st={max(0,sure-a.son_fade):.3f}:d={a.son_fade}"
+                 + (f":curve={a.son_fade_egri}" if a.son_fade_egri else "") + "[m]")
         kos(["-i", a.muzik, "-filter_complex", mgraf, "-map", "[m]", "-f", "f32le", "-ar", str(SR),
              "-ac", "2", P("muz.f32")])
         if a.muzik_fade_in > 0:

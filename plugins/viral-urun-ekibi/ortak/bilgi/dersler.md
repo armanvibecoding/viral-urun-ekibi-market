@@ -110,3 +110,31 @@ Yeni iş başlamadan ilgili bölümü oku; aynı hatayı ikinci kez yapmak yasak
 - 2026-11-18 (eleştirmen KALICI reçeteleri, üç kollu hikâye serisi ön-üretim turları, 13 reçete): **reçete aynı turda kuralın kendisine işlenir** — çünkü kusurların kökü kalıp cümlelerdi: "slightly messy" mekân kalıbı (leke/kupa izi), ek görselde "ignore …" talimatı (obje sızması), ters klipte saniyesiz ACTION, "satin folded over everything" (kumaş altında biçim), sıvı+cam metaforu, 150–200 Hz buzz (telefonda duyulmaz), 0–10 kovası sanılan efekt sayımı. Aynı cümleye çelişen iki reçete gelirse kurucunun son kararı kazanır (takı görünümlü ürün kapalı giysi üstünde boyunda gösterilebilir, yüz yok).
 - 2026-11-18 (üretim, kalp videosu): ön üretim Flow klibini 6 sn varsaydı, gerçek 4,03 sn → video 13,6 sn, K1 tutmadı. Eleştirmene ön-üretim süre bütçesi kapısı eklendi; teslimde kontrat gevşetilmez.
 - 2026-11-18 (kurucu, kolye videosu): "fake, AI slop, animasyon yok, tipografi kötü, hook yok" → AI slop ağır kusuru; görüntü kaynağı önceliği: gerçek stok/kurucu çekimi > gerçek ürün fotoğrafı > AI klip; hareketli tasarım katmanı zorunlu.
+
+## Kurucu hafızasından (sansürlü)
+Ölçülmüş genel dersler; kişi, marka, hesap ve proje adı yok. Sayısal "zaten viral mi" kontrolü için `viral-urunler.tsv` ve `../viral_db.py`.
+1. **Aynı jenerik ürün farklı marka adlarıyla tekrar tekrar milyon alır** — "bu ürün zaten viral mi" sorusu markaya değil ürün tarifine/ailesine bakılarak sorulur; aile varsa kreatif farkı kanıtlamadan girme.
+2. **Kanca belirleyicidir, AI sahne süsü değildir** — aynı terlik farklı kancayla 52 bin ile 20,9 milyon izlenme arasında gitti; ürün seçiminden önce kancanın ilk karede ne gösterdiğine bak.
+3. **AI video süresi 8–15 sn (medyan ~12 sn)** — bu aralığın dışındaki örnekler viral havuzda seyrek.
+4. **Milyonluk mağaza profili:** son 3 ayda açılmış, 1–3 ürün, 30–70 $ fiyat + yaklaşık %40 çizili fiyat + paket/bundle uygulaması; ~%58'inde yorum uygulaması yok. Eski, çok kataloglu mağaza örnek alınmaz.
+5. **Mağaza yaşı ≠ ürün yaşı** — `/products.json?limit=250` içindeki en eski `created_at` yaklaşık katalog yaşını verir; eski alan adının yeni markaya yönlenmesi ürün değişimi, şifre sayfası kapanmış mağaza işaretidir.
+6. **Shopify'ı kendin ayır** — "yalnız Shopify" süzgeçleri Shopier, WhatsApp ve linksiz satıcıları elemez; link yolundaki `/products/` ve `myshopify` izine bak.
+7. **Türkiye'de iki dropship modeli vardır:** markalı tek ürün mağazası ve ürün başına alt alan adlı tek sayfa; ikincisi ağ olarak çalışır, tek örnek ürün kanıtı sayılmaz.
+8. **Reklam Kütüphanesi araması:** tam ifade + "toplam gösterim" sıralaması en çok gösterileni önce verir; "en yeniler" sıralaması genç mağaza bulmada yaklaşık 4 kat verimlidir. Alan adıyla arama = aktif reklam sayısı (jenerik kelimeli adlarda şişer).
+9. **Reklam Kütüphanesi sessizce sınırlanır** — ~4 saat tarama ve ardışık ~45 arama sonrası hata vermeden "hiçbir reklam eşleşmiyor" döner. Bilinen dolu bir sorguyla kontrol et; boşsa ≥1 saat dur. Aramalar ≥15 sn arayla, oturumda ≤30, uzun kaydırma ≤1 saat; gizli sekme/atlatma yok.
+10. **Tarayıcıda veri toplarken** betik çıktısı ~1.000 karakterde kesilir ve 45 sn'de zaman aşar: veriyi `localStorage`'a yaz, aynı origin'de ikinci sekmede `<pre>` olarak göster, sayfa metniyle oku. Arka plandaki sekmede zamanlayıcı yavaşlar.
+11. **Keyword hacmi her zaman açık ülke + açık dil ile ölçülür** — belirtilmezse tüm dil bölgesi toplanır ve dar kelimelerde 50–100 kat şişer. Teklif (CPC) alanı boşsa hacim çok incedir; teklif bandı veren rapor başka hedeflemeden gelmiştir.
+12. **Başkasının hacim tablosuna güvenmeden** 2–3 dar kelimeyi kendin ölç; tutmuyorsa tablonun tamamı şüpheli. Jenerik kelime tutup dar kelime tutmuyorsa sorun veride değil hedeflemededir.
+13. **Talep testi eşiği ulaşılabilir olmalı** — eşik = arama havuzu × gösterim payı × tıklama oranı × hedef dönüşüm zincirinden türetilir. Ulaşılamaz eşik testi başarısız değil "hiç ölçmemiş" yapar ve kategoriyi yanlış nedenle kapatır.
+14. **Teklif parası hesap para biriminde döner** — kuru çevirmeden "$" diye yazma.
+15. **Ürün videosu için önce o ürünün en çok izlenen 5 videosunu izle** — kanca, tempo ve ses dili oradan alınır; izlenme sayısı kartta okunur, YouTube yerine kısa video platformunda ara.
+16. **Ürünün ışığı/ekranı kare içinde üretilir** — sonradan düz bindirilen ışık/ekran "sahte" okunur; araç ve eşya gerçek ve tanınır olmalı.
+17. **Kanca = en güçlü an ilk karede ve sesli.** Müziksiz teslim yok; telifli şarkı indirilmez, açık lisanslı kaynak ya da kendi dosyan kullanılır.
+18. **Okunabilirlik:** plan ≥ 2 vuruş (~0,86 sn), yazı kesimden bağımsız zaman çizelgesinde, ≥ 0,5 sn + 0,25 sn/kelime, ≤ 5 kelime. 0,43 sn'lik montaj ve okunamayan yazı geri çevrilir.
+19. **Satış iskeleti:** örüntü kırma → merak → ödül (drop) → kişiselleştirme → kontrol (önce → dokunuş → sonuç) → kimlik + CTA. Telefon/uygulama planında sonuç dokunuştan önce görünmez.
+20. **AI klip kontrolü üç kat:** (1) sıçrama ölçümü (klip medyanının ≥3× ve ≥5,5 kare farkı), (2) **4 fps** zaman damgalı panoyla her kareye göz, (3) ürün mekaniği (doğru parçaya mı basıyor, ürün kendiliğinden çalışıyor mu). 1,5 fps pano yavaş morph'u kaçırır: "84/87 temiz" denen seride 17/30 hata çıktı.
+21. **AI klip kök nedenleri:** başlangıç karesi (uzuv hedefin üstünde havadaysa model hedefe iner), belirsiz prompt dili, görüntüde olmayan olayı ekleten ses satırı. Kuralı elle hatırlamaya bırakma; kilit metnini betik eklesin.
+22. **Ürünün nereden çıktığı net görünmeli** — çıkış açıklığı yakın planda gösterilir; "uzuvdan çıkıyor gibi" okunan çıkış ret sebebidir.
+23. **Seri üretimde klip kütüphanesi:** özne/sahne başına ≥ 8 klip, 30 video kütüphaneden kurgulanır; özne başına 5 klip → aynı öznenin 3. videosu kopya olur.
+24. **Ölçüm aracı ölçtüğünü değiştirebilir** — tarayıcı eklentisiyle ölçerken izole dünya, gizli sekme/boş tablo, reklam engelleyici ve mobil viewport farkı "ürün bozuk" teşhisini yanlış koydurdu; önce aracı bilinen bir yemle doğrula.
+25. **Eleştiri geçti ≠ kabul** — sınırda geçen (7,0) video bugünkü kurallarla kalabilir; eleştirmenin her kusuru için reçete yaz ve reçeteyi aynı turda kalıcı kurala işle, aynı geri bildirim ikinci kez istenmesin.

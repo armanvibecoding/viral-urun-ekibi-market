@@ -1,0 +1,39 @@
+{
+ "rol": "scout",
+ "sabit_urun": {
+  "vaka": "a-kolay",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "TR",
+  "urun_dizin": "is/01-kupa"
+ },
+ "moduller": [
+  {
+   "mod": null,
+   "brief": "mekanizmalar: M3, M7 · pazar=TR · is/firsat/adaylar.md boş",
+   "beklenen": {
+    "cikti_dosyasi": "is/firsat/adaylar.md",
+    "zorunlu_bolumler": [
+     "aday",
+     "kanıt",
+     "URL"
+    ]
+   }
+  }
+ ],
+ "eksik_girdi": [
+  {
+   "mod": null,
+   "brief": "mekanizma ve pazar verilmedi",
+   "eksik": "mekanizma yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  }
+ ]
+}

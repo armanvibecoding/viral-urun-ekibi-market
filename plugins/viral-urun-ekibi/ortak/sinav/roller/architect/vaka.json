@@ -1,0 +1,66 @@
+{
+ "rol": "architect",
+ "sabit_urun": {
+  "vaka": "a-kolay",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "TR",
+  "urun_dizin": "is/01-kupa"
+ },
+ "moduller": [
+  {
+   "mod": "bolum",
+   "brief": "mod: bolum · ürün=kupa · pazar=TR · kaynak: kütüphane + KANIT",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/magaza/SAYFA-PLANI.md",
+    "zorunlu_bolumler": [
+     "sıra",
+     "bölüm",
+     "satış görevi",
+     "kanıt"
+    ]
+   }
+  },
+  {
+   "mod": "tipografi",
+   "brief": "mod: tipografi · STIL-KARTI yazı sistemi hazır",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/magaza/TIPOGRAFI.md",
+    "zorunlu_bolumler": [
+     "aile",
+     "handle",
+     "uyum kapısı"
+    ]
+   }
+  }
+ ],
+ "eksik_girdi": [
+  {
+   "mod": "bolum",
+   "brief": "mod: bolum · ürün=kupa · KANIT/kütüphane dosyası verilmedi",
+   "eksik": "kütüphane ve KANIT yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  },
+  {
+   "mod": "tipografi",
+   "brief": "mod: tipografi · STIL-KARTI.md yok",
+   "eksik": "stil kartı yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  }
+ ]
+}

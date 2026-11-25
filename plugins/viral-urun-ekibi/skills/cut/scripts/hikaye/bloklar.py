@@ -10,11 +10,18 @@ from kit import hazirla, vid, yaz, tema_css  # noqa: E402,F401
 P, T = [], []
 t = T.append
 STIL = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "stil.css"), encoding="utf-8").read()
+# kanca + tipografi + geçiş paketi (skills/cut/hf-sablonlar): altı yazı şablonu, donusum, klip geçişleri
+HF_SABLON = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "hf-sablonlar")
+sys.path.insert(0, HF_SABLON)
+import tipografi as TP  # noqa: E402
+TP.baglan(P, T)
+STIL += "\n" + open(os.path.join(HF_SABLON, "sablon.css"), encoding="utf-8").read()
 
 
 def sifirla():
     del P[:]
     del T[:]
+    TP.sifirla()
 
 
 def W(s, cls=""):
@@ -127,6 +134,7 @@ def bolum(bas, sure, metin, ek="", pid="bc"):
 
 # ayar JSON sahne türleri → fonksiyon + anahtar eşlemesi (i = kesim aralığı numarası → bas/sure kesimlerden gelir)
 TURLER = {"kanca": kanca, "blok": blok, "iki": iki, "damga": damga, "balonlar": balonlar, "urun": urun, "bilgi": bilgi, "son": son, "flas": flas, "bolum": bolum}
+TURLER.update(TP.TURLER)
 
 
 def sahne(s, t_, urun_png="urun.png", urun_w=570, doku=False):
@@ -168,5 +176,7 @@ def bitir(K, SURE, DROP, kesimler, tema=None, ek_css="", doku=False):
     if doku:
         tema["doku"] = "url(assets/img/doku.jpg)"
     yaz(K, P, T, tema_css(tema) + STIL + ek_css, SURE)
+    TP.varliklari_kopyala(K)   # urun_gecisi/kapanis görselleri → assets/img/
+    TP.olaylari_yaz(K, DROP)
     with open(os.path.join(K, "zaman.json"), "w") as f:
         json.dump({"sure": SURE, "drop": DROP, "kesimler": kesimler}, f)

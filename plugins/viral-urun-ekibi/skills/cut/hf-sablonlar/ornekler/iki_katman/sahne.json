@@ -1,0 +1,14 @@
+{
+  "tur": "iki_katman",
+  "bas": 0,
+  "sure": 5.0,
+  "kanca": {
+    "sablon": "kalin_kontur",
+    "metin": "3 yudum içebilirse / *oyson* alacak",
+    "top": 300
+  },
+  "altyazi_ayar": {
+    "metin": "bugün bunu sokakta deneyeceğiz",
+    "top": 1000
+  }
+}

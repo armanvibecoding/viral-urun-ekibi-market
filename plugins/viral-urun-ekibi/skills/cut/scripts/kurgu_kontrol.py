@@ -36,6 +36,9 @@ Kurallar (SKILL.md "Viral kurgu" + eleştiri turları; eşikler ESIK sözlüğü
  dongu     son planın ekran içeriği ilk planınkiyle aynı (son plan ilk kareye bağlanır).
  format=dongu (ayar "format": "dongu", tarif 01 döngü sürümü): toplam 6–10,5 sn · 3–6 plan · son plan = ilk plan (aynı klip ya da aynı etiketli içerik) ·
            "tatmin_ani" {bas,bit} ≥ 0,5 sn · ekranda CTA yazısı var ve kancayla aynı anda değil, kancadan sonra (kural dongu/tatmin/cta).
+ ilk2sn    (--video) ilk 2 sn'de ≥ 3 belirgin kare değişimi (54×96 gri, 10 kare/sn, son olaydan fark > 15); durağan kanca = HATA.
+ malzeme   etiketi urun/urun_elde/telefon/sokum olan klibin `kaynak` metni KAYNAK.tsv'de bir `dosya` satırına bağlanmalı (vaka
+           eşleşir; `kullanma` işaretli satır sayılmaz). Bağlanamayan = HATA (stoktan sızan yanlış ürün). KAYNAK.tsv yoksa UYARI.
  ses       (--video) ses_olc.py: drop_artis ≥ 6 dB, ≥ 0,3 sn −28 dB altı delik yok, −14 ± 1 LUFS.
  iddia     (--magaza-paketi) ayardaki her ekran yazısı: uydurma veri sinyali (sayı, belge/otorite, ölçülebilir üstünlük)
            taşıyorsa mağazanın onaylı listesinde (onayli_metinler.iddialar/faydalar/başlık) olmalı; mağaza fiyatı birebir
@@ -46,14 +49,19 @@ Betik eleştirmenin yerini almaz: kanca gücü, gerçekçilik, ritim yargısı e
 """
 import argparse
 import json
-import numpy as np
 import os
 import re
 import subprocess
 import sys
+try:
+    import numpy as np
+except ImportError as _hata:  # ham ImportError yerine anlaşılır mesaj, çıkış 3 (kurulum eksik)
+    print("kurulum eksik: '%s' paketi bulunamadı. Kur: python3 -m pip install --user numpy (Windows: py -3 -m pip install --user numpy)" % (_hata.name or "numpy"), file=sys.stderr)
+    sys.exit(3)
 
 BURASI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, BURASI)
+import malzeme_kaynak  # noqa: E402
 from hizli_kurgu import font_yukle, okunma_gerek, satirlara_bol, H  # noqa: E402
 
 ESIK = {
@@ -77,6 +85,9 @@ ESIK = {
     "delik_sn": 0.3,
     "lufs": -14.0,
     "lufs_tol": 1.0,
+    "ilk2_sn": 2.0,            # ilk 2 sn'de kare farkı (denetim 2026-11-25 #6): 54×96 gri, 10 kare/sn
+    "ilk2_fark": 15.0,         # bir "belirgin değişim" = ortalama mutlak gri farkı > 15 (önceki olaydan ya da ilk kareden)
+    "ilk2_min_olay": 3,        # en az 3 olay: ölçüm 9 sınav videosunda iyiler 6–8, durağan/tek kesimli kötüler 1–2
 }
 STOKLU = ("stok", "arac_stok")
 
@@ -139,6 +150,28 @@ def satir_sayisi(y, font_yol, agirlik):
 
 def ortusme(a0, a1, b0, b1):
     return max(0.0, min(a1, b1) - max(a0, b0))
+
+
+def ilk2_olay_say(video, esik):
+    """İlk 2 sn: (belirgin değişim sayısı, ayrıntı). Ardışık değil, son olaydan uzaklık sayılır (el titremesi olay değildir)."""
+    from ffaraclar import ffmpeg_bul
+    W, Hh = 54, 96
+    try:
+        r = subprocess.run([ffmpeg_bul(), "-v", "error", "-t", str(esik["ilk2_sn"]), "-i", video, "-vf",
+                            f"fps=10,scale={W}:{Hh}:flags=area,format=gray", "-f", "rawvideo", "-"], capture_output=True)
+    except (OSError, SystemExit) as ex:
+        return None, str(ex)
+    f = np.frombuffer(r.stdout, np.uint8)
+    n = len(f) // (W * Hh)
+    if n < 5:
+        return None, f"{n} kare okunabildi"
+    f = f[: n * W * Hh].reshape(n, Hh, W).astype(np.float64)
+    ref, olay = f[0], 0
+    for x in f[1:]:
+        if np.abs(x - ref).mean() > esik["ilk2_fark"]:
+            olay += 1
+            ref = x
+    return olay, f"{n} kare"
 
 
 def kontrol(ayar_yol, args, esik):
@@ -366,6 +399,29 @@ def kontrol(ayar_yol, args, esik):
             if abs(ses["I_lufs"] - esik["lufs"]) > esik["lufs_tol"]:
                 H_("ses", f"ses {ses['I_lufs']} LUFS (hedef {esik['lufs']} ± {esik['lufs_tol']})")
 
+    # 9 — ilk 2 sn kare farkı (video verilmişse): kanca saniyeleri durağan geçmesin
+    if args.video:
+        olay, ayrinti = ilk2_olay_say(args.video, esik)
+        if olay is None:
+            U_("ilk2sn", "ilk 2 sn ölçülemedi: " + ayrinti)
+        elif olay < esik["ilk2_min_olay"]:
+            H_("ilk2sn", f"ilk {esik['ilk2_sn']:g} sn'de yalnız {olay} belirgin kare değişimi (en az {int(esik['ilk2_min_olay'])}; fark > {esik['ilk2_fark']:g}): kanca durağan geçiyor")
+
+    # 10 — klip ↔ malzeme (KAYNAK.tsv): ürün etiketli klip kayıtlı kaynaktan gelmeli (yanlış ürün klibi stoktan sızmasın)
+    kyol = malzeme_kaynak.bul(ayar_yol, getattr(args, "kaynak", None))
+    if kyol is None:
+        (H_ if getattr(args, "malzeme_zorunlu", False) else U_)("malzeme", "KAYNAK.tsv bulunamadı: ürün kliplerinin kaynağı ölçülemedi (--kaynak ya da tedarikci/KAYNAK.tsv)")
+    else:
+        satirlar = malzeme_kaynak.oku(kyol)
+        vaka = os.path.basename(kok)
+        for ad, turu, metin, eslesen in malzeme_kaynak.klip_kaynaklari(a, klipler, vaka, satirlar):
+            if not metin:
+                H_("malzeme", f"klip {ad} '{turu}' etiketli ama etikette kaynak yok (KAYNAK.tsv dosyasına bağlanamaz)")
+            elif not eslesen:
+                H_("malzeme", f"klip {ad} '{turu}' etiketli ama kaynağı KAYNAK.tsv'de yok (etiket: \"{metin[:70]}\"): ürün klibi kayıtlı malzemeden gelmeli")
+            elif not any(malzeme_kaynak.kullanilabilir(r) for r in eslesen):
+                H_("malzeme", f"klip {ad}: eşleşen kaynak '{eslesen[0].get('dosya')}' KAYNAK.tsv'de 'kullanma' işaretli")
+
     for g in args.gevset or []:  # profil: bu kuralın HATA'ları UYARI'ya iner (başka ürün tipi / bilinçli istisna)
         uyari += [dict(h, mesaj="(gevşetildi) " + h["mesaj"]) for h in hata if h["kural"] == g]
         hata = [h for h in hata if h["kural"] != g]
@@ -439,6 +495,8 @@ def main():
     ap.add_argument("--etiket", action="append", help="ek klip_etiket.json (birden fazla verilebilir)")
     ap.add_argument("--esik", action="append", default=[], help="eşik değiştir: ad=deger (ör. stok_hata_sn=0.86)")
     ap.add_argument("--gevset", action="append", help="bu kuralın HATA'larını UYARI yap (ör. --gevset dongu); raporda yazılır")
+    ap.add_argument("--kaynak", help="KAYNAK.tsv (yoksa ayar klasöründen yukarı aranır: KAYNAK.tsv · tedarikci/ · malzeme/)")
+    ap.add_argument("--malzeme-zorunlu", action="store_true", help="KAYNAK.tsv yoksa `malzeme` kuralı HATA olur (varsayılan UYARI: ölçülemedi)")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--goruntu", help="teslim videosu: kesim dışı RGB sıçraması + son 2 sn gürültü kapısı (HATA → çıkış 3)")
     ap.add_argument("--kesimler", help="kesim saniyeleri virgüllü (yoksa AYAR planlarından)")

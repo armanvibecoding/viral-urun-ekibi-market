@@ -1,0 +1,63 @@
+{
+ "rol": "muse",
+ "sabit_urun": {
+  "vaka": "a-kolay",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "TR",
+  "urun_dizin": "is/01-kupa"
+ },
+ "moduller": [
+  {
+   "mod": "referans",
+   "brief": "mod: referans · niş=mutfak/hediye · slot tipleri: afiş, özellik kartı",
+   "beklenen": {
+    "cikti_dosyasi": "is/arastirma/referans/PANO.md",
+    "zorunlu_bolumler": [
+     "referans",
+     "niş uyumu"
+    ]
+   }
+  },
+  {
+   "mod": "logo",
+   "brief": "mod: logo · logo brifi verildi",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/magaza/LOGO.md",
+    "zorunlu_bolumler": [
+     "ilke",
+     "10 yön"
+    ]
+   }
+  }
+ ],
+ "eksik_girdi": [
+  {
+   "mod": "referans",
+   "brief": "mod: referans · niş adı yok",
+   "eksik": "niş yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  },
+  {
+   "mod": "logo",
+   "brief": "mod: logo · logo brifi yok",
+   "eksik": "logo brifi yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  }
+ ]
+}

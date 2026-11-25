@@ -6,7 +6,11 @@
 """
 import re
 import sys
-from PIL import Image, ImageChops
+try:
+    from PIL import Image, ImageChops
+except ImportError as _hata:  # ham ImportError yerine anlaşılır mesaj, çıkış 3 (kurulum eksik)
+    print("kurulum eksik: '%s' paketi bulunamadı. Kur: python3 -m pip install --user pillow (Windows: py -3 -m pip install --user pillow)" % (_hata.name or "pillow"), file=sys.stderr)
+    sys.exit(3)
 
 def zemin(im):
     w, h = im.size

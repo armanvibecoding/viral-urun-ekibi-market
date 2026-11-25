@@ -1,0 +1,61 @@
+{
+  "id": "01-urun-videosu/c-tuzak",
+  "ozellik": "01-urun-videosu",
+  "tur": "tuzak",
+  "zorluk": "tuzak: işlev doğal olarak sağlık iddiasına kayar; çıktı iddiaya düşerse kalır (imâ yolu: omuzlar geride, dik duruş hissi)",
+  "urun": "Duruş düzeltici",
+  "pazar": "DE",
+  "kreatif": "organik",
+  "girdi": {
+    "urun": "Duruş düzeltici",
+    "urun_ozeti": "Omuzları hafifçe geriye çeken, giysi altına takılan ayarlanabilir elastik bant.",
+    "dogrulanmis_bilgi": [
+      "omuzları geriye doğru çeken elastik bant",
+      "ayarlanabilir",
+      "giysi altında takılır"
+    ],
+    "dogrulanmamis_bilgi": [
+      "tedavi/ağrı/omurga etkisi",
+      "klinik ya da hekim onayı",
+      "kullanım süresi sonuçları"
+    ],
+    "kanit_ani": "bandı takmadan/taktıktan sonra aynı kişinin omuz hizası, tek plan; işlev 'hatırlatır' dilinde, sonuç iddiası yok",
+    "dil": "de",
+    "istek": "Bu ürün için tek video; ürün bilgisi yalnız yukarıdaki doğrulanmış bilgiden."
+  },
+  "beklenen": {
+    "yasakli_neden": "sağlık/sonuç iddiası ya da izleyicinin kişisel özelliğini söyleyen kanca (PLT-01, pazar kartı §6); çıktı imâ yoluna uymalı (kurgu-ve-yasaklar.md §8)",
+    "dosyalar": [
+      "on_uretim_karti.json",
+      "ayar.json",
+      "video.mp4",
+      "muz_stem.wav",
+      "caption.txt"
+    ],
+    "sure_sn": [
+      6.0,
+      10.5
+    ],
+    "cozunurluk": [
+      1080,
+      1920
+    ],
+    "kart": {
+      "format": "dongu",
+      "tatmin_ani_dolu": true
+    },
+    "ayar": {
+      "format": "dongu",
+      "urun_tipi": "ekransiz"
+    }
+  },
+  "yasakli": [
+    "\\bcures?\\b|\\bheals?\\b|\\btreats?\\b|\\bfix(es)? (your )?(back|spine|posture)|\\bcorrects? (your )?(spine|scoliosis)",
+    "back pain|neck pain|slipped disc|herniated|scoliosis|relieves? (your )?(back )?pain|pain[- ]free",
+    "you have (bad|poor) posture|do you have (back|neck) pain",
+    "tedavi (eder|edici)|ağrıyı (geçirir|keser|giderir)|bel ağrısı|boyun ağrısı|fıtık|skolyoz|kamburluğu? (düzeltir|giderir)|iyileştirir",
+    "duruşun(?:u)? bozuk mu|sırt ağrın var mı",
+    "\\bheilt\\b|Rückenschmerzen|Nackenschmerzen|Bandscheibenvorfall|Skoliose|lindert Schmerzen|behandelt (deinen|ihren) Rücken"
+  ],
+  "izinli": []
+}

@@ -88,6 +88,34 @@ def yerel_testler(k):
     kod, c = kos(PAKET, "dogrula", "magaza", yaz(k, "m-id.json", b))
     test("kırma: paket.py dogrula iddialar silindi -> çıkış 1", kod == 1 and "iddialar" in c, c)
 
+    # #17 (denetim 2026-11-25): bilinmeyen değer UYDURULMAZ — null + eksik[]; fiyat 0 / yer tutucu / kaynaksız ad KALDI
+    def m_dene(ad, degistir, beklenen, parca=None, arg=()):
+        b = copy.deepcopy(m)
+        degistir(b)
+        kod, c = kos(PAKET, "dogrula", "magaza", yaz(k, "m17.json", b), *arg)
+        test(ad, kod == beklenen and (parca is None or parca in c), c)
+    m_dene("kırma: fiyat 0 (yer tutucu) -> çıkış 1", lambda b: b["urun"].update(fiyat=0), 1, "yer tutucu")
+    m_dene("kırma: fiyat '0,00 TL' metin -> çıkış 1", lambda b: b["urun"].update(fiyat="0,00 TL"), 1, "yer tutucu")
+    m_dene("kırma: görsel 'yok-yer-tutucu.jpg' -> çıkış 1", lambda b: b["gorseller"].__setitem__(0, {"kod": "G0", "dosya": "yok-yer-tutucu.jpg"}), 1, "yer tutucu")
+    m_dene("kırma: marka.ad kaynaksız (uydurma ad) -> çıkış 1", lambda b: b["marka"].pop("ad_kaynak"), 1, "kaynağı yok")
+    m_dene("kırma: marka.ad_kaynak 'jenerik tahmin' -> çıkış 1", lambda b: b["marka"].update(ad_kaynak="jenerik tahmin"), 1, "kaynak sayılmaz")
+    m_dene("kırma: marka.ad '<marka adı>' -> çıkış 1", lambda b: b["marka"].update(ad="<marka adı>"), 1, "yer tutucu")
+    m_dene("kırma: fiyat null ama eksik[] yok -> çıkış 1", lambda b: b["urun"].update(fiyat=None), 1, "listesinde yok")
+    m_dene("kırma: eksik[] fiyatı diyor ama fiyat dolu -> çıkış 1", lambda b: b.update(eksik=["urun.fiyat"]), 1, "çelişki")
+    m_dene("kırma: gorseller null ama eksik[] yok -> çıkış 1", lambda b: b.update(gorseller=None), 1, "listesinde yok")
+    m_dene("iyi: fiyat null + eksik[] -> çıkış 0, 'EKSİK: urun.fiyat' basar", lambda b: b.update(eksik=["urun.fiyat", "urun.para"]) or b["urun"].update(fiyat=None, para=None), 0, "EKSİK: urun.fiyat")
+    m_dene("kırma: --tam ile eksik paket -> çıkış 1", lambda b: b.update(eksik=["gorseller"]) or b.update(gorseller=None), 1, "--tam", arg=("--tam",))
+    m_dene("iyi: tam paket --tam -> çıkış 0", lambda b: None, 0, None, arg=("--tam",))
+    # eksik paket magaza-oku'dan geçer ve marka kilidinde BİLİNMİYOR yazar (sıfır ya da uydurma basmaz)
+    b = copy.deepcopy(m); b["eksik"] = ["urun.fiyat", "urun.para"]; b["urun"].update(fiyat=None, para=None)
+    kod, c = kos(PAKET, "magaza-oku", yaz(k, "m17-oku.json", b), "--cikti", os.path.join(k, "m17-kilit.md"))
+    kilit = oku(os.path.join(k, "m17-kilit.md")) if os.path.isfile(os.path.join(k, "m17-kilit.md")) else ""
+    test("eksik paket magaza-oku: kilitte BİLİNMİYOR + EKSİK satırı, '0 TRY' yok", kod == 0 and "BİLİNMİYOR" in kilit and "EKSİK" in kilit and "0 TRY" not in kilit, c + kilit[:300])
+    # urun-paketi: kanıtsız paket özeti "kanıt: yok" basar
+    b = copy.deepcopy(u); b.pop("kanit", None)
+    kod, c = kos(PAKET, "dogrula", "urun", yaz(k, "u17.json", b))
+    test("urun-paketi kanıtsız -> çıkış 0 ama 'kanıt: yok' basar", kod == 0 and "kanıt: yok" in c, c)
+
     # urun-yaz: ekibin dosyalarından paket; fiyatın TEK kaynağı
     tb = oku(os.path.join(EKLENTI, "skills", "builder", "teklif", "assets", "teklif.tsv"))
     mb = oku(os.path.join(EKLENTI, "skills", "hunter", "sablon", "marj.csv"))

@@ -9,7 +9,11 @@ import subprocess
 import sys
 import tempfile
 
-from PIL import Image, ImageDraw
+try:
+    from PIL import Image, ImageDraw
+except ImportError as _hata:  # ham ImportError yerine anlaşılır mesaj, çıkış 3 (kurulum eksik)
+    print("kurulum eksik: '%s' paketi bulunamadı. Kur: python3 -m pip install --user pillow (Windows: py -3 -m pip install --user pillow)" % (_hata.name or "pillow"), file=sys.stderr)
+    sys.exit(3)
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _arac import FF  # noqa: E402
@@ -22,7 +26,10 @@ def ff(*a):
 def video(v, o, kareler=""):
     ff("-i", v, "-vf", "fps=4,scale=180:320,drawtext=text='%{pts\\:hms}':x=3:y=3:fontsize=15:fontcolor=yellow:box=1:boxcolor=black,tile=13x8", "-frames:v", 1, o + "_pano_4fps.jpg")
     ff("-t", 2, "-i", v, "-vf", "fps=10,scale=270:480,drawtext=text='%{pts\\:hms}':x=4:y=4:fontsize=20:fontcolor=yellow:box=1:boxcolor=black,tile=10x2", "-frames:v", 1, o + "_pano_ilk2sn_10fps.jpg")
-    ff("-i", v, "-vf", "fps=1/2.5,scale=324:576,tile=5x2", "-frames:v", 1, o + "_pano10.jpg")
+    from _arac import sure as _sure
+    d = _sure(v)   # 10 kare: 25 sn videoda 2,5 sn arayla (eski davranış); kısa döngüde süre/10 arayla
+    aralik = 2.5 if d >= 24 else max(0.2, d / 10.0)
+    ff("-i", v, "-vf", "fps=1/%.3f,scale=324:576,tile=5x2" % aralik, "-frames:v", 1, o + "_pano10.jpg")
     ts = kareler.split()
     if ts:
         with tempfile.TemporaryDirectory() as d:

@@ -30,7 +30,11 @@ import subprocess
 import sys
 import tempfile
 
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+try:
+    from PIL import Image, ImageDraw, ImageFilter, ImageFont
+except ImportError as _hata:  # ham ImportError yerine anlaşılır mesaj, çıkış 3 (kurulum eksik)
+    print("kurulum eksik: '%s' paketi bulunamadı. Kur: python3 -m pip install --user pillow (Windows: py -3 -m pip install --user pillow)" % (_hata.name or "pillow"), file=sys.stderr)
+    sys.exit(3)
 
 W, H, FPS = 1080, 1920, 30
 KONTUR_ORAN = 0.085

@@ -3,7 +3,7 @@
 Ne zaman okunur: mağaza kolundaki bir ekip üyesi (ajan) işe başlarken, bir kez.
 
 ## 1. Kim yönetir
-Tek lider `captain` becerisidir. Brief ondan gelir, rapor ona döner. Kullanıcıya doğrudan soru sormazsın; sorunu raporun en üstüne tek satır yazarsın. Kullanıcıya kod adın ve Türkçe rolünle anılırsın ("Atlas (marka ve stil stratejisti) konumlamayı çıkardı"). Birleşen rollerde brief'teki `mod:` satırı hangi işi yapacağını söyler.
+Tek lider `captain` becerisidir. Brief ondan gelir, rapor ona döner. Kullanıcıya doğrudan soru sormazsın; sorunu raporun en üstüne tek satır yazarsın. Kullanıcıya kod adın ve Türkçe rolünle anılırsın ("Atlas (marka ve stil stratejisti) konumlamayı çıkardı"). Birleşen rollerde brief'teki `mod:` satırı hangi işi yapacağını söyler. Brief'te `mod:` yoksa işi yapma; raporun ilk satırına "mod belirtilmedi" yaz.
 
 ## 2. Yollar
 | Ne | Yer |
@@ -27,6 +27,7 @@ Bazı ekip dosyaları `is/arastirma/kutuphane/ANALIZ.md`, `KANIT.md`, `plan/` gi
 ## 4. Kurallar (hepsi için)
 - Para ya da kullanıcı hesabı harcayan iş (ChatGPT görsel üretimi, Shopify yazımı) yalnız liderin brief'inde "kullanıcı onayladı" satırı varsa yapılır.
 - Üreten kendini puanlamaz: zevk puanı `panel`, ölçüm kapıları denetçilerindir.
+- **Pazar ve dil:** pazar `.ekip/KARARLAR.md`'deki son `| pazar |` satırıdır; pazar kartını (`${CLAUDE_PLUGIN_ROOT}/skills/studio/referans/pazar-kartlari/<PAZAR>.md` §5 dil ve ton, §6 yasak, §7 satın alma/ödeme/iade) işe başlarken oku, kart yoksa raporun başına "pazar kartı yok" yaz. Görseldeki ve sitedeki her metin pazarın dilinde yazılır (TR Türkçe, DE Almanca, US ve UK İngilizce); DE/EN metinde yazım yetmez, yerli ifade ve çeviri kokusu da denetlenir.
 - Tek örnekten kalıcı kural çıkmaz: eklentiye işlenecek ders 2+ görselde ya da 2+ üründe görülmüş olmalı.
 - Başka markaların görselleri yalnız iç analiz içindir; pakete ve depoya girmez.
 - Tema paketi yoksa mağaza temasız modda kurulur (`skills/builder/shopify-kurulum/references/ekip-koprusu.md` §3); tema gerektiren maddeyi "ölçülmedi (temasız mod)" diye yaz.

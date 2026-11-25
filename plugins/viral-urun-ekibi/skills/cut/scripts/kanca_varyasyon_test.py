@@ -39,6 +39,7 @@ with tempfile.TemporaryDirectory() as d:
     t("kırma: aynı kanca yazısı iki kez → çıkış 1", kos(d, liste(10, **{"1": {"yazi": "DO NOT show this to a fan 0"}})).returncode == 1)
     t("kırma: kütüphanede olmayan kanıt → çıkış 1", kos(d, liste(10, **{"2": {"kanit": ["[9999]"]}})).returncode == 1)
     t("kırma: var olmayan aile → çıkış 1", kos(d, liste(10, **{"2": {"aile": "K77"}})).returncode == 1)
+    t("K14 ve K15 (S24 aileleri) kütüphanede başlıklı: kabul edilir", kos(d, liste(10, **{"0": {"aile": "K14", "kanit": ["[S24-G1x06]"]}, "1": {"aile": "K15", "kanit": ["[S24-G1x07]"]}})).returncode == 0)
     json.dump({"pazar": "TR", "font": "x.ttf", "cikti": "k.mp4", "yazilar": [{"bas": 0, "bit": 2, "yazi": "x"}], "planlar": []}, open(os.path.join(d, "ayar.json"), "w"))
     t("kırma: TR'de 9+ kelimelik kanca → çıkış 1", kos(d, liste(10, **{"0": {"yazi": "bu kanca TR için fazla uzun bir cümle oldu gerçekten"}})).returncode == 1)
 

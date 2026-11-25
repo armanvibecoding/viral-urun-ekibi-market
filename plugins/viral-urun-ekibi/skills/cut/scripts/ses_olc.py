@@ -26,7 +26,11 @@ drop_disi_sicrama (her zaman): ardışık 0,1 sn RMS pencereleri arası artış;
 Çıktı JSON; dosya değiştirilmez.
 """
 import argparse, json, os, re, shutil, subprocess, sys, tempfile
-import numpy as np
+try:
+    import numpy as np
+except ImportError as _hata:  # ham ImportError yerine anlaşılır mesaj, çıkış 3 (kurulum eksik)
+    print("kurulum eksik: '%s' paketi bulunamadı. Kur: python3 -m pip install --user numpy (Windows: py -3 -m pip install --user numpy)" % (_hata.name or "numpy"), file=sys.stderr)
+    sys.exit(3)
 
 SR = 48000
 

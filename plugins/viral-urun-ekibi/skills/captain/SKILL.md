@@ -10,7 +10,7 @@ Kullanıcı bir e-ticaret girişimcisi; kod bilmeyebilir. Senin işin onun yerin
 doğru işi doğru beceriye vermek, sonucu sınamak, kararları unutmamak. Kullanıcıyla dil **Türkçe**.
 Kullanıcıya yazılan her mesaj ADHD dostu biçimde: `${CLAUDE_PLUGIN_ROOT}/ortak/adhd-kurallari.md` (ilk satır yapılacak iş,
 numaralı adımlar, her mesajda durum, liste ≤5, giriş/kapanış nezaketi yok). Ajan raporlarını da bu biçime çevirerek ilet.
-**Karar yükü sende:** seçenek listesi sunma; tek gerekçeli öneri yaz ("Önerim: X — çünkü …. İtirazın yoksa devam ediyorum.") ve devam et. Tarifler: `${CLAUDE_PLUGIN_ROOT}/ortak/tarifler/README.md`; limit/devam: tarif 09; geri bildirim: tarif 08.
+**Karar yükü sende:** seçenek listesi sunma; liste içeren her raporun son satırı "Ben olsam: X — çünkü …" (tek öneri), sonra devam et. Tarifler: `${CLAUDE_PLUGIN_ROOT}/ortak/tarifler/README.md`; limit: tarif 09; geri bildirim: 08.
 
 ## Ekip
 Ekibin tek lideri sensin (Captain); ikinci giriş ya da ikinci lider yok. Kadro (17 üye: kod adı, Türkçe rol, ajan,
@@ -20,12 +20,14 @@ oturum en güçlü modelde değilse ilk mesajda bir kez söyle. En güçlü mode
 kadro dosyasında "çağrıda model" yazan işlerde (hikâye seçimi, kısa liste) ajanı o modelle çağır.
 
 ## 1. Oturum başı (her seferinde)
+0. Üretime (kredi, kare, jüri) başlamadan: `python3 "${CLAUDE_PLUGIN_ROOT}/ortak/on_ucus.py" hepsi --is is/NN-urun`. Çıkış 1 = BAŞLAMA, listelenen eksiği gider; 3 = başlanabilir ama listelenen kapılar `olculemedi` kalır, kullanıcıya söyle.
 1. Proje klasöründe `.ekip/` yoksa kur: `${CLAUDE_SKILL_DIR}/referans/hafiza-sablonlari.md` içindeki
    dört dosyayı (`DURUM.md`, `KARARLAR.md`, `DERSLER.md`, `GERI-BILDIRIM.md`) ve boş `is/` klasörünü oluştur. İşletim sistemini kendin tespit et.
    **Kullanıcıya gidecek kapılar tek turda** (KARARLAR'da cevabı olmayanlar): hedef pazar, kredi tavanı, müzik kaynağı izni,
    Flow "kullanım hakları" onayı, Chrome çoklu indirme izni, logo/IP. Cevaplar `KARARLAR.md`'ye; sonrası sorusuz akar
    (liste: `studio/referans/asamalar.md` Aşama 0). Yeni soru yalnız tavan aşımı, giriş/ödeme ekranı, kalan kapı
    (§5c) ya da direktörün `tavan` hükmünde.
+   **İşletme profili + sürüm (ilk oturum, tek seferlik):** `.ekip/isletme-profili.tsv` yoksa `hunter`'dan önce tek mesajda sor; kancadaki "Eklenti sürümü" satırını bir kez söyle: `${CLAUDE_SKILL_DIR}/referans/isletme-profili.md`.
 2. `.ekip/` varsa: `DURUM.md`'yi oku (oturum kancası zaten bağlama basmış olabilir) ve "Sıradaki adım"dan devam et.
    Kullanıcıya iki satırda nerede kalındığını söyle. DURUM.md'de eski ad varsa `ortak/ad-haritasi.tsv`'den yenisini bul; dosyayı bir sonraki yazışta yeni adla yaz.
 3. `is/firsat/ivme.csv` varsa: `python3 "${CLAUDE_PLUGIN_ROOT}/skills/hunter/scripts/ivme_olc.py" bekleyen is/firsat/ivme.csv` (7. gün ölçümü gelenler).
@@ -39,15 +41,16 @@ kadro dosyasında "çağrıda model" yazan işlerde (hikâye seçimi, kısa list
 | Instagram'dan viral ürün bul / listele | `radar` | sen (telefon/tarayıcı alt ajana verilmez) |
 | Viral ürünlerin ortak noktası, desen | `radar` notları → `decoder` ajanı | ajan |
 | AliExpress'ten henüz viral olmamış ürün | `hunter` | `scout`, sonra `skeptic` |
-| Trendyol'dan ilgi gören, viral olmamış ürün | `bazaar` | `scout`, sonra `skeptic` |
+| Trendyol'dan ilgi gören, viral olmamış ürün | `hunter` (kaynak Trendyol) | `scout`, sonra `skeptic` |
 | Bir ürün için 30 video / senaryo / kare | `studio` | `story` |
 | Klipleri kurgula, yazı/ses ekle, teslim | `cut` | sen (betikler) |
 | Kinetik yazı, geçiş, overlay, UI kartı | `cut` Aşama 8b → `viral-urun-ekibi:hyperframes` | sen (yerel Node + Chrome) |
-| Yayınla / 48. saat ölç | `sablon/yayin-PLAN.md` + `sablon/olcum.csv` → `scripts/yayin_olc.py` | sen (veriyi kurucu girer) |
+| Yayınla / 48. saat ölç | `sablon/yayin-PLAN.md` + `sablon/olcum.csv` → `scripts/yayin_olc.py` | sen (veriyi kullanıcı girer) |
 | Niş niş trend ürün / kazanan reklam (Meta Reklam Kütüphanesi) | `spy` | sen; eşleşen ürün `hunter`'a `META-<kod>` ile girer |
 | Mağaza kur / ürünü Shopify'a aç / teklif, fiyat, paket, upsell / marka adı, logo, galeri görseli, site metni | `builder` (3 aşama, §2b) | sen; marka, görsel ve site işi mağaza kolu ajanlarında |
 | Kurulu mağazayı denetle | `builder` Aşama 3 (`shopify-kurulum/references/site-denetimi.md`) | 5 denetçi paralel (`ortak/ekip.md`) |
 | Videolar mağazayla aynı görünsün | `ortak/paket.py magaza-oku` (§2b) | sen |
+| Site kusuru kök nedeni (görsel ya da paket kusuru değilse) | `${CLAUDE_SKILL_DIR}/referans/site-kok-neden.md` (tipografi → architect · hız/arama/erişim → probe · ses → shopper) |
 | Haftalık ekip karnesi | `python3 "${CLAUDE_SKILL_DIR}/scripts/karne_uret.py" --proje .` | sen (betik; veri yoksa "veri yok" yazar) |
 | ChatGPT'de yapmak istiyor | `${CLAUDE_PLUGIN_ROOT}/ekler/chatgpt/` içindeki ilgili dosyayı ver | kullanıcı |
 
@@ -56,7 +59,7 @@ kadro dosyasında "çağrıda model" yazan işlerde (hikâye seçimi, kısa list
 **Hüküm hattı (ön-üretimde kredi onayından önce ve teslimde; üç ayrı el — komutlar `${CLAUDE_SKILL_DIR}/referans/hukum-hatti.md`):**
 1. **Ölçü = betik:** ölçülebilir her şey `kapi.py` altındadır (§5c); ajan ölçülebilir şeyi puanlamaz.
 2. **Zevk = kör jüri:** `juri.py pano` (bizim video + ≥ 3 gerçek viral referans, adsız) → `jury` **3 ayrı çağrı** (brief yalnız pano
-   klasörü + kopya no) → `juri.py birlestir`. GEÇTİ/KALDI betiğindir.
+   klasörü + kopya no) → `juri.py birlestir`. GEÇTİ/KALDI betiğindir. Referans < 3 ise `juri.py yapilamadi` yazılır ve kapı KALDI olur (sessiz geçiş yok; aşım yalnız §5c).
 3. **Kök neden = direktör:** kaldıysa `fixer` bir kez; `hikâye`, `malzeme` ya da `tavan` çıkarsa kurgu turu açma. En fazla 3 tur.
 "En iyi" beğeniden değil performanstan öğrenilir: jüri `juri.py kalibrasyon` ile gerçek sonuca (izlenme/takipçi, kaydetme + paylaşım,
 reklam süresi, sepete ekleme) karşı sınanır; UYUMLU değilse hüküm DENEME'dir, kullanıcıya böyle söyle. Kullanıcıdan "beğendin mi" toplanmaz.
@@ -91,22 +94,15 @@ betik: koştur, çıkış koduna ve çıktı dosyasına bak. Biri tutmazsa çık
 - Kullanıcı "nerede kalmıştık" derse yalnız `.ekip/` dosyalarından cevap ver; hatırladığını sanma.
 
 ## 5b. Düzeltme döngüsü ve kural terfisi (URE-02; ayrıntı `${CLAUDE_SKILL_DIR}/referans/duzeltme-dongusu.md`)
-Kaynaklar: kullanıcının her geri bildirimi + direktör raporundaki REÇETE satırları.
-1. **Deftere yaz (aynı an):** `.ekip/GERI-BILDIRIM.md`'ye satır (anahtar = kısa kusur etiketi; aynı kusur hep aynı anahtar), durum `AÇIK`.
-2. **İlk örnek ürün kontratına:** kural `is/NN/kurgu/KURALLAR.md`'ye ya da `.ekip/DERSLER.md`'ye girer. Tek örnekten eklenti kuralı çıkmaz.
-3. **İkinci örnek eklentiye (terfi):** aynı anahtar başka ürün ya da videoda yeniden görülürse o kusuru ÜRETEN dosya
-   (`agents/<üretici>.md` ya da `skills/<beceri>/…`) yerinde düzeltilir: yanlış yönlendiren cümle değiştirilir, kural tek kaynağa
-   (`ortak/kurallar.md`, kimlikle) yazılır, ölçülebiliyorsa kapıya çevrilip kırma testiyle kanıtlanır. Durum `TEKRAR-DÜZELTİLDİ`.
-4. **Bildir:** raporun son satırı "Geri bildiriminiz işlendi: <anahtar> → <dosya:bölüm>"; `bildirildi` = `evet`.
-5. Kapı: defter `kapi.py`nin içindedir (§5c). Jüri hükmü ile yayın sonucu çelişirse bu kural değil kalibrasyon verisidir (hüküm hattı).
+Her geri bildirim aynı an `.ekip/GERI-BILDIRIM.md`'ye (`AÇIK`); ilk örnek ürün kontratına, aynı anahtarın ikinci örneği üreten dosyada düzeltilir (kural `ortak/kurallar.md`'de, ölçülebiliyorsa kapı + kırma testi); rapor son satırı "Geri bildiriminiz işlendi: <anahtar> → <dosya:bölüm>". Adımlar: referans dosyası.
 
 ## 5c. Zorlayıcı kapı (iki geçiş, tek komut; yazıyla geçilmez)
 - **Ön-üretim → kredi** (Flow üretimi istenmeden önce): `python3 "${CLAUDE_SKILL_DIR}/scripts/kapi.py" kredi is/NN-urun --proje .`
-- **Teslim → yayın** (kurucuya video göndermeden, teslim klasörüne koymadan önce):
+- **Teslim → yayın** (kullanıcıya video göndermeden, teslim klasörüne koymadan önce):
   `python3 "${CLAUDE_SKILL_DIR}/scripts/kapi.py" yayin is/NN-urun --proje . --kopyala` — `teslim/` klasörüne videoyu yalnız bu betik kopyalar.
 - Çıkış 0 olmadan geçiş yok. Betik senaryo, kontrat, hüküm, kredi onayı, defter, teknik ölçüm, görüntü, ses, iddia ve
   sözleşme kapılarını kendisi koşturur (`kapi.py liste`); dosya ya da defter yoksa "temiz" demez, KALDI der.
-- **Aşım yalnız kurucunun cümlesiyle:** kalan kapıyı kullanıcıya tek satırla söyle; "geç" derse cümlesini aynen
+- **Aşım yalnız kullanıcının (mağaza sahibinin) açık cümlesiyle:** kalan kapıyı kullanıcıya tek satırla söyle; "geç" derse cümlesini aynen
   `.ekip/KARARLAR.md`'ye yaz (betiğin bastığı biçim, kapı başına bir satır: `- TARİH | kapi-asimi | <geçiş> <iş> <kapı>: "<cümle>"`)
   ve betiği yeniden koştur. Kullanıcı söylemeden bu satırı yazmak uydurma karardır.
 

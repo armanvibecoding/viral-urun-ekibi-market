@@ -11,6 +11,8 @@ Aynı çekimden 10+ kanca sürümü planlamak (drop-marka hesapları aynı çeki
 4. Ölç: 24 s / 48 s / 7 gün. Karar 48. saatte, ≥ 2.000 izlenmede: DEVAM paylaşım/izlenme ≥ %0,61 ve beğeni/izlenme ≥ %1,01 · ÖLDÜR < %0,21 ve < %0,75. **AB/UK'de ABD eşiğiyle öldürme yok; TR'de eşik yok, ilk partiden sonra kalibre.**
 5. Parti kararı: hiçbiri DEVAM değilse görüntüyü değiştir (kancayı değil). Kazanan: aynı kanca + yeni sahne ya da aynı görüntü + 3 yeni kanca.
 
+6. **Tekrar yayın deneyi (uzman yöntemi R74; uygulayıcı yöntemi, istatistik kanıtı değil):** DEVAM alan videonun yalnız TEK bileşenini değiştir (ya kanca yazısı ya ilk sahne), en az 3 hafta sonra yeniden yayınla; aynı videonun 3 kanca sürümünü deneme Reels'iyle sına. Her yayın tabloda ayrı satır (tekrar no + değişen bileşen + ilk yayın tarihi). Tek yayın hükmü yetmez: aynı video iki yayında 1,8 Mn ve 449 B aldı.
+
 **Pazar:** ABD güçlü veri · AB/UK paylaşım beklentisi ABD'nin yarısı (eşikle öldürme yok) · **TR verisi zayıf (1 kayıt), ilk testten sonra kalibre; kanca ≤ 8 kelime.** Müzik: **ölçülmedi**, kural = rampa. Özet ve kanıt numaraları: `ozet-kanca-sahne-pazar.md`.
 
 ## Kalite çıtası

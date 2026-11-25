@@ -5,7 +5,8 @@ D="${CLAUDE_PROJECT_DIR:-.}/.ekip"
 K="${CLAUDE_PLUGIN_ROOT:-}"
 echo "Viral Ürün Ekibi eklentisi yüklü. Bilgi bankası dizini: $K/ortak/bilgi/README.md · viral DNA: $K/ortak/viral-dna.md · marka skoru: $K/ortak/marka-skoru.md"
 echo "Ürün/viral/video sorularında önce bu dosyalara bak; diski tarama. İş başlatmak için captain becerisini çağır."
-echo "AD DEĞİŞİKLİĞİ (0.4.0): hafızada eski beceri/ajan adı görürsen yenisini kullan. Harita: $K/ortak/ad-haritasi.tsv"
+SURUM=$(sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "$K/.claude-plugin/plugin.json" 2>/dev/null | head -n 1)
+echo "Eklenti sürümü: ${SURUM:-bilinmiyor} (ilk mesajda bir kez söyle; güncel sürüm: /plugin listesi ya da README \"Güncel sürüm\". ChatGPT zip'i otomatik güncellenmez, elle yenilenir.)"
 echo "CEVAP BİÇİMİ (ADHD dostu, her mesajda; kullanıcı 'normal mod' diyene kadar): ilk satır yapılacak iş · çok adımlı iş numaralı liste · her mesajda durum ('5 adımdan 3'ü bitti') · süre somut · biten iş dosya yoluyla görünür · liste ≤5 öğe · giriş/özet tekrarı/'umarım yardımcı olur' yok · hata düz tonla: sebep + düzeltme · tek somut sonraki adımla bitir. Tam kurallar: $K/ortak/adhd-kurallari.md"
 [ -f "$D/DURUM.md" ] || exit 0
 echo "=== EKİP HAFIZASI (.ekip/) — bağlam sıfırlandıysa buradan devam et ==="

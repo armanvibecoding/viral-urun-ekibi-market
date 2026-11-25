@@ -13,6 +13,9 @@ ChatGPT eklenti betiklerini (Python/ffmpeg/HyperFrames) çalıştıramaz. Bu kla
 | 07 Excel teslim | liste dosyası |
 | 08 geri bildirim | geri bildirim geldi |
 | 09 limit ve devam | limit/kesinti |
-| 10 kanca varyasyon testi | aynı çekimden 10+ kanca |
+| 10 kanca varyasyon testi | aynı çekimden 10+ kanca (+ tekrar yayın deneyi) |
+| 11 biçim kopyala | tutmuş biçimin kare sırası + kendi çekimin; biçim kütüphanesi |
 
-**Video tarifleri (01, 02, 03, 10) ilk adımda ön-üretim kartı ister** (pazar → kanca ailesi + kanıt → sahne şablonu → müzik kararı → ilk 1 sn). Kart yazılmadan sonraki adıma geçilmez.
+**Video tarifleri (01, 02, 03, 10, 11) ilk adımda ön-üretim kartı ister** (pazar → kanca ailesi + kanıt → sahne şablonu → müzik kararı → ilk 1 sn). Kart yazılmadan sonraki adıma geçilmez.
+
+**Her sürümden önce** `sinav-kontrol-listesi.md` elle işaretlenir (üç sabit vaka × yedi özellik; betikli eşleniği `scripts/sinav_kos.py`).

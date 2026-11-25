@@ -1,0 +1,38 @@
+{
+ "rol": "director",
+ "sabit_urun": {
+  "vaka": "a-kolay",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "TR",
+  "urun_dizin": "is/01-kupa"
+ },
+ "moduller": [
+  {
+   "mod": null,
+   "brief": "tur-1: KAPI.md, SADAKAT.md, KOR-1..3.md, pano/_esleme.json (eşleşme açıldı)",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/magaza/tur-1/DUZELTME.md",
+    "zorunlu_bolumler": [
+     "kök neden",
+     "tek değişken"
+    ]
+   }
+  }
+ ],
+ "eksik_girdi": [
+  {
+   "mod": null,
+   "brief": "tur-1: KOR-*.md yok, eşleşme açılmadı",
+   "eksik": "kör eleştiri ve eşleşme yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  }
+ ]
+}

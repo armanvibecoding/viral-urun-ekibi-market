@@ -1,0 +1,39 @@
+{
+ "rol": "fixer",
+ "sabit_urun": {
+  "vaka": "a-kolay",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "TR",
+  "urun_dizin": "is/01-kupa"
+ },
+ "moduller": [
+  {
+   "mod": null,
+   "brief": "jüri medyanı + kapı çıktısı + kart.md + KURALLAR.md verildi; tur=1",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/elestiri/ELESTIRI-video-V01-tur1.md",
+    "zorunlu_bolumler": [
+     "kök neden",
+     "dur/devam",
+     "REÇETE"
+    ]
+   }
+  }
+ ],
+ "eksik_girdi": [
+  {
+   "mod": null,
+   "brief": "jüri hükmü ve kapı çıktısı verilmedi",
+   "eksik": "jüri hükmü yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  }
+ ]
+}

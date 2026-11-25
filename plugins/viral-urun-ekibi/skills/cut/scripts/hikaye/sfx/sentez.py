@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """v7 sentetik efektler (numpy; kendi üretimimiz, lisans gerekmez). python3 sentez.py → aynı klasöre wav."""
-import numpy as np, wave, os
+import wave, os, sys
+try:
+    import numpy as np
+except ImportError as _hata:  # ham ImportError yerine anlaşılır mesaj, çıkış 3 (kurulum eksik)
+    print("kurulum eksik: '%s' paketi bulunamadı. Kur: python3 -m pip install --user numpy (Windows: py -3 -m pip install --user numpy)" % (_hata.name or "numpy"), file=sys.stderr)
+    sys.exit(3)
 SR=48000; K=os.environ.get('SFX_CIKTI') or os.path.dirname(os.path.abspath(__file__)); os.makedirs(K,exist_ok=True); rng=np.random.default_rng(7)
 def yaz(ad,x,tepe=0.9):
     x=np.asarray(x,np.float64); x=x/ (np.abs(x).max()+1e-9)*tepe
@@ -48,4 +53,11 @@ yaz('buzz.wav',lp(z,0.12),0.8)
 tt=t(0.35); yaz('damla.wav',np.sin(2*np.pi*(700+2600*tt)*tt)*np.exp(-tt*22)*np.minimum(tt/0.004,1),0.7)
 # kibrit/mum "fış"
 tt=t(0.6); yaz('fis.wav',hp(rng.standard_normal(len(tt)),0.5)*np.minimum(tt/0.02,1)*np.exp(-tt*7),0.5)
+# yorum balonu / CTA "bubble": iki kısa yükselen kabarcık sesi (kendi üretimimiz)
+def kabarcik(f0, f1, sure, g=1.0):
+    u = t(sure); ph = 2*np.pi*(f0*u + (f1-f0)*u*u/(2*sure))
+    return g*np.sin(ph)*np.exp(-u*(5.0/sure))*np.minimum(u/0.004, 1)
+b1 = kabarcik(420, 980, 0.11); b2 = kabarcik(560, 1300, 0.13, 0.8)
+z = np.zeros(int(0.17*SR)+len(b2)); z[:len(b1)] += b1; z[int(0.17*SR):int(0.17*SR)+len(b2)] += b2
+yaz('bubble.wav', z, 0.75)
 print(sorted(f for f in os.listdir(K) if f.endswith('.wav')))

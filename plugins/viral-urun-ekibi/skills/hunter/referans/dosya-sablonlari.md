@@ -31,11 +31,14 @@ Sütun adları betiğin okuyabilmesi için aynen kalır. DNA sütununa yalnız *
 ```
 # Adaylar — pazar: <TR/ABD/…>
 
-| # | Ürün | Ali link | Ürün satışı (sayfa) | Normal fiyat | Görsel | Mekanizma · akraba | DNA (V1–V7) | A | B | C | D | Zaten viral? | Durum |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | <ürün> | https://www.aliexpress.us/item/<no>.html | 57 sold (sayfa) · 5,0/8 | $13.63 (yeni müşteri $3.63) | bakıldı, filigran | M7 · 086, 079 | V1,V2,V3,V4,V7 | 2 | 2 | 2 | 2 | tutmamış — … | AÇIK |
+| # | Ürün | Ali link | Ürün satışı (sayfa) | Normal fiyat | Görsel | Mekanizma · akraba | DNA (V1–V7) | A | B | C | D | Zaten viral? | Veto | Marj (kat) | Durum |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | <ürün> | https://www.aliexpress.us/item/<no>.html | 57 sold (sayfa) · 5,0/8 | $13.63 (yeni müşteri $3.63) | bakıldı, filigran | M7 · 086, 079 | V1,V2,V3,V4,V7 | 2 | 2 | 2 | 2 | tutmamış — … | yok | 2.4 | AÇIK |
 ```
-Durum değerleri: `AÇIK` (karar yok) · `KISA LİSTE` · `SAT — is/firsat/kanit/NN-…md` · `İZLE — <ne bekleniyor>` · `ELE`.
+Puan/yorum biçimi: `5,0/8` ya da `5.0 (8 değerlendirme)`; "5.0, 8 yorum" gibi sayı + `yorum/reviews` kalıbı sınav koşucusunun IDD-02 desenine (uydurma yorum sayısı) takılır. Okunamayan alan boş değil `doğrulanamadı`; B/C boşsa `denetle` sıra puanını `?` verir, "sıra puanı eksik" notu yazar (engel değil; ana oturum doldurur).
+`Zaten viral?`: `tutmamış — …` · `zaten viral — …` (kanıtlı, ELE) · `doğrulanamadı` (engel değil, kart notu). `Veto`: `yok` ya da veto sebebi (lisans-marka, tehlikeli, riskli-kargo; doluysa ELE). `Marj (kat)`: `marj_hesap.py` çarpanı; `zarar` ya da ≤1,0 = kanıtlı negatif katkı (ELE); boş = "marj hesaplanmadı" notu.
+`Ürün satışı`/`Normal fiyat` AliExpress (tedarikçi) fiyatıdır; Trendyol fiyatı `Normal fiyat`a yazılmaz (`denetle` HATA verir).
+Durum değerleri: `AÇIK` (karar yok) · `KISA LİSTE` · `SAT — is/firsat/kanit/NN-…md` (eski `SAT-KOŞULLU: <ilk testte kontrol>` da SAT sayılır) · `ELE`. Eski `İZLE` yazımı denetim kaydında kalır, kullanıcıya gitmez.
 
 ## is/firsat/elenenler.md
 ```

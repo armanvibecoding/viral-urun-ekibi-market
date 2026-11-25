@@ -29,3 +29,13 @@ düzeltilmemiş · defter hiç yok → geçiş kalır.
 ## Aylık budama (en güçlü modelle, ayda bir ya da sürüm başına)
 Depo kökünde (kurulan eklentide değil, GitHub deposunda) `python3 scripts/butce_kontrol.py` çıktısına bakılır (beceri boyutu, tekrar eden kural, tarihli anlatı). 30 gündür hiçbir defter
 satırında ya da kapıda tetiklenmeyen ve kapıya çevrilmiş kural metinden çıkar; çıkarılan `docs/gelistirici/ESKIDI/` altına kaydedilir.
+
+## Adımlar (captain §5b'den taşındı)
+Kaynaklar: kullanıcının her geri bildirimi + direktör raporundaki REÇETE satırları.
+1. **Deftere yaz (aynı an):** `.ekip/GERI-BILDIRIM.md`'ye satır (anahtar = kısa kusur etiketi; aynı kusur hep aynı anahtar), durum `AÇIK`.
+2. **İlk örnek ürün kontratına:** kural `is/NN/kurgu/KURALLAR.md`'ye ya da `.ekip/DERSLER.md`'ye girer. Tek örnekten eklenti kuralı çıkmaz.
+3. **İkinci örnek eklentiye (terfi):** aynı anahtar başka ürün ya da videoda yeniden görülürse o kusuru ÜRETEN dosya
+   (`agents/<üretici>.md` ya da `skills/<beceri>/…`) yerinde düzeltilir: yanlış yönlendiren cümle değiştirilir, kural tek kaynağa
+   (`ortak/kurallar.md`, kimlikle) yazılır, ölçülebiliyorsa kapıya çevrilip kırma testiyle kanıtlanır. Durum `TEKRAR-DÜZELTİLDİ`.
+4. **Bildir:** raporun son satırı "Geri bildiriminiz işlendi: <anahtar> → <dosya:bölüm>"; `bildirildi` = `evet`.
+5. Kapı: defter `kapi.py`nin içindedir (§5c). Jüri hükmü ile yayın sonucu çelişirse bu kural değil kalibrasyon verisidir (hüküm hattı).

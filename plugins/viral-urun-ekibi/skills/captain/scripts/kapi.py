@@ -2,12 +2,12 @@
 """Tek zorlayıcı kapı: iki geçişi mekanik kapılardan tek komutla geçirir. Kapı yazıda değil, burada.
 
   python3 kapi.py kredi is/NN-urun [--proje .]                 ön-üretim → kredi (Flow üretimi istenmeden ÖNCE)
-  python3 kapi.py yayin is/NN-urun [--proje .] [--video V01 …] [--kopyala]   teslim → yayın (kurucuya göndermeden ÖNCE)
+  python3 kapi.py yayin is/NN-urun [--proje .] [--video V01 …] [--kopyala]   teslim → yayın (kullanıcıya göndermeden ÖNCE)
   python3 kapi.py liste                                        geçiş başına kapı adları (kapının kendisini say)
 
 Kapılar (her biri kendi betiğini koşturur; betik yoksa ya da girdi dosyası yoksa kapı KALDI sayılır, "temiz" denmez):
   kredi   senaryo      is/NN/senaryolar.json → studio/scripts/senaryo_kontrol.py çıkış 0
-          kontrat      is/NN/kurgu/KURALLAR.md var (üretimden önce imzalı kontrat)
+          kontrat      is/NN/kurgu/KURALLAR.md alan denetimi: İmza (tarihli) + İzleyici dolu, K1/K2/K9/K10 var, <…> yer tutucu yok
           hukum        son ön-üretim hükmü her videoda gecti=true (is/NN/elestiri/juri.jsonl; yoksa puanlar.jsonl)
           kredi-onayi  .ekip/KARARLAR.md'de tarihli `| kredi |` ya da `| bütçe |` satırı (tavan onayı)
           defter       .ekip/GERI-BILDIRIM.md var ve geri_bildirim_kontrol.py çıkış 0
@@ -17,14 +17,17 @@ Kapılar (her biri kendi betiğini koşturur; betik yoksa ya da girdi dosyası y
           goruntu@V    kurgu_kontrol.py --goruntu → 0 (kesim dışı sıçrama / son 2 sn gürültü)
           ses@V        ses_olc.py --kapi --muzik_stem is/NN/ses/stem_VNN/muz.wav → 0 (stem yoksa KALDI: müzik girişi ölçülemedi)
           iddia@V      mağaza paketi varsa ortak/paket.py iddia-kontrol → 0 (uydurma veri; sağlık dili yalnız bilgi notu)
+          lisans@V     videodaki her klibin etiketi ve kaynağı var; ürün klipleri KAYNAK.tsv satırına bağlı ve o satırda lisans
+                       (kurucu|uretim|stok|yazili) + kullanim=yayin + yapay_mi + bakildi dolu; boş sütun / `kullanma` = KALDI (karar kullanıcıda, kayıt kapıda)
           hukum@V      son teslim hükmü gecti=true (juri.jsonl; yoksa puanlar.jsonl)
-          (iş başına)  defter (yukarıdaki) · sozlesme: magaza-paketi.json varsa paket.py dogrula magaza → 0
+          (iş başına)  defter (yukarıdaki) · sozlesme: magaza-paketi.json varsa paket.py dogrula magaza --tam → 0 (eksik[] dolu / fiyat 0 / yer tutucu / kaynaksız marka adı = KALDI; denetim #17)
+  "jüri yapılamadı" kaydı (referans < 3) GEÇİŞ DEĞİLDİR: hukum kapısı KALDI olur, ilerlemek yalnız kullanıcının (mağaza sahibinin) açık aşım cümlesiyle (AŞILDI).
   UYGULANMAZ yalnız kapının konusu o işte yoksa yazılır (mağaza kurulmamış, ayar kurgu.py biçiminde); ölçülemeyen = KALDI.
 
-Aşım (kapı kaldı ama yine de ilerlemek): YALNIZ kurucu kararıyla, kapı başına bir satır, .ekip/KARARLAR.md'de:
-  - YYYY-AA-GG | kapi-asimi | <kredi|yayin> <iş klasörü adı> <kapı adı>: "<kurucunun cümlesi, aynen>"
+Aşım (kapı kaldı ama yine de ilerlemek): YALNIZ kullanıcının (mağaza sahibinin) açık kararıyla, kapı başına bir satır, .ekip/KARARLAR.md'de:
+  - YYYY-AA-GG | kapi-asimi | <kredi|yayin> <iş klasörü adı> <kapı adı>: "<kullanıcının cümlesi, aynen>"
   Tarih bugünden ileri olamaz; cümle tırnak içinde ve ≥ 10 karakter; kapı adı tam eşleşir (ör. ses@V03). "Hepsi" yok.
-  Aşılan kapı raporda AŞILDI görünür ve kayda geçer; lider bu satırı kurucu söylemeden yazamaz (sahte aşım = uydurma karar).
+  Aşılan kapı raporda AŞILDI görünür ve kayda geçer; lider bu satırı kullanıcı söylemeden yazamaz (sahte aşım = uydurma karar).
 
 --kopyala (yalnız yayin, yalnız geçince): videoları is/NN/teslim/ altına betik kopyalar; elle kopyalama yok.
 Kayıt: her koşu .ekip/kapi.jsonl'a bir satır (karne_uret.py okur). Çıkış: 0 geçti (aşım dahil) · 1 kaldı · 2 kullanım hatası.
@@ -47,6 +50,7 @@ for _a in (sys.stdout, sys.stderr):
 
 BURASI = os.path.dirname(os.path.abspath(__file__))
 EKLENTI = os.path.abspath(os.path.join(BURASI, "..", "..", ".."))
+CUT_BETIK = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..")), "skills", "cut", "scripts")
 BETIK = {
     "senaryo": os.path.join(EKLENTI, "skills", "studio", "scripts", "senaryo_kontrol.py"),
     "kurgu": os.path.join(EKLENTI, "skills", "cut", "scripts", "kurgu_kontrol.py"),
@@ -59,7 +63,7 @@ if not os.path.exists(BETIK["paket"]):  # ChatGPT paketinde ortak/ → skills/ek
 GECTI, KALDI, YOK, ASILDI = "GEÇTİ", "KALDI", "UYGULANMAZ", "AŞILDI"
 KAPILAR = {
     "kredi": ["senaryo", "kontrat", "hukum", "kredi-onayi", "defter"],
-    "yayin": ["teknik@V", "kurgu@V", "goruntu@V", "ses@V", "iddia@V", "hukum@V", "defter", "sozlesme"],
+    "yayin": ["teknik@V", "kurgu@V", "goruntu@V", "ses@V", "iddia@V", "lisans@V", "hukum@V", "defter", "sozlesme"],
 }
 ASIM_RE = re.compile(r"^\s*-\s*(\d{4}-\d{2}-\d{2})\s*\|\s*kapi-asimi\s*\|\s*(kredi|yayin)\s+(\S+)\s+(\S+?)\s*:\s*[\"“](.+)[\"”]\s*$")
 
@@ -132,13 +136,14 @@ def k_hukum(is_dizin, mod, video=None):
             n, neden = r.get("referans_sayisi"), str(r.get("neden") or "").strip()
             if not isinstance(n, int) or n >= 3 or not neden:
                 return KALDI, "%s: 'jüri yapılamadı' kaydı geçersiz (referans_sayisi < 3 ve neden dolu olmalı; referans ≥ 3 ise jüri koşar)" % kaynak
-            return GECTI, "JÜRİ YAPILAMADI (referans %d < 3): %s — teslim notuna yaz" % (n, neden[:120])
+            # Denetim 2026-11-25 #2/#4: "yapılamadı" artık geçiş değil, KALDI; yalnız kullanıcının açık aşım cümlesiyle ilerler (AŞILDI görünür)
+            return KALDI, "JÜRİ YAPILAMADI (referans %d < 3): %s — kullanıcının (mağaza sahibinin) açık aşım cümlesi şart (KARARLAR.md kapi-asimi), referanssız jüri notla geçmez" % (n, neden[:120])
         if r.get("gecti") is True:
             return GECTI, "%s tur %s gecti=true%s" % (kaynak, r.get("tur"), " · jüri kalibrasyonu: %s (hüküm DENEME)" % kal if kal and kal != "UYUMLU" else "")
         return KALDI, "%s tur %s gecti=false (toplam %s)" % (kaynak, r.get("tur"), r.get("toplam", r.get("medyan")))
     if not son:
         return KALDI, "%s: %s modunda satır yok" % (kaynak, mod)
-    kalan = sorted(v for v, r in son.items() if r.get("gecti") is not True)
+    kalan = sorted(v for v, r in son.items() if r.get("gecti") is not True or r.get("juri") == "yapilamadi")
     return (KALDI, "%s: son %s hükmü KALDI olan video: %s" % (kaynak, mod, ", ".join(kalan))) if kalan else \
         (GECTI, "%s: %d videonun son %s hükmü gecti=true" % (kaynak, len(son), mod))
 
@@ -155,14 +160,60 @@ def k_kredi_onayi(proje):
     return KALDI, "KARARLAR.md'de tarihli ve tutarlı `| kredi |` / `| bütçe |` satırı yok"
 
 
+KONTRAT_ZORUNLU = ("K1", "K2", "K9", "K10")   # iskelet · kanca · ses · malzeme (cut/referans/KURALLAR-sablon.md)
+YER_TUTUCU = re.compile(r"<[^<>|]{0,60}>|TODO")
+
+
+def yer_tutucu_var(c):
+    """Kod aralığı (`...`) içindeki <arg> komut bağımsız değişkenidir, yer tutucu sayılmaz."""
+    return bool(YER_TUTUCU.search(re.sub(r"`[^`]*`", "", c)))
+
+
+def k_kontrat(yol):
+    """Kontrat kapısı = ALAN denetimi (denetim 2026-11-25 #5): satır sayısı kanıt değildir.
+    Şart: `İmza:` (tarihli) ve `İzleyici:` satırları dolu · zorunlu K1/K2/K9/K10 satırları var · her K satırında
+    Alan/Kural/Eşik/Nasıl ölçülür dolu ve `<…>` yer tutucu kalmamış · en az 5 K satırı."""
+    if not os.path.exists(yol):
+        return KALDI, "kontrat yok: kurgu/KURALLAR.md"
+    metin = open(yol, encoding="utf-8").read()
+    eksik = []
+    for ad, desen in (("İmza", r"^\s*İmza\s*:\s*(.*)$"), ("İzleyici", r"^\s*İzleyici\s*:\s*(.*)$")):
+        m = re.search(desen, metin, re.M)
+        if not m or not m.group(1).strip():
+            eksik.append("`%s:` satırı yok/boş" % ad)
+        elif yer_tutucu_var(m.group(1)):
+            eksik.append("`%s:` satırında yer tutucu kaldı" % ad)
+        elif ad == "İmza" and not re.search(r"\d{4}-\d{2}-\d{2}", m.group(1)):
+            eksik.append("`İmza:` satırında tarih (YYYY-AA-GG) yok")
+    satirlar = {}
+    for ln in metin.splitlines():
+        h = [c.strip() for c in ln.strip().strip("|").split("|")]
+        if ln.lstrip().startswith("|") and len(h) >= 5 and re.fullmatch(r"K\d+|K\.\.", h[0]):
+            if h[0] != "K..":
+                satirlar[h[0]] = h
+    for k in KONTRAT_ZORUNLU:
+        if k not in satirlar:
+            eksik.append("zorunlu %s satırı yok" % k)
+    if len(satirlar) < 5:
+        eksik.append("K satırı %d < 5" % len(satirlar))
+    for k, h in satirlar.items():
+        bos = [n for n, c in zip(("alan", "kural", "eşik", "ölçüm"), h[1:5]) if not c]
+        if bos:
+            eksik.append("%s boş alan: %s" % (k, "/".join(bos)))
+        elif any(yer_tutucu_var(c) for c in h[1:5]):
+            eksik.append("%s yer tutucu (<…>) kaldı" % k)
+    if eksik:
+        return KALDI, "kontrat alanları eksik (kurgu/KURALLAR.md): " + "; ".join(eksik[:6])
+    return GECTI, "kurgu/KURALLAR.md alanları dolu (%d K satırı)" % len(satirlar)
+
+
 def kredi_kapilari(proje, is_dizin, _a):
     s = []
     sj = os.path.join(is_dizin, "senaryolar.json")
     s.append(("senaryo", *(betik_kapisi([sys.executable, BETIK["senaryo"], sj], "senaryo_kontrol") if os.path.exists(sj)
                            else (KALDI, "dosya yok: senaryolar.json"))))
     kontrat = os.path.join(is_dizin, "kurgu", "KURALLAR.md")
-    dolu = os.path.exists(kontrat) and len(open(kontrat, encoding="utf-8").read().strip().splitlines()) >= 5
-    s.append(("kontrat", *((GECTI, "kurgu/KURALLAR.md var") if dolu else (KALDI, "kontrat yok ya da boş: kurgu/KURALLAR.md"))))
+    s.append(("kontrat", *k_kontrat(kontrat)))
     s.append(("hukum", *k_hukum(is_dizin, "onuretim")))
     s.append(("kredi-onayi", *k_kredi_onayi(proje)))
     s.append(("defter", *k_defter(proje, is_dizin)))
@@ -190,6 +241,64 @@ def k_teknik(video):
         return GECTI, "1080x1920 · %.2f sn · %.1f LUFS" % (m["sure"], lufs)
     except Exception as e:  # ölçülemeyen = kaldı
         return KALDI, "ölçülemedi: %r" % (e,)
+
+
+def k_lisans(is_dizin, ayar_yolu):
+    """Lisans kapısı (denetim 2026-11-25 #10): klip → etiket → KAYNAK.tsv satırı → lisans sütunları. Kapı yazıda değil kayıtta."""
+    if CUT_BETIK not in sys.path:
+        sys.path.insert(0, CUT_BETIK)
+    import malzeme_kaynak as M
+    if not os.path.exists(ayar_yolu):
+        return KALDI, "ayar dosyası yok: klip listesi okunamadı (lisans ölçülemedi)"
+    try:
+        ayar = json.load(open(ayar_yolu, encoding="utf-8"))
+    except ValueError as e:
+        return KALDI, "ayar okunamadı: %s" % e
+    kok = os.path.dirname(ayar_yolu)
+    klipler = []
+    for p in ayar.get("planlar", []):
+        yol = p.get("klip") if isinstance(p, dict) else (p[0] if p else None)
+        if yol:
+            klipler.append(os.path.normpath(os.path.join(kok, yol)))
+    if not klipler:
+        return KALDI, "ayarda klip yok: lisans ölçülemedi"
+    etiket = {}
+    for d in sorted({os.path.dirname(k) for k in klipler}):
+        y = os.path.join(d, "klip_etiket.json")
+        if os.path.exists(y):
+            try:
+                etiket.update(json.load(open(y, encoding="utf-8")).get("klipler", {}))
+            except ValueError:
+                return KALDI, "klip_etiket.json okunamadı: %s" % y
+    kyol = M.bul(is_dizin)
+    satirlar = M.oku(kyol) if kyol else []
+    sorun, urun = [], 0
+    for k in dict.fromkeys(klipler):
+        ad = os.path.splitext(os.path.basename(k))[0]
+        e = etiket.get(ad)
+        if not e:
+            sorun.append("%s: klip_etiket.json'da yok (kaynak ve lisans bilinmiyor)" % ad)
+            continue
+        metin = e.get("malzeme") or e.get("kaynak") or ""
+        if not metin.strip():
+            sorun.append("%s: etikette kaynak yok" % ad)
+        elif e.get("tur") in M.URUN_TURLERI:
+            urun += 1
+            if not kyol:
+                sorun.append("%s: KAYNAK.tsv yok (lisans kaydı yok)" % ad)
+                continue
+            es = M.esle(satirlar, metin, os.path.basename(kok))
+            if not es:
+                sorun.append("%s: kaynağı KAYNAK.tsv'de yok" % ad)
+            else:
+                for r in es:
+                    if not M.kullanilabilir(r):
+                        sorun.append("%s: %s 'kullanma' işaretli" % (ad, r.get("dosya")))
+                    for x in M.lisans_sorunu(r):
+                        sorun.append("%s → %s: %s" % (ad, r.get("dosya"), x))
+    if sorun:
+        return KALDI, "lisans kaydı eksik (%d sorun): %s" % (len(sorun), " / ".join(dict.fromkeys(sorun))[:360])
+    return GECTI, "%d klip kayıtlı kaynaktan, %d ürün klibinin lisansı yayın için tamam (%s)" % (len(dict.fromkeys(klipler)), urun, os.path.basename(kyol) if kyol else "KAYNAK.tsv gerekmedi")
 
 
 def yayin_kapilari(proje, is_dizin, a):
@@ -236,9 +345,10 @@ def yayin_kapilari(proje, is_dizin, a):
             s.append(("iddia@" + v, KALDI, "ayar dosyası yok: ekran yazıları okunamadı"))
         else:
             s.append(("iddia@" + v, *betik_kapisi([sys.executable, BETIK["paket"], "iddia-kontrol", mp, ayar], "paket.py iddia-kontrol")))
+        s.append(("lisans@" + v, *k_lisans(is_dizin, ayar)))
         s.append(("hukum@" + v, *k_hukum(is_dizin, "teslim", v)))
     s.append(("defter", *k_defter(proje, is_dizin)))
-    s.append(("sozlesme", *(betik_kapisi([sys.executable, BETIK["paket"], "dogrula", "magaza", mp], "paket.py dogrula magaza")
+    s.append(("sozlesme", *(betik_kapisi([sys.executable, BETIK["paket"], "dogrula", "magaza", mp, "--tam"], "paket.py dogrula magaza --tam")
                             if os.path.exists(mp) else (YOK, "mağaza paketi yok"))))
     return s
 
@@ -267,7 +377,7 @@ def asimlar(proje, gecis, is_ad):
             if t > bugun:
                 gecersiz.append("KARARLAR.md:%d ileri tarihli aşım (%s)" % (no, tarih))
             elif len(cumle.strip()) < 10:
-                gecersiz.append("KARARLAR.md:%d kurucunun cümlesi yok ya da < 10 karakter" % no)
+                gecersiz.append("KARARLAR.md:%d kullanıcının cümlesi yok ya da < 10 karakter" % no)
             elif g == gecis and isad == is_ad:
                 gecerli[kapi] = (tarih, cumle.strip())
     return gecerli, gecersiz
@@ -315,16 +425,16 @@ def main():
     for x in satirlar:
         print("  %-10s %-14s %s" % (x["durum"], x["kapi"], x["mesaj"]))
         if x["durum"] == ASILDI:
-            print("             ↳ kurucu kararı %s: \"%s\" (KARARLAR.md; kurucu söylemediyse sahte aşımdır)" % (x["asim"]["tarih"], x["asim"]["soz"]))
+            print("             ↳ kullanıcı kararı %s: \"%s\" (KARARLAR.md; kullanıcı söylemediyse sahte aşımdır)" % (x["asim"]["tarih"], x["asim"]["soz"]))
     for g in gecersiz:
         print("  UYARI      geçersiz aşım satırı yok sayıldı: %s" % g)
     print("SONUÇ: %s — geçen %d · kalan %d · aşılan %d · uygulanmaz %d"
           % (hukum, sum(x["durum"] == GECTI for x in satirlar), len(kalan), len(asilan), sum(x["durum"] == YOK for x in satirlar)))
     if kalan:
-        print("Kalan kapı düzeltilmeden %s. Aşmak yalnız kurucu kararıyla (kapı başına bir satır):"
+        print("Kalan kapı düzeltilmeden %s. Aşmak yalnız kullanıcının (mağaza sahibinin) açık kararıyla (kapı başına bir satır):"
               % ("kredi istenmez" if a.gecis == "kredi" else "teslim ve yayın yok"))
         for x in kalan:
-            print("  - %s | kapi-asimi | %s %s %s: \"<kurucunun cümlesi>\"" % (datetime.date.today().isoformat(), a.gecis, is_ad, x["kapi"]))
+            print("  - %s | kapi-asimi | %s %s %s: \"<kullanıcının cümlesi>\"" % (datetime.date.today().isoformat(), a.gecis, is_ad, x["kapi"]))
 
     if a.gecis == "yayin" and a.kopyala:
         if kalan:

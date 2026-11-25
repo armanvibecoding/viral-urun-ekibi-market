@@ -71,4 +71,5 @@ yerine bankaya dön, başka hikâye seç (kredi ve tur israfı ölçüldü: ayn�
 1. İnsan, sıvı, şehir/ofis gibi gerçekçiliği zor sahnelerde önce **gerçek stok video** (ticari lisanslı, atıfsız; lisans `LISANS.md`) ya da kurucunun kendi çekimi.
 2. Ürün her zaman **gerçek ürün fotoğrafından** (kesim + hareketli tasarım) ya da ürün sadakati kanıtlı karelerden.
 3. AI klip yalnız gerçek görüntünün bulunamadığı, hikâyeye özgü sahnede. Durgun AI fotoğrafı + itme, video yerine geçmez.
+   Dayanak (uzman yöntemi R74; istatistik kanıtı değil, uygulayıcı yöntemi): tümüyle yapay zekâ üretimi reklam "sahte reklam" gibi okunuyor ve üründe tutarsızlık hemen fark ediliyor (74 Reels'te iki dökümde açıkça söylenmiş); bu yüzden gerçek görüntü önce gelir.
 4. Her videoda hareketli tasarım katmanı zorunlu: kinetik tipografi (vuruşa oturan, hiyerarşili, vurgu kelimesi renkli), geçiş, ilerleme/sayaç ya da UI öğesi. Uygulandığı yer: `cut` **Aşama 8b** (HyperFrames becerileri; registry önce aranır). Düz beyaz altyazı kutusu tipografisi kullanılmaz.

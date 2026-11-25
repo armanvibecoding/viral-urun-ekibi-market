@@ -1,7 +1,7 @@
 {
   "name": "viral-urun-ekibi",
   "displayName": "Viral Ürün Ekibi",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Tek liderli e-ticaret ekibi: Instagram'da viral ürün bulma, AliExpress ve Trendyol'da henüz viral olmamış ürün avı (Trendyol fırsat avı), teklif, Shopify mağaza kurulumu (marka, görsel, metin, site denetimi), ChatGPT + Google Flow ile AI video üretimi ve ffmpeg kurgu",
   "author": {
     "name": "Viral Ürün Ekibi"

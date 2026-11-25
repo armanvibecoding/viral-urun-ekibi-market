@@ -1,0 +1,88 @@
+{
+ "rol": "probe",
+ "sabit_urun": {
+  "vaka": "a-kolay",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "TR",
+  "urun_dizin": "is/01-kupa"
+ },
+ "moduller": [
+  {
+   "mod": "hiz",
+   "brief": "mod: hiz · canlı mağaza adresi verildi · yayın öncesi",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/magaza/HIZ.md",
+    "zorunlu_bolumler": [
+     "3 koşu",
+     "medyan"
+    ]
+   }
+  },
+  {
+   "mod": "erisim",
+   "brief": "mod: erisim · STIL-KARTI renk sistemi",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/magaza/ERISIM.md",
+    "zorunlu_bolumler": [
+     "kontrast",
+     "oran"
+    ]
+   }
+  },
+  {
+   "mod": "arama",
+   "brief": "mod: arama · mağaza adresi + ürün listesi",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/magaza/SEO.md",
+    "zorunlu_bolumler": [
+     "ürün",
+     "düzeltme"
+    ]
+   }
+  }
+ ],
+ "eksik_girdi": [
+  {
+   "mod": "hiz",
+   "brief": "mod: hiz · mağaza adresi yok",
+   "eksik": "adres yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  },
+  {
+   "mod": "erisim",
+   "brief": "mod: erisim · renk sistemi yok",
+   "eksik": "renk sistemi yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  },
+  {
+   "mod": "arama",
+   "brief": "mod: arama · ürün listesi yok",
+   "eksik": "ürün listesi yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  }
+ ]
+}

@@ -5,12 +5,15 @@
 
 Beklenen: her satır bir metin öğesi (başlık satırları ayrı ayrı yazılabilir). Karşılaştırma büyük/küçük
 harfe duyarsız ama Türkçe harfe DUYARLI (İ≠I, ı≠i, ş≠s ...). Çıkış kodu: 0 = bütün öğeler bulundu ve
-fazla yazı yok, 1 = eksik/yanlış öğe ya da fazla yazı, 2 = OCR çalışmadı.
+fazla yazı yok, 1 = eksik/yanlış öğe ya da fazla yazı, 2 = OCR çalışmadı ya da Türkçe harf doğrulanamadı (olculemedi; hata yok).
 
 Motor (karma): RapidOCR ana okuyucudur (küçük ve açık/koyu yazıda güçlü) ama Çince/İngilizce modeli
 İ/Ö/Ş/Ğ/Ü/Ç'yi I/O/S/G/U/C okur. Bu yüzden Türkçe harf içeren öğe Tesseract 5 + `tur` verisiyle birebir
 doğrulanır (dil verisi klasörü `OCR_TESSDATA` ortam değişkeniyle verilir; yoksa `TESSDATA_PREFIX`). Tesseract yoksa o öğe "gözle" kalır.
-Eşleşme: Türkçe harfler katlanarak RapidOCR satırıyla ≥ %90; Türkçe harfli öğe Tesseract'ta birebir.
+Eşleşme (denetim 2026-11-25 #6, kırma testi ARAC-OCR.md): Latin metinde (Türkçe özel harf içermeyen öğe) BİREBİR — normalize edilmiş
+beklenen, okunan satırda aynen geçmeli (boşluk ve O/0 farkı yok sayılır); 1 harf eksik/fazla/değişik = hata (eski %90 benzerlik
+"KLEBEBLAT ABZIEHN" ve "ANZIEHEN"i geçiriyordu). Türkçe harfli öğe Tesseract'ta birebir; Tesseract yoksa "gözle" kalır ve sonuç
+KALDI değil OLCULEMEDI'dir (çıkış 2): gerçek bir yazım hatası bulunmadı, ölçülemedi.
 Beklenenle eşleşmeyen ≥ 3 harfli RapidOCR satırı "fazla yazı"dır (ör. girdi fotoğrafından taşınan logo).
 """
 import argparse
@@ -114,18 +117,28 @@ def oran_hesap(nb, o):
     return r
 
 
-TR_OZEL = set("İıŞşĞğÜüÖöÇç")
-KATLA = str.maketrans("İIŞĞÜÖÇ", "IISGUOC")
+def birebir(nb, o):
+    """Latin metin: normalize beklenen, okunan satırda AYNEN geçer (boşluk ve O/0 yok sayılır). Oran 1.0 ya da 0.0 döner."""
+    a, b = nb.replace("0", "O").replace(" ", ""), o.replace("0", "O").replace(" ", "")
+    return 1.0 if a and a in b else 0.0
+
+
+TR_OZEL = set("İıŞşĞğÜüÖöÇçÂâÎîÛû")  # şapkalı ünlüler de (RapidOCR "HÂLLİ"yi okuyamaz; rol sınavı 05)
+
+
+def latin(b):
+    return not (set(b) & TR_OZEL)
+KATLA = str.maketrans("İIŞĞÜÖÇÂÎÛ", "IISGUOCAIU")
 
 
 def katla(s):
     return s.translate(KATLA)
 
 
-def en_iyi(nb, on):
+def en_iyi(nb, on, kati=False):
     en, en_i = 0.0, None
     for i, o in enumerate(on):
-        r = oran_hesap(nb, o)
+        r = birebir(nb, o) if kati else oran_hesap(nb, o)
         if r > en:
             en, en_i = r, i
     return en, en_i
@@ -137,7 +150,7 @@ def kontrol(yol, beklenen, dil):
     okuyamazsa "gözle" kalır (geçmiş sayılmaz)."""
     satirlar, im = ocr_satirlar(yol)
     on = [norm(s["metin"], dil) for s in satirlar]
-    eksik = [b for b in beklenen if en_iyi(katla(norm(b, dil)), [katla(o) for o in on])[0] < 0.90]
+    eksik = [b for b in beklenen if en_iyi(katla(norm(b, dil)), [katla(o) for o in on], latin(b))[0] < (0.999 if latin(b) else 0.90)]
     if eksik:  # küçük punto: 2× büyütülmüş şeritlerde ikinci geçiş
         ek, _ = ocr_satirlar(yol, buyut=True)
         satirlar = satirlar + [dict(x, ek=True) for x in ek if norm(x["metin"], dil) not in on]
@@ -150,16 +163,23 @@ def kontrol(yol, beklenen, dil):
     sonuc = []
     for b in beklenen:
         nb = norm(b, dil)
-        en, en_i = en_iyi(katla(nb), [katla(o) for o in on])
+        kati = latin(b)
+        esik = 0.999 if kati else 0.90
+        en, en_i = en_iyi(katla(nb), [katla(o) for o in on], kati)
         okunan = satirlar[en_i]["metin"] if en_i is not None else ""
-        if not en >= 0.90 and en_i is not None and satirlar[en_i]["kutu"]:
+        if kati and en < esik:   # birebir bulunamadı: kullanılan satır olarak en benzerini yine de işaretle (fazla yazı sayılmasın)
+            _, yakin = en_iyi(katla(nb), [katla(o) for o in on])
+            if yakin is not None:
+                en_i = yakin
+                okunan = satirlar[en_i]["metin"]
+        if not en >= esik and en_i is not None and satirlar[en_i]["kutu"]:
             ikinci = yeniden_oku(im, satirlar[en_i]["kutu"])
-            r2 = oran_hesap(katla(nb), katla(norm(ikinci, dil)))
+            r2 = (birebir if kati else oran_hesap)(katla(nb), katla(norm(ikinci, dil)))
             if r2 > en:
                 en, okunan = r2, ikinci
-        if en_i is not None and en >= 0.6:
+        if en_i is not None and (en >= 0.6 or kati):
             kullanilan.add(en_i)
-        durum = "tamam" if en >= 0.90 else "hata"
+        durum = "tamam" if en >= esik else "hata"
         if durum == "tamam" and dil == "tr" and set(b) & TR_OZEL:
             # Türkçe harf: RapidOCR göremez; Tesseract birebir okumalı
             t_en, t_i = en_iyi(nb, ton) if ton else (0.0, None)
@@ -169,7 +189,8 @@ def kontrol(yol, beklenen, dil):
                 durum, okunan = "hata", "tesseract: " + ton[t_i]  # harfler aynı, Türkçe harf farklı = yazım hatası
             else:
                 durum = "gozle"
-        sonuc.append({"beklenen": b, "okunan": okunan, "oran": round(en, 2), "tamam": durum == "tamam", "durum": durum})
+        oran_g = en if not kati else (1.0 if durum == "tamam" else round(oran_hesap(katla(nb), katla(norm(okunan.split(" | ")[0], dil))), 2) if okunan else 0.0)
+        sonuc.append({"beklenen": b, "okunan": okunan, "oran": round(oran_g, 2), "tamam": durum == "tamam", "durum": durum})
     nbs = [katla(norm(b, dil)) for b in beklenen]
     fazla = []
     for i in range(len(satirlar)):
@@ -201,6 +222,8 @@ def main():
         print("OCR çalışmadı:", e)
         return 2
     gecti = all(s["tamam"] for s in sonuc) and not fazla
+    hata_var = bool(fazla) or any(s["durum"] == "hata" for s in sonuc)
+    olculemedi = not hata_var and any(s["durum"] == "gozle" for s in sonuc)   # yalnız Türkçe harf doğrulanamadı: KALDI değil olculemedi
     if a.json:
         print(json.dumps({"gecti": gecti, "motor": motor, "ogeler": sonuc, "fazla": fazla}, ensure_ascii=False, indent=1))
     else:
@@ -212,8 +235,9 @@ def main():
         print("motor:", motor)
         if "tesseract" not in motor and a.dil == "tr" and any(x["durum"] == "gozle" for x in sonuc):
             print("UYARI: RapidOCR Türkçe harfleri (İ Ö Ş Ğ Ü Ç) ayırt etmez; Türkçe harf kontrolü gözle yapılmalı ya da Tesseract tur kurulmalı.")
-        print("K2", "GEÇTİ" if gecti else "KALDI (❌ öğeleri gözle doğrula: küçük puntoda OCR yanılabilir)")
-    return 0 if gecti else 1
+        print("K2", "GEÇTİ" if gecti else ("OLCULEMEDI (Türkçe harf doğrulanamadı; yazım hatası bulunmadı, geçti de sayılmaz)" if olculemedi
+                                              else "KALDI (❌ öğeleri gözle doğrula: küçük puntoda OCR yanılabilir)"))
+    return 0 if gecti else (2 if olculemedi else 1)
 
 
 if __name__ == "__main__":

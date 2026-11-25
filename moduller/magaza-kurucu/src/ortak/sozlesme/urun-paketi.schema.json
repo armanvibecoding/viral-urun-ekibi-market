@@ -7,6 +7,10 @@
   "required": ["surum", "urun", "pazar"],
   "properties": {
     "surum": { "enum": ["1", "2"] },
+    "eksik": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
     "urun": {
       "type": "object",
       "required": ["ad", "fotograflar"],

@@ -16,7 +16,11 @@ import subprocess
 import sys
 import wave
 
-import numpy as np
+try:
+    import numpy as np
+except ImportError as _hata:  # ham ImportError yerine anlaşılır mesaj, çıkış 3 (kurulum eksik)
+    print("kurulum eksik: '%s' paketi bulunamadı. Kur: python3 -m pip install --user numpy (Windows: py -3 -m pip install --user numpy)" % (_hata.name or "numpy"), file=sys.stderr)
+    sys.exit(3)
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _arac import FF, CUT, SFX, sfx_hazirla  # noqa: E402
@@ -75,6 +79,19 @@ def main():
     r([FF, "-v", "error", "-y", "-i", os.path.join(D, video), "-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo", "-vf", "tpad=stop_mode=clone:stop_duration=2",
        "-t", sure + 2, "-c:v", "libx264", "-crf", "16", "-preset", "medium", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", pad])
     drop, muzik_bas = float(s["drop"]), float(s["muzik_bas"])
+    if s.get("sfx_otomatik"):   # HyperFrames olaylarından (kesme/yazı/CTA/kanıt) SFX eşlemesi: cut/hf-sablonlar/sfx_esle.py
+        sys.path.insert(0, os.path.join(CUT, "..", "hf-sablonlar"))
+        import sfx_esle
+        sfx_esle.klasor_hazirla(sfx_klasor)
+        ol = json.load(open(os.path.join(D, "hf", "olaylar.json"), encoding="utf-8"))
+        em = sfx_esle.esle(ol["olaylar"], sure, drop, int(s.get("sfx_max", 6)), riser=not s.get("riser"))
+        s = dict(s, sfx=",".join(x for x in (s.get("sfx", ""), em["sfx"]) if x))
+        if em["riser"] and not s.get("riser"):
+            s["riser"] = em["riser"]
+        s["sfx_max"] = int(s.get("sfx_max", 6))
+        with open(os.path.join(D, "ses", "sfx_plan_%s.json" % ad), "w", encoding="utf-8") as f:
+            json.dump(em, f, ensure_ascii=False, indent=1)
+        print("sfx_otomatik: %d efekt, %d elendi, riser %s" % (len(em["plan"]), len(em["elenen"]), em["riser"]))
     giris_hedef = float(s.get("giris_hedef", 8.0))
     taban, tavan = float(s.get("taban", 5.0)), float(s.get("tavan", 3.5))
     raw = subprocess.run([FF, "-v", "error", "-i", os.path.join(D, s["muzik"]), "-ac", "2", "-ar", str(SR), "-f", "f32le", "-"], capture_output=True).stdout
@@ -128,11 +145,12 @@ def main():
     print("ses_tasarla çıkış", p.returncode, (p.stdout.strip().splitlines() or [""])[-1][:300])
     if p.returncode != 0:
         sys.exit(p.returncode)
+    # AAC yeniden kodlaması true peak'i ~+1 dB şişiriyordu (ses_tasarla çıkışı −1,7 → teslim −0,7 dBTP; sınav 03 tur1): −2 dBFS limiter → −1,3 dBTP
     cikti = os.path.join(D, "TESLIM", ad + ".mp4")
     os.makedirs(os.path.dirname(cikti), exist_ok=True)
     ara = cikti if not s.get("vo") else os.path.join(D, "ses", ad + "_vosuz.mp4")
     r([FF, "-v", "error", "-y", "-i", uzun, "-t", sure, "-c:v", "libx264", "-crf", "17", "-preset", "slow", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k",
-       "-af", "afade=t=out:st=%.2f:d=0.25" % (sure - 0.25), "-movflags", "+faststart", ara])
+       "-af", "afade=t=out:st=%.2f:d=0.25,alimiter=limit=0.794:attack=1:release=60:level=0" % (sure - 0.25), "-movflags", "+faststart", ara])
     muz = os.path.join(stem, "muz_teslim.wav")
     r([FF, "-v", "error", "-y", "-i", os.path.join(stem, "muz.wav"), "-t", sure, muz])
     if s.get("vo"):

@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
-"""excel_yaz.py: bütün ürün bulma becerilerinin (radar, spy, hunter, bazaar) ortak Excel yazıcısı.
+"""excel_yaz.py: bütün ürün bulma becerilerinin (radar, spy, hunter: aliexpress · trendyol) ortak Excel yazıcısı.
 
 Kullanım:
-  python3 excel_yaz.py --urunler <urunler.tsv> --kaynak <radar|spy|hunter|bazaar> --cikti <dosya.xlsx>
-                       [--ayrinti <ham.tsv|.csv|.md>] [--kopya <klasör ya da dosya.xlsx>]
+  python3 excel_yaz.py --urunler <urunler.tsv> --kaynak <radar|spy|aliexpress|trendyol> --cikti <dosya.xlsx>
+                       [--ayrinti <ham.tsv|.csv|.md>] [--ayrinti-gizli] [--bos-izinli] [--kopya <klasör ya da dosya.xlsx>]
 
 Girdi urunler.tsv (sekme, başlıklı, UTF-8), 12 alan:
   urun, link, ilgi, ilgi_sayi, alis, satis, para, marj_kat, karar, neden, kaynak, tarih
 
 Çıktı tam 3 sayfa: "Ürünler" (10 sütun) · "Ayrıntı" (ham tablo) · "Nasıl okunur".
+aliexpress/trendyol (hunter; YALNIZ SAT, kurucu kararı 2026-11-25): çağıran "Ürünler"e yalnız SAT satırı verir; ham tablo `--ayrinti-gizli` ile gizli "Ayrıntı"
+sayfasında denetim için kalır; hiç SAT yoksa `--bos-izinli` ile Ürünler boş (yalnız başlık) yazılır. "SAT (koşullu)" ayrı sınıf değil: girdide
+görülürse SAT'a çevrilir, eksik kanıt neden sütununda "Kontrol et: ..." notu olur.
 Yazmadan önce doğrular (tutmazsa çıkış 1, dosya yazılmaz); yazdıktan sonra dosyayı yeniden açıp ölçer (tutmazsa çıkış 1).
 Çıkış: 0 TAMAM · 1 veri ya da doğrulama hatası · 2 kullanım hatası · 3 openpyxl yok.
 Gerekli paket: openpyxl  (kur: python3 -m pip install --user openpyxl)
@@ -22,15 +25,20 @@ import shutil
 import sys
 
 ALANLAR = ["urun", "link", "ilgi", "ilgi_sayi", "alis", "satis", "para", "marj_kat", "karar", "neden", "kaynak", "tarih"]
-KARARLAR = ["SAT", "SAT (koşullu)", "İZLE", "ELE"]
+KARARLAR = ["SAT", "İZLE", "ELE"]
 PARALAR = {"TRY": '#,##0.00 "₺"', "USD": '"$"#,##0.00', "EUR": '#,##0.00 "€"', "GBP": '"£"#,##0.00'}
-KARAR_RENK = {"SAT": "C6EFCE", "SAT (koşullu)": "E2F0D9", "İZLE": "FFEB9C", "ELE": "FFC7CE"}
-KAYNAKLAR = {"radar": "Instagram", "spy": "Meta reklam", "hunter": "AliExpress", "bazaar": "Trendyol"}
+KARAR_RENK = {"SAT": "C6EFCE", "İZLE": "FFEB9C", "ELE": "FFC7CE"}
+KAYNAKLAR = {"radar": "Instagram", "spy": "Meta reklam", "aliexpress": "AliExpress", "trendyol": "Trendyol"}
 ILGI_TANIMI = {
     "radar": "Videonun izlenme sayısı (ör. 2,4 Mn izlenme).",
     "spy": "Reklam sayısı ve en uzun süredir açık reklamın günü (ör. 12 reklam · 45 gün).",
-    "hunter": "AliExpress ürün sayfasında okunan satış sayısı (ör. 57 satış).",
-    "bazaar": "Trendyol değerlendirme sayısı ve puan (ör. 969 yorum · 4,1). Satış adedi değil, talep vekilidir.",
+    "aliexpress": "AliExpress ürün sayfasında okunan satış sayısı (ör. 57 satış).",
+    "trendyol": "Trendyol değerlendirme sayısı ve puan (ör. 969 yorum · 4,1). Satış adedi değil, talep vekilidir.",
+}
+KARAR_TANIMI = {
+    "_": "SAT = kanıt dosyası olan aday · İZLE = izlenecek ya da eksik kanıtlı · ELE = elenen.",
+    "aliexpress": "Yalnız SAT gösterilir: kanıtlı engeli (veto, marj, doygunluk, düşük talep) olmayan, kanıt dosyalı ürün. 'Kontrol et' notları ilk testte bakılacaklardır, engel değildir.",
+    "trendyol": "Yalnız SAT gösterilir: kanıtlı engeli (veto, marj, doygunluk, düşük talep) olmayan, kanıt dosyalı ürün. 'Kontrol et' notları ilk testte bakılacaklardır, engel değildir.",
 }
 SAYFALAR = ["Ürünler", "Ayrıntı", "Nasıl okunur"]
 SUTUNLAR = [("Ürün", 38), ("Link", 9), ("İlgi", 22), ("Alış", 11), ("Satış", 11), ("Marj (kat)", 10),
@@ -64,7 +72,7 @@ def tsv_oku(yol):
     return satirlar
 
 
-def urunleri_dogrula(yol):
+def urunleri_dogrula(yol, bos_izinli=False):
     """Girdiyi doğrular. Döner: [{alan: değer}] (sayılar float/None, tarih datetime.date)."""
     if not os.path.isfile(yol):
         raise Hata("urunler dosyası yok: %s" % yol)
@@ -76,7 +84,7 @@ def urunleri_dogrula(yol):
         raise Hata("başlık tam bu %d alan olmalı (sekmeyle ayrılmış): %s; bulunan: %s"
                    % (len(ALANLAR), ", ".join(ALANLAR), ", ".join(baslik)))
     govde = satirlar[1:]
-    if not govde:
+    if not govde and not bos_izinli:
         raise Hata("0 ürün: yazılacak satır yok")
     cikti = []
     for i, ham in enumerate(govde, 2):
@@ -88,6 +96,11 @@ def urunleri_dogrula(yol):
             raise Hata("satır %d: urun boş" % i)
         if r["link"] and not r["link"].lower().startswith("http"):
             raise Hata("satır %d: link http ile başlamıyor: %r" % (i, r["link"]))
+        km = re.match(r"^SAT\s*[-–]\s*KO[SŞ]ULLU\s*(?:[:：]\s*(.*?))?\s*$", r["karar"], re.I)   # eski yazım `SAT-KOŞULLU: <eksik>` / "SAT (koşullu)" → SAT + not
+        if km or r["karar"] == "SAT (koşullu)":
+            r["karar"] = "SAT"
+            if km and km.group(1) and not r["neden"]:
+                r["neden"] = "Kontrol et: %s" % km.group(1)
         if r["karar"] not in KARARLAR:
             raise Hata("satır %d: karar %r; izinli: %s" % (i, r["karar"], " / ".join(KARARLAR)))
         if len(r["neden"]) > NEDEN_MAX:
@@ -147,7 +160,7 @@ def nasil_okunur(kaynak):
         ("Alış", "Ürünü bizim alış fiyatı; para birimi hücre biçiminde (₺ $ € £). Bilinmiyorsa boş."),
         ("Satış", "Önerilen ya da gözlenen satış fiyatı; aynı para birimi."),
         ("Marj (kat)", "Marj betiğinin verdiği satış / maliyet çarpanı. Bu dosya kendisi hesaplamaz; yoksa boş."),
-        ("Karar", "SAT = kanıt dosyası olan aday · SAT (koşullu) = diğer ölçütler güçlü, marj ya da viral doğrulanamadı (neden sütununda hangisi) · İZLE = izlenecek ya da eksik kanıtlı · ELE = elenen."),
+        ("Karar", KARAR_TANIMI.get(kaynak, KARAR_TANIMI["_"])),
         ("Neden", "Kararın tek cümlelik gerekçesi (en çok 140 karakter)."),
         ("Kaynak", "Ürünün bulunduğu yer: Instagram, Meta reklam, AliExpress ya da Trendyol."),
         ("Tarih", "Verinin okunduğu gün (yyyy-aa-gg)."),
@@ -156,7 +169,7 @@ def nasil_okunur(kaynak):
     ]
 
 
-def yaz(urunler, kaynak, cikti, ayrinti, ham_baslik_yedek):
+def yaz(urunler, kaynak, cikti, ayrinti, ham_baslik_yedek, ayrinti_gizli=False):
     from openpyxl import Workbook
     from openpyxl.styles import Alignment, Font, PatternFill
     from openpyxl.utils import get_column_letter
@@ -202,6 +215,8 @@ def yaz(urunler, kaynak, cikti, ayrinti, ham_baslik_yedek):
         wa.column_dimensions[get_column_letter(j)].width = 18
     wa.freeze_panes = "A2"
     wa.auto_filter.ref = wa.dimensions
+    if ayrinti_gizli:
+        wa.sheet_state = "hidden"
 
     wn = wb.create_sheet(SAYFALAR[2])
     wn.append(["Ne", "Anlamı"])
@@ -249,6 +264,8 @@ def main(argv=None):
     ap.add_argument("--kaynak", required=True, choices=sorted(KAYNAKLAR))
     ap.add_argument("--cikti", required=True)
     ap.add_argument("--ayrinti", action="append", default=[])
+    ap.add_argument("--ayrinti-gizli", action="store_true", help="Ayrıntı sayfasını gizle (denetim kaydı)")
+    ap.add_argument("--bos-izinli", action="store_true", help="SAT yoksa Ürünler sayfası yalnız başlıkla yazılır")
     ap.add_argument("--kopya")
     try:
         a = ap.parse_args(argv)
@@ -260,7 +277,7 @@ def main(argv=None):
         print("HATA: openpyxl yok. Kur: python3 -m pip install --user openpyxl  (Windows: py -m pip install openpyxl)")
         return 3
     try:
-        urunler = urunleri_dogrula(a.urunler)
+        urunler = urunleri_dogrula(a.urunler, a.bos_izinli)
         ayrinti = None
         if a.ayrinti:
             ayrinti = ayrinti_oku(a.ayrinti[0])
@@ -270,7 +287,7 @@ def main(argv=None):
     except Hata as e:
         print("HATA: %s" % e)
         return 1
-    yaz(urunler, a.kaynak, a.cikti, ayrinti, ham_yedek)
+    yaz(urunler, a.kaynak, a.cikti, ayrinti, ham_yedek, a.ayrinti_gizli)
     hatalar = olc(a.cikti, len(urunler))
     if hatalar:
         for h in hatalar:
@@ -283,7 +300,10 @@ def main(argv=None):
         os.makedirs(hedef_dizin, exist_ok=True)
         shutil.copy2(a.cikti, a.kopya if dosya_mi else os.path.join(a.kopya, os.path.basename(a.cikti)))
     say = {k: sum(1 for r in urunler if r["karar"] == k) for k in KARARLAR}
-    print("TAMAM %s · %d ürün (SAT %d / SAT-koşullu %d / İZLE %d / ELE %d)" % (a.cikti, len(urunler), say["SAT"], say["SAT (koşullu)"], say["İZLE"], say["ELE"]))
+    if a.kaynak in ("aliexpress", "trendyol"):
+        print("TAMAM %s · %d SAT" % (a.cikti, say["SAT"]))
+    else:
+        print("TAMAM %s · %d ürün (SAT %d / İZLE %d / ELE %d)" % (a.cikti, len(urunler), say["SAT"], say["İZLE"], say["ELE"]))
     return 0
 
 

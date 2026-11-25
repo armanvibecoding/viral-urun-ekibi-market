@@ -2,6 +2,7 @@
   "surum": "1",
   "marka": {
     "ad": "Pati Pencere",
+    "ad_kaynak": "kurucu kararı (marka adımı, 3 yönden seçilen)",
     "slogan": "Camın önü onun yeri.",
     "ses": { "sifatlar": ["sıcak", "net", "oyuncu"], "degil": ["abartılı", "bebeksi", "teknik"] }
   },

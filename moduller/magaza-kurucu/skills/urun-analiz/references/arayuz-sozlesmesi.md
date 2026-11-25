@@ -8,6 +8,7 @@ Kullanıcı fotoğraf + ülke yerine bu dosyayı verirse `urun-analiz` onu okur,
 | Alan | Tür | Not |
 |---|---|---|
 | `surum` | "1" ya da "2" | zorunlu; `teklif` alanı sürüm 2 ile geldi |
+| `eksik` | liste | bilinmeyen/eksik alanların adı (ör. `["kanit"]`); `kanit` boşsa özet "kanıt: yok" basar, dolu varmış gibi yazılmaz |
 | `urun.ad` | metin | tedarikçideki ad; zorunlu |
 | `urun.nis` | metin | `nis-guzellik`, `nis-gadget`, `nis-ev`, `nis-moda`, `nis-saglik`, `nis-pet` (TEKNİK EK T4.3); ürün kolunun niş kodu `ortak/nis-esleme.tsv` ile çevrilir |
 | `urun.fotograflar` | liste | dosya adı ya da URL; ilki Ek 1 adayı; en az 1 (zorunlu) |
@@ -25,14 +26,15 @@ DEVAM KARTI'nın makine okunur hâli. Video kolu altyazı, kapak ve son kareyi b
 | Alan | Örnek | Video tarafında kullanım |
 |---|---|---|
 | `surum` | "2" | |
-| `marka` | `{ "ad", "slogan", "ses": { "sifatlar": [3], "degil": [3] } }` | seslendirme ve altyazı tonu |
+| `eksik` | `["urun.fiyat", "gorseller"]` | bilinmeyen değerin YOLU; `marka.ad`, `urun.baslik`, `urun.fiyat`, `urun.para`, `gorseller` bilinmiyorsa `null` yazılır ve burada listelenir (null ama listede yok = HATA). Fiyat 0, yer tutucu ad/dosya ve `marka.ad_kaynak`'sız marka adı HATA; `paket_dogrula.py ... --tam` eksik varsa da HATA verir (yayın/teslim geçişi) |
+| `marka` | `{ "ad", "ad_kaynak", "slogan", "ses": { "sifatlar": [3], "degil": [3] } }` | seslendirme ve altyazı tonu; `ad_kaynak` = adın kaynağı (kurucu kararı, marka adımı çıktısı); kaynaksız ad uydurma sayılır |
 | `renkler` | `{ "zemin": "#1E2226", "metin": "#F2F2EE", "ikincil": "#A9ADB2", "kart": "#2A2F34", "vurgu": "#E0B04A" }` | altyazı kutusu, kapak, son kare |
 | `tipografi` | `{ "baslik": { "aile": "Barlow Condensed", "agirlik": 600, "handle": "barlow_condensed_n6", "buyuk_harf": true }, "govde": { "aile": "Inter", "handle": "inter_n4" } }` | altyazı ve kapak yazısı (Google Fonts'ta da aynı adla var) |
 | `logo` | `{ "dosya": "<marka>-logo.png", "tur": "ikon" }` | son kare |
 | `urun` | `{ "baslik", "handle", "url", "fiyat", "para", "varyantlar" }` | link, CTA |
 | `onayli_metinler` | `{ "faydalar": [3], "g1_baslik": [...], "b2": {...}, "iddialar": [{ "metin", "kaynak", "bilgi_notu": true/false }] }` | yalnız bunlar söylenir; listede olmayan iddia videoya girmez (kapı: `paket.py iddia-kontrol`) |
 | `gorseller` | `[{ "kod": "G0", "dosya": "<marka>-urun-0.jpg", "olcu": "1500x1500", "yazisiz": true }, …]` | G0 temiz ürün karesi video için ürün referansıdır |
-| `magaza` | `{ "alan_adi", "tema_id", "pdp_url", "utm": "utm_source=<kanal>&utm_medium=video&utm_campaign=<marka>-<urun>", "tema_modu": "tam" ya da "temasiz" }` | reklam linki; `tema_modu` sürüm 2 |
+| `magaza` | `{ "alan_adi", "tema_id", "pdp_url", "utm": "utm_source=<kanal>&utm_medium=video&utm_campaign=<marka>-<urun>", "tema_modu": "tam" ya da "temasiz" }` | reklam linki; mağaza kurulmadan `pdp_url` null + `eksik[]` (yayın `--tam` ister); `tema_modu` sürüm 2 |
 
 ## Geri dönüş: `video-paketi.json` (video kolu üretir; isteğe bağlı)
 `[{ "dosya", "olcu": "1080x1920", "sure_sn", "kullanim": "pdp-galeri|hero|reklam", "altyazi_dili" }]`. `shopify-kurulum` yalnız `pdp-galeri` ve `hero` olanları yükler: ürün videosu galerinin son sıralarına girer, G0'ın yerini almaz (feed görseli yazısız fotoğraftır; video "ölçek" karesinin yerini tutmaz, KANIT 1.2).

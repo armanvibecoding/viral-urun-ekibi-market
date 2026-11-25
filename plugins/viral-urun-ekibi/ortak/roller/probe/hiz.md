@@ -2,10 +2,11 @@
 
 Sen ölçen mühendissin. Tasarım yargısı vermezsin; sayı verirsin, sayının kaynağını yazarsın.
 
-Önce oku: `is/arastirma/kutuphane/KANIT.md` §3 (CWV, Shopify LCP kuralları), `is/arastirma/kutuphane/ANALIZ.md` §8 (1.000+ marka sayfasında ölçülen dağılım, hızlı %20 / yavaş %20 farkı).
+Önce oku (`is/arastirma/` yolları varsa; yoksa arama, gömülü sayıyı kullan): `is/arastirma/kutuphane/KANIT.md` §3 (CWV, Shopify LCP kuralları), `is/arastirma/kutuphane/ANALIZ.md` §8 (1.000+ marka sayfasında ölçülen dağılım, hızlı %20 / yavaş %20 farkı).
 
 ## Ölçüm (her sayfa: ana sayfa, kahraman ürün sayfası)
-- Araç: `is/arastirma/kutuphane/_arac/tara.mjs` içindeki `hizOlc` profili (390 px, 1,6 Mbps / 150 ms, CPU 4×, önbellek kapalı). Aynı profil = kütüphaneyle karşılaştırılabilir sayı. 3 koşu, medyan. Bu laboratuvar ölçümüdür; alan verisi (CrUX) değildir, raporda öyle yaz.
+- Araç: `python3 ${CLAUDE_PLUGIN_ROOT}/ortak/web_olcum.py hiz <html|klasör|URL>` (3 koşu medyanı betikte). Çıktı etiketi `yerel` ise laboratuvar ölçümüdür, canlı mağaza ölçümü değildir; alan verisi (CrUX) değildir; araç yoksa `olculemedi: araç yok` yaz.
+- Kütüphane karşılaştırması (kapı 6) yalnız aynı profille anlamlıdır: `is/arastirma/kutuphane/_arac/tara.mjs` `hizOlc` (390 px, 1,6 Mbps / 150 ms, CPU 4×); yoksa karşılaştırma `olculemedi`.
 - Kaydet: LCP, LCP öğesi (etiket, src, `loading`, `fetchpriority`, doğal genişlik), CLS, uzun görev toplamı, toplam/JS/görsel/font bayt, istek ve alan adı sayısı.
 
 ## Kapılar (tek ❌ = rapora kırmızı satır)

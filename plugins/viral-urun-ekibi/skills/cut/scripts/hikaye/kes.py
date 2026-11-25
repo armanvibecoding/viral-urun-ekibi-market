@@ -1,7 +1,12 @@
 """kes.py <kaynak.png> <çıktı.png> x0 y0 x1 y1 [alt üst] — düz (tek renkli) zeminli ürün fotoğrafından ürünü keser (zemin rengine uzaklık → alfa).
 Gerçek ürün fotoğrafı yoksa kesme yapılmaz; AI görseli yalnız son çaredir (tarif 02)."""
-import sys, numpy as np
-from PIL import Image, ImageFilter
+import sys
+try:
+    import numpy as np
+    from PIL import Image, ImageFilter
+except ImportError as _hata:  # ham ImportError yerine anlaşılır mesaj, çıkış 3 (kurulum eksik)
+    print("kurulum eksik: '%s' paketi bulunamadı. Kur: python3 -m pip install --user numpy pillow (Windows: py -3 -m pip install --user numpy pillow)" % (_hata.name or "numpy pillow"), file=sys.stderr)
+    sys.exit(3)
 s, o = sys.argv[1:3]; x0, y0, x1, y1 = map(int, sys.argv[3:7])
 im = np.asarray(Image.open(s).convert("RGB").crop((x0, y0, x1, y1))).astype(float)
 # zemin: kenar pikselleri medyanı (yerel: satır bazlı sol/sağ kenar ortalaması ile gradyan izlenir)

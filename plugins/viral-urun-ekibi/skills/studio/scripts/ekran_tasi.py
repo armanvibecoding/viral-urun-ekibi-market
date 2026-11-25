@@ -18,8 +18,12 @@ Kullanım:
 import argparse
 import sys
 
-import numpy as np
-from PIL import Image
+try:
+    import numpy as np
+    from PIL import Image
+except ImportError as _hata:  # ham ImportError yerine anlaşılır mesaj, çıkış 3 (kurulum eksik)
+    print("kurulum eksik: '%s' paketi bulunamadı. Kur: python3 -m pip install --user numpy pillow (Windows: py -3 -m pip install --user numpy pillow)" % (_hata.name or "numpy pillow"), file=sys.stderr)
+    sys.exit(3)
 
 for _a in (sys.stdout, sys.stderr):
     try:

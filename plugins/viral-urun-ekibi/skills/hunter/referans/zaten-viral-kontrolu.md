@@ -1,7 +1,7 @@
 # "Zaten viral mi?" kontrolü (pazara göre)
 
 Ne zaman okunur: aday listesi çıktıktan sonra (akış adım 4). Amaç: seçilen pazarda bu ürün zaten büyütülmüş mü?
-Tanım: `ortak/sozluk.md` → "Tutmamış", "Zaten viral". Her satıra üç sonuçtan biri yazılır: **tutmamış · zaten viral · doğrulanamadı**.
+Tanım: `ortak/sozluk.md` → "Tutmamış", "Zaten viral". Her satıra üç sonuçtan biri yazılır: **tutmamış · zaten viral · doğrulanamadı**. Yalnız `zaten viral` (kanıtlı) engeldir; `doğrulanamadı` SAT'ı engellemez, kartta "zaten viral doğrulanamadı" notu olur (viral veritabanı yokken ücretsiz vekil: Meta aktif reklam sayısı + satıcı sayısı).
 
 ## 1. Pazara göre mağaza kontrolü
 | Pazar | Nereye bakılır | Nasıl |

@@ -29,8 +29,8 @@ Ekibin tek lideri `captain` becerisidir; bu dosya yalnız 3 aşamayı (6 bölüm
 
 ## Her aşamada
 1. Önce `<aşama>/ASAMA.md` dosyasını BAŞTAN SONA oku. Okumadan o aşamanın işine başlama.
-2. O dosyadaki göreli yolları aşama klasörüne göre çöz: `references/x.md` → `<aşama>/references/x.md`, `scripts/y.py` → `<aşama>/scripts/y.py`, `assets/…` → `<aşama>/assets/…`. Başka aşamanın dosyası anılıyorsa önce kendi aşama klasöründe, yoksa diğer aşama klasörlerinde ara.
-3. `references/00-calisma-tarzi.md` ve `references/01-kurallar.md` bütün aşamalarda aynıdır: bir kez okumak yeter.
+2. Göreli yollar aşama klasörüne göredir (`references/x.md` → `<aşama>/references/x.md`; `scripts/`, `assets/` aynı). Başka aşamanın dosyası anılıyorsa önce kendi klasöründe, yoksa diğer aşama klasörlerinde ara.
+3. `references/00-calisma-tarzi.md` ve `references/01-kurallar.md` bütün aşamalarda aynıdır: bir kez okumak yeter. Okuyunca DEVAM KARTI'na `okundu: 00,01` yaz; işaret varsa yeniden okuma (bağlam sıfırlandıysa oku).
 4. Bölüm dosyalarında "skill" denen şey bu paketteki bölüm klasörüdür. "Sıradaki `marka`" = onaydan sonra `marka/ASAMA.md`'yi oku ve devam et; geçişi sen yaparsın.
 5. Bir bölümün işini önceki bölüm onaylanmadan yapma. Ön koşul sıraya değil karta bakar: bölüm başlarken ihtiyaç duyduğu alanı kartta ara, eksikse onu üreten bölüme dön. Her mesaj tek adım.
 
@@ -43,7 +43,7 @@ Paketin yeri değişebilir. Yol tutmazsa kod aracıyla bul:
 - Paket kökü: `find / -name ASAMA.md -path "*urun-analiz*" 2>/dev/null | head -1` (iki üst klasör).
 - Şablon yaması `t4_yama.py` (`shopify-kurulum/scripts/`), görsel düzeltme `duzelt.py` ve bilgi kartı `sablon.py` (`gorseller/scripts/`; fontlar `gorseller/assets/fonts/`), stil çapası `gorseller/assets/stil-capasi/`, tema kaydı `shopify-kurulum/references/tema.json`.
 - Köprü betiği `paket.py`: `ekip-koprusu.md` §1.
-Betik bulunamazsa ne yapılacağı ilgili aşama dosyasında yazar; betik uydurma.
+Betik bulunamazsa aşama dosyasına bak; betik uydurma.
 
 ## Çalışma modu
 - ChatGPT'de yalnız Çalışma (Work) modunda. Görsel üretimi (Aşama 2) ve Shopify bağlantısı (Aşama 3) bu modda gerekir.

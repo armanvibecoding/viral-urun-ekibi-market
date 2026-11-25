@@ -111,6 +111,12 @@ Kanıt kodu = S24-<ızgara kodu>. Etiket kuralı aynı (KURAL ≥3 · ADAY 2 · 
 | İlk fikir vs son ürün (prototip gag) | GÖZLEM (1) | "Our final hoodies" ↔ "The first idea of our hoodies" 17MN [S24-G101] | S3 akrabası |
 | Katılım sorusu CTA (AB) | GÖZLEM (1) | "Which country ID should we do next?" [S24-G1x08] | yorum getirir |
 | Aile otoritesi / hile | GÖZLEM (1) | "My Grandma did this!!!" 5,3MN [S24-G3x06] | ürünsüz hile; Keşfet'te ürünlerle yarışır |
+### K14. İtiraz/diyalog alıntısı — KURAL (4; S24, yukarıdaki tablonun satırı)
+Betikler aile başlığını `### K<n>.` biçiminde arar (`on_uretim_karti.py`, `kanca_varyasyon.py`); tablo satırı başlık sayılmaz, bu yüzden K14 ve K15 burada da başlıklıdır. Kanıt ve şablon tabloda: `"[şüpheci cümle]"` → ürün cümleyi çürütür [S24-G1x06] [S24-G1x08] [S24-G3x03] [S24-G3x04].
+
+### K15. Ekranda yorum-anahtar-kelime CTA, kancayla dönüşümlü — KURAL (8; S24)
+Kanıt ve şablon tabloda: `Comment "KELİME" and I'll DM you the link` [S24-G1x07] [S24-G2x03] [S24-G2x05] [S24-G3x05]; kanca yazısıyla sırayla değişir, ayrı bitiş kartı yok.
+
 Ayrıca: sezon müziği → `muzik-kutuphanesi.md`; video yapısı (döngü, plan temposu) → `sahne-sablonlari.md` "Ortak: süre ve döngü".
 
 ### Daha az kanıtlı aileler
@@ -126,6 +132,19 @@ Ayrıca: sezon müziği → `muzik-kutuphanesi.md`; video yapısı (döngü, pla
 | "RUN to [mağaza]" | **YASAK** | [079, 107] milyon aldı ama gerçek mağaza adı; jenerik hali sahada ölçülmedi | önerilmez |
 
 ---
+
+### Saha turu R74 (2026-11-24) — tek hesabın 74 Reels'i, döküm + kare panosu, SÜZGEÇTEN geçmiş
+Kaynak: ABD'li, 602 B takipçili, pazarlama/kanca anlatan giyim markası kurucusu; 74 videonun tamamı izlendi (yerel döküm), izlenme 39,5 B–7,8 Mn, ortanca 344 B. Üst grup = ≥1 Mn (21 video), alt grup = ≤215 B (20 video). Kural yalnız üstte ≥3 ve altta belirgin az görülen desenden yazıldı; hesap sahibinin satış/DM/takipçi rakamları BEYANDIR, kanıt sayılmadı. Uyarı: gürültü yüksek — aynı video iki yayında 1,8 Mn ve 449 B aldı; alt grubun çoğu hesabın ilk döneminden.
+- **R1 Yan yana ikili kıyas — KURAL (üst 6/21, alt 0/20).** Bölünmüş ekran, üstte tek soru; izleyici kıyaslar. Ürün: "Hangisi 10 saniyede kurudu?" — sol eski yöntem, sağ ürün. Kıyas sonucu gerçek çekimle gösterilir.
+- **R2 Konuşmasız tek kurallı test + ekranda ilerleyen sayaç — KURAL (üst 4/21, alt 1/20).** "3 leke, tek silme: 0/3 → 3/3". Sayaç gerçek sonuca bağlı; HyperFrames sayaç katmanı.
+- **R3 Biçimi al, görüntüyü kendin çek — KURAL (üst 3/6 biçim kopyası, alt 0/6).** Tutmuş bir videonun KARE SIRASI kopyalanır, başkasının klibi/sesi/yüzü kullanılmaz (telif + kişilik hakkı). "Garanti viral" değildir: aynı metin 2,5 Mn ve 343 B aldı.
+- **R4 Kanca izleyicinin durumundan başlar, markadan değil — KURAL (marka/kurucu/ürün konulu açılış: üst 2/21, alt 10/20).** İlk yazı "biz / yeni koleksiyon" ile başlamaz; "Kedi tüyü tek geçişte çıkar mı?" gibi izleyicinin sorunu/sorusuyla başlar.
+- **Uzman yöntemi (R74) — varsayılan çalışma yöntemi; istatistik kanıtı DEĞİL, uygulayıcı yöntemi (n=1 hesap, tekrar yayınlarda ölçüm gürültüsü büyük):**
+  - **A Açık döngü:** kanca izleyicide TEK soru doğurur; son sahne/kare o soruyu cevaplar. Senaryoda `kanca_sorusu` + `cevap_an` (sn) zorunlu (`senaryo_kontrol.py`).
+  - **B Soru zinciri:** 8–25 sn'de en çok 2 halka ("Önce su. Sonra kahve. Peki yağ?"); 25 sn üstü hikâyede 3.
+  - **C Kanca sıkılaştırma:** her kanca 4 basamakta yeniden yazılır: konu → cesur iddia → sonuç vaadi → sayı+kanıt (sayı yalnız doğrulanmış gerçekse). Son hal + bir önceki hal (`kanca_onceki`) senaryoda kalır.
+  - **İçerik hunisi:** erişim videosu ile satış videosu ayrı üretilir, ayrı ölçülür (`olcum-ve-test-plani.md` §3b).
+- **GİRMEZ:** "Bu video bana X getirdi" kancası (üst 3, alt 4; ortanca 235 B, hesabın ortancasının altında) · "yalnız %1 doğru karede durdurur" + DM'e ekran görüntüsü atana gizli indirim (izlenme süresi şişirme, yanıltıcı indirim, DM seli) · video başka şeymiş gibi başlayıp ürüne dönen "hileli reklam" · bilerek yanlış yapma (öfke yemi) · başkasının viral klibiyle açılış · drop tarihiyle sahte aciliyet · platform algoritması hakkında doğrulanmamış beyanlar. Görsel ev stili (masa başı + video penceresi + tek kelime altyazı) üstte ve altta aynı oranda: izlenmeyi açıklamıyor.
 
 ## 1b. Ekran yazısı — ikna eder, listelemez (2026-11-17 kurucu: "yazılar bilgi veriyor ama ikna etmiyor")
 Kanca dışındaki yazı kartları da bu kurallara uyar (yazı başına ≤ 5 kelime, `cut` biçim kuralları ayrıca).

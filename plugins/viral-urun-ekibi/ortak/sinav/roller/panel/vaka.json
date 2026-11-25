@@ -1,0 +1,39 @@
+{
+ "rol": "panel",
+ "sabit_urun": {
+  "vaka": "a-kolay",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "TR",
+  "urun_dizin": "is/01-kupa"
+ },
+ "moduller": [
+  {
+   "mod": null,
+   "brief": "pano/kor-g1.jpg + kor-g1-390.jpg (A–D) + niş adı + slot işi",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/magaza/tur-1/KOR-1.md",
+    "zorunlu_bolumler": [
+     "puan tablosu",
+     "sıralama",
+     "yapay zekâ"
+    ]
+   }
+  }
+ ],
+ "eksik_girdi": [
+  {
+   "mod": null,
+   "brief": "pano/kor-g1.jpg var, 390 px sürüm ve niş adı yok",
+   "eksik": "niş adı ve 390 sürüm yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  }
+ ]
+}

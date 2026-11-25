@@ -5,7 +5,8 @@
   python3 scripts/ad_testi.py --kendini-sina  → her kapıyı geçici kopyada kırar; kırılmayan kapı yeşil sayılmaz
 
 Kapılar: a) beceri klasör adı = name = haritadaki yeni ad (alias hariç) · b) agents/ = haritadaki 17 ajan ·
-c) beceri ve ajan adları tek havuzda benzersiz · d) her eski beceri adı için yalnız SKILL.md içeren alias klasörü ·
+c) beceri ve ajan adları tek havuzda benzersiz · d) `alias=var` eski ad için yalnız SKILL.md içeren alias klasörü;
+`alias=kaldirildi` eski adın klasörü YOK (0.6.0: 0.5.0'da kaldırılacağı duyurulan 8 eski ad silindi) ·
 e) eski kimlikler izinli yerler dışında geçmiyor · f) description "<Kod adı> (" ile başlar ·
 g) birleşen ajanın her modu için ortak/roller/<kod>/<mod>.md var.
 """
@@ -103,6 +104,10 @@ def denetle(kok):
         if r["eski"] == "-":
             continue
         d = os.path.join(skills, r["eski"])
+        if r.get("alias", "var") == "kaldirildi":
+            if os.path.exists(d):
+                hata.append("d) kaldırılmış eski ad klasörü hâlâ var: skills/" + r["eski"])
+            continue
         if not os.path.isdir(d):
             hata.append("d) alias klasörü yok: skills/" + r["eski"])
             continue
@@ -119,7 +124,7 @@ def denetle(kok):
     # e)
     eskiler = sorted({r["eski"] for r in h if r["eski"] != "-"}, key=len, reverse=True)
     desen = re.compile(r"(?<![\w-])(%s)(?![\w-])" % "|".join(re.escape(e) for e in eskiler))
-    alias_dizin = {os.path.join(skills, r["eski"]) for r in beceri if r["eski"] != "-"}
+    alias_dizin = {os.path.join(skills, r["eski"]) for r in beceri if r["eski"] != "-" and r.get("alias", "var") != "kaldirildi"}
     for dizin, altlar, dosyalar_ in os.walk(kok):
         altlar[:] = [a for a in altlar if a not in ATLA_DIZIN]
         goreli_d = os.path.relpath(dizin, kok).replace(os.sep, "/")
@@ -172,7 +177,9 @@ def kendini_sina():
     temiz = denetle(gecici)
     sonuc.append(("temiz kopya → 0 hata", not temiz))
     h = harita(gecici)
-    b0 = next(r for r in h if r["tur"] == "beceri" and r["eski"] != "-" and r["eski"] != r["yeni"] and r["mod"] == "")
+    b0 = next(r for r in h if r["tur"] == "beceri" and r["eski"] != "-" and r["eski"] != r["yeni"] and r["mod"] == ""
+              and r.get("alias", "var") == "var")
+    bk = next((r for r in h if r["tur"] == "beceri" and r.get("alias") == "kaldirildi"), None)
     a0 = next(r for r in h if r["tur"] == "ajan" and not r["mod"])
     am = next(r for r in h if r["tur"] == "ajan" and r["mod"])
     skills = os.path.join(gecici, PLUG, "skills")
@@ -203,6 +210,8 @@ def kendini_sina():
     kir("c) beceri adı ajan havuzunda da → HATA", os.path.join(gecici, HARITA),
         lambda t: t.replace("\t%s\t%s\t" % (a0["yeni"], a0["kod_adi"]), "\t%s\t%s\t" % (b1["yeni"], a0["kod_adi"])), "c")
     kir("d) alias klasörüne ikinci dosya → HATA", os.path.join(skills, b0["eski"], "EKSTRA.md"), lambda t: "x\n", "d")
+    if bk:
+        kir("d) kaldırılmış eski ad klasörü geri geldi → HATA", os.path.join(skills, bk["eski"], "SKILL.md"), lambda t: "x\n", "d")
     kir("e) eski kimlik serbest metinde → HATA", os.path.join(gecici, "README.md"),
         lambda t: t + "\nBkz. %s becerisi.\n" % b0["eski"], "e")
     kir("f) description kod adıyla başlamıyor → HATA", os.path.join(agents, a0["yeni"] + ".md"),

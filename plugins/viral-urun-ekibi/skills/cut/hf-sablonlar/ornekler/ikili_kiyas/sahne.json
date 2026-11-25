@@ -1,0 +1,10 @@
+{
+  "tur": "ikili_kiyas",
+  "bas": 0,
+  "sure": 5.0,
+  "soru": "Hangisi 10 saniyede kurudu?",
+  "sol_etiket": "ESKİ YÖNTEM",
+  "sag_etiket": "ÜRÜN",
+  "kazanan": "sag",
+  "cevap_an": 3.6
+}

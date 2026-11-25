@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """excel_hazirla.py [PROJE_KLASORU] [CIKTI.xlsx] [--adaylar adaylar.md] [--marj-sonuc marj-sonuc.tsv]
 
-Hunter hazırlayıcısı (0.4.0): is/firsat/adaylar.md (+ marj_hesap.py --cikti dosyası) → ortak şablonlu Excel
+Hunter hazırlayıcısı (0.7.0, YALNIZ SAT): is/firsat/adaylar.md (+ marj_hesap.py --cikti dosyası) → ortak şablonlu Excel
 (3 sayfa, 10 sütun): is/firsat/firsat-urunler.xlsx.
 Bu betik yalnız iki iş yapar: urunler.tsv hazırlar, sonra ortak/excel_yaz.py'yi alt süreç olarak çağırıp çıkış kodunu aynen döndürür.
-Karar eşlemesi: SAT → SAT (yalnız kanıt dosyası varsa; yoksa İZLE) · İZLE, AÇIK, KISA LİSTE → İZLE · ELE → ELE.
+Kullanıcı sayfası ("Ürünler") YALNIZ SAT satırlarını taşır: durum SAT (eski SAT-KOŞULLU dahil) + kanıt dosyası var + kanıtlı engel yok
+(firsat_kontrol.nihai). İZLE/ELE/AÇIK/KISA LİSTE/kanıt bekleyen satırlar Ürünler'e girmez; ham tablo gizli "Ayrıntı" sayfasında kalır.
+Eski SAT-KOŞULLU ayrı sınıf değil: eksik kanıt neden sütununda "Kontrol et: ..." notudur.
 Alış, satış, para ve marj çarpanı marj sonucundan gelir (ürün adıyla eşleşirse); yoksa "Normal fiyat" sütunundan yalnız alış okunur.
 Çıkış: excel_yaz.py ile aynı (0 TAMAM · 1 veri hatası · 2 kullanım · 3 openpyxl yok).
 """
@@ -18,7 +20,9 @@ import tempfile
 
 BURADA = os.path.dirname(os.path.abspath(__file__))
 ALANLAR = ["urun", "link", "ilgi", "ilgi_sayi", "alis", "satis", "para", "marj_kat", "karar", "neden", "kaynak", "tarih"]
-KARAR = {"SAT": "SAT", "IZLE": "İZLE", "ACIK": "İZLE", "AÇIK": "İZLE", "KISA": "İZLE", "ELE": "ELE"}
+# `SAT-KOŞULLU: <eksik tek kanıt>` (skeptic hükmü) → Excel kararı "SAT (koşullu)"; eksik kanıt yazılmamışsa ya da kanıt dosyası yoksa İZLE
+KOSULLU_RE = re.compile(r"^\s*SAT\s*[-–]?\s*\(?\s*KO[SŞ]ULLU\s*\)?\s*(?:[:：]\s*(?P<eksik>[^—–]*?))?\s*(?:[—–]\s*(?P<neden>.*))?$", re.I)
+KANIT_RE = re.compile(r"(is/firsat/kanit/\S+?\.md)")
 PARA = {"$": "USD", "€": "EUR", "£": "GBP", "₺": "TRY"}
 NEDEN_MAX = 140
 
@@ -100,17 +104,14 @@ def fiyat_oku(metin):
 
 
 def hazirla(adaylar_yol, marj_yol, proje, tsv_cikti):
+    sys.path.insert(0, BURADA)
+    import firsat_kontrol as fk
     mtime = datetime.date.fromtimestamp(os.path.getmtime(adaylar_yol)).isoformat()
     marj = {}
     if marj_yol and os.path.exists(marj_yol):
         with open(marj_yol, encoding="utf-8-sig", newline="") as f:
             for r in csv.DictReader(f, delimiter="\t"):
                 marj[(r.get("urun") or "").strip().lower()] = r
-    elenen = {}
-    elen_yol = os.path.join(os.path.dirname(adaylar_yol), "elenenler.md")
-    if os.path.exists(elen_yol):
-        for r in md_tablo(elen_yol):
-            elenen[sutun(r, "Ürün").lower()] = sutun(r, "Sebep")
     yazilan = 0
     with open(tsv_cikti, "w", encoding="utf-8", newline="") as f:
         f.write("\t".join(ALANLAR) + "\n")
@@ -118,22 +119,17 @@ def hazirla(adaylar_yol, marj_yol, proje, tsv_cikti):
             urun = sutun(r, "Ürün")
             if not urun or urun.startswith("<"):
                 continue
+            kl = {k.lower(): v for k, v in r.items()}
+            if fk.nihai(kl, proje) != "SAT":
+                continue          # kullanıcıya yalnız SAT gider
             durum = sutun(r, "Durum")
-            ilk = re.split(r"[\s—–-]+", durum.strip(), maxsplit=1)[0].upper().replace("İ", "I") if durum.strip() else ""
-            if ilk not in KARAR:
-                continue
-            karar = KARAR[ilk]
-            neden = re.split(r"\s[—–]\s", durum, maxsplit=1)[1] if re.search(r"\s[—–]\s", durum) else ""
-            if karar == "SAT":
-                kanit = re.search(r"(is/firsat/kanit/\S+?\.md)", durum)
-                if not (kanit and os.path.isfile(os.path.join(proje, kanit.group(1)))):
-                    karar, neden = "İZLE", "SAT denmiş ama kanıt dosyası bulunamadı; kanıt yazılana kadar İZLE."
-                else:
-                    neden = "Kanıt dosyası var: " + kanit.group(1)
-            elif karar == "ELE":
-                neden = elenen.get(urun.lower(), "") or neden or "Elendi (sebep elenenler.md'de)."
-            if not neden:
-                neden = sutun(r, "Zaten viral") or "Karar bekliyor."
+            kanit = KANIT_RE.search(" ".join(r.values()))
+            _, _, kontrol, _, _ = fk.oneri_hesapla(kl)
+            kosullu = KOSULLU_RE.match(durum)
+            if kosullu and (kosullu.group("eksik") or "").strip():
+                kontrol = [kosullu.group("eksik").strip()] + kontrol
+            neden = ("Kontrol et: " + "; ".join(kontrol)) if kontrol else ""
+            neden = (("Kanıt: %s. " % kanit.group(1)) if kanit and not kontrol else "") + neden
             n, ilgi = satis_oku(sutun(r, "Ürün satışı", "Urun satisi"))
             link = sutun(r, "Ali link")
             link = link if re.match(r"^https?://", link) else ""
@@ -144,8 +140,8 @@ def hazirla(adaylar_yol, marj_yol, proje, tsv_cikti):
             else:
                 alis, para = fiyat_oku(sutun(r, "Normal fiyat"))
                 satis, kat = "", ""
-            alan = [urun, link, ilgi, "" if n is None else str(n), alis, satis, para, kat, karar,
-                    kisalt(neden), "AliExpress", mtime]
+            alan = [urun, link, ilgi, "" if n is None else str(n), alis, satis, para, kat, "SAT",
+                    kisalt(neden or "Kanıt dosyası var."), "AliExpress", mtime]
             f.write("\t".join(h.replace("\t", " ").replace("\n", " ") for h in alan) + "\n")
             yazilan += 1
     return yazilan
@@ -168,11 +164,13 @@ def main():
         sys.exit("HATA: %s yok" % adaylar)
     with tempfile.TemporaryDirectory(prefix="hunter_excel_") as d:
         urunler = os.path.join(d, "urunler.tsv")
-        if hazirla(adaylar, marj, proje, urunler) == 0:
-            print("HATA: adaylar.md'de Durum'u SAT / İZLE / AÇIK / KISA LİSTE / ELE olan satır yok")
+        if not md_tablo(adaylar):
+            print("HATA: adaylar.md'de ürün tablosu yok")
             return 1
-        r = subprocess.run([sys.executable, excel_yaz_yolu(), "--urunler", urunler, "--kaynak", "hunter",
-                            "--cikti", cikti, "--ayrinti", adaylar])
+        if hazirla(adaylar, marj, proje, urunler) == 0:
+            print("UYARI: kanıt dosyalı SAT yok: Ürünler sayfası boş yazılır (SAT bulunamadı); denetim kaydı gizli Ayrıntı sayfasında")
+        r = subprocess.run([sys.executable, excel_yaz_yolu(), "--urunler", urunler, "--kaynak", "aliexpress",
+                            "--cikti", cikti, "--ayrinti", adaylar, "--ayrinti-gizli", "--bos-izinli"])
     return r.returncode
 
 

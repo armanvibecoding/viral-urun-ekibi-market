@@ -5,19 +5,23 @@
 jürinin değeri de "sıralaması gerçek performans sıralamasıyla ne kadar uyuşuyor" sorusuyla ölçülür (geriye dönük test).
 
   juri.py pano --cikti is/NN/juri/tur-1 --mod teslim|onuretim --bizim V03=is/NN/kurgu/V03.mp4 --referans R1 --referans R2 --referans R3
+  juri.py pano --cikti is/NN/juri/tur-1 --mod teslim --bizim V03=… --referans-klasoru is/NN/referans   (analiz.db yok: indirdiğin ≥ 3 viral video bu klasörde)
   juri.py pano --cikti is/kalibrasyon/set-1 --mod kalibrasyon --tsv kalibrasyon.tsv
   juri.py birlestir is/NN/juri/tur-1 --kayit is/NN/elestiri/juri.jsonl --tur 1 [--proje .]
   juri.py kalibrasyon is/kalibrasyon/set-1 [--proje .]
   juri.py ayirt is/*/elestiri/juri.jsonl [puanlar.jsonl …]
-  juri.py yapilamadi is/NN --video V03 --mod teslim --referans-sayisi 2 --neden "viral referans < 3"   (iş durmaz; kapı "JÜRİ YAPILAMADI" notuyla geçer)
+  juri.py yapilamadi is/NN --video V03 --mod teslim --referans-sayisi 2 --neden "viral referans < 3"   (kapı KALDI olur; ilerlemek yalnız kullanıcının (mağaza sahibinin) açık aşım cümlesiyle: KARARLAR.md kapi-asimi)
   juri.py set --analiz-db <proje>/veri/analiz.db --cikti is/kalibrasyon/set-1 [--nis evcil] [--pazar ABD] [--adet 12]
 
-pano       Her öge (video · kare klasörü · tek görsel) adsız bir pano görseline çevrilir: video ise ilk 2 sn 5 kare/sn +
-           kalanı 2 kare/sn. Kare uygulama ekran görüntüsüyse `--arayuz-maske` şart (beğeni/yorum sayacı performansı ele verir). Harfler karıştırılır; eşleşme `_esleme.json`'da kalır (jüri bu dosyayı AÇMAZ). teslim ve
-           onuretim modunda en az 3 gerçek viral referans şart (referanssız pano kör jüri değildir → çıkış 1).
-birlestir  `KOR-<n>.json` dosyalarını okur (en az 3 geçerli kopya; yoksa çıkış 1). Öge başına alan medyanı, toplam
+pano       Her öge (video · kare klasörü · tek görsel) AYNI biçimde adsız pano görseline çevrilir: 20 kare, 5×4 ızgara, 1080×1536
+           (video: ilk 2 sn 5 kare/sn + kalanından 10 eşit aralıklı kare). Video ögeleri (ve `--arayuz-maske` verilen ögeler) hesap adı +
+           sayaç şeridi HER ögede, bizim dahil, aynı biçimde kapatılır; maskeden sonra OCR ile @hesap / 1.2M / beğeni kelimesi kalırsa
+           PANO GEÇERSİZ (çıkış 1). Her kopyanın kendi klasörü (`<cikti>/kopya-<n>/`) ve kendi harf sırası vardır; eşleşme jürinin
+           okuduğu dizinin DIŞINDA durur: `<cikti>.gizli/_esleme.json`. teslim ve onuretim modunda en az 3 gerçek viral referans şart
+           (referanssız pano kör jüri değildir → çıkış 1).
+birlestir  `kopya-<n>/KOR-<n>.json` dosyalarını okur (pano biçimi tek değilse PANO GEÇERSİZ) (en az 3 geçerli kopya; yoksa çıkış 1). Öge başına alan medyanı, toplam
            (alan medyanlarının ortalaması, 0,5'e yuvarlı) ve medyan sıra. Bütün ögelere aynı puanı veren (ayırt etmeyen)
-           kopya geçersizdir. Bizim video GEÇER: toplam ≥ 7 · hiçbir alan < 5 · medyan sırada sonuncu değil.
+           kopya geçersizdir. Bizim video GEÇER: toplam ≥ 7 · hiçbir alan < 5 · dururdum ≥ 6 · gonderirdim ≥ 6 · medyan sırada sonuncu değil.
            Eşikler DENEME'dir; kalibrasyon verisi geldikçe değişir (değişiklik kalibrasyonla gerekçelenir).
 kalibrasyon  Performansı bilinen gerçek videolardan kurulu panoda: jüri toplamı ↔ performans puanı Spearman ρ, alan başına
            yayılım (std) ve ρ. n < 8 → VERİ YETERSİZ (çıkış 3, hüküm yok). ρ ≥ 0,5 UYUMLU (0) · 0,2–0,5 ZAYIF (1) ·
@@ -42,6 +46,8 @@ import json
 import math
 import os
 import random
+import re
+import shutil
 import sqlite3
 import statistics
 import subprocess
@@ -66,6 +72,8 @@ ALAN_ACIKLAMA = {
 PERF_OLCUT = ["izlenme_takipci", "etkilesim_orani", "niyet_orani", "aktif_gun", "varyant", "sepete_ekleme_orani"]
 MIN_KOPYA, MIN_REFERANS, MIN_N = 3, 3, 8
 GECME = {"toplam": 7.0, "alan": 5.0}
+# Denetim 2026-11-25 #5: ortalama telafi edici olmasın — durduran ve paylaştıran iki alanın tabanı (rapordaki değer 6)
+ALAN_TABAN = {"dururdum": 6.0, "gonderirdim": 6.0}
 GORSEL = (".jpg", ".jpeg", ".png", ".webp")
 
 
@@ -143,83 +151,208 @@ def spearman(a, b):
 
 
 # ------------------------------------------------------------------ pano
+# Denetim 2026-11-25 #1/#2: her öge AYNI biçimde (20 kare, 5×4 ızgara, 216×384 kare); video ögeleri ya da --arayuz-maske verilince
+# hesap adı / beğeni sayacı şeridi HER ögede (bizim dahil) aynı biçimde kapatılır; eşleşme jürinin okuduğu dizinde DEĞİL
+# (`<cikti>.gizli/_esleme.json`); her kopyanın kendi klasörü ve kendi harf sırası vardır (`<cikti>/kopya-<n>/`).
+KARE_SAYISI, SUTUN, TILE_W, TILE_H = 20, 5, 216, 384
+KOPYA_SAYISI = 3
+OCR_VENV = os.path.expanduser("~/.local/share/viral-urun-ekibi/ocr-venv/bin/python")
+SIZINTI_RE = (r"@\s?[A-Za-z0-9_.]{3,}", r"\b\d[\d.,]*\s?[KkMmBb]\b",
+              r"\b\d[\d.,]*\s?[KkMmBb]?\s?(likes?|views?|followers?|comments?|shares?|beğeni|izlenme|takipçi|yorum)\b")
+# Sayaç sözcüğü YALNIZ önünde sayı varsa sızıntıdır ("1,2K comments"); CTA "Comment \"KELİME\"" sızıntı değildir (rol sınavı 2026-11-25).
+
+
 def ffmpeg():
     sys.path.insert(0, BURASI)
     import ffaraclar as F
     return F.ffmpeg_bul()
 
 
-def video_panosu(yol, cikti):
-    """İlk 2 sn 5 kare/sn + kalan 2 kare/sn (toplam en çok 30 kare). Dosya adı ve meta veri panoya taşınmaz."""
+def esit_sec(liste, n):
+    """Listeden eşit aralıklı tam n öğe (az ise tekrarlanır; çıktı uzunluğu HEP n)."""
+    if not liste:
+        return []
+    if n == 1:
+        return [liste[0]]
+    return [liste[round(i * (len(liste) - 1) / (n - 1))] for i in range(n)]
+
+
+def video_kareleri(yol):
+    """İlk 2 sn 5 kare/sn (10 kare, kanca) + kalanından eşit aralıklı 10 kare. Dosya adı ve meta veri panoya taşınmaz."""
     import tempfile
+    from PIL import Image
     ff = ffmpeg()
     with tempfile.TemporaryDirectory() as g:
         for ad, giris in (("a", ["-t", "2", "-i", yol, "-vf", "fps=5,scale=-2:384"]),
-                          ("b", ["-ss", "2", "-i", yol, "-vf", "fps=2,scale=-2:384", "-frames:v", "20"])):
+                          ("b", ["-ss", "2", "-i", yol, "-vf", "fps=4,scale=-2:384", "-frames:v", "80"])):
             subprocess.run([ff, "-v", "error", "-y"] + giris + ["-q:v", "3", os.path.join(g, ad + "_%03d.jpg")],
                            capture_output=True, text=True)
-        kareler = sorted(glob.glob(os.path.join(g, "*.jpg")))
-        if not kareler:
+        a = sorted(glob.glob(os.path.join(g, "a_*.jpg")))
+        b = sorted(glob.glob(os.path.join(g, "b_*.jpg")))
+        if not a and not b:
             raise SystemExit("HATA: videodan kare çıkarılamadı: %s" % yol)
-        gorsel_panosu(kareler, cikti)
-
-
-MASKE = False  # --arayuz-maske: ekran görüntüsü kaynaklı karede beğeni/yorum/paylaşım sayaçlarını kapatır
+        sec = esit_sec(a, KARE_SAYISI // 2) + esit_sec(b or a, KARE_SAYISI // 2)
+        return [Image.open(k).convert("RGB").copy() for k in sec]
 
 
 def maskele(k):
-    """Uygulama arayüzündeki sayaçlar performansı ele verir (kör jüri sızıntısı): sağ %18 şeridin alt %60'ı ve alt %7 kapatılır."""
+    """Uygulama arayüzü performansı ve kimliği ele verir: üst %6 (hesap/başlık) + alt %20 (hesap adı, açıklama) + sağ %15'in
+    %38'den aşağısı (beğeni/yorum/paylaşım sayaçları) kapatılır. Bizim ögeler de aynı maskeyi alır (biçim farkı sızıntısı olmaz);
+    kurgu kontratı K5 zaten alt %20 + sağ %15'i boş bırakır."""
     from PIL import ImageDraw
     d = ImageDraw.Draw(k)
     w, h = k.size
-    d.rectangle([int(w * 0.82), int(h * 0.40), w, h], fill=(0, 0, 0))
-    d.rectangle([0, int(h * 0.93), w, h], fill=(0, 0, 0))
+    d.rectangle([0, 0, w, int(h * 0.06)], fill=(0, 0, 0))
+    d.rectangle([0, int(h * 0.80), w, h], fill=(0, 0, 0))
+    d.rectangle([int(w * 0.85), int(h * 0.38), w, h], fill=(0, 0, 0))
     return k
 
 
-def gorsel_panosu(yollar, cikti):
+def dikis_var(im, sutun):
+    """Sütun sınırlarında görüntü kesintisi var mı (gerçek kare sayfası)? Düz manzara fotoğrafı bölünmesin diye."""
+    g = im.convert("L")
+    w, h = g.size
+    px = g.load()
+    adim = max(1, h // 200)
+    def fark(x):
+        return sum(abs(px[x, y] - px[x - 1, y]) for y in range(0, h, adim)) / len(range(0, h, adim))
+    ornek = sorted(fark(x) for x in range(2, w, max(1, w // 120)))
+    taban = ornek[len(ornek) // 2] + 1.0
+    dikis = 0
+    for c in range(1, sutun):
+        x0 = round(c * w / sutun)
+        dikis += max(fark(x) for x in range(max(1, x0 - 2), min(w, x0 + 3))) >= 3 * taban
+    return dikis * 2 >= sutun - 1  # sınırların en az yarısı keskin (benzer ardışık kare bir sınırı yumuşatabilir)
+
+
+def sayfa_bol(im):
+    """Yatay kare sayfası ise (dikey 9:16 hücrelerden ızgara) hücre listesi döner, değilse None.
+    Hücrenin üst %9'u kırpılır: sayfa etiketleri ("0.4s / 11") süre ve biçim farkı sızdırır."""
+    w, h = im.size
+    if w <= h:
+        return None
+    en_iyi = None
+    for satir in (1, 2, 3, 4):
+        hh = h / satir
+        sutun = round(w / (hh * 9 / 16))
+        if sutun < 2:
+            continue
+        hata = abs((w / sutun) / hh - 9 / 16)
+        if en_iyi is None or hata < en_iyi[0]:
+            en_iyi = (hata, satir, sutun)
+    if not en_iyi or en_iyi[0] > 0.06 or en_iyi[1] * en_iyi[2] < 4:
+        return None
+    _, satir, sutun = en_iyi
+    if sutun > 8 or satir * sutun > 24 or not (en_iyi[0] < 0.01 or dikis_var(im, sutun)):  # tam 9:16 ızgara ya da keskin dikiş
+        return None
+    cw, ch = w / sutun, h / satir
+    return [im.crop((int(c * cw), int(r * ch + ch * 0.09), int((c + 1) * cw), int((r + 1) * ch)))
+            for r in range(satir) for c in range(sutun)]
+
+
+def kareleri_al(yol):
+    """(kare listesi tam KARE_SAYISI, tür, uyarı). tür: video | kare | tek."""
     from PIL import Image
-    kareler = [Image.open(y).convert("RGB") for y in yollar[:30]]
-    if MASKE:
-        kareler = [maskele(k) for k in kareler]
-    if len(kareler) == 1:
-        k = kareler[0]
-        k.thumbnail((1080, 1920))
-        k.save(cikti, quality=88)
-        return
-    w, h, sutun = 216, 384, 5
-    satir = math.ceil(len(kareler) / sutun)
-    pano = Image.new("RGB", (w * min(sutun, len(kareler)), h * satir), (0, 0, 0))
-    for i, k in enumerate(kareler):
-        k.thumbnail((w, h))
-        pano.paste(k, ((i % sutun) * w + (w - k.width) // 2, (i // sutun) * h + (h - k.height) // 2))
-    pano.save(cikti, quality=88)
-
-
-def oge_panosu(yol, cikti):
     if os.path.isdir(yol):
         yollar = sorted(y for y in glob.glob(os.path.join(yol, "*")) if y.lower().endswith(GORSEL))
+        # Rol sınavı 2026-11-25: kare klasöründe profil/sayfa ekran görüntüsü hesap adını sızdırıyordu → yalnız kare dosyaları.
+        kare_adi = [y for y in yollar if re.match(r"^(k|kare|frame)[_-]?\d+\.", os.path.basename(y).lower())]
+        yollar = kare_adi or [y for y in yollar if not re.match(r"^(profil|sayfa|p\d)", os.path.basename(y).lower())]
         if not yollar:
             raise SystemExit("HATA: klasörde görsel yok: %s" % yol)
-        gorsel_panosu(yollar, cikti)
-    elif yol.lower().endswith(GORSEL):
-        gorsel_panosu([yol], cikti)
-    elif os.path.isfile(yol):
-        video_panosu(yol, cikti)
-    else:
-        raise SystemExit("HATA: öge bulunamadı: %s" % yol)
+        uy = "%d kare var, %d'ye tamamlandı (tekrarla)" % (len(yollar), KARE_SAYISI) if len(yollar) < KARE_SAYISI else ""
+        return [Image.open(y).convert("RGB") for y in esit_sec(yollar, KARE_SAYISI)], "kare", uy
+    if yol.lower().endswith(GORSEL):
+        im = Image.open(yol).convert("RGB")
+        hucreler = sayfa_bol(im)
+        if hucreler:  # kare sayfası (ör. 5×2): hücrelere bölünür, pano içinde pano olmaz (rol sınavı 2026-11-25)
+            return esit_sec(hucreler, KARE_SAYISI), "sayfa", "kare sayfası %d hücreye bölündü" % len(hucreler)
+        return [im] * KARE_SAYISI, "tek", "tek görsel %d kez tekrarlandı" % KARE_SAYISI
+    if os.path.isfile(yol):
+        return video_kareleri(yol), "video", ""
+    raise SystemExit("HATA: öge bulunamadı: %s" % yol)
+
+
+def tile_yap(k, maske):
+    from PIL import Image
+    k = k.copy()
+    k.thumbnail((TILE_W, TILE_H))
+    t = Image.new("RGB", (TILE_W, TILE_H), (0, 0, 0))
+    t.paste(k, ((TILE_W - k.width) // 2, (TILE_H - k.height) // 2))
+    return maskele(t) if maske else t
+
+
+def oge_panosu(yol, cikti, maske_zorla=False):
+    """Öge → tek pano görseli (HER ZAMAN 5×4 ızgara, 1080×1536). Döner: (tür, maskelendi_mi, uyarı, sizinti_tile_yolları)."""
+    from PIL import Image
+    kareler, tur, uy = kareleri_al(yol)
+    maske = True  # her öge aynı maskeyi alır: kare klasörü/sayfası da IG arayüzü taşıyabilir (rol sınavı 2026-11-25)
+    tiles = [tile_yap(k, maske) for k in kareler]
+    pano = Image.new("RGB", (TILE_W * SUTUN, TILE_H * (KARE_SAYISI // SUTUN)), (0, 0, 0))
+    for i, t in enumerate(tiles):
+        pano.paste(t, ((i % SUTUN) * TILE_W, (i // SUTUN) * TILE_H))
+    pano.save(cikti, quality=88)
+    return tur, maske, uy, [tiles[i] for i in (0, 6, 13, 19)]
+
+
+def ocr_sizinti(tiles_listesi):
+    """Maskeden sonra kalan hesap adı / sayaç metni var mı? [(ad, [tile])] → ({ad: [bulgu]}, durum). OCR yoksa durum 'olculemedi'."""
+    import tempfile
+    with tempfile.TemporaryDirectory() as t:
+        yollar = []
+        for ad, tiles in tiles_listesi:
+            for i, im in enumerate(tiles):
+                y = os.path.join(t, "%s__%d.png" % (ad, i))
+                im.resize((im.width * 3, im.height * 3)).save(y)
+                yollar.append(y)
+        kod = ("import sys,json\nfrom rapidocr_onnxruntime import RapidOCR\no=RapidOCR()\nout={}\n"
+               "for y in sys.argv[1:]:\n    r=o(y)[0] or []\n    out[y]=[m for _,m,g in r if float(g)>=0.5]\nprint(json.dumps(out))\n")
+        py = OCR_VENV if os.path.exists(OCR_VENV) else sys.executable
+        r = subprocess.run([py, "-c", kod] + yollar, capture_output=True, text=True)
+        if r.returncode != 0:
+            return {}, "olculemedi"
+        try:
+            sonuc = json.loads(r.stdout.strip().splitlines()[-1])
+        except (ValueError, IndexError):
+            return {}, "olculemedi"
+    bulgu = {}
+    for y, metinler in sonuc.items():
+        ad = os.path.basename(y).rsplit("__", 1)[0]
+        for m in metinler:
+            for desen in SIZINTI_RE:
+                if re.search(desen, m, re.I):
+                    bulgu.setdefault(ad, []).append(m)
+                    break
+    return bulgu, "tamam"
+
+
+def esleme_yolu(dizin):
+    """Eşleşme jürinin okuduğu dizinin DIŞINDA: `<dizin>.gizli/_esleme.json`. Eski düzen (dizin içinde) yalnız okunur."""
+    yeni = os.path.join(os.path.normpath(dizin) + ".gizli", "_esleme.json")
+    return yeni if os.path.exists(yeni) else os.path.join(dizin, "_esleme.json")
+
+
+REFERANS_UZANTI = (".mp4", ".mov", ".webm", ".mkv", ".m4v", ".png", ".jpg", ".jpeg")
 
 
 def pano(a):
-    global MASKE
-    MASKE = bool(a.arayuz_maske)
     ogeler = []
     for b in a.bizim:
         ad, _, yol = b.partition("=")
         if not yol:
             raise SystemExit("HATA: --bizim AD=YOL biçiminde olmalı (ör. V03=is/07/kurgu/V03.mp4)")
         ogeler.append({"tur": "bizim", "ad": ad, "kaynak": yol, "perf": {}})
-    for i, r in enumerate(a.referans, 1):
+    referanslar = list(a.referans)
+    if a.referans_klasoru:
+        # analiz.db olmadan referans: kullanıcının indirdiği viral videolar/görseller/kare klasörleri (ad sırasıyla)
+        if not os.path.isdir(a.referans_klasoru):
+            raise SystemExit("HATA: --referans-klasoru bulunamadı: %s" % a.referans_klasoru)
+        for ad in sorted(os.listdir(a.referans_klasoru)):
+            yol = os.path.join(a.referans_klasoru, ad)
+            if ad.startswith(".") or not (os.path.isdir(yol) or ad.lower().endswith(REFERANS_UZANTI)):
+                continue
+            referanslar.append(yol)
+    for i, r in enumerate(referanslar, 1):
         ogeler.append({"tur": "referans", "ad": "R%d" % i, "kaynak": r, "perf": {}})
     if a.tsv:
         kok = os.path.dirname(os.path.abspath(a.tsv))
@@ -242,33 +375,81 @@ def pano(a):
             return 1
     elif ref < MIN_N:
         print("UYARI: kalibrasyon panosunda %d öge var; %d altı VERİ YETERSİZ sayılır." % (ref, MIN_N))
-    if len(ogeler) > 26:
-        kodlar = ["K%02d" % i for i in range(1, len(ogeler) + 1)]
-    else:
-        kodlar = [chr(65 + i) for i in range(len(ogeler))]
+    for i, o in enumerate(ogeler, 1):
+        o["id"] = "O%02d" % i
     tohum = a.tohum if a.tohum is not None else random.SystemRandom().randrange(10 ** 9)
-    random.Random(tohum).shuffle(ogeler)
-    os.makedirs(os.path.join(a.cikti, "pano"), exist_ok=True)
-    esleme = {"mod": a.mod, "tohum": tohum, "olusturma": datetime.date.today().isoformat(), "ogeler": {}}
-    for kod, o in zip(kodlar, ogeler):
-        oge_panosu(o["kaynak"], os.path.join(a.cikti, "pano", kod + ".jpg"))
-        esleme["ogeler"][kod] = o
-    with open(os.path.join(a.cikti, "_esleme.json"), "w", encoding="utf-8") as f:
+    cikti = os.path.normpath(a.cikti)
+    gizli = cikti + ".gizli"
+    import tempfile
+    sizinti_girdi, uyarilar = [], []
+    esleme = {"mod": a.mod, "tohum": tohum, "olusturma": datetime.date.today().isoformat(), "kare_sayisi": KARE_SAYISI,
+              "ogeler": {}, "kopyalar": {}}
+    with tempfile.TemporaryDirectory() as gecici:
+        for o in ogeler:
+            tur, maske, uy, tiles = oge_panosu(o["kaynak"], os.path.join(gecici, o["id"] + ".jpg"), a.arayuz_maske)
+            o.update({"kaynak_turu": tur, "maske": maske})
+            if uy:
+                uyarilar.append("%s: %s" % (o["id"], uy))
+            sizinti_girdi.append((o["id"], tiles))
+            esleme["ogeler"][o["id"]] = o
+        # biçim sızıntısı (maske artık herkese aynı): durağan tek görsel (aynı kare 20 kez) hareketli ögelerin yanında hemen ayrılır
+        if len({o["kaynak_turu"] == "tek" for o in ogeler}) > 1:
+            print("PANO GEÇERSİZ: ögelerin bir kısmı tek durağan görsel (20 kez aynı kare), bir kısmı hareketli (biçim farkı sızar). "
+                  "Referansı video, kare klasörü ya da kare sayfası olarak verin.", file=sys.stderr)
+            return 1
+        bulgu, ocr_durum = ocr_sizinti(sizinti_girdi)
+        if bulgu:
+            print("PANO GEÇERSİZ: maskeden sonra hesap adı/sayaç metni kaldı (kimlik ya da performans sızar):", file=sys.stderr)
+            for k, v in sorted(bulgu.items()):
+                print("  %s (%s): %s" % (k, esleme["ogeler"][k]["tur"], "; ".join(sorted(set(v))[:3])), file=sys.stderr)
+            return 1
+        esleme["ocr_sizinti_taramasi"] = ocr_durum
+        kopya_n = max(1, a.kopya)
+        for eski in glob.glob(os.path.join(cikti, "kopya-*")):
+            shutil.rmtree(eski, ignore_errors=True)   # yalnız eski kopya klasörleri; çıktı klasörünün kendisi silinmez
+        for n in range(1, kopya_n + 1):
+            oidler = [o["id"] for o in ogeler]
+            random.Random("%s-%d" % (tohum, n)).shuffle(oidler)
+            kodlar = ["K%02d" % i for i in range(1, len(oidler) + 1)] if len(oidler) > 26 else [chr(65 + i) for i in range(len(oidler))]
+            kd = os.path.join(cikti, "kopya-%d" % n)
+            os.makedirs(os.path.join(kd, "pano"), exist_ok=True)
+            esleme["kopyalar"][str(n)] = dict(zip(kodlar, oidler))
+            for kod, oid in zip(kodlar, oidler):
+                shutil.copy(os.path.join(gecici, oid + ".jpg"), os.path.join(kd, "pano", kod + ".jpg"))
+            with open(os.path.join(kd, "BRIEF.md"), "w", encoding="utf-8") as f:
+                f.write("# Kör jüri brifi · kopya %d\nMod: %s\nPano: `pano/` (%d öge: %s)\nBağlam: %s\n"
+                        "Çıktı: yalnız bu klasöre `KOR-%d.json`. Başka kopya klasörünü ve `.gizli` eşleşme klasörünü AÇMA.\n"
+                        % (n, a.mod, len(kodlar), ", ".join(kodlar), a.baglam or "ürün videosu, dikey kısa video akışı", n))
+    os.makedirs(gizli, exist_ok=True)
+    with open(os.path.join(gizli, "_esleme.json"), "w", encoding="utf-8") as f:
         json.dump(esleme, f, ensure_ascii=False, indent=1)
-    with open(os.path.join(a.cikti, "BRIEF.md"), "w", encoding="utf-8") as f:
-        f.write("# Kör jüri brifi\nMod: %s\nPano: `pano/` (%d öge: %s)\nBağlam: %s\n"
-                "Çıktı: `KOR-<kopya no>.json` (bu klasöre). `_esleme.json` AÇILMAZ.\n"
-                % (a.mod, len(kodlar), ", ".join(kodlar), a.baglam or "ürün videosu, dikey kısa video akışı"))
-    print("pano: %s/pano (%d öge, %d referans) · eşleşme gizli: _esleme.json" % (a.cikti, len(kodlar), ref))
+    for u in uyarilar:
+        print("UYARI %s" % u)
+    if ocr_durum == "olculemedi":
+        print("UYARI: sayaç/hesap adı OCR taraması ÖLÇÜLEMEDİ (RapidOCR yok): maske uygulandı ama sızıntı denetlenmedi.")
+    print("pano: %s/kopya-1..%d/pano (%d öge, %d referans, %d kare/öge, 5×4) · eşleşme jüriden ayrı: %s"
+          % (cikti, kopya_n, len(ogeler), ref, KARE_SAYISI, os.path.join(gizli, "_esleme.json")))
     return 0
 
 
 # ------------------------------------------------------------------ birleştir
-def kopyalari_oku(dizin, kodlar):
-    """Geçerli kopyalar + geçersizlik nedenleri."""
+def kor_dosyalari(dizin, es):
+    """[(kopya no | None, yol)]. Yeni düzen: kopya-<n>/KOR-*.json. Eski düzen (eşleşme dizinin içindeyse): dizin/KOR-*.json."""
+    out = [(int(m.group(1)), y) for y in sorted(glob.glob(os.path.join(dizin, "kopya-*", "KOR-*.json")))
+           for m in [re.search(r"kopya-(\d+)", y)] if m]
+    if not es.get("kopyalar"):
+        out += [(None, y) for y in sorted(glob.glob(os.path.join(dizin, "KOR-*.json")))]
+    return out
+
+
+def kopyalari_oku(dizin, es):
+    """Geçerli kopyalar (öge KİMLİKLERİ üzerinden; kopya başına harf sırası eşleşmeden çözülür) + geçersizlik nedenleri."""
     gecerli, gecersiz = [], []
-    for yol in sorted(glob.glob(os.path.join(dizin, "KOR-*.json"))):
-        ad = os.path.basename(yol)
+    oidler = sorted(es["ogeler"])
+    for no, yol in kor_dosyalari(dizin, es):
+        ad = os.path.relpath(yol, dizin)
+        harita = (es.get("kopyalar") or {}).get(str(no)) or {o: o for o in oidler}   # kod → öge kimliği
+        kodlar = sorted(harita)
         try:
             d = json.load(open(yol, encoding="utf-8"))
         except ValueError as e:
@@ -276,9 +457,9 @@ def kopyalari_oku(dizin, kodlar):
             continue
         p, sira = d.get("puanlar") or {}, d.get("sira") or []
         hata = []
-        if sorted(p) != sorted(kodlar):
+        if sorted(p) != kodlar:
             hata.append("ögeler eksik/fazla (beklenen %s)" % ",".join(kodlar))
-        elif sorted(sira) != sorted(kodlar):
+        elif sorted(sira) != kodlar:
             hata.append("sıra bütün ögelerin tek tek sıralaması değil")
         else:
             for k in kodlar:
@@ -293,9 +474,25 @@ def kopyalari_oku(dizin, kodlar):
         if hata:
             gecersiz.append("%s: %s" % (ad, "; ".join(hata[:4])))
         else:
-            gecerli.append({"ad": ad, "puanlar": {k: {al: sayi(p[k][al]) for al in ALANLAR} for k in kodlar},
-                            "sira": {k: sira.index(k) + 1 for k in kodlar}, "yapay": d.get("yapay") or []})
+            gecerli.append({"ad": ad, "puanlar": {harita[k]: {al: sayi(p[k][al]) for al in ALANLAR} for k in kodlar},
+                            "sira": {harita[k]: sira.index(k) + 1 for k in kodlar}, "yapay": [harita[k] for k in d.get("yapay") or [] if k in harita]})
     return gecerli, gecersiz
+
+
+def pano_gecerli(dizin, es):
+    """Biçim denetimi: bütün pano görselleri aynı boyutta ve ızgara aynı mı (tek biçim). Boş liste = geçerli."""
+    sorun, boyutlar = [], {}
+    from PIL import Image
+    for y in sorted(glob.glob(os.path.join(dizin, "kopya-*", "pano", "*.jpg"))):
+        with Image.open(y) as im:
+            boyutlar.setdefault(im.size, []).append(os.path.relpath(y, dizin))
+    if len(boyutlar) > 1:
+        sorun.append("pano görselleri farklı boyutta (%s) — bizim ile referans ayırt edilir" % ", ".join("%dx%d" % b for b in boyutlar))
+    if len({bool(o.get("maske")) for o in es["ogeler"].values() if "maske" in o}) > 1:
+        sorun.append("ögelerin bir kısmı maskeli, bir kısmı değil")
+    if len({o.get("kaynak_turu") == "tek" for o in es["ogeler"].values() if "kaynak_turu" in o}) > 1:
+        sorun.append("ögelerin bir kısmı tek durağan görsel, bir kısmı hareketli")
+    return sorun
 
 
 def ozetle(gecerli, kodlar):
@@ -322,7 +519,7 @@ def son_kalibrasyon(proje):
 
 
 def esleme_oku(dizin):
-    yol = os.path.join(dizin, "_esleme.json")
+    yol = esleme_yolu(dizin)
     if not os.path.exists(yol):
         raise SystemExit("HATA: _esleme.json yok: %s (önce `juri.py pano`)" % dizin)
     return json.load(open(yol, encoding="utf-8"))
@@ -331,7 +528,10 @@ def esleme_oku(dizin):
 def birlestir(a):
     es = esleme_oku(a.dizin)
     kodlar = sorted(es["ogeler"])
-    gecerli, gecersiz = kopyalari_oku(a.dizin, kodlar)
+    for sorun in pano_gecerli(a.dizin, es):
+        print("PANO GEÇERSİZ: %s" % sorun, file=sys.stderr)
+        return 1
+    gecerli, gecersiz = kopyalari_oku(a.dizin, es)
     for g in gecersiz:
         print("GEÇERSİZ KOPYA %s" % g)
     if len(gecerli) < MIN_KOPYA:
@@ -359,6 +559,9 @@ def birlestir(a):
         dusuk = [al for al in ALANLAR if x["medyan"][al] < GECME["alan"]]
         if dusuk:
             nedenler.append("alan < %g: %s" % (GECME["alan"], ", ".join(dusuk)))
+        taban = [al for al, t in ALAN_TABAN.items() if x["medyan"][al] < t and al not in dusuk]
+        if taban:
+            nedenler.append("taban < %g: %s (durdurmayan/paylaştırmayan video ortalama telafisiyle geçmez)" % (ALAN_TABAN["dururdum"], ", ".join(taban)))
         if x["sira"] >= n:
             nedenler.append("gerçek viral referansların hepsinin gerisinde (medyan sıra %g/%d)" % (x["sira"], n))
         gecti = not nedenler
@@ -395,7 +598,7 @@ def alan_tablosu(satirlar_alan):
 def kalibrasyon(a):
     es = esleme_oku(a.dizin)
     kodlar = sorted(es["ogeler"])
-    gecerli, gecersiz = kopyalari_oku(a.dizin, kodlar)
+    gecerli, gecersiz = kopyalari_oku(a.dizin, es)
     for g in gecersiz:
         print("GEÇERSİZ KOPYA %s" % g)
     if len(gecerli) < MIN_KOPYA:
@@ -504,7 +707,8 @@ def set_kur(a):
 
 
 def yapilamadi(a):
-    """Referans < 3 iken işi durdurmaz: hüküm kaydına açık 'jüri yapılamadı' satırı yazar (gecti=true, ama kapı notu görünür kalır)."""
+    """Referans < 3 iken hüküm kaydına açık 'jüri yapılamadı' satırı yazar. GEÇİŞ DEĞİLDİR (gecti=false): kapi.py bunu KALDI sayar,
+    ilerlemek yalnız KARARLAR.md'de kullanıcının (mağaza sahibinin) açık aşım cümlesiyle olur (denetim 2026-11-25 #2/#4)."""
     if a.referans_sayisi >= MIN_REFERANS:
         print("HATA: referans %d ≥ %d — jüri koşabilir, 'yapılamadı' yazılamaz" % (a.referans_sayisi, MIN_REFERANS), file=sys.stderr)
         return 1
@@ -514,9 +718,9 @@ def yapilamadi(a):
     yol = os.path.join(a.is_dizin, "elestiri", "juri.jsonl")
     os.makedirs(os.path.dirname(yol), exist_ok=True)
     with open(yol, "a", encoding="utf-8") as f:
-        f.write(json.dumps({"video": a.video, "tur": 0, "mod": a.mod, "gecti": True, "juri": "yapilamadi",
+        f.write(json.dumps({"video": a.video, "tur": 0, "mod": a.mod, "gecti": False, "juri": "yapilamadi",
                             "referans_sayisi": a.referans_sayisi, "neden": a.neden}, ensure_ascii=False) + "\n")
-    print("kaydedildi: %s — teslim notuna 'jüri yapılamadı' yaz; referans bulma ayrı iş (DURUM.md)" % yol)
+    print("kaydedildi: %s — kapı KALDI; ilerlemek için kullanıcının (mağaza sahibinin) açık cümlesi gerekir: `- TARİH | kapi-asimi | <kredi|yayin> <iş> hukum[@V]: \"<cümle>\"` (KARARLAR.md). Referans bulma ayrı iş (DURUM.md)" % yol)
     return 0
 
 
@@ -526,9 +730,11 @@ def main():
     p = alt.add_parser("pano")
     p.add_argument("--cikti", required=True); p.add_argument("--mod", choices=["teslim", "onuretim", "kalibrasyon"], required=True)
     p.add_argument("--bizim", action="append", default=[]); p.add_argument("--referans", action="append", default=[])
+    p.add_argument("--referans-klasoru", help="analiz.db olmadan referans: klasördeki her video/görsel/kare alt klasörü bir referans olur (indirdiğin 3+ viral video)")
     p.add_argument("--tsv"); p.add_argument("--tohum", type=int); p.add_argument("--baglam")
     p.add_argument("--arayuz-maske", action="store_true",
-                   help="ekran görüntüsünden alınan karelerde sayaçları (beğeni/yorum/paylaşım) kapat — sayaç performansı ele verir")
+                   help="video olmayan ögelerde (kare klasörü/görsel) de hesap adı + sayaç şeritlerini kapat; video ögeleri HER ZAMAN maskelenir")
+    p.add_argument("--kopya", type=int, default=KOPYA_SAYISI, help="bağımsız jüri kopyası sayısı (her birine ayrı klasör ve harf sırası)")
     b = alt.add_parser("birlestir")
     b.add_argument("dizin"); b.add_argument("--kayit"); b.add_argument("--tur", type=int, default=1); b.add_argument("--proje", default=".")
     k = alt.add_parser("kalibrasyon")

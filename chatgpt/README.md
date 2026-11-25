@@ -10,6 +10,8 @@ Shopify ChatGPT'nin kendi bağlantısıyla, Çalışma modu şart). Betikler kod
 | **ChatGPT plugin** (önerilen) | [Releases](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) → `viral-urun-ekibi-CHATGPT-v0.5.0.zip` (açma) | ChatGPT → **Plugins** → yükleme seçeneği |
 | **Proje** (plugin yoksa; claude.ai'de de olur) | bu klasördeki [`proje-paketi/`](proje-paketi/KURULUM.md) | ChatGPT ya da claude.ai → **Projects** |
 
+> **Güncelleme:** ChatGPT zip'i kendiliğinden güncellenmez. Yeni sürümde Releases'tan yeni zip'i indirip elle yükle; dosya adındaki `-vX.Y.Z` güncel sürümle aynı olmalı (Claude Code'da sürüm oturum açılışında yazılır).
+
 ## Plugin kurulumu (3 adım)
 
 1. `viral-urun-ekibi-CHATGPT-v0.5.0.zip` dosyasını Releases'tan indir. ZIP'i açma.

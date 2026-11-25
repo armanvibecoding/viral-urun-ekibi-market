@@ -91,11 +91,11 @@ jobs:
           python plugins/viral-urun-ekibi/skills/spy/scripts/kendini_test.py
           python plugins/viral-urun-ekibi/skills/spy/scripts/toplayici_test.py
 
-      - name: Teklif, AliExpress ve Trendyol (Bazaar) kırma testleri
+      - name: Teklif ve ürün avı (AliExpress, Trendyol) kırma testleri
         run: |
           python plugins/viral-urun-ekibi/skills/builder/teklif/scripts/kirma_testi.py
           python plugins/viral-urun-ekibi/skills/hunter/scripts/kirma_testi.py
-          python plugins/viral-urun-ekibi/skills/bazaar/scripts/kirma_testi.py
+          python plugins/viral-urun-ekibi/skills/hunter/trendyol/scripts/kirma_testi.py
 
       - name: Ortak Excel yazıcısı (openpyxl gerekir)
         run: |

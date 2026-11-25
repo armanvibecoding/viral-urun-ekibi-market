@@ -8,7 +8,8 @@
   videolar teslim     -> video-yaz  -> is/NN-urun/magaza/video-paketi.json  (mağazaya geri dönüş)
 
 Kullanım:
-  paket.py dogrula urun|magaza|video DOSYA          paket.py dogrula zincir URUN MAGAZA [VIDEO]
+  paket.py dogrula urun|magaza|video DOSYA [--tam]   paket.py dogrula zincir URUN MAGAZA [VIDEO]
+                                       (null + eksik[] dürüst "bilinmiyor"dur: geçer, "EKSİK:" basar; fiyat 0, yer tutucu, kaynaksız marka adı = HATA; --tam eksik de HATA)
   paket.py urun-yaz --cikti F --ad "<tedarikçideki ad>" --foto <dosya|URL> (--ulke TR | --pazar ABD)
           [--dil tr] [--para TRY] [--nis nis-gadget | --nis-kodu evcil] [--tedarik "9.4 USD" | --marj-csv is/firsat/marj.csv]
           [--ozellik "ad|deger|birim|kaynak"]... [--varyant "Gri|var"]... [--rakip "marka|url|fiyat"]...
@@ -327,8 +328,9 @@ def urun_yaz(a):
         uyarilar.append("kanit boş: SAT kararının kanıtı (reklam/satış ölçümü) dosyaya girmedi")
     if not hatalar:
         yaz_json(a.cikti, veri)
-        print("yazıldı: sürüm %s · teklif kaynağı: %s · rakip %d · kanıt %d" % (
-            veri["surum"], veri.get("teklif", {}).get("kaynak", "yok"), len(veri.get("rakipler", [])), len(veri.get("kanit", []))))
+        print("yazıldı: sürüm %s · teklif kaynağı: %s · rakip %d · kanıt %s" % (
+            veri["surum"], veri.get("teklif", {}).get("kaynak", "yok"), len(veri.get("rakipler", [])),
+            len(veri["kanit"]) if veri.get("kanit") else "yok (kanıtsız paket: mağaza kolu başlamamalı)"))
     return rapor(hatalar, uyarilar, a.cikti)
 
 
@@ -351,14 +353,18 @@ def magaza_oku(a):
         return rapor(hatalar, uyarilar, a.dosya)
     marka, renk, tip, urun, om, mag = m["marka"], m["renkler"], m["tipografi"], m["urun"], m["onayli_metinler"], m["magaza"]
     ses = marka.get("ses", {})
-    link = mag["pdp_url"]
-    if mag.get("utm"):
+    eksik = m.get("eksik", [])
+    BILINMIYOR = "BİLİNMİYOR (eksik[]: üretme, kullanıcıdan iste)"
+    link = mag.get("pdp_url") or BILINMIYOR
+    if mag.get("pdp_url") and mag.get("utm"):
         link += ("&" if "?" in link else "?") + mag["utm"]
     b = tip["baslik"]
-    s = ["# Marka kilidi — %s" % marka["ad"], "",
+    s = ["# Marka kilidi — %s" % (marka["ad"] or "BİLİNMİYOR"), "",
          "Kaynak: `%s` (mağaza kolu, sözleşme sürüm %s). Bu dosya betikle üretilir; elle düzenleme, paketi yeniden oku."
          % (os.path.basename(a.dosya), m["surum"]), "",
          "## Ses (seslendirme, altyazı, caption tonu)"]
+    if eksik:
+        s[2:2] = ["**EKSİK (paket dürüstçe bilinmiyor dedi; üretme, kurucudan iste):** %s" % ", ".join(eksik), ""]
     if marka.get("slogan"):
         s.append("- Slogan: %s" % marka["slogan"])
     if ses.get("sifatlar"):
@@ -372,8 +378,9 @@ def magaza_oku(a):
                                ", BÜYÜK HARF" if b.get("buyuk_harf") else ""),
           "- Gövde: %s" % tip["govde"]["aile"],
           "", "## Ürün ve link",
-          "- Ürün başlığı: %s" % urun["baslik"],
-          "- Fiyat: %s %s (organik videoda ekrana yazılmaz; caption/bio/ürün sayfası)" % (urun["fiyat"], urun["para"])]
+          "- Ürün başlığı: %s" % (urun["baslik"] or BILINMIYOR),
+          "- Fiyat: %s (organik videoda ekrana yazılmaz; caption/bio/ürün sayfası)"
+          % (BILINMIYOR if urun["fiyat"] is None else "%s %s" % (urun["fiyat"], urun["para"]))]
     if urun.get("varyantlar"):
         s.append("- Varyantlar: %s" % ", ".join(v if isinstance(v, str) else str(v.get("ad", v)) for v in urun["varyantlar"]))
     s += ["- Link (CTA, bio, DM): %s" % link,
@@ -385,7 +392,7 @@ def magaza_oku(a):
                                      " — bilgi notuyla birlikte kullanılır" if d["bilgi_notu"] else ""))
     if om.get("g1_baslik"):
         s.append("- Onaylı başlık satırları: %s" % " / ".join(om["g1_baslik"]))
-    g0 = [g for g in m["gorseller"] if g["kod"] == "G0"]
+    g0 = [g for g in (m["gorseller"] or []) if g["kod"] == "G0"]
     s += ["", "## Ürün referansı (başlangıç kareleri için)"]
     if g0:
         s.append("- G0 temiz ürün karesi: `%s`%s → `is/NN/referans/` içine kopyalanır; ürün bu kareye göre kilitlenir."
@@ -403,6 +410,7 @@ def magaza_oku(a):
         ayar = {
             "kaynak": os.path.abspath(a.dosya),
             "marka": marka["ad"],
+            "eksik": eksik,
             "yazi": {"baslik_aile": b["aile"], "baslik_agirlik": b.get("agirlik"),
                      "buyuk_harf": b.get("buyuk_harf", False), "govde_aile": tip["govde"]["aile"]},
             "renkler": renk,
@@ -632,7 +640,7 @@ def video_sec(a):
 
 def dogrula_komut(a):
     pd = dogrulayici()
-    return pd.main(["paket_dogrula.py", a.tur] + a.dosya)
+    return pd.main(["paket_dogrula.py", a.tur] + a.dosya + (["--tam"] if a.tam else []))
 
 
 def main():
@@ -644,6 +652,7 @@ def main():
     d = alt.add_parser("dogrula")
     d.add_argument("tur", choices=["urun", "magaza", "video", "zincir"])
     d.add_argument("dosya", nargs="+")
+    d.add_argument("--tam", action="store_true", help="eksik[] dolu paket de HATA (yayın/teslim geçişi); dürüst eksik taslakta geçer")
     d.set_defaults(is_=dogrula_komut)
     u = alt.add_parser("urun-yaz")
     u.add_argument("--cikti", required=True)

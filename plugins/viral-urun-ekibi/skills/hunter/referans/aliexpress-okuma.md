@@ -8,6 +8,7 @@ Ne zaman okunur: arama terimi üretirken ve aday listesi çıkarırken (akış a
 - Tempo: istekler arası **≥15–20 sn** (araya WebSearch koymak süreyi doldurur). Bir oturumda ~15 arama + ~20 ürün sayfası güvenli görüldü.
 - **CAPTCHA çıkarsa:** çözme, atlatma, gizli pencere deneme. Dur, sekmeyi kapat, o ana kadar okunanı dosyaya yaz, kalan terimleri "taranmadı (CAPTCHA)" diye işaretle.
 - Satın alma, sepete ekleme, hesap/adres değiştirme yok. Yalnız okuma.
+- Ürün linki: arama sayfasında kartı tıklamak yeni sekme açar; bunun yerine `javascript_tool` ile `a[href*="/item/"]` bağlantılarını oku, `item/<no>` biçimine indir (`firsat_kontrol.py` bunu bekler).
 - Para birimi ve ülke: ABD pazarı için `aliexpress.us` (USD). TR pazarı için ürün sayfasında **Türkiye'ye gönderim var mı** ayrıca bakılır; bakılamadıysa "TR gönderim doğrulanamadı" yazılır.
 
 ## 2. Arama terimi üretme (mekanizmadan, ürün adından değil)
@@ -34,7 +35,7 @@ Kaynak çalışmada denenmiş terim örnekleri (tekrar aramak yerine yeni nesne 
 |---|---|---|
 | **Ürün satışı** | Başlık satırındaki "N sold" | Arama kartındaki sayı fiyatla yapışık okunuyor ve yanlış (bir turda 461 yazıldı, sayfada 33'tü). Sayfa başlığında yalnız mağaza toplamı ("5,000+ sold" mağaza geneli) ya da "100K+ benzer" varsa: **"ürün satışı görünmedi (mağaza N)"** yaz. |
 | Puan / yorum | Başlık satırı | 1,5★ / 5 yorum gibi düşük puan kalite sinyalidir, satış sayısıyla telafi edilmez. |
-| **Normal fiyat** | İndirimsiz liste fiyatı | "$1.09 yeni müşteri", "erken kuş", "only 1 left" fiyatı tek adetlik tekliftir. Marj normal fiyattan hesaplanır. Fiyatlar gün içinde oynar → okuma tarihini yaz. |
+| **Normal fiyat** | Herkese açık güncel satış fiyatı (yeni müşteri/kupon teklifi DEĞİL) | "$1.09 yeni müşteri", "erken kuş", "only 1 left" fiyatı tek adetlik tekliftir. Üstü çizili "liste" fiyatı çoğu zaman şişirilmiştir (saha 2026-11-24: %92 "indirim") → normal fiyat sayılmaz; teklif dışı satış fiyatı görünmüyorsa "normal fiyat doğrulanamadı" yaz, marj İZLE'de kalır. Marj normal fiyattan hesaplanır. Fiyatlar gün içinde oynar → okuma tarihini yaz. |
 | Görsel | Ürün fotoğrafları + **yorum fotoğrafları** | Satıcı fotoğrafı AI üretimi olabilir (ürün kareden kareye değişiyor). Mekanizma (ör. "tuşa basınca mama düşer") yalnız gerçek alıcı fotoğrafı/videosuyla doğrulanır; yoksa "mekanizma doğrulanamadı". |
 | Filigran / başka marka logosu | Fotoğraf | Reklamda kendi görseli gerekir → not düş. |
 

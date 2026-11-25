@@ -22,7 +22,7 @@ sen çalıştırırsın, ona yalnız sonuç ve gerekirse tek bir yapması gereke
 3. Modu seç — **kullanıcıya sorma**: `sh "${CLAUDE_SKILL_DIR}/scripts/platform.sh"` → `iphone` | `tarayici`.
    Kullanıcı açıkça "Chrome'la yap" dediyse `tarayici`.
 4. `iphone` ise `${CLAUDE_SKILL_DIR}/referans/iphone.md`'yi oku. `.ekip/arac/tikla` yoksa
-   `sh "${CLAUDE_SKILL_DIR}/scripts/kur.sh"`; sonra her oturumda `sh .ekip/arac/kalibre.sh` ve ip.png'yi aç.
+   `sh "${CLAUDE_SKILL_DIR}/scripts/kur.sh"`; sonra her oturumda `sh .ekip/arac/kalibre.sh` ve ip.png'yi aç. **Kalibrasyon uyarısı:** varsayılan koordinatlar tek bir iPhone'da ölçüldü; ilk çalıştırmada ip.png'de noktaları doğrula, farklıysa konum.env'yi düzelt (yanlış noktaya tıklamasın).
    Kurulum/izin/pencere hatası çözülemiyorsa sebebi kullanıcıya söyle ve `tarayici` moduna geç.
 5. `tarayici` ise `${CLAUDE_SKILL_DIR}/referans/tarayici.md`'yi oku.
 6. Hedefi belirle: kullanıcı adet/pazar/kategori dediyse onu, demediyse 20 yeni ürün; KARARLAR.md'ye yaz.

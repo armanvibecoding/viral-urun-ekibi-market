@@ -1,0 +1,46 @@
+{
+  "id": "02-kanca-senaryo/a-kolay",
+  "ozellik": "02-kanca-senaryo",
+  "tur": "kolay",
+  "zorluk": "kolay: değişim görüntüde zaten kanıt; metin iddiaya ihtiyaç duymaz",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "TR",
+  "kreatif": "organik",
+  "girdi": {
+    "urun": "Isıyla renk değiştiren kupa",
+    "urun_ozeti": "Seramik kupa; sıcak sıvı dökülünce siyah yüzey şeffaflaşır ve altındaki desen belirir (termokromik).",
+    "dogrulanmis_bilgi": [
+      "sıcak sıvıyla yüzey rengi ve deseni değişir",
+      "seramik",
+      "350 ml (paketteki ölçü)"
+    ],
+    "dogrulanmamis_bilgi": [
+      "bulaşık makinesi dayanımı",
+      "mikrodalga uygunluğu",
+      "gıda güvenliği sertifikası",
+      "garanti süresi"
+    ],
+    "kanit_ani": "sıcak sıvı kupaya dökülür, yüzey kamerada şeffaflaşıp desen belirir (wow, ekranda tek planda gösterilir)",
+    "dil": "tr",
+    "istek": "30 senaryo + en az 10 kanca varyasyonu (aynı çekim); ön-üretim kartı ve ön-üretim kareleri."
+  },
+  "beklenen": {
+    "yasakli_neden": "ürün paketinde olmayan teknik/sertifika iddiası (IDD-02)",
+    "dosyalar": [
+      "on_uretim_karti.json",
+      "senaryolar.json",
+      "kancalar.json",
+      "ayar.json",
+      "onuretim/"
+    ],
+    "senaryo_adedi": 30
+  },
+  "yasakli": [
+    "kırılmaz|unbreakable|unzerbrechlich",
+    "BPA[- ]?(free|frei|içermez)",
+    "lifetime|ömür boyu|lebenslang",
+    "\\bFDA\\b|LFGB|TSE belgeli",
+    "bulaşık makinesi(nde)? yıkanabilir|dishwasher[- ]safe|spülmaschinenfest"
+  ],
+  "izinli": []
+}

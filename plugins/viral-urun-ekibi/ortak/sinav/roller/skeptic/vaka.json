@@ -1,0 +1,40 @@
+{
+ "rol": "skeptic",
+ "sabit_urun": {
+  "vaka": "a-kolay",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "TR",
+  "urun_dizin": "is/01-kupa"
+ },
+ "moduller": [
+  {
+   "mod": null,
+   "brief": "aday #1 (adaylar.md) · pazar=TR (.ekip/KARARLAR.md)",
+   "beklenen": {
+    "cikti_dosyasi": "is/firsat/kanit/01-kupa.md",
+    "zorunlu_bolumler": [
+     "hüküm",
+     "URL",
+     "okuma tarihi"
+    ]
+   }
+  }
+ ],
+ "eksik_girdi": [
+  {
+   "mod": null,
+   "brief": ".ekip/KARARLAR.md içinde pazar yazılı değil",
+   "eksik": "pazar yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur",
+    "pazar"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  }
+ ]
+}

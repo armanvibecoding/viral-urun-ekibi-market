@@ -1,0 +1,69 @@
+{
+  "id": "05-gorsel/a-kolay",
+  "ozellik": "05-gorsel",
+  "tur": "kolay",
+  "zorluk": "kolay: değişim görüntüde zaten kanıt; metin iddiaya ihtiyaç duymaz",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "TR",
+  "kreatif": "organik",
+  "girdi": {
+    "urun": "Isıyla renk değiştiren kupa",
+    "urun_ozeti": "Seramik kupa; sıcak sıvı dökülünce siyah yüzey şeffaflaşır ve altındaki desen belirir (termokromik).",
+    "dogrulanmis_bilgi": [
+      "sıcak sıvıyla yüzey rengi ve deseni değişir",
+      "seramik",
+      "350 ml (paketteki ölçü)"
+    ],
+    "dogrulanmamis_bilgi": [
+      "bulaşık makinesi dayanımı",
+      "mikrodalga uygunluğu",
+      "gıda güvenliği sertifikası",
+      "garanti süresi"
+    ],
+    "kanit_ani": "sıcak sıvı kupaya dökülür, yüzey kamerada şeffaflaşıp desen belirir (wow, ekranda tek planda gösterilir)",
+    "dil": "tr",
+    "istek": "G0 feed karesi + en az 3 galeri karesi + B1 + B2; tek zemin HEX'i stil.json'da."
+  },
+  "beklenen": {
+    "yasakli_neden": "ürün paketinde olmayan teknik/sertifika iddiası (IDD-02)",
+    "dosyalar": [
+      "stil.json",
+      "gorseller/",
+      "METINLER.md",
+      "URUN-KILIDI.md"
+    ],
+    "gorsel_olcusu": {
+      "g0": {
+        "kare": true,
+        "min_kenar": 1500,
+        "en_az": 1
+      },
+      "galeri": {
+        "kare": true,
+        "en_az": 3
+      },
+      "b1": {
+        "boyut": [
+          1920,
+          800
+        ],
+        "en_az": 1
+      },
+      "b2": {
+        "boyut": [
+          1080,
+          1350
+        ],
+        "en_az": 1
+      }
+    }
+  },
+  "yasakli": [
+    "kırılmaz|unbreakable|unzerbrechlich",
+    "BPA[- ]?(free|frei|içermez)",
+    "lifetime|ömür boyu|lebenslang",
+    "\\bFDA\\b|LFGB|TSE belgeli",
+    "bulaşık makinesi(nde)? yıkanabilir|dishwasher[- ]safe|spülmaschinenfest"
+  ],
+  "izinli": []
+}

@@ -1,0 +1,44 @@
+{
+  "id": "07-site/a-kolay",
+  "ozellik": "07-site",
+  "tur": "kolay",
+  "zorluk": "kolay: değişim görüntüde zaten kanıt; metin iddiaya ihtiyaç duymaz",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "US",
+  "kreatif": "organik",
+  "girdi": {
+    "urun": "Isıyla renk değiştiren kupa",
+    "urun_ozeti": "Seramik kupa; sıcak sıvı dökülünce siyah yüzey şeffaflaşır ve altındaki desen belirir (termokromik).",
+    "dogrulanmis_bilgi": [
+      "sıcak sıvıyla yüzey rengi ve deseni değişir",
+      "seramik",
+      "350 ml (paketteki ölçü)"
+    ],
+    "dogrulanmamis_bilgi": [
+      "bulaşık makinesi dayanımı",
+      "mikrodalga uygunluğu",
+      "gıda güvenliği sertifikası",
+      "garanti süresi"
+    ],
+    "kanit_ani": "sıcak sıvı kupaya dökülür, yüzey kamerada şeffaflaşıp desen belirir (wow, ekranda tek planda gösterilir)",
+    "dil": "en",
+    "istek": "Ana sayfa + ürün sayfası metni (yalnız doğrulanmış bilgiden), ilk ekran görüntüleri."
+  },
+  "beklenen": {
+    "yasakli_neden": "ürün paketinde olmayan teknik/sertifika iddiası (IDD-02)",
+    "dosyalar": [
+      "magaza-paketi.json",
+      "site/ana-sayfa.md",
+      "site/urun-sayfasi.md",
+      "ekran/"
+    ]
+  },
+  "yasakli": [
+    "kırılmaz|unbreakable|unzerbrechlich",
+    "BPA[- ]?(free|frei|içermez)",
+    "lifetime|ömür boyu|lebenslang",
+    "\\bFDA\\b|LFGB|TSE belgeli",
+    "bulaşık makinesi(nde)? yıkanabilir|dishwasher[- ]safe|spülmaschinenfest"
+  ],
+  "izinli": []
+}

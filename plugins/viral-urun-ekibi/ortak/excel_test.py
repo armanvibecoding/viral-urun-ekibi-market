@@ -11,7 +11,14 @@ import tempfile
 try:
     from openpyxl import load_workbook
 except ImportError:
-    print("HATA: openpyxl yok. Kur: python3 -m pip install --user openpyxl")
+    # Sistem Python'unda openpyxl yoksa ayrı, sürümü sabit sanal ortamda (arac-ekle kapısı: openpyxl==3.1.5, yalnız PyPI; global kurulum yok)
+    # koşar: test GERÇEKTEN ölçülür. Ortam da yoksa "ölçülemedi" (çıkış 3), geçti sayılmaz.
+    _VENV = os.path.join(os.path.expanduser("~"), ".local", "share", "viral-urun-ekibi", "excel-venv", "bin", "python")
+    if os.environ.get("EXCEL_TEST_VENV") != "1" and os.path.isfile(_VENV):
+        os.environ["EXCEL_TEST_VENV"] = "1"
+        sys.exit(subprocess.call([_VENV, os.path.abspath(__file__)] + sys.argv[1:]))
+    print("HATA: openpyxl yok (sistem Python'u ve excel-venv). ÖLÇÜLEMEDİ, geçti sayılmaz. Kur (ayrı ortam, sürüm sabit):\n"
+          "  python3 -m venv ~/.local/share/viral-urun-ekibi/excel-venv && ~/.local/share/viral-urun-ekibi/excel-venv/bin/python -m pip install --only-binary=:all: openpyxl==3.1.5 et-xmlfile==2.0.0")
     sys.exit(3)
 
 BURADA = os.path.dirname(os.path.abspath(__file__))
@@ -52,7 +59,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix="excel_test_") as d:
         cikti = os.path.join(d, "o.xlsx")
 
-        def calistir(ad, metin, beklenen, ek=None, parca=None, kaynak="bazaar"):
+        def calistir(ad, metin, beklenen, ek=None, parca=None, kaynak="trendyol"):
             if os.path.exists(cikti):
                 os.remove(cikti)
             tsv = yaz(d, "u.tsv", metin)
@@ -81,20 +88,20 @@ def main():
         # kullanım hatası
         r = kos(["--urunler", os.path.join(d, "yok.tsv"), "--kaynak", "yanlis", "--cikti", cikti], d)
         bekle("geçersiz --kaynak → kullanım hatası", r, 2)
-        r = kos(["--urunler", os.path.join(d, "yok.tsv"), "--kaynak", "bazaar", "--cikti", cikti], d)
+        r = kos(["--urunler", os.path.join(d, "yok.tsv"), "--kaynak", "trendyol", "--cikti", cikti], d)
         bekle("olmayan girdi dosyası", r, 1, "yok")
 
         # openpyxl yok → 3 (içe aktarma engellenerek)
         tsv = yaz(d, "u.tsv", iyi)
         kod = ("import sys, runpy; sys.modules['openpyxl'] = None; "
-               "sys.argv = ['excel_yaz.py', '--urunler', %r, '--kaynak', 'bazaar', '--cikti', %r]; "
+               "sys.argv = ['excel_yaz.py', '--urunler', %r, '--kaynak', 'trendyol', '--cikti', %r]; "
                "runpy.run_path(%r, run_name='__main__')") % (tsv, cikti, BETIK)
         r = subprocess.run([sys.executable, "-c", kod], capture_output=True, text=True)
         bekle("openpyxl yok → çıkış 3 ve kurulum komutu", r, 3, "pip install")
 
         # --- doğru girdi: çıkış 0 ve 6 ölçüm (ayrı okuyucuyla) ---
-        r = calistir("doğru girdi (3 ürün)", iyi, 0, parca="TAMAM")
-        kontrol("  ↳ özet satırı: 3 ürün (SAT 1 / SAT-koşullu 0 / İZLE 1 / ELE 1)", "3 ürün (SAT 1 / SAT-koşullu 0 / İZLE 1 / ELE 1)" in r.stdout, r.stdout)
+        r = calistir("doğru girdi (3 ürün)", iyi, 0, parca="TAMAM", kaynak="radar")
+        kontrol("  ↳ özet satırı: 3 ürün (SAT 1 / İZLE 1 / ELE 1)", "3 ürün (SAT 1 / İZLE 1 / ELE 1)" in r.stdout, r.stdout)
         wb = load_workbook(cikti)
         ws = wb["Ürünler"]
         kontrol("  ↳ ölçüm 1: sayfa adları tam", wb.sheetnames == ["Ürünler", "Ayrıntı", "Nasıl okunur"], wb.sheetnames)
@@ -144,11 +151,20 @@ def main():
         calistir("--kopya klasörü", iyi, 0, ek=["--kopya", kopya])
         kontrol("  ↳ kopya dosyası yazıldı", os.path.isfile(os.path.join(kopya, "o.xlsx")))
 
-        # SAT (koşullu) kararı kabul edilir
+        # SAT (koşullu) ayrı sınıf DEĞİL (kurucu kararı 2026-11-25): girdide görülürse SAT olur, eksik kanıt "Kontrol et" notu
         kosullu = BASLIK + "\n" + SATIR_SAT.replace("\tSAT\t", "\tSAT (koşullu)\t") + "\n"
-        calistir("SAT (koşullu) kararı", kosullu, 0)
-        kontrol("  ↳ Ürünler: karar hücresi 'SAT (koşullu)'",
-                any(c.value == "SAT (koşullu)" for r in load_workbook(cikti)["Ürünler"].iter_rows() for c in r))
+        calistir("SAT (koşullu) eski yazımı kabul", kosullu, 0)
+        kontrol("  ↳ Ürünler: karar hücresi 'SAT' (koşullu sınıfı yok)",
+                any(c.value == "SAT" for r in load_workbook(cikti)["Ürünler"].iter_rows() for c in r)
+                and not any(c.value == "SAT (koşullu)" for r in load_workbook(cikti)["Ürünler"].iter_rows() for c in r))
+
+        # skeptic eski yazımı `SAT-KOŞULLU: <eksik>` SAT + "Kontrol et" notu olur; uydurma değer reddedilir
+        alias = BASLIK + "\n" + SATIR_SAT.replace("\tSAT\t", "\tSAT-KOŞULLU: numune\t").replace("Talep var, viral değil.", "") + "\n"
+        calistir("SAT-KOŞULLU: numune (eski yazım)", alias, 0)
+        kontrol("  ↳ Ürünler: karar 'SAT', neden 'Kontrol et: numune'",
+                any(c.value == "SAT" for r in load_workbook(cikti)["Ürünler"].iter_rows() for c in r)
+                and any(c.value == "Kontrol et: numune" for r in load_workbook(cikti)["Ürünler"].iter_rows() for c in r))
+        calistir("kırma: karar 'SAT-KOŞUL' (uydurma) -> 1", BASLIK + "\n" + SATIR_SAT.replace("\tSAT\t", "\tSAT-KOŞUL\t") + "\n", 1)
 
         # --kopya DOSYA yolu: klasör değil dosya olarak yazılmalı (0.4.x hatası: dosya adıyla klasör açıyordu)
         kopya_dosya = os.path.join(d, "masaustu2", "Teslim Listesi.xlsx")
@@ -156,10 +172,22 @@ def main():
         kontrol("  ↳ kopya bir DOSYA (klasör değil)", os.path.isfile(kopya_dosya))
 
         # her kaynak adı çalışır
-        for k in ("radar", "spy", "hunter", "bazaar"):
+        for k in ("radar", "spy", "aliexpress", "trendyol"):
             calistir("kaynak %s" % k, iyi, 0, kaynak=k)
             kontrol("  ↳ %s: Nasıl okunur 'İlgi tanımı' satırı var" % k,
                     any(row[0].value == "İlgi tanımı (bu dosya)" for row in load_workbook(cikti)["Nasıl okunur"].iter_rows()))
+
+        # yalnız SAT kullanıcı sayfası: gizli Ayrıntı + boş Ürünler (hunter: aliexpress/trendyol)
+        ham = yaz(d, "ham2.tsv", "ad\tkarar\nx\tELE\n")
+        calistir("hunter: --ayrinti-gizli → Ayrıntı gizli", BASLIK + "\n" + SATIR_SAT + "\n", 0, ek=["--ayrinti", ham, "--ayrinti-gizli"], kaynak="aliexpress")
+        wb = load_workbook(cikti)
+        kontrol("  ↳ Ayrıntı sayfası gizli, Ürünler görünür", wb["Ayrıntı"].sheet_state == "hidden" and wb["Ürünler"].sheet_state == "visible",
+                (wb["Ayrıntı"].sheet_state, wb["Ürünler"].sheet_state))
+        r = calistir("hunter özet satırı: '1 SAT' (İZLE/ELE sayısı yok)", BASLIK + "\n" + SATIR_SAT + "\n", 0, parca="1 SAT", kaynak="aliexpress")
+        kontrol("  ↳ hunter özetinde İZLE/ELE yok", "İZLE" not in r.stdout and "ELE" not in r.stdout, r.stdout)
+        calistir("0 SAT: --bos-izinli olmadan reddedilir", BASLIK + "\n", 1, parca="0 ürün", kaynak="trendyol")
+        calistir("0 SAT: --bos-izinli ile Ürünler boş yazılır", BASLIK + "\n", 0, ek=["--bos-izinli", "--ayrinti-gizli"], parca="0 SAT", kaynak="trendyol")
+        kontrol("  ↳ Ürünler yalnız başlık satırı", load_workbook(cikti)["Ürünler"].max_row == 1, load_workbook(cikti)["Ürünler"].max_row)
 
     kalan = sonuclar.count(False)
     print("TOPLAM: %d test, %d kaldı" % (len(sonuclar), kalan))

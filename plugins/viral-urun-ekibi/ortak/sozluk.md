@@ -20,9 +20,9 @@ Tüm beceriler ve ajanlar bu anlamları kullanır. Yeni terim gerekirse buraya e
 | **Tutabilir** | K1–K3 kapılarını geçer, DNA puanı ≥4 ve en az bir kanıtlı akraba ürünü var. |
 | **Zaten viral** | Aynı ürünün seçilen pazarda ≥500 bin izlenmeli videosu ya da pazar mağazasında çok satıcılı/çok yorumlu satışı var. Aday ELE olur (sebep: zaten viral). |
 | **Doygunluk** | Pazar mağazasında aynı ürünün satıcı sayısı ve fiyat baskısı. Aynı ürün çok satıcıda ve ucuzsa marj ölür. |
-| **SAT** | Kanıt dosyası var, çürütme denemeleri tutmadı, mekanizma gerçek alıcı fotoğrafı/videosuyla doğrulandı, sıra puanı ≥8. Ürün `is/NN-urun-adi/` klasörüne geçer. |
-| **İZLE** | Güçlü ama bir koşul eksik (doğrulanamayan veri, numune şartı, sezon uzak, sıra puanı 6–7). Ne beklendiği yazılır. |
-| **ELE** | Kapıdan kalan, veto edilen, zaten viral olan ya da sıra puanı ≤5 olan aday. Sebep tek cümle, ürüne özgü yazılır; bir daha önerilmez. |
+| **SAT** | Kanıt dosyası var, KANITLANMIŞ olumsuz engel yok (veto, kanıtlı negatif marj, kanıtlı doygunluk/zaten viral, eşiğin altında talep, sıra puanı <8). Okunamayan/doğrulanamayan ölçüt (viral, marka ROAS, tedarikçi, mekanizma alıcı videosu, numune …) engel değildir: SAT kartında "ilk testte kontrol et" notudur. Kullanıcıya yalnız SAT gider (kurucu kararı 2026-11-25). Ürün `is/NN-urun-adi/` klasörüne geçer. |
+| **İZLE** | KALDIRILDI (2026-11-25): kullanıcıya İZLE listesi sunulmaz. Eski kayıtlarda geçerse denetim kaydında kalır, kullanıcıya gitmez; "SAT (koşullu)" da ayrı sınıf değil, SAT + kontrol notudur. |
+| **ELE** | Yalnız kanıtlı engel: veto edilen, kanıtlı negatif katkılı, kanıtlı doygun/zaten viral, eşiğin altında talepli ya da sıra puanı <8 aday. Sebep tek cümle, ürüne özgü yazılır; denetim dosyasında kalır, kullanıcıya listelenmez; bir daha önerilmez. |
 | **Veto** | Kesin eleme sebebi: lisans/marka görünümü, bebek güvenliği iddiası, riskli kargo (sıvı, cam, ateş, pil ağırlıklı, ağır/hacimli). Sağlık ve sonuç dili veto değildir (bkz. Bilgi notu). |
 | **Bilgi notu** | Sağlık ya da sonuç dili geçen çıktının sonuna eklenen tek satır: "Bilgi notu (kullanıcının sorumluluğu): …". Metin elenmez, yumuşatılmaz; mevzuat ve platform reklam kuralı kullanıcının işidir (`kurallar.md` IDD-01). Uydurma veri (sahte yorum, sayı, indirim, stok) bundan ayrıdır ve yasaktır (IDD-02). |
 | **Sınama** | Ajan çıktısından rastgele 3 sayının kaynağından açılıp kontrol edilmesi. Biri tutmazsa çıktının tamamı "şüpheli" olur. |

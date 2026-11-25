@@ -115,6 +115,11 @@ def main():
             kontrol("süre 25,0 ± 0,1 sn", abs(medya_sure(v) - 25.0) <= 0.1, medya_sure(v))
             o = kos(sys.executable, os.path.join(CUT, "ses_olc.py"), v, "--drop", "18.4", "--muzik_stem", os.path.join(d, "ses", "stem_" + a["ad"], "muz_teslim.wav"), "--kapi")
             kontrol("ses_olc --kapi çıkış 0", o.returncode == 0, o.stdout[-500:] + o.stderr[-300:])
+            try:  # teslim kodlaması (AAC yeniden kodlama) sonrası true peak ≤ −1 dBTP (sınav 03 tur1: −0,7 çıkıyordu)
+                tp = json.loads(o.stdout)["true_peak_dbtp"]
+            except Exception:  # noqa: BLE001
+                tp = None
+            kontrol("teslim true peak ≤ −1,0 dBTP (AAC sonrası)", tp is not None and tp <= -1.0, tp)
             g = kos(sys.executable, os.path.join(CUT, "kurgu_kontrol.py"), "--goruntu", v, "--kesimler", ",".join(str(x) for x in a["kesimler"]), "--yalniz-goruntu")
             kontrol("kurgu_kontrol --goruntu GEÇTİ (çıkış 0)", g.returncode == 0, g.stdout[-400:] + g.stderr[-300:])
             for dosya in ("_pano_4fps.jpg", "_pano10.jpg", "_kontrol.jpg"):

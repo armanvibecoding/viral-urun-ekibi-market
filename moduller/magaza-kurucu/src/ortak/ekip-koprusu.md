@@ -32,7 +32,7 @@ Mağaza Kurucu, Viral Ürün Ekibi'nin mağaza koludur. Ekibin tek lideri `capta
 - `teklif` bölümü çalıştıysa iddia–kanıt listesi, SSS ve itiraz yanıtları oradan alınır; yeniden yazılmaz, yalnız temanın alan sınırlarına sığdırılır.
 
 ## 5. Çıktı: `magaza-paketi.json` (kurulum sonunda)
-1. DEVAM KARTI'ndan `arayuz-sozlesmesi.md` tablosuna göre yaz: `surum` "2". Renk, font adı, onaylı metin ve fiyat birebir.
+1. DEVAM KARTI'ndan `arayuz-sozlesmesi.md` tablosuna göre yaz: `surum` "2". Renk, font adı, onaylı metin ve fiyat birebir. Bilinmeyen değer (marka adı, ürün başlığı, fiyat, görseller) `null` + `eksik[]` yazılır; fiyat 0 ya da yer tutucu yazılmaz, marka adı için `marka.ad_kaynak` zorunludur.
 2. `onayli_metinler.iddialar`: sitede geçen her sayı ve sonuç cümlesi, kaynağıyla. Video yalnız bu listeyi söyleyebilir; listeye girmeyen iddia videoya giremez.
 3. Doğrula: `python3 <paket.py> dogrula magaza <dosya>` → çıkış 0 olmadan "bitti" denmez.
 

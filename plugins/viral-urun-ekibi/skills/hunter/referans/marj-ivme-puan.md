@@ -78,6 +78,6 @@ Kapılar (K1 gösterilebilirlik, K2 akraba, K3 veto — `ortak/viral-dna.md`) ge
 | P10 | Uyum ve iade riski | veto yakını / beden / kırılgan | orta | düşük + pazar kapısı temiz | `kanit-ve-karar.md` §3 Riskler |
 
 Kanıt dosyasına yazım: `| P1 | P2 | … | P10 | Toplam |` + her 0 için tek cümle neden.
-**Eşik (deneme — ilk 5 karardan sonra kalibre):** ≥14 SAT adayı · 10–13 İZLE · ≤9 ELE.
+**Eşik (deneme — ilk 5 karardan sonra kalibre):** ≥14 SAT adayı · ≤13 ELE (İZLE bandı kalktı, 2026-11-25; ölçülemeyen ölçüt puanı düşürmez, not olur).
 Puan SAT için **tek başına yetmez**: `kanit-ve-karar.md` §2 koşulları (mekanizma alıcı kanıtıyla doğrulandı, sınama geçti) aynen geçerli.
 P7 = 0 olan ürün toplam kaç olursa olsun SAT olmaz.

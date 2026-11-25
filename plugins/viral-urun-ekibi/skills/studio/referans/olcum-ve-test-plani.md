@@ -9,6 +9,20 @@ Eşiklerin kaynağı: içerik matematiği ölçümü (116 kayıt, 104 milyon). V
 
 ---
 
+## 0. Kanal seçimi (reklam hesabı gerekmez)
+
+Test **organiktir**; reklam hesabı şart değildir. Reklam hesabın yoksa, kapandıysa ya da kullanmak istemiyorsan kanalı sor ve aşağıdan seç. Hesap kapanması ya da yasaklanması için platform kurallarını aşan yol önerilmez (yeni hesap açma, devir, sahte hesap yok); kendi hesabın durumunu platformun resmî itiraz/yardım yolundan çöz.
+
+| Kanal | Ne zaman | Ölçülecek 3 sayı (aynısı her kanalda) | Not |
+|---|---|---|---|
+| Instagram organik Reels | Hesabın açık, Insights var | 3 sn tutma · paylaşım/izlenme · profil/link tıklaması | §2'deki tablo bu kanal içindir |
+| TikTok organik | TikTok hesabın açık | 3 sn tutma (TikTok "izlemeyi bitirme/ortalama izleme süresi" ile yaklaşık) · paylaşım/izlenme · profil/link tıklaması | Eşikler Instagram milyon verisinden gelir; TikTok'ta ilk testten sonra kendi tabanını kalibre et |
+| TikTok Shop | Satıcı hesabın onaylı | 3 sn tutma · paylaşım/izlenme · ürün sayfası tıklaması/sipariş | Satış rakamı platformdan okunur; tahmin yazma |
+
+`captain` ilk testte kanalı sorar ve `.ekip/KARARLAR.md`'ye yazar. Hangi kanal olursa olsun karar kuralı aynıdır: 10 videonun medyanı o hesabın tabanıdır, §3 eşikleri ve tek-değişken kuralı geçerlidir.
+
+---
+
 ## 1. Değişkenler ve 10 videonun dağılımı
 
 Tek değişken kuralı: her test videosu kontrol videosundan (V1) **yalnız bir** şeyle ayrılır. Kanca kurguda değiştiği için en ucuz değişkendir ve en çok yeri o alır.
@@ -61,6 +75,26 @@ Not: her hücre n=1. Tek videonun sonucu gürültülüdür; bu yüzden karar tek
 | **3 sn tutma** | **ilk testten sonra kalibre et**: 10 videonun medyanının altında kalan ve paylaşım eşiğini de geçemeyen kanca/ilk kare bir sonraki partiye alınmaz | veri yok |
 
 Kazanan seçilince: aynı kanca + **yeni sahne** (R2), aynı görüntü + 3 yeni kanca (R1). Bir varyant iki partide de DEVAM aldıysa kalıp "doğrulandı" sayılır.
+
+## 3b. İçerik hunisi: erişim videosu ve satış videosu AYRI ölçülür (uzman yöntemi R74; istatistik kanıtı değil)
+Her ürün için iki tür video ayrı üretilir, ayrı kayıt satırı ve ayrı eşik tablosuyla okunur. **En çok izlenen en çok satan değildir:** erişim videosunu satış eşiğiyle, satış videosunu izlenme eşiğiyle öldürme.
+
+**Erişim videosu** (hedef: izlenme + paylaşım; R1 yan yana kıyas, R2 sayaçlı test, eğlence/merak): eşik tablosu = §3 (paylaşım/izlenme, beğeni/izlenme, hesap-içi kat).
+
+**Satış videosu** (hedef: tıklama + satış; ürün, sonuç, teklif): eşik tablosu aşağıda; izlenme eşiği aranmaz.
+| Karar | Koşul (48. saat, ≥ 2.000 izlenme) | Not |
+|---|---|---|
+| DEVAM | profil/link tıklaması ya da DM'deki CTA kelimesi sayısı birikmiş; mağaza oturumu videoya bağlanabiliyor | eşik yok → **ilk testten sonra kalibre et** (tıklama ÷ izlenme kendi tabanın medyanı) |
+| ÖLDÜR | 7. günde tıklama sıfır ve CTA kelimesi yorumu yok | izlenme yüksek olsa da öldür; erişim videosuna çevir |
+| Kayıt | §4 tabloya `Tür` (erişim \| satış) sütunu + tıklama / CTA yorumu / sipariş | satış rakamı kullanıcıdan gelir; tahmin yazma |
+
+## 3c. Tutma eğrisi teşhisi (uzman yöntemi R74; fixer/director bu üç satırı okur)
+- **Erken düşüş (ilk 3 sn):** kanca sorunu → kanca/ilk kare değişir, gövdeye dokunma.
+- **Ortada düşüş:** gelişme sorunu → sahne sırası/ritim/gereksiz sahne; kanca sabit kalır.
+- **Sonda düşüş (cevap anından önce ayrılma):** sonuç/kanıt anı sorunu → `cevap_an` geç ya da zayıf; kanıt anını öne al.
+
+## 3d. Tekrar yayın deneyi (uzman yöntemi R74)
+Tutan (DEVAM) videonun **tek bileşeni** (yalnız kanca yazısı ya da yalnız ilk sahne) değişir; ≥ 3 hafta sonra yeniden yayınlanır; 3 kanca sürümü deneme Reels'iyle sınanır (tarif 10 adım 7). Aynı video iki yayında 1,8 Mn ve 449 B aldığı için tek yayın hükmü yetmez: iki yayın ayrı satır.
 
 ## 4. Kayıt tablosu (her video bir satır)
 

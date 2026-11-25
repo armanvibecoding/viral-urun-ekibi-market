@@ -1,0 +1,64 @@
+{
+ "rol": "forge",
+ "sabit_urun": {
+  "vaka": "a-kolay",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "TR",
+  "urun_dizin": "is/01-kupa"
+ },
+ "moduller": [
+  {
+   "mod": "istem",
+   "brief": "mod: istem · STIL-KARTI + URUN-KILIDI + METINLER hazır",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/magaza/tur-1/istem/_OZET.md",
+    "zorunlu_bolumler": [
+     "görsel",
+     "ekler",
+     "değişen"
+    ]
+   }
+  },
+  {
+   "mod": "uretim",
+   "brief": "mod: uretim · kullanıcı bu listeyi onayladı: 6 görsel",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/magaza/tur-1/aday/_URETIM.md",
+    "zorunlu_bolumler": [
+     "istem dosyası",
+     "süre"
+    ]
+   }
+  }
+ ],
+ "eksik_girdi": [
+  {
+   "mod": "istem",
+   "brief": "mod: istem · METINLER.md yok",
+   "eksik": "metinler yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  },
+  {
+   "mod": "uretim",
+   "brief": "mod: uretim · kullanıcı onayı yazılmadı",
+   "eksik": "üretim onayı yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  }
+ ]
+}

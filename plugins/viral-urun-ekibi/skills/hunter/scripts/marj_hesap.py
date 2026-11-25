@@ -2,11 +2,12 @@
 """Inis maliyetli marj hesabi (yalniz Python 3 standart kutuphanesi).
 
 Kullanim:
-  marj_hesap.py MARJ.csv [--oranlar EK.tsv] [--cikti SONUC.tsv] [--bugun YYYY-AA-GG]
+  marj_hesap.py MARJ.csv [--oranlar EK.tsv] [--cikti SONUC.tsv] [--bugun YYYY-AA-GG] [--profil DOSYA]
 
 Oranlar: once eklentideki referans/pazar-oranlari.tsv okunur; sonra (varsa) projedeki
 is/firsat/pazar-oranlari.tsv ve --oranlar dosyasi ustune yazilir (kullanici degeri kazanir).
 Oran kodda yoktur; hepsi tarihli TSV'dedir.
+Danışan profili (.ekip/isletme-profili.tsv): TR pazarında kapida_odeme_orani_yuzde x kapida_ek_ucret inişe eklenir; profil yoksa 0 (eklenti varsayılanı).
 
 Satir sutunlari (sablon/marj.csv):
   urun, pazar, para, satis_fiyati, urun_maliyeti, kargo, gumruk_orani_yuzde, tarife_kalemi,
@@ -32,6 +33,10 @@ import os
 import sys
 
 BURADA = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(BURADA, "..", "..", "..", "ortak"))
+import profil as profil_mod  # noqa: E402  (danışanın işletme profili: .ekip/isletme-profili.tsv)
+
+PROFIL = {}  # main() doldurur; yalnız TR pazarında kapıda ödeme maliyeti için okunur
 VARSAYILAN_ORAN = os.path.join(BURADA, "..", "referans", "pazar-oranlari.tsv")
 PROJE_ORAN = os.path.join("is", "firsat", "pazar-oranlari.tsv")
 PAZARLAR = {"US", "TR", "UK", "DE", "FR", "ES"}
@@ -142,7 +147,9 @@ def hesapla(s, etiket, oranlar, bugun, uyarilar):
 
     odeme = satis * deger["odeme_yuzde"] / 100 + deger["odeme_sabit"]
     iade = deger["iade_orani_yuzde"] / 100 * deger["iade_birim_maliyet"]
-    inis = urun + kargo + gumruk + deger["araci_sabit"] + odeme + iade
+    # Danışan profili (yalnız TR): kapıda ödeme oranı x ek ücret sipariş başına beklenen maliyet olarak inişe girer.
+    kapida = PROFIL.get("kapida_odeme_orani_yuzde", 0) / 100 * PROFIL.get("kapida_ek_ucret", 0) if pazar == "TR" else 0
+    inis = urun + kargo + gumruk + deger["araci_sabit"] + odeme + iade + kapida
     net = satis / (1 + kdv / 100)
     kar = net - inis
     carpan = net / inis
@@ -157,7 +164,7 @@ def hesapla(s, etiket, oranlar, bugun, uyarilar):
             uyarilar.append(f"{etiket}: {pazar}.{anahtar} {yas} gunluk -> kaynaktan yeniden kontrol et")
     return {"urun": s["urun"].strip(), "pazar": pazar, "para": para, "satis": satis, "net_gelir": net,
             "urun_maliyeti": urun, "kargo": kargo, "gumruk": gumruk, "gumruk_not": gumruk_not,
-            "araci": deger["araci_sabit"], "odeme": odeme, "iade": iade, "inis": inis, "kar": kar,
+            "araci": deger["araci_sabit"], "odeme": odeme, "iade": iade, "kapida": kapida, "inis": inis, "kar": kar,
             "carpan": carpan, "eski_carpan": satis / (urun + kargo), "teslim_gun": teslim, "P5": p5, "P6": p6}
 
 
@@ -176,12 +183,13 @@ def main(argv):
 
     oranlar = {}
     try:
+        PROFIL.update(profil_mod.oku(argv[argv.index("--profil") + 1] if "--profil" in argv else None))
         oran_oku(VARSAYILAN_ORAN, oranlar, "eklenti")
         if os.path.isfile(PROJE_ORAN):
             oran_oku(PROJE_ORAN, oranlar, PROJE_ORAN)
         if ek:
             oran_oku(ek, oranlar, ek)
-    except (OSError, VeriHatasi) as e:
+    except (OSError, VeriHatasi, profil_mod.ProfilHatasi) as e:
         print(f"HATA: {e}")
         return 1
     if not os.path.isfile(girdi):
@@ -212,7 +220,8 @@ def main(argv):
     for r in sonuc:
         print(f"{r['urun'][:40]} | {r['pazar']} | satis {r['satis']:.2f} {r['para']} (net {r['net_gelir']:.2f}) | "
               f"inis {r['inis']:.2f} [urun {r['urun_maliyeti']:.2f} + kargo {r['kargo']:.2f} + gumruk {r['gumruk']:.2f} "
-              f"({r['gumruk_not']}) + araci {r['araci']:.2f} + odeme {r['odeme']:.2f} + iade {r['iade']:.2f}] | "
+              f"({r['gumruk_not']}) + araci {r['araci']:.2f} + odeme {r['odeme']:.2f} + iade {r['iade']:.2f}"
+              f"{' + kapida(profil) %.2f' % r['kapida'] if r['kapida'] else ''}] | "
               f"kar {r['kar']:.2f} | carpan {r['carpan']:.2f}x (eski: satis/(urun+kargo) {r['eski_carpan']:.2f}x) | "
               f"teslim {r['teslim_gun']:g} g | P5={r['P5']} P6={r['P6']}")
     for u in dict.fromkeys(uyarilar):

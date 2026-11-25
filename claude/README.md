@@ -2,14 +2,19 @@
 
 Hattın tamamı burada çalışır: Instagram'da ürün bulma, AliExpress ve Trendyol tarama, Shopify mağaza kurulumu ve site denetimi (17 ajan),
 Google Flow'da üretim, ffmpeg ile kurgu, kendiliğinden tutulan hafıza. Eklentinin kendisi `plugins/viral-urun-ekibi/` klasöründedir
-(katalog `.claude-plugin/marketplace.json` bunu gösterir). Sürüm: 0.5.0. Güncelledikten sonra oturumu yeniden başlat.
+(katalog `.claude-plugin/marketplace.json` bunu gösterir). Sürüm: 0.5.1. Güncelledikten sonra oturumu yeniden başlat.
+
+## Güncel sürüm nasıl kontrol edilir?
+
+- **Claude Code:** oturum açılışında eklenti sürümü bir satır olarak yazılır ("Eklenti sürümü: X"); `/plugin` listesinde de görünür. Güncel sürüm yukarıda yazandır; eskiyse `/plugin` → Marketplaces → Update (ya da auto-update aç) ve oturumu yeniden başlat. Eski sürümde çözülmüş hatalar geri gelir.
+- **claude.ai / ChatGPT zip'i:** zip kendiliğinden GÜNCELLENMEZ. Yeni sürümde Releases'tan yeni zip'i indirip eskisinin yerine elle yükle; yüklediğin dosyanın adındaki sürüm (`-vX.Y.Z`) yukarıdaki sürümle aynı olmalı.
 
 ## Hangi yoldan kuracağım?
 
 | Nerede kullanıyorsun? | Ne indir / yaz | Nereye yükle |
 |---|---|---|
 | **Claude Code** (terminal, önerilen) | ZIP gerekmez: aşağıdaki iki `/plugin` komutu | Claude Code içinde |
-| **claude.ai veya Claude uygulaması** | [Releases](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) → `viral-urun-ekibi-CLAUDE-v0.5.0.zip` (açma) | **Customize → Plugins → Add → Upload plugin** |
+| **claude.ai veya Claude uygulaması** | [Releases](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) → `viral-urun-ekibi-CLAUDE-v0.5.1.zip` (açma) | **Customize → Plugins → Add → Upload plugin** |
 
 Claude ZIP'inde tam eklenti vardır (beceriler, ajanlar, kancalar, ortak bilgi, HyperFrames). Ajanlar ve kancalar Cowork ile Claude Code'da çalışır;
 claude.ai sohbeti bunları hata vermeden yok sayar (resmî doküman: [claude.com/docs/plugins/build](https://claude.com/docs/plugins/build)).
@@ -35,6 +40,25 @@ Claude Code yolunu kullan.
 - Mac: `brew install ffmpeg` ve `python3 -m pip install --user openpyxl pillow imageio-ffmpeg numpy`.
 - Mac + iPhone modu: `/mcp` → computer-use → Enable; Sistem Ayarları'nda Erişilebilirlik ve Ekran Kaydı izni; iPhone Yansıtma'yı bir kez elle aç. Windows'ta iPhone modu yok, tarayıcı modu çalışır.
 - Hareketli tasarım (HyperFrames) için yerelde Node 22+ ve Chrome.
+- Ölçüm araçları: `ffprobe` (ffmpeg ile gelir), Türkçe harfli görsel yazısı için **Tesseract** (`brew install tesseract tesseract-lang`), görsel yazı kapısı için **RapidOCR** (`ortak/on_ucus.py` kurulum komutunu yazar; yoksa kapı `olculemedi` kalır, "geçti" sayılmaz). Eksik Python paketi (numpy, Pillow) betik başında "kurulum eksik: pip install …" mesajı ve çıkış 3 verir.
+- **İlk iş:** `python3 plugins/viral-urun-ekibi/ortak/on_ucus.py hepsi` (eklentiyi kurduysan `${CLAUDE_PLUGIN_ROOT}` yolu) hangi araç ve kapının eksik olduğunu tek listede gösterir; hiçbir şey kurmaz.
+
+### Hesaplar ve maliyet
+
+| Kol | Hesap / oturum | Maliyet |
+|---|---|---|
+| Ürün avı (`hunter`, `spy`) | Chrome; Instagram/TikTok izlenmesi için giriş gerekebilir (girişsizse `dogrulanamadi-giris` + risk notu) | Ücretsiz; kendi hesabın kısıtlanabilir, risk senin |
+| Mağaza (`builder`) | Shopify hesabı (`/mcp` → shopify girişi) | Shopify planın |
+| Görsel/başlangıç karesi (`studio`) | ChatGPT hesabı (oturum açık, kendi planın) | Planına bağlı; kota ChatGPT'dedir |
+| Video klip (`studio`) | Google Flow hesabı (Omni, kredi) | Kredi harcar; tavanı sen onaylarsın, aşılmaz |
+| Seslendirme (`cut`, isteğe bağlı) | ElevenLabs hesabı | Planına bağlı; yoksa müziksiz/ses efektli akış |
+| Reklam/test | Reklam hesabı ZORUNLU DEĞİL (organik test yolu: `studio/referans/olcum-ve-test-plani.md`) | — |
+
+Oturum yoksa ekip girişte durur; senin yerine hesap açmaz, şifre girmez.
+
+### Pazar kapsamı (dürüst not)
+
+`ortak/bilgi/` ürün kataloğu ağırlıkla ABD pazarı ve Instagram Keşfet taramasından gelir; Türkiye'ye özgü veri sınırlıdır. Türkiye'de çalışıyorsan bu katalogu ilham olarak kullan, karar için Trendyol/Meta TR verisine (`hunter`, kaynak Trendyol) ve ilk 20 üründen sonra kendi satış sonuçlarına güven.
 
 <details>
 <summary>Windows kurulumu</summary>
@@ -59,12 +83,12 @@ Depo herkese açıktır; ayrı erişim gerekmez. Kendi çatalını (fork) kuraca
 | `studio` | Ürün kartı, 30 senaryo, ChatGPT ile başlangıç kareleri ve Google Flow ile klip üretimi. |
 | `cut` | ffmpeg ile kurgu: klip kalite kontrolü, ekran üstü yazı, efekt, ses normalizasyonu, teslim. |
 | `spy` | Meta Reklam Kütüphanesi'nde niş niş (US/TR/AB) kazanan reklam ve ürün taraması; mağaza → AliExpress eşleme, kazanan–kaybeden desen sayımı. |
-| `bazaar` | Trendyol'da ilgi gören, henüz viral olmamış, ucuz ürünü bulur; net marj, tedarik ve fiyat şeffaflığı riskini hesaplar. Satış kendi Shopify mağazamızda. |
+| `hunter` (Trendyol) | Trendyol'da ilgi gören, henüz viral olmamış, ucuz ürünü bulur; net marj, tedarik ve fiyat şeffaflığı riskini hesaplar. Satış senin Shopify mağazanda. |
 | `hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use` | Hareketli tasarım katmanı (HeyGen'in açık kaynak HyperFrames paketi, Apache-2.0, değiştirilmeden): HTML'den video, kinetik yazı, geçiş, altyazı, ~450 hazır blok; render yerelde Node 22+ ve Chrome ister. `cut` aşama 8b'de çağrılır. |
 
 **Ajanlar** (`plugins/viral-urun-ekibi/agents/`, 17 üye): ürün ve video tarafında 7 (`scout`, `skeptic`, `decoder`, `story`, `jury` kör video jürisi,
 `fixer`, `mixer`) + mağaza kolu 10 (`atlas`, `muse`, `copy`, `forge`, `sentinel`, `panel`, `director`, `architect`, `probe`, `shopper`). Her üyenin kod adı,
-Türkçe rolü ve modeli: `plugins/viral-urun-ekibi/ortak/ekip.md`. Eski adlar için: `ortak/ad-haritasi.tsv`. Eski beceri adları bu sürümde yönlendirme olarak çalışır (liste: `ortak/ad-haritasi.tsv`), 0.5.0'da kalkar.
+Türkçe rolü ve modeli: `plugins/viral-urun-ekibi/ortak/ekip.md`. Eski adlar için: `ortak/ad-haritasi.tsv`. 0.5.1'de eski beceri adları kaldırıldı (`ortak/ad-haritasi.tsv` `alias=kaldirildi`); yalnız Trendyol avının eski adı bir sürüm daha `hunter`'a (kaynak Trendyol) yönlendirir.
 
 **Ortak bilgi** (`plugins/viral-urun-ekibi/ortak/`): marka skoru, viral DNA, sözlük ve `bilgi/` altında ürün kataloğu,
 kreatif notlar, fırsat geçmişi, üretim deneyimi, dersler.

@@ -46,7 +46,7 @@ mağazanın ürün kilidinden yazılır, ikinci bir kilit tanımı yapılmaz); s
 
 **Viral referans (Aşama 1 sonu, atlanamaz; alt ajan izlenme okuyamaz, bu iş liderde):** TikTok'ta ≥ 5 sorgu, en az 10 video
 izlenir, Meta Reklam Kütüphanesi satırı eklenir → `is/NN/viral-referans.md`. Referans izlenmeden senaryo ve kare üretilmez; bu
-videoların kareleri kör jürinin referansıdır. Yöntem: `${CLAUDE_SKILL_DIR}/referans/uretim-kurallari.md` §1.
+videoların kareleri kör jürinin referansıdır. **Seçim kuralı:** referansı o ürünü kurgulayan seçmez; aday listesini `decoder` (notlardan) ya da `muse` (araştırma) çıkarır, lider izlenmeyi okur ve her satıra niş + pazar + performans dilimini (üst/orta/alt) yazar. Referans ürün sınıfı bizimle aynı olur (kupa ≠ tansiyon aleti); kapı için ≥ 3 uygun referans gerekir. Yöntem: `${CLAUDE_SKILL_DIR}/referans/uretim-kurallari.md` §1.
 
 **Hikâye bankası (Aşama 1 sonu, sahne üretiminden önce):** `is/NN/hikaye-bankasi.md`, en az 10 aday; senaryo yalnız bankadan
 seçilir. Bir sahne 2 kez yeniden üretilip tutmadıysa 3. üretim yerine bankaya dön. Satır biçimi: `uretim-kurallari.md` §2.
@@ -59,9 +59,9 @@ dağılım kuralları (`asamalar.md` §3), çıktı biçimi `${CLAUDE_SKILL_DIR}
 **Ön-üretim hükmü (Aşama 5 sonu, kredi onayından önce):** ilk 5 videonun kareleri kör jüriye gider (`juri.py pano --mod onuretim`,
 gerçek viral referansların ilk kareleriyle yan yana; `jury` 3 kopya; `juri.py birlestir`). Kalan video Flow'a gitmez;
 kök nedeni `fixer` yazar, geçenler için kontratı (`kurgu/KURALLAR.md`) doldurur. Akış: `captain` "Hüküm hattı".
-Referans < 3 ise durma: `juri.py yapilamadi … --mod onuretim` ile "jüri yapılamadı" kaydı yaz (kapı notla geçer), referans bulma ayrı iş.
+Referans < 3 ise durma: `juri.py yapilamadi … --mod onuretim` ile "jüri yapılamadı" kaydı yaz — kapı KALDI olur; ilerlemek yalnız kullanıcının (mağaza sahibinin) açık aşım cümlesiyle (KARARLAR.md `kapi-asimi`). Önce referans bulmayı dene.
 Kredi geçişinin tek kapısı: `python3 "${CLAUDE_PLUGIN_ROOT}/skills/captain/scripts/kapi.py" kredi is/NN --proje .` (senaryo,
-kontrat, hüküm, kredi onayı, defter). Çıkış 0 olmadan Flow'da üretim başlamaz; aşım yalnız kurucu kararıyla (`captain` §5c).
+kontrat, hüküm, kredi onayı, defter). Çıkış 0 olmadan Flow'da üretim başlamaz; aşım yalnız kullanıcının (mağaza sahibinin) açık kararıyla (`captain` §5c).
 
 Örnek video için en güçlü ve AI riski en düşük senaryoyu (mekanizması `[DOĞRULA]` olmayan) seç, gerekçeyi tek satır yaz.
 
@@ -85,7 +85,7 @@ Betik DUR/❌ verirse düzelt ve tekrar koştur; geçmeden sonraki aşamaya geç
 - **Kredi:** tavan onayı Aşama 0'da bir kez, tutarıyla KARARLAR.md'ye; tavan içinde tekrar sorma, aşacaksan DUR. Tavanı
   istemeden önce `python3 "${CLAUDE_SKILL_DIR}/scripts/malzeme_kontrol.py" <video-planı.md|json> --klip N --tavan X` → çıkış 0.
 - Klipler inince hemen `cut` aşama 7: `python3 "${CLAUDE_PLUGIN_ROOT}/skills/cut/scripts/klip_qc.py" is/NN/klipler/*.mp4 --pano`.
-- Görüntü kaynağı önceliği: gerçek stok/kendi çekim > gerçek ürün fotoğrafı > AI klip; her videoda hareketli tasarım katmanı
+- Görüntü kaynağı önceliği: gerçek stok/kendi çekim > gerçek ürün fotoğrafı > AI klip (tümüyle AI reklam "sahte" görünür: uzman yöntemi R74); her videoda hareketli tasarım katmanı
   (`cut` Aşama 8b). Ayrıntı `uretim-kurallari.md` §6.
 - Karar dosyaları: `referans/baslangic-karesi.md`, `sahne-sablonlari.md`, `kanca-kutuphanesi.md`, `kreatif-mantigi.md`,
   `pazar-katmani.md`, `meme-formatlari.md` (seride ≤ %30); yasaklar `kurgu-ve-yasaklar.md` §7; tamamı tek blokta `sistem-promptu.md`.

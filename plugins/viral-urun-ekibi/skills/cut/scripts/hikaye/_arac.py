@@ -20,7 +20,7 @@ SFX = os.environ.get("HIKAYE_SFX") or os.path.join(os.path.expanduser("~"), ".ca
 
 def sfx_hazirla():
     """Sentetik efektleri (numpy; kendi üretimimiz, lisans gerekmez) ilk kullanımda önbelleğe (~/.cache/viral-urun-ekibi/sfx) üretir."""
-    if not os.path.exists(os.path.join(SFX, "pop.wav")):
+    if not (os.path.exists(os.path.join(SFX, "pop.wav")) and os.path.exists(os.path.join(SFX, "bubble.wav"))):
         subprocess.run([sys.executable, os.path.join(BURADA, "sfx", "sentez.py")], check=True, env=dict(os.environ, SFX_CIKTI=SFX))
     return SFX
 

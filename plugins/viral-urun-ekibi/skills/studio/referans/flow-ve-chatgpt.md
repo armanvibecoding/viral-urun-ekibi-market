@@ -18,7 +18,7 @@ Hız sınırı gelirse 1 dk bekle, kaldığın kareden devam et.
 
 ### Toplu prompt (seri üretim, ölçülmüş yöntem)
 Uzun metin yapıştırılınca ChatGPT onu ek dosyaya çevirir; promptlar tek tek ve sayfanın içinden gönderilir:
-1. Tüm promptlar tek JSON'a (`[{"ad": "C1_k2", "prompt": "..."}]`) → `pbcopy < promptlar.json`.
+1. Tüm promptlar tek JSON'a (`[{"ad": "C1_k2", "prompt": "..."}]`) → panoya al (Mac: `pbcopy < promptlar.json`; Windows: PowerShell `Get-Content -Raw -Encoding utf8 promptlar.json | Set-Clipboard`; araç yoksa dosyayı aç, içeriği elle kopyala).
 2. Sayfada capture-phase `paste` dinleyicisi kur: panodaki metni `localStorage`'a yazar ve `preventDefault()` ile
    kutuya yapışmasını engeller; kullanıcı ya da `computer` aracı bir kez Cmd+V yapar.
 3. Her gönderim: kutuya odaklan → `document.execCommand('insertText', false, prompt)` → `button[aria-label="Gönder"]`

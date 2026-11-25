@@ -1,0 +1,63 @@
+{
+ "rol": "shopper",
+ "sabit_urun": {
+  "vaka": "a-kolay",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "TR",
+  "urun_dizin": "is/01-kupa"
+ },
+ "moduller": [
+  {
+   "mod": "donusum",
+   "brief": "mod: donusum · canlı mağaza adresi + ürün",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/magaza/CRO.md",
+    "zorunlu_bolumler": [
+     "düzeltme",
+     "kanıt"
+    ]
+   }
+  },
+  {
+   "mod": "ses",
+   "brief": "mod: ses · SITE-METNI.md + URUN-KILIDI.md",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/magaza/SES.md",
+    "zorunlu_bolumler": [
+     "metin parçası",
+     "düzeltme"
+    ]
+   }
+  }
+ ],
+ "eksik_girdi": [
+  {
+   "mod": "donusum",
+   "brief": "mod: donusum · mağaza adresi yok",
+   "eksik": "adres yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  },
+  {
+   "mod": "ses",
+   "brief": "mod: ses · SITE-METNI.md yok",
+   "eksik": "site metni yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  }
+ ]
+}

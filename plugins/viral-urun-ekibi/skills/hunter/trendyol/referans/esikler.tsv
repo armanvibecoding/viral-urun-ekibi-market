@@ -1,0 +1,14 @@
+anahtar	tur	sat	izle	ele	durum	tarih	dayanak
+yorum	aralik	150-3000	50-149	diger	deneme	2026-11-23	deneme: 243 ve 969 aday, 10.314 doygun
+puan	aralik	>=4.2	4.0-4.19	diger	deneme	2026-11-23	deneme: 4,1–4,5
+satici_sayisi	aralik	<=5	6-15	diger	varsayim	2026-11-23	varsayım
+alis_tl	aralik	100-600	601-900	diger	deneme	2026-11-23	ARTIK ENGEL DEĞİL (2026-11-25): alis_tl tedarikçi alışıdır, bu bant Trendyol perakendesine göre konmuştu; engel kat ölçütüdür. deneme: 170–321 TL
+kat	aralik	>=2.2	1.8-2.19	diger	varsayilan	2026-11-23	eklenti varsayılanı (kendi katını .ekip/isletme-profili.tsv kat_min ile yaz; profil bunun üstüne yazar): alışın 2–3 katı (kat = onerilen_satis_tl / alis_tl, alis_tl tedarikçiden); tedarikçi yoksa dogrulanamadi = not
+satis_tl_min	sayi	399			varsayilan	2026-11-23	eklenti varsayılanı: SAT için en düşük satış fiyatı (TL); profil satis_tl_min bunun üstüne yazar
+meta_reklam	aralik	<=3	4-10	diger	varsayim	2026-11-23	Hunter kuralı
+basabas_roas	marka-payi	pay>=1.2	1.0-1.19	diger	varsayilan	2026-11-25	ROAS markaya özeldir; pay = marka_roas / başabaş ROAS (1,2 payı varsayım); marka_roas yoksa dogrulanamadi
+seffaflik	aralik	0-1	2	3	varsayim	2026-11-23	varsayım (fiyat şeffaflığı puanı)
+viral_db	kategori	yok|aile-var	dogrulanamadi	ayni-urun-viral	varsayim	2026-11-23	ortak/sozluk.md Zaten viral; 2026-11-25: dogrulanamadi/boş ENGEL DEĞİL (SAT kartı notu), yalnız ayni-urun-viral ELE
+kota_arama_gunluk	sayi	100			varsayim	2026-11-24	üst güvenlik sınırı, kota değil; hedef "N SAT bulana kadar" (varsayılan N=5): asıl durma ölçütü engel sinyali (429/403/captcha/art arda 3 boş sayfa); önceki 15 AliExpress'ten kopyaydı ve kullanıcıyı 25/25'te durdurdu
+kota_urun_gunluk	sayi	300			varsayim	2026-11-24	üst güvenlik sınırı (ölçülmedi); önceki 40 AliExpress'ten kopyaydı
+kota_bekleme_sn	sayi	15			varsayim	2026-11-23	aynı

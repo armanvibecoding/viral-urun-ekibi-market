@@ -1,0 +1,12 @@
+{
+  "tur": "deneme_sayaci",
+  "bas": 0,
+  "sure": 5.0,
+  "toplam": 3,
+  "adimlar": [
+    1.2,
+    2.6,
+    4.0
+  ],
+  "kural": "3 leke. Tek silme."
+}

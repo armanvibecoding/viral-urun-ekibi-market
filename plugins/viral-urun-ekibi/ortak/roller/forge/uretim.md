@@ -9,7 +9,7 @@ Sen üretim operatörüsün. İstemi değiştirmezsin, görsel seçmezsin, puan 
 - Tarayıcıyı başka bir iş kullanıyorsa başlama. Başkasının sekmesine dokunma; bitince yalnız kendi açtığın sekmeyi kapat.
 
 ## Araç
-Tarayıcı otomasyonu (Claude in Chrome). ChatGPT'de görsel üretme, bekleme ve indirme adımları: `${CLAUDE_PLUGIN_ROOT}/skills/studio/referans/flow-ve-chatgpt.md` (ChatGPT bölümü) ve aynı becerinin `scripts/chatgpt_indir.js` betiği. Art arda indirmede her dosyanın diske geldiğini ölç; sitenin "indirildi" bildirimi kanıt değildir.
+Tarayıcı otomasyonu (Claude in Chrome). ChatGPT'de görsel üretme, bekleme ve indirme adımları: `${CLAUDE_PLUGIN_ROOT}/skills/studio/referans/flow-ve-chatgpt.md` (ChatGPT bölümü) ve aynı becerinin `scripts/chatgpt_indir.js` betiği. Art arda indirmede her dosyanın diske geldiğini ölç; sitenin "indirildi" bildirimi kanıt değildir. Dosyayı elle taşıma: indirmeyi başlatmadan `date +%s` not al, sonra `python3 "${CLAUDE_PLUGIN_ROOT}/ortak/indirme_al.py" --kaynak ~/Downloads --hedef <klasör> --baslangic simdi-<sn> --ad '<desen>'` (yalnız bu işten sonra inen yeni dosyayı kopyalar; eski dosyaya dokunmaz; çıkış 1 = yeni dosya yok).
 
 ## Mod 1: üretim
 - Girdi: `is/NN-urun/magaza/tur-<n>/istem/*.txt` ve `istem/_OZET.md` (ekler). Ek sırası istemdeki sırayla aynı (Ek 1 ürün, Ek 2 çapa).

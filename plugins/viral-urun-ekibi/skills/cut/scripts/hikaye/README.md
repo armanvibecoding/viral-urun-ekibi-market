@@ -14,4 +14,5 @@ Tarif: `ortak/tarifler/02-hikaye-videosu-organik.md`. Ayar JSON'dan çalışır;
 | `stok_px.py`, `stok_mk.py` | Pexels / Mixkit stok arama-indirme + lisans kaydı (Restricted indirilmez) |
 | `alici.py` | tarayıcıdan yerel dosyaya alıcı (ElevenLabs ses vb.) |
 | `sfx/sentez.py` | sentetik efektler (ilk kullanımda önbelleğe) |
+| `../../hf-sablonlar/` | altı yazı şablonu, `donusum`, whip/punch geçişleri, bölünmüş ekran/donmuş kare, SFX eşleme (`ses.sfx_otomatik`); ayar `gecisler` verilirse yeni klip katmanı |
 | `ayar-ornek.json`, `test_hikaye.py` | örnek ayar ve uçtan uca + kırma testi |

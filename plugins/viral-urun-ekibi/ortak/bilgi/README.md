@@ -6,6 +6,7 @@ sayıyı ve linki dosyada nasılsa öyle aktar, dosyada yoksa "kayıtta yok" de.
 
 | Soru | Önce bak | Sonra |
 |---|---|---|
+| "Şu ürün zaten viral mi?" | `viral-urunler.tsv` (`../viral_db.py ara`) | `urun-katalogu.md` · `firsat-gecmisi.md` |
 | "Şu ürün viral olur mu?" | `../viral-dna.md` (kapılar + 7 ölçüt) | `urun-katalogu.md` akraba ürün · `firsat-gecmisi.md` daha önce değerlendirildi mi |
 | "Buna benzer ne var?" | `urun-katalogu.md` (ürün adı / kategori ile ara) | `kreatif-notlar.md` aynı `S` numarası |
 | "Bu kategoride hangi kanca tuttu?" | `kreatif-notlar.md` (Kanca satırı, desen kodları) | `urun-katalogu.md` kategori sütunu |
@@ -24,7 +25,8 @@ sayıyı ve linki dosyada nasılsa öyle aktar, dosyada yoksa "kayıtta yok" de.
 | `kreatif-notlar.md` | 116 viral videonun kanca / sahne akışı / mekanizma / neden tuttu notu + desen kodları (D1–D17) |
 | `firsat-gecmisi.md` | 80 değerlendirilmiş aday (SAT / İZLE / ELE + gerekçe + link), Trendyol doygunluk, tedarik çarpanları |
 | `uretim-deneyimi.md` | İçerik planı yazılan 4 ürün: seçilen kanca/şablon, bozulan klipler, örnek senaryolar, mağaza dersleri |
-| `dersler.md` | 68 ders: ne yapılır/yapılmaz, neden, kanıt |
+| `dersler.md` | 68 ders: ne yapılır/yapılmaz, neden, kanıt · sonunda "Kurucu hafızasından (sansürlü)" bölümü: 25 genel ders (ürün avı, viral değerlendirme, video kalitesi, Reklam Kütüphanesi yöntemi, keyword hacmi) |
+| `viral-urunler.tsv` | 542 ürünün SANSÜRLÜ özeti (jenerik ad, aile, niş, pazar, izlenme, hesap/video sayıları, hüküm; hesap/link/marka yok). "Zaten viral mi?" → `../viral_db.py` `ara(ürün_metni, aile)`; yeniden üretim: `scripts/bilgi_paketi.py` |
 
 ## Okuma kuralları
 - Kod numaraları kanıt izidir: `S063` ürün = `kreatif-notlar.md` içinde **063** notu.

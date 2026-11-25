@@ -14,6 +14,11 @@ performansı ölçülmüş videolar) → `pano --mod kalibrasyon` → 3 kopya �
 paylaşım, reklamın yayında kalma süresi, sepete ekleme). Sonuç UYUMLU değilse jüri hükmü DENEME sayılır; kullanıcıya böyle söyle.
 Ayda bir ve jüri talimatı her değiştiğinde yeniden koş. Kullanıcıdan "beğendin mi" toplanmaz.
 
+## analiz.db yoksa (danışan kurulumu)
+`set` yalnız kalibrasyon içindir ve analiz veritabanı ister; veritabanın yoksa jüri yine de çalışır: indirdiğin ≥ 3 gerçek viral videoyu (ya da kare klasörü/görsel) bir klasöre koy ve
+`python3 "${CLAUDE_PLUGIN_ROOT}/skills/cut/scripts/juri.py" pano --mod teslim|onuretim --cikti is/NN/juri/tur-1 --bizim V03=… --referans-klasoru is/NN/referans`
+çalıştır. Kalibrasyon (jüri hükmü DENEME sayılır) veri gelene kadar yapılamaz; kullanıcıya bunu söyle. Klasörde < 3 referans varsa "jüri yapılamadı" yolu kalır (`juri.py yapilamadi`).
+
 ## Kalibrasyon adımları
 1. `python3 "${CLAUDE_PLUGIN_ROOT}/skills/cut/scripts/juri.py" set --analiz-db <proje>/veri/analiz.db --cikti is/kalibrasyon/set-N --nis <niş> --adet 20`
    (veritabanı yoksa çıkış 3: "veri yok"; uydurma set kurulmaz).

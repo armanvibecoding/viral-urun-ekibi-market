@@ -109,5 +109,5 @@ hunter (SAT) ──urun-paketi.json──▶ builder ──magaza-paketi.json─
 `python3 scripts/sozlesme_test.py` · `python3 scripts/butce_kontrol.py` (+ `--kendini-sina`) · `cd moduller/magaza-kurucu && python3 -m pytest -q tests` ·
 eklenti içi: `skills/captain/scripts/kapi_test.py`, `karne_test.py` · `skills/cut/scripts/kendini_test.py`, `juri_test.py` ·
 `skills/spy/scripts/kendini_test.py`, `toplayici_test.py` · `skills/builder/teklif/scripts/kirma_testi.py` ·
-`skills/hunter/scripts/kirma_testi.py` · `skills/bazaar/scripts/kirma_testi.py` · `ortak/excel_test.py` · `python3 scripts/ad_testi.py` (+ `--kendini-sina`). Aylık budama ve çıkarılanlar: `docs/gelistirici/BUDAMA-0.3.0.md`, `docs/gelistirici/ESKIDI/`.
+`skills/hunter/scripts/kirma_testi.py` · `skills/hunter/trendyol/scripts/kirma_testi.py` · `ortak/excel_test.py` · `python3 scripts/ad_testi.py` (+ `--kendini-sina`). Aylık budama ve çıkarılanlar: `docs/gelistirici/BUDAMA-0.3.0.md`, `docs/gelistirici/ESKIDI/`.
 - Alan adı değişmez; yeni alan kaynakta (modül) eklenir, `surum` artar, sonra eşitlenir.

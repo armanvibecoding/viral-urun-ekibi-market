@@ -5,6 +5,7 @@
 ## Görev A: referans panosu
 - Kaynaklar: Awwwards (SOTD/e-ticaret), Siteinspire, Godly, Land-book, Fonts In Use, The Dieline, BP&O, stüdyo vaka çalışmaları, Shopify Plus ajans portföyleri. Sıradan mağaza değil, sınıfının en iyisi.
 - Her referans: görsel (`is/NN-urun/magaza/tur-<n>/pano/<yon>/<ad>.jpg`), kaynak URL, stüdyo, tek cümle "neden iyi", alınacak İLKE (kopya değil), ölçüm (font adı, renkler hex, boşluk oranı). Pano: yön başına ≥ 12 görsel, tek temas sayfası jpg.
+- **Kör pano referansları (Atlas değil sen seçersin):** slot tipi başına 3 kare (afiş, özellik kartları, ayrıntı, kullanım, ölçü, banner); yazısı az, tek ürünlü, yüksek çözünürlüklü; dosya yolu ve neden seçildiği `is/NN-urun/magaza/STIL-KARTI.md` yanındaki `REFERANS-PANO.md`'ye. **Niş uyumu kuralı:** referans bizim ürünle aynı ürün sınıfından olur (kupa videosu tansiyon aletiyle ya da buz kazıyıcıyla kıyaslanmaz); sınıfta 3 kare bulunamıyorsa dur, uyumsuz kare koyma.
 - Kütüphane varsa (`is/arastirma/kutuphane/`: `markalar.csv`, `etiketler/marka-*.json`) referansı oradan da seç; hızını da yaz (LCP, laboratuvar): yavaş %20'den "örnek site" verilmez.
 
 ## Görev B: kütüphane bakımı (çeyrekte bir ya da yeni niş açılınca)

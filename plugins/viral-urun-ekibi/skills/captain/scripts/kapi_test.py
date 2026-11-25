@@ -27,6 +27,24 @@ DEFTER = """# GERİ BİLDİRİM DEFTERİ
 """
 
 
+KONTRAT_IYI = """# KURALLAR — Test rampası · seri deneme
+İmza: ön-üretim ELESTIRI-onuretim.md · 2000-01-01
+İzleyici: soğuk TR evcil hayvan sahibi · pazar: TR
+
+| # | Alan | Kural | Eşik (ölçülebilir) | Nasıl ölçülür |
+|---|---|---|---|---|
+| K1 | iskelet | süre ve vuruş | toplam 12–15 sn; plan ≥ 2 vuruş | ayar JSON |
+| K2 | kanca | ürün ilk karede | değişmiş ekran ≤ 0,9 sn | pano 10 fps |
+| K9 | ses | müzik girişi ve seviye | −14 ±1 LUFS, delik yok | `ses_olc.py --kapi` |
+| K10 | malzeme | klip yeterliliği | özne başına klip ≥ 5 | plan × klip sayımı |
+| K11 | iddia | yazıda fiyat yok | fiyat ifadesi yok | metin |
+"""
+
+
+KAYNAK_IYI = ("vaka\tdosya\tkaynak\tcekim\tkullanilacak_aralik\tnot\tlisans\tkullanim\tyapay_mi\tbakildi\n"
+              "kurgu\tkaynak-%s.mp4\tkurucu\tgercek\t0-6 sn\t-\tkurucu\tyayin\thayir\t2026-11-25\n")
+
+
 def yaz(yol, icerik):
     os.makedirs(os.path.dirname(yol), exist_ok=True)
     with open(yol, "w", encoding="utf-8") as f:
@@ -39,7 +57,8 @@ def senaryolar(bozuk=False):
         return {"no": no, "mekanizma": "M8", "sablon": "S2", "an": an, "kanca": kanca, "aile": aile, "kimlik": False,
                 "giris": giris, "ortam": ortam, "ozne": ozne,
                 "sahneler": [{"eylem": e} for e in eylemler], "etkilesim_sahne": 3 if bozuk and no == 1 else 2,
-                "sonuc_sahne": 2, "cta": "Yorumlara RAMPA yaz", "neden": "test"}
+                "sonuc_sahne": 2, "cta": "Yorumlara RAMPA yaz", "neden": "test",
+                "kanca_sorusu": "Bu hayvan bunu nasıl yapıyor?", "cevap_an": 10}
     return {"urun": "Test rampası", "pazar": "TR", "videolar": [
         v(1, "tekir", "Gece mama saati", "gece kamerası", "gece yatak odası",
           ["Kedi sahibinin omzuna dokunur", "Kedi tuşa basar ve mama düşer", "Kedi mamayı yer"], "K7", "Gece 3'te uyandırmıyor"),
@@ -56,7 +75,7 @@ def proje_kur(kok):
     yaz(os.path.join(kok, ".ekip", "KARARLAR.md"), "# KARARLAR\n- 2000-01-01 | pazar | Türkiye\n- 2000-01-01 | kredi | Flow için en fazla 120 kredi\n")
     yaz(os.path.join(kok, ".ekip", "GERI-BILDIRIM.md"), DEFTER)
     yaz(os.path.join(is_, "senaryolar.json"), senaryolar())
-    yaz(os.path.join(is_, "kurgu", "KURALLAR.md"), "# KURALLAR\nK1 süre 12–15 sn\nK2 kanca ilk karede\nK3 müzik rampayla\nK4 fiyat yok\nK5 döngü\n")
+    yaz(os.path.join(is_, "kurgu", "KURALLAR.md"), KONTRAT_IYI)
     hukum(is_, "onuretim", "V01", True)
     return kok, is_
 
@@ -100,6 +119,13 @@ def kredi_testleri(kok):
     bekle("kırma: senaryolar.json yok -> 1 (temiz demez)", kos("kredi", i, "--proje", p), 1, ["dosya yok: senaryolar.json"])
     p, i = taze(kok, "k3"); os.remove(os.path.join(i, "kurgu", "KURALLAR.md"))
     bekle("kırma: kontrat yok -> 1", kos("kredi", i, "--proje", p), 1, ["KALDI      kontrat"])
+    # denetim #5: kontrat kapısı satır sayısı değil ALAN denetimi
+    p, i = taze(kok, "k3b"); yaz(os.path.join(i, "kurgu", "KURALLAR.md"), "# KURALLAR\nK1 süre 12–15 sn\nK2 kanca ilk karede\nK3 müzik rampayla\nK4 fiyat yok\nK5 döngü\n")
+    bekle("kırma: 5 satırlı ama alansız kontrat -> 1 (eski kapı bunu geçiriyordu)", kos("kredi", i, "--proje", p), 1, ["KALDI      kontrat", "alanları eksik"])
+    p, i = taze(kok, "k3c"); yaz(os.path.join(i, "kurgu", "KURALLAR.md"), KONTRAT_IYI.replace("ön-üretim ELESTIRI-onuretim.md · 2000-01-01", "ön-üretim <ELESTIRI-onuretim dosyası> · <YYYY-AA-GG>"))
+    bekle("kırma: şablondan kopyalanıp doldurulmamış (<…> yer tutucu) -> 1", kos("kredi", i, "--proje", p), 1, ["KALDI      kontrat", "yer tutucu"])
+    p, i = taze(kok, "k3d"); yaz(os.path.join(i, "kurgu", "KURALLAR.md"), KONTRAT_IYI.replace("| K10 | malzeme | klip yeterliliği | özne başına klip ≥ 5 | plan × klip sayımı |\n", ""))
+    bekle("kırma: zorunlu K10 satırı yok -> 1", kos("kredi", i, "--proje", p), 1, ["zorunlu K10"])
     p, i = taze(kok, "k4"); shutil.rmtree(os.path.join(i, "elestiri"))
     bekle("kırma: hüküm kaydı yok -> 1 (temiz demez)", kos("kredi", i, "--proje", p), 1, ["KALDI      hukum", "hüküm kaydı yok"])
     p, i = taze(kok, "k5"); hukum(i, "onuretim", "V02", False)
@@ -154,7 +180,7 @@ def kredi_testleri(kok):
 
     bekle("kullanım: iş klasörü yok -> 2", kos("kredi", os.path.join(kok, "yok"), "--proje", kok), 2)
     k, c = kos("liste")
-    SONUC.append(("liste: kredi 5 kapı, yayin 8 kapı (kapının kendisi sayılır)", k == 0 and "kredi (5)" in c and "yayin (8)" in c))
+    SONUC.append(("liste: kredi 5 kapı, yayin 9 kapı (kapının kendisi sayılır)", k == 0 and "kredi (5)" in c and "yayin (9)" in c))
 
 
 def video_uret(is_, ad, delik=False):
@@ -193,6 +219,10 @@ def video_uret(is_, ad, delik=False):
     os.remove(gecici)
     wav(os.path.join(is_, "ses", "stem_" + ad, "muz.wav"), muz * kazanc)
     yaz(os.path.join(is_, "kurgu", ad + ".json"), {"planlar": [["../klipler/%s_S1.mp4" % ad, 0, 6.0]], "kanca": "Bunu izle", "cikti": "kurgu/%s.mp4" % ad})
+    # lisans kapısı (denetim #10): klip etiketi + KAYNAK.tsv (lisans sütunları dolu)
+    yaz(os.path.join(is_, "klipler", "klip_etiket.json"), {"klipler": {"%s_S1" % ad: {"arac": None, "tur": "urun_elde", "icerik": "x",
+                                                                                 "kaynak": "kurucu çekimi kaynak-%s.mp4 3.0s" % ad}}, "araclar": {}})
+    yaz(os.path.join(is_, "malzeme", "KAYNAK.tsv"), KAYNAK_IYI % ad)
     return video
 
 
@@ -227,6 +257,25 @@ def yayin_testleri(kok):
     bekle("kırma: 0,6 sn ses deliği -> 1", kos("yayin", i, "--proje", p), 1, ["KALDI      ses@V01"])
     p, i = kopya("y6"); os.remove(os.path.join(p, ".ekip", "GERI-BILDIRIM.md"))
     bekle("kırma: yayında defter yok -> 1", kos("yayin", i, "--proje", p), 1, ["KALDI      defter"])
+    # lisans kapısı (denetim 2026-11-25 #10): boş sütun / kullanma / yanlış kaynak / kayıtsız klip = KALDI
+    kaynak_yol = lambda i_: os.path.join(i_, "malzeme", "KAYNAK.tsv")
+    p, i = kopya("y8"); os.remove(kaynak_yol(i))
+    bekle("kırma: KAYNAK.tsv yok (lisans kaydı yok) -> 1", kos("yayin", i, "--proje", p), 1, ["KALDI      lisans@V01", "KAYNAK.tsv yok"])
+    for ad, kusur, parca in (("lisans sütunu boş", ("\tkurucu\tyayin\t", "\t\tyayin\t"), "lisans boş"),
+                             ("lisans: yalnız sinav-ici", ("\tkurucu\tyayin\t", "\tsinav-ici\tyayin\t"), "lisans sinav-ici"),
+                             ("kullanim sınav (yayın değil)", ("\tkurucu\tyayin\t", "\tkurucu\tsinav\t"), "kullanim sinav"),
+                             ("bakildi boş", ("\t2026-11-25\n", "\t\n"), "bakildi boş"),
+                             ("yapay_mi boş", ("\thayir\t", "\t\t"), "yapay_mi boş")):
+        p, i = kopya("y9"); y = kaynak_yol(i); a_, b_ = kusur
+        metin = open(y, encoding="utf-8").read(); assert a_ in metin, ad
+        open(y, "w", encoding="utf-8").write(metin.replace(a_, b_))
+        bekle("kırma: %s -> 1 KALDI" % ad, kos("yayin", i, "--proje", p), 1, ["KALDI      lisans@V01", parca])
+    p, i = kopya("y10"); y = kaynak_yol(i)
+    ham = open(y, encoding="utf-8").read()
+    open(y, "w", encoding="utf-8").write(ham.replace("\t0-6 sn\t", "\tkullanma (yapay)\t"))
+    bekle("kırma: 'kullanma' işaretli kaynak -> 1", kos("yayin", i, "--proje", p), 1, ["KALDI      lisans@V01", "kullanma"])
+    p, i = kopya("y11"); os.remove(os.path.join(i, "klipler", "klip_etiket.json"))
+    bekle("kırma: klip etiketsiz (kaynak bilinmiyor) -> 1", kos("yayin", i, "--proje", p), 1, ["KALDI      lisans@V01", "klip_etiket.json'da yok"])
     # mağaza paketi varsa iddia + sözleşme kapıları devreye girer (örnek paket: ortak/sozlesme/ornek)
     ornek = os.path.join(EKLENTI, "ortak", "sozlesme", "ornek", "magaza-paketi.json")
     p, i = kopya("y7"); os.makedirs(os.path.join(i, "magaza")); shutil.copy(ornek, os.path.join(i, "magaza", "magaza-paketi.json"))
@@ -239,14 +288,31 @@ def yayin_testleri(kok):
     bekle("yayin: ekranda sağlık cümlesi -> 0 (engel değil, bilgi notu)", kos("yayin", i, "--proje", p), 0, ["GEÇTİ      iddia@V01"])
     yaz(os.path.join(i, "magaza", "magaza-paketi.json"), {"surum": "1"})
     bekle("kırma: bozuk mağaza paketi -> 1", kos("yayin", i, "--proje", p), 1, ["KALDI      sozlesme"])
+    # denetim #17: dürüst eksik paket (null + eksik[]) taslakta geçer ama YAYIN geçişinde KALDI; fiyat 0 / yer tutucu da KALDI
+    ornek_m = json.load(open(ornek, encoding="utf-8"))
+    eksik_m = json.loads(json.dumps(ornek_m)); eksik_m["urun"]["fiyat"] = None; eksik_m["urun"]["para"] = None; eksik_m["eksik"] = ["urun.fiyat", "urun.para"]
+    yaz(os.path.join(i, "magaza", "magaza-paketi.json"), eksik_m)
+    bekle("kırma: yayin + eksik[] dolu mağaza paketi -> 1", kos("yayin", i, "--proje", p), 1, ["KALDI      sozlesme", "--tam"])
+    sifir_m = json.loads(json.dumps(ornek_m)); sifir_m["urun"]["fiyat"] = 0
+    yaz(os.path.join(i, "magaza", "magaza-paketi.json"), sifir_m)
+    bekle("kırma: yayin + fiyat 0 mağaza paketi -> 1", kos("yayin", i, "--proje", p), 1, ["KALDI      sozlesme"])
+    yaz(os.path.join(i, "magaza", "magaza-paketi.json"), ornek_m)
+    bekle("iyi: yayin + tam mağaza paketi -> 0", kos("yayin", i, "--proje", p), 0, ["GEÇTİ      sozlesme"])
     # jüri yapılamadı (referans < 3): iş durmaz; geçersiz kayıt (referans ≥ 3 ya da nedensiz) kapıyı KALDIRIR
-    for ad, ek, bek, parca in (("referans 2 + neden -> 0 (JÜRİ YAPILAMADI notu)", {"referans_sayisi": 2, "neden": "viral referans yok"}, 0, "JÜRİ YAPILAMADI"),
+    for ad, ek, bek, parca in (("referans 2 + neden, aşımsız -> 1 KALDI (kurucu aşım cümlesi şart; denetim 2026-11-25 #2, kurucu onaylı)", {"referans_sayisi": 2, "neden": "viral referans yok"}, 1, "kullanıcının (mağaza sahibinin) açık aşım cümlesi şart"),
                                ("kırma: referans 3 iken 'yapılamadı' -> 1", {"referans_sayisi": 3, "neden": "x"}, 1, "geçersiz"),
                                ("kırma: nedensiz 'yapılamadı' -> 1", {"referans_sayisi": 1, "neden": ""}, 1, "geçersiz")):
         p, i = kopya("yj"); os.remove(os.path.join(i, "elestiri", "juri.jsonl"))
         with open(os.path.join(i, "elestiri", "juri.jsonl"), "a", encoding="utf-8") as f:
             f.write(json.dumps(dict({"video": "V01", "tur": 0, "mod": "teslim", "gecti": True, "juri": "yapilamadi"}, **ek), ensure_ascii=False) + "\n")
         bekle("yayin: jüri " + ad, kos("yayin", i, "--proje", p), bek, [parca])
+    # aynı kayıt + kurucu aşım cümlesi -> AŞILDI ile geçer
+    p, i = kopya("yj2"); os.remove(os.path.join(i, "elestiri", "juri.jsonl"))
+    with open(os.path.join(i, "elestiri", "juri.jsonl"), "a", encoding="utf-8") as f:
+        f.write(json.dumps({"video": "V01", "tur": 0, "mod": "teslim", "gecti": True, "juri": "yapilamadi", "referans_sayisi": 2, "neden": "viral referans yok"}, ensure_ascii=False) + "\n")
+    with open(os.path.join(p, ".ekip", "KARARLAR.md"), "a", encoding="utf-8") as f:
+        f.write("- 2026-11-25 | kapi-asimi | yayin 01-urun hukum@V01: \"referans bulamadık, jürisiz yayınla\"\n")
+    bekle("yayin: jüri yapılamadı + kurucu aşım cümlesi -> 0 AŞILDI", kos("yayin", i, "--proje", p), 0, ["AŞILDI", "hukum@V01", "AŞIMLA GEÇTİ"])
 
 
 def main():
@@ -254,6 +320,7 @@ def main():
     ap.add_argument("--klasor")
     ap.add_argument("--hizli", action="store_true")
     a = ap.parse_args()
+    gecici = a.klasor is None
     kok = os.path.abspath(a.klasor or tempfile.mkdtemp(prefix="kapi_test_"))
     os.makedirs(kok, exist_ok=True)
     kredi_testleri(kok)
@@ -266,7 +333,10 @@ def main():
     for ad, ok in SONUC:
         print(("GEÇTİ " if ok else "KALDI ") + ad)
     kalan = sum(1 for _, ok in SONUC if not ok)
-    print("klasör:", kok)
+    if gecici and kalan == 0:   # her koşu ~600 MB video kopyası bırakıyordu (disk doldu): geçici klasör yalnız hata varsa incelenmek üzere kalır
+        shutil.rmtree(kok, ignore_errors=True)
+    else:
+        print("klasör:", kok)
     print("TOPLAM: %d test, %d kaldı%s" % (len(SONUC), kalan, ", yayın grubu atlandı" if atlanan else ""))
     return 1 if kalan else 0
 

@@ -92,7 +92,7 @@ DM'den atayım` · yurt dışı: `Comment "WORD" and I'll DM you the link`. Ekra
 fiyat caption/bio'da. Reklam kreatifinde ekranda fiyat yalnız pazar kartı kararıyla ve GERÇEK fiyatla (TR fiyat kancası GÖZLEM).
 
 **Kurallar**
-- Dağılım: ≥ 8 mekanizma, ≥ 6 şablon, ≥ 6 kanca ailesi; ürüne uymayan kota için kullanılmaz (uyan azsa söyle);
+- Dağılım: 30 senaryoda ≥ 8 mekanizma, ≥ 6 şablon, ≥ 6 kanca ailesi (`senaryo_kontrol.py` ❌; 30'dan az senaryoda yalnız uyarı). Ürüne uymayan mekanizma kota için kullanılmaz: uyan azsa 30'a tamamlama, daha az senaryo yaz ve raporda söyle;
   hiçbir şablon > 6; aynı aile art arda yok; ≥ 3 yazısız (K13); kimlik kelimeli kanca ≤ 15; aynı giriş ≤ 2 video,
   aynı ortam ≤ 6 video, aynı özne art arda yok (`giris`, `ortam`, `ozne` alanları; betik sayar).
 - Her video 3–4 sahne × 4 sn, her sahne TEK eylem (tek klipte eylem zinciri AI'da bozulur). Son sahnede CTA ≥ 3 sn.

@@ -1,0 +1,15 @@
+{
+  "tur": "karaoke",
+  "bas": 0,
+  "sure": 5.0,
+  "metin": "Why does my dog / *shed* everywhere?",
+  "zamanlar": [
+    0,
+    0.3,
+    0.6,
+    0.9,
+    1.2,
+    1.5
+  ],
+  "top": 300
+}

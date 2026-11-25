@@ -1,0 +1,90 @@
+{
+ "rol": "sentinel",
+ "sabit_urun": {
+  "vaka": "a-kolay",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "TR",
+  "urun_dizin": "is/01-kupa"
+ },
+ "moduller": [
+  {
+   "mod": "kilit",
+   "brief": "mod: kilit · tedarikçi fotoğrafı + üretilen aday",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/magaza/tur-1/SADAKAT.md",
+    "zorunlu_bolumler": [
+     "K1",
+     "ürün kilidi"
+    ]
+   }
+  },
+  {
+   "mod": "yazim",
+   "brief": "mod: yazim · METINLER.md + 3 görsel",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/magaza/tur-1/OCR.md",
+    "zorunlu_bolumler": [
+     "beklenen",
+     "okunan",
+     "oran"
+    ]
+   }
+  },
+  {
+   "mod": "seri",
+   "brief": "mod: seri · 6 görselin hepsi",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/magaza/tur-1/KAPI.md",
+    "zorunlu_bolumler": [
+     "K2",
+     "K3",
+     "K4"
+    ]
+   }
+  }
+ ],
+ "eksik_girdi": [
+  {
+   "mod": "kilit",
+   "brief": "mod: kilit · tedarikçi fotoğrafı yok",
+   "eksik": "referans fotoğraf yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  },
+  {
+   "mod": "yazim",
+   "brief": "mod: yazim · METINLER.md yok",
+   "eksik": "beklenen metin yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  },
+  {
+   "mod": "seri",
+   "brief": "mod: seri · görsel klasörü boş",
+   "eksik": "görsel yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  }
+ ]
+}

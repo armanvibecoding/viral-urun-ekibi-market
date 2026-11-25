@@ -1,0 +1,89 @@
+{
+ "rol": "atlas",
+ "sabit_urun": {
+  "vaka": "a-kolay",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "TR",
+  "urun_dizin": "is/01-kupa"
+ },
+ "moduller": [
+  {
+   "mod": "strateji",
+   "brief": "mod: strateji · ürün=kupa · pazar=TR · 3 rakip adresi verildi",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/magaza/STRATEJI.md",
+    "zorunlu_bolumler": [
+     "3 yön",
+     "rakip"
+    ]
+   }
+  },
+  {
+   "mod": "kimlik",
+   "brief": "mod: kimlik · STRATEJI.md seçili yön 2",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/magaza/KIMLIK.md",
+    "zorunlu_bolumler": [
+     "renk",
+     "yazı ailesi"
+    ]
+   }
+  },
+  {
+   "mod": "stil",
+   "brief": "mod: stil · niş=mutfak/hediye · kütüphane mevcut",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/magaza/STIL-KARTI.md",
+    "zorunlu_bolumler": [
+     "ölçüm",
+     "klişe",
+     "yön"
+    ]
+   }
+  }
+ ],
+ "eksik_girdi": [
+  {
+   "mod": "strateji",
+   "brief": "mod: strateji · ürün adı ve pazar yok",
+   "eksik": "ürün ve pazar yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  },
+  {
+   "mod": "kimlik",
+   "brief": "mod: kimlik · STRATEJI.md yok",
+   "eksik": "strateji dosyası yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  },
+  {
+   "mod": "stil",
+   "brief": "mod: stil · niş adı verilmedi",
+   "eksik": "niş yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  }
+ ]
+}

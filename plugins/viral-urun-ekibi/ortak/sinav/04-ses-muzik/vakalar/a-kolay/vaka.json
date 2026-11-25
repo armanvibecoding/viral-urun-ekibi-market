@@ -1,0 +1,57 @@
+{
+  "id": "04-ses-muzik/a-kolay",
+  "ozellik": "04-ses-muzik",
+  "tur": "kolay",
+  "zorluk": "kolay: değişim görüntüde zaten kanıt; metin iddiaya ihtiyaç duymaz",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "US",
+  "kreatif": "organik",
+  "girdi": {
+    "urun": "Isıyla renk değiştiren kupa",
+    "urun_ozeti": "Seramik kupa; sıcak sıvı dökülünce siyah yüzey şeffaflaşır ve altındaki desen belirir (termokromik).",
+    "dogrulanmis_bilgi": [
+      "sıcak sıvıyla yüzey rengi ve deseni değişir",
+      "seramik",
+      "350 ml (paketteki ölçü)"
+    ],
+    "dogrulanmamis_bilgi": [
+      "bulaşık makinesi dayanımı",
+      "mikrodalga uygunluğu",
+      "gıda güvenliği sertifikası",
+      "garanti süresi"
+    ],
+    "kanit_ani": "sıcak sıvı kupaya dökülür, yüzey kamerada şeffaflaşıp desen belirir (wow, ekranda tek planda gösterilir)",
+    "dil": "en",
+    "istek": "Bu ürün için tek video; ürün bilgisi yalnız yukarıdaki doğrulanmış bilgiden."
+  },
+  "beklenen": {
+    "yasakli_neden": "ürün paketinde olmayan teknik/sertifika iddiası (IDD-02)",
+    "dosyalar": [
+      "video.mp4",
+      "muz_stem.wav",
+      "ses.json",
+      "LISANS.md"
+    ],
+    "sure_sn": [
+      6.0,
+      25.0
+    ]
+  },
+  "yasakli": [
+    "kırılmaz|unbreakable|unzerbrechlich",
+    "BPA[- ]?(free|frei|içermez)",
+    "lifetime|ömür boyu|lebenslang",
+    "\\bFDA\\b|LFGB|TSE belgeli",
+    "bulaşık makinesi(nde)? yıkanabilir|dishwasher[- ]safe|spülmaschinenfest"
+  ],
+  "izinli": [],
+  "telifli_parca": [
+    "Last Christmas|Wham!?",
+    "Let It Snow",
+    "Sean Paul",
+    "Jingle Bell Rap",
+    "Zou Bisou Bisou",
+    "Rockin'? Around|Kris Kringle",
+    "KURAWA"
+  ]
+}

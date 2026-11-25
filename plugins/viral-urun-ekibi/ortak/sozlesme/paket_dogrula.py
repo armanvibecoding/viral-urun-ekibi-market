@@ -5,14 +5,18 @@
 Ürün kolu -> urun-paketi.json -> mağaza kolu -> magaza-paketi.json -> video kolu -> video-paketi.json
 
   python paket_dogrula.py urun   <urun-paketi.json>
-  python paket_dogrula.py magaza <magaza-paketi.json>
+  python paket_dogrula.py magaza <magaza-paketi.json> [--tam]
   python paket_dogrula.py video  <video-paketi.json>
   python paket_dogrula.py zincir <urun-paketi.json> <magaza-paketi.json> [<video-paketi.json>]
 
 Kurallar bu dosyanın yanındaki *.schema.json dosyalarından okunur (tek kaynak). Kaynak: moduller/magaza-kurucu/src/ortak/sozlesme/;
 eklentideki kopya (plugins/viral-urun-ekibi/ortak/sozlesme/) bayt bayt aynıdır, scripts/sozlesme_esitle.py ile eşitlenir.
 Sürüm alanları: teklif (urun-paketi) ve magaza.tema_modu (magaza-paketi) sürüm 2 ile geldi; surum "1" dosyada HATA.
-Çıkış kodu: 0 = geçti (UYARI olabilir), 1 = HATA var, 2 = kullanım ya da dosya hatası.
+Bilinmeyen değer UYDURULMAZ (denetim 2026-11-25 #17): magaza-paketi'nde marka.ad, urun.baslik, urun.fiyat, urun.para, gorseller `null` olabilir ve
+her null `eksik[]` listesinde yolu ile yazılmalıdır (null ama listede yok = HATA). fiyat 0/negatif, yer tutucu ad/dosya ("yok-yer-tutucu.jpg",
+"<marka>", "lorem"…) ve kaynağı (`marka.ad_kaynak`) olmayan marka adı HATA'dır. Dürüst eksik paket GEÇER ama "EKSİK: …" satırı basar;
+yayın/teslim geçişinde `--tam` ile eksik de HATA olur. urun-paketi'nde kanıt yoksa "kanıt: yok" basılır (eksik sayılır).
+Çıkış kodu: 0 = geçti (UYARI/EKSİK olabilir), 1 = HATA var (ya da --tam ile eksik var), 2 = kullanım ya da dosya hatası.
 """
 import json
 import os
@@ -99,6 +103,93 @@ def _gez(deger, s, yol, hatalar, uyarilar):
                     uyarilar.append("%s: sözleşme dışı alan (okunmaz)" % alt_yol)
 
 
+# Yer tutucu / uydurma ad desenleri (denetim #17). Boş ya da şablon metni dolu değer SAYILMAZ: bilinmiyorsa null + eksik[].
+YER_TUTUCU = re.compile(r"yer[-_ ]?tutucu|placeholder|lorem|\bdummy\b|\btbd\b|\btodo\b|\bxxx+\b|<[^>]*>|\{[^}]*\}|\[[^\]]*\]"
+                        r"|^\s*(yok|n/?a|-+|\?+|null|none|nan|undefined|marka(\s+ad[ıi])?|brand(\s+name)?|product(\s+name)?|ürün(\s+ad[ıi])?|test)\s*$", re.I)
+UYDURMA_KAYNAK = re.compile(r"uydur|jenerik|placeholder|tahmin|varsay|geçici|gecici|rastgele|örnek|ornek", re.I)
+MAGAZA_NULL_YOLLARI = ("marka.ad", "urun.baslik", "urun.fiyat", "urun.para", "gorseller", "magaza.pdp_url")
+
+
+def _yol_degeri(veri, yol):
+    d = veri
+    for a in yol.split("."):
+        if not isinstance(d, dict) or a not in d:
+            return None
+        d = d[a]
+    return d
+
+
+def fiyat_sayisi(f):
+    """Fiyat değerinden sayı: sayıysa kendisi; metinse ilk sayı (virgül/nokta ondalık); yoksa None."""
+    if isinstance(f, bool):
+        return None
+    if isinstance(f, (int, float)):
+        return float(f)
+    m = re.search(r"\d[\d.,]*", str(f))
+    if not m:
+        return None
+    t = m.group(0).rstrip(".,")
+    if "," in t and "." in t:
+        t = t.replace(".", "").replace(",", ".") if t.rfind(",") > t.rfind(".") else t.replace(",", "")
+    elif "," in t:
+        t = t.replace(",", ".")
+    try:
+        return float(t)
+    except ValueError:
+        return None
+
+
+def eksik_kontrol(tur, veri):
+    """(hatalar, eksikler). eksikler: dosyanın dürüstçe 'bilinmiyor' dediği ya da hiç içermediği alanlar (liderin özetinde görünür)."""
+    hatalar, eksikler = [], []
+    if tur == "magaza":
+        bildirilen = list(veri.get("eksik", []))
+        for yol in MAGAZA_NULL_YOLLARI:
+            deger = _yol_degeri(veri, yol)
+            if deger is None:
+                eksikler.append(yol)
+                if yol not in bildirilen:
+                    hatalar.append("%s: null ama `eksik[]` listesinde yok (bilinmeyen değer adıyla bildirilmeli)" % yol)
+            elif yol in bildirilen:
+                hatalar.append("eksik[]: %s listede ama dosyada dolu (çelişki)" % yol)
+        for yol in bildirilen:
+            if yol not in MAGAZA_NULL_YOLLARI:
+                hatalar.append("eksik[]: %r bilinen null yollarından değil (%s)" % (yol, ", ".join(MAGAZA_NULL_YOLLARI)))
+        ad = veri["marka"].get("ad")
+        if ad is not None:
+            if not str(ad).strip() or YER_TUTUCU.search(str(ad)):
+                hatalar.append("marka.ad: boş ya da yer tutucu (%r); bilinmiyorsa null + eksik[]" % ad)
+            kaynak = str(veri["marka"].get("ad_kaynak") or "").strip()
+            if not kaynak:
+                hatalar.append("marka.ad: kaynağı yok — `marka.ad_kaynak` (kurucu kararı / Atlas çıktısı / mağaza kaydı) yazılmalı; kaynaksız ad uydurma sayılır")
+            elif UYDURMA_KAYNAK.search(kaynak):
+                hatalar.append("marka.ad_kaynak %r kaynak sayılmaz (uydurma/jenerik/tahmin)" % kaynak)
+        baslik = veri["urun"].get("baslik")
+        if baslik is not None and (not str(baslik).strip() or YER_TUTUCU.search(str(baslik))):
+            hatalar.append("urun.baslik: boş ya da yer tutucu (%r); bilinmiyorsa null + eksik[]" % baslik)
+        fiyat, para = veri["urun"].get("fiyat"), veri["urun"].get("para")
+        if fiyat is not None:
+            n = fiyat_sayisi(fiyat)
+            if n is None:
+                hatalar.append("urun.fiyat: sayı değil (%r); bilinmiyorsa null + eksik[]" % (fiyat,))
+            elif n <= 0:
+                hatalar.append("urun.fiyat: %r yer tutucu sayılır (0/negatif fiyat olmaz); bilinmiyorsa null + eksik[]" % (fiyat,))
+            if para is None:
+                hatalar.append("urun.para: fiyat dolu ama para birimi null")
+        gorseller = veri.get("gorseller")
+        for i, g in enumerate(gorseller or []):
+            if YER_TUTUCU.search(g["dosya"]) or YER_TUTUCU.search(g["kod"]):
+                hatalar.append("gorseller[%d]: yer tutucu dosya/kod (%r); görsel yoksa gorseller null + eksik[]" % (i, g["dosya"]))
+    if tur == "urun":
+        for yol in veri.get("eksik", []):
+            eksikler.append(yol)
+        if not veri.get("kanit") and "kanit" not in eksikler:
+            eksikler.append("kanit")
+        if not veri["urun"].get("tedarik_fiyati") and "urun.tedarik_fiyati" not in eksikler:
+            eksikler.append("urun.tedarik_fiyati")
+    return hatalar, eksikler
+
+
 def dogrula(tur, veri):
     """(hatalar, uyarilar) döner. tur: urun | magaza | video."""
     if tur not in TURLER:
@@ -112,18 +203,25 @@ def dogrula(tur, veri):
             hatalar.append("%s: bu alan surum 2 ile geldi; dosyada surum 1 yazıyor" % yol)
     if hatalar:
         return hatalar, uyarilar
+    if tur in ("magaza", "urun"):
+        h2, eksikler = eksik_kontrol(tur, veri)
+        hatalar += h2
+        if eksikler:
+            uyarilar.append("EKSİK: %s%s" % (", ".join(eksikler), " (kanıt: yok)" if "kanit" in eksikler else ""))
+        if hatalar:
+            return hatalar, uyarilar
     if tur == "urun":
         for i, o in enumerate(veri["urun"].get("ozellikler", [])):
             if not o.get("kaynak"):
                 uyarilar.append("urun.ozellikler[%d] (%s): kaynak yok, doğrulanmış sayılmaz" % (i, o["ad"]))
     if tur == "magaza":
-        if not any(g["kod"] == "G0" and g.get("yazisiz") is True for g in veri["gorseller"]):
+        if veri.get("gorseller") and not any(g["kod"] == "G0" and g.get("yazisiz") is True for g in veri["gorseller"]):
             uyarilar.append("gorseller: yazısız G0 karesi yok (video için ürün referansı)")
         for i, d in enumerate(veri["onayli_metinler"]["iddialar"]):
             if not d["bilgi_notu"] and not d.get("kaynak"):
                 uyarilar.append("onayli_metinler.iddialar[%d]: kaynak yok ve bilgi notu değil" % i)
         alan = veri["magaza"].get("alan_adi")
-        if alan and alan not in veri["magaza"]["pdp_url"]:
+        if alan and veri["magaza"].get("pdp_url") and alan not in veri["magaza"]["pdp_url"]:
             uyarilar.append("magaza.pdp_url alan adını (%s) içermiyor" % alan)
     if tur == "video":
         adlar = [v["dosya"] for v in veri]
@@ -148,7 +246,7 @@ def zincir(urun, magaza, video=None):
     if hatalar:
         return hatalar, uyarilar
     pazar = urun["pazar"]
-    if pazar.get("para") and pazar["para"] != magaza["urun"]["para"]:
+    if pazar.get("para") and magaza["urun"]["para"] and pazar["para"] != magaza["urun"]["para"]:
         hatalar.append("zincir: pazar parası %s, mağaza fiyatı %s" % (pazar["para"], magaza["urun"]["para"]))
     kaynak_v = set(_varyant_adlari(urun["urun"].get("varyantlar")))
     if kaynak_v:
@@ -168,6 +266,8 @@ def zincir(urun, magaza, video=None):
 def main(argv):
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
+    tam = "--tam" in argv
+    argv = [a for a in argv if a != "--tam"]
     if len(argv) < 3 or argv[1] not in TURLER + ("zincir",) or (argv[1] == "zincir" and len(argv) not in (4, 5)):
         print(__doc__)
         return 2
@@ -180,6 +280,9 @@ def main(argv):
         hatalar, uyarilar = zincir(*veriler)
     else:
         hatalar, uyarilar = dogrula(argv[1], veriler[0])
+    if tam:
+        for u in [u for u in uyarilar if u.startswith("EKSİK:") or ": EKSİK:" in u]:
+            hatalar.append("--tam: %s" % u)
     for u in uyarilar:
         print("UYARI:", u)
     for h in hatalar:

@@ -10,11 +10,11 @@ Sen metnin kör okuyucususun: metni kim yazdıysa savunmazsın.
 3. **Yapay zekâ kalıpları:** "X değil, Y" yapısı, uzun tire (—), üçlü sıfat zinciri, "keşfedin/deneyimleyin/yükseltin", ünlem, her başlıkta soru, aynı kalıpla başlayan ardışık başlıklar ❌.
 4. **Ses:** stratejideki 3 sıfata uyar, 3 "değil"e düşmez; hitap tek (sen ya da siz, karışık değil).
 5. **Görsel ↔ site tekrarı:** görsel başlığı ile aynı bölümün HTML başlığı aynı cümle değil (mobil çift basım; QA'daki bilinen tema sınırı).
-6. **Türkçe:** yazım, İ/ı, büyük harf dönüşümü, ondalık virgül, birim boşluğu ("30 g").
+6. **Dil (metnin dili: TR, DE ya da EN):** yazım, yerli ifade, çeviri kokusu (kelimesi kelimesine çevrilmiş cümle, pazarda kullanılmayan kalıp). Türkçede ek olarak İ/ı, büyük harf dönüşümü, ondalık virgül, birim boşluğu ("30 g"). DE/EN metinde yerli denetimi çağrıda güçlü model yapar; emin olamadığın cümleyi `olculemedi` yaz, geçirme.
 7. **Bilgi notu:** sağlık/sonuç iddiası varsa metni yumuşatma; sona "Bilgi notu (kullanıcının sorumluluğu)" satırı ekle (kullanıcı kuralı: hukuk engel değil).
 
 ## Çıktı
 `is/NN-urun/magaza/SES.md`: metin parçası · kontrol · ✅/❌ · düzeltme önerisi (tek cümle, aynı uzunlukta).
 
 ## Test
-`is/arastirma/denetim/SLOP-HATA.md`'de işaretlenmiş 5 cümleyi ve 5 temiz cümleyi karıştırıp ver: hepsini doğru sınıflamalı.
+`is/arastirma/denetim/SLOP-HATA.md`'de işaretlenmiş 5 cümleyi ve 5 temiz cümleyi karıştırıp ver: hepsini doğru sınıflamalı. DE/EN için 5 çeviri kokan + 5 yerli cümle karışık: en az 9/10 doğru sınıf.

@@ -101,7 +101,7 @@ TERIM = [
     ("alt ajan", "yardımcı rol"),
 ]
 
-BECERI_ON = re.compile(r"(?<![\w/.-])((?:studio|hunter|cut|radar|captain|spy|bazaar)/(?:referans|scripts|sablon)\b)")
+BECERI_ON = re.compile(r"(?<![\w/.-])((?:studio|hunter|cut|radar|captain|spy)/(?:referans|scripts|sablon)\b)")
 
 def onek_ekle(s):
     """`studio/referans/x.md` gibi öneksiz beceri yolunu paket köküne bağlar (yalnız markdown)."""
@@ -139,6 +139,7 @@ OZEL = {
         "`baslat.sh` / `ekle.sh` / `kontrol.sh` yerine tabloyu kod yorumlayıcıda tut; `excel_yap.py` kod yorumlayıcıda koşulabilir (openpyxl gerekir; doğrulanmadı).",
     ],
     "hunter": [
+        "Trendyol kaynağı (`trendyol/AKIS.md`): Trendyol sayfalarını **kullanıcı açar** ve ürün sayfası metnini ya da ekran görüntüsünü yükler (Trendyol düz isteği engeller; tarayıcı otomasyonu burada yok). `trendyol_kontrol.py`, `tr_marj.py` ve `excel_hazirla.py` kod yorumlayıcıda koşulabilir (Excel için openpyxl gerekir).",
         "AliExpress / Trendyol / Amazon / Meta Reklam Kütüphanesi sayfalarını **kullanıcı açar** ve ürün sayfası metnini ya da ekran görüntüsünü yükler (ajan modu sınanmadı). Görmediğin satış sayısını yazma: `doğrulanamadı`.",
         "`firsat_kontrol.py`, `marj_hesap.py`, `ivme_olc.py`, `kirma_testi.py` kod yorumlayıcıda koşulabilir.",
         "`urun-paketi.json` (mağaza kolunun girdisi) `skills/ekip-bilgi/references/paket.py urun-yaz` ile kod yorumlayıcıda yazılır ve indirilebilir dosya olarak verilir; mağaza işi aynı paketteki `builder` becerisiyle bu dosyadan başlar.",
@@ -158,9 +159,6 @@ OZEL = {
     "spy": [
         "Meta Reklam Kütüphanesi taramasını **kullanıcı yapar**: sorguyu açar, sonuç sayfasının metnini ya da ekran görüntüsünü yükler. `meta_topla.js`, `meta_aktar.js`, `magaza_oku.js` tarayıcı otomasyonu içindir, burada çalışmaz.",
         "`meta_kayit.py`, `nis_kelime.py`, `magaza_gecis.py`, `haftalik_rapor.py`, `desen_say.py` kod yorumlayıcıda koşulabilir. Günde ≤30 sorgu kuralı kullanıcı için de geçerli.",
-    ],
-    "bazaar": [
-        "Trendyol sayfalarını **kullanıcı açar** ve ürün sayfası metnini ya da ekran görüntüsünü yükler (Trendyol düz isteği engeller; tarayıcı otomasyonu burada yok). `bazaar_kontrol.py`, `tr_marj.py` ve `excel_hazirla.py` kod yorumlayıcıda koşulabilir (Excel için openpyxl gerekir).",
     ],
     "scout": [
         "AliExpress sayfalarını kullanıcı açar ve yükler; tarayıcı yoksa yalnız arama terimlerini ve web araması bulgularını yaz, \"AliExpress taranamadı (tarayıcı yok)\" de.",

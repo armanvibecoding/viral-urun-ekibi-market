@@ -20,6 +20,12 @@ Kontroller:
 10) organik seride (varsayılan; kökte "kreatif": "reklam" değilse) kanca/CTA/`yazilar` içinde fiyat ($12, 199 TL, ₺, €, "% off") = ❌
 11) ABD pazarında her videoda `kultur` (görünen ABD kültür unsuru) alanı zorunlu
     (10–11: 2026-11-17 kurucu geri bildirimi — "organikte fiyat anlamsız", "ABD kültür unsuru zorunlu")
+12) uzman yöntemi (R74; istatistik kanıtı değil, uygulayıcı yöntemi) — kanca markayla/"biz"/"we"/"our"/"yeni koleksiyon"/"new collection" ile başlarsa ❌ (R4);
+    marka adı kökteki `marka` alanından okunur (yoksa yalnız genel kalıplar)
+13) açık döngü (A): her videoda `kanca_sorusu` (metin) ve `cevap_an` (sn) zorunlu (yoksa ❌); cevap_an süre×0,4 .. süre dışındaysa UYARI.
+    Süre = `sure` alanı, yoksa sahne sayısı × 4 sn
+14) soru zinciri (B): isteğe bağlı `zincir` (soru listesi): süre ≤ 25 sn'de en çok 2, üstünde en çok 3 halka (aşarsa ❌)
+15) kanca sıkılaştırma (C): `kanca_onceki` (bir önceki hali) yoksa ya da kancayla aynıysa UYARI; kancada sayı varsa ve `sayi_kaniti` yoksa UYARI
 Kullanım: python3 senaryo_kontrol.py is/04-urun/senaryolar.json
 """
 import csv
@@ -46,6 +52,34 @@ def norm(s):
     return re.sub(r"\s+", " ", re.sub(r"[^\w\s]", " ", (s or "").lower())).strip()
 
 
+def tr_norm(s):
+    """Türkçe büyük/küçük harf güvenli normalleştirme (İ→i, I→ı yerine ascii-benzeri: karşılaştırma için i/ı eşlenir)."""
+    s = (s or "").replace("İ", "i").replace("I", "ı").lower().replace("ı", "i")
+    return re.sub(r"\s+", " ", re.sub(r"[^\w\s]", " ", s)).strip()
+
+
+MARKA_KALIPLARI = ("biz", "bizim", "bize", "bizi", "bizde", "we", "our", "ours", "yeni koleksiyon", "new collection")
+
+
+def marka_ile_basliyor(kanca, marka):
+    """R4: kanca marka/kurucu/ürün konulu açılışla başlıyorsa (ilk kelimeler) eşleşen kalıbı döndürür, yoksa None."""
+    k = tr_norm(kanca)
+    if not k:
+        return None
+    adaylar = list(MARKA_KALIPLARI)
+    m = tr_norm(marka)
+    if m:
+        adaylar.append(m)
+    for a in adaylar:
+        if k == a or k.startswith(a + " "):
+            return a
+    return None
+
+
+def sayi_mi(x):
+    return isinstance(x, (int, float)) and not isinstance(x, bool)
+
+
 def main():
     if any(x in ("-h", "--help") for x in sys.argv[1:]):
         print(__doc__)
@@ -60,6 +94,7 @@ def main():
     FIYAT = re.compile(r"([$€£₺]\s?\d)|(\d[\d.,]*\s?(tl|usd|eur|dollars?)\b)|(\d+\s?%\s?off)|(\bfiyat)", re.I)
     V = d["videolar"]
     n = len(V)
+    marka = d.get("marka") or ""
     hata, uyari = [], []
 
     for v in V:
@@ -78,6 +113,32 @@ def main():
                     hata.append(f"V{no}: organik videoda fiyat: '{metin_[:50]}' (fiyat caption/bio'da; reklamsa kökte \"kreatif\": \"reklam\")")
         if pazar in ("US", "ABD", "USA") and not norm(v.get("kultur")):
             hata.append(f"V{no}: ABD videosunda 'kultur' alanı boş (görünen ABD kültür unsuru: ortam/an/dil/takvim)")
+        eslesen = marka_ile_basliyor(k, marka)
+        if eslesen:
+            hata.append(f"V{no}: kanca markayla/'biz' ile başlıyor ('{eslesen}'): izleyicinin durumundan/sorusundan başla (R4)")
+        # A: açık döngü — kanca izleyicide TEK soru doğurur, cevap_an o soruyu cevaplar
+        sure = v.get("sure") if sayi_mi(v.get("sure")) else len(sh) * 4
+        if not (v.get("kanca_sorusu") or "").strip():
+            hata.append(f"V{no}: 'kanca_sorusu' yok (kanca izleyicide hangi TEK soruyu doğurur?) (A)")
+        ca = v.get("cevap_an")
+        if not sayi_mi(ca):
+            hata.append(f"V{no}: 'cevap_an' (sn) yok ya da sayı değil: son sahne/kare soruyu hangi saniyede cevaplar? (A)")
+        elif not (sure * 0.4 <= ca <= sure):
+            uyari.append(f"V{no}: cevap_an {ca} sn, süre {sure} sn için {sure * 0.4:.1f}–{sure} dışında (cevap son sahnede/karede olmalı) (A)")
+        zincir = v.get("zincir")
+        if zincir:
+            sinir_z = 2 if sure <= 25 else 3
+            if len(zincir) > sinir_z:
+                hata.append(f"V{no}: soru zinciri {len(zincir)} halka ({sure} sn için en fazla {sinir_z}) (B)")
+        # C: kanca sıkılaştırma
+        if k:
+            onceki = (v.get("kanca_onceki") or "").strip()
+            if not onceki:
+                uyari.append(f"V{no}: 'kanca_onceki' yok (4 basamaklı sıkılaştırmanın bir önceki hali dosyada kalır) (C)")
+            elif norm(onceki) == norm(k):
+                uyari.append(f"V{no}: kanca_onceki kancayla aynı: sıkılaştırma turu uygulanmamış (C)")
+            if re.search(r"\d", k) and not (v.get("sayi_kaniti") or "").strip():
+                uyari.append(f"V{no}: kancada sayı var ama 'sayi_kaniti' yok (sayı yalnız doğrulanmış gerçekse) (C)")
         if v.get("aile") == "K13" and k:
             hata.append(f"V{no}: K13 yazısız ama kanca var")
         if pazar == "TR" and k:

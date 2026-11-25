@@ -51,6 +51,7 @@ her karede bindirme ekranın içinde mi. Yöntem ve ayarlar: `${CLAUDE_SKILL_DIR
    −14 ±1 LUFS. K1 dışındaysa video eleştiriye GÖNDERİLMEZ; önce düzelt.
    Teslim öncesi görüntü kapısı: `python3 "${CLAUDE_SKILL_DIR}/scripts/kurgu_kontrol.py" --goruntu VNN.mp4 --kesimler <plan başları>`
    → çıkış 0 (kesim dışı RGB sıçraması ya da son 2 sn gürültü → 3, render hatası).
+3b. Ekran yazısı taşması: `python3 "${CLAUDE_SKILL_DIR}/scripts/yazi_tasma.py" is/NN/kurgu/VNN.json` çıkış 0 olmadan eleştiriye gitme (1 = taşan yazı: ayarda kısalt ya da `yazi_konum`; 3 = ölçülemedi, geçti sayılmaz).
 4. `VNN_kontrol.jpg`'ye bak (her planın ortası + son kare): yazı okunuyor mu, ürünü/çıkış noktasını örtüyor mu,
    CTA son ≥ 3 sn'de ve kancanın hemen altında mı. Örtüyorsa `yazi_konum` ya da `kanca_gizle` ile yeniden koştur.
    KURALLAR.md'deki kredisiz her K maddesini tek tek işaretle (✓ / ✗ + kanıt: dosya, saniye); işaretsiz madde varsa
@@ -67,7 +68,7 @@ yalnız genel kurallar ve ürün kontratı (`is/NN/kurgu/KURALLAR.md`) geçerlid
   `kurgu_kontrol.py ayar.json --video VIDEO.mp4` → çıkış 0. Klip içerikleri `klipler/klip_etiket.json`dan okunur (biçim betiğin başında).
 - **Hüküm:** kör jüri (`juri.py pano --mod teslim` → `jury` 3 kopya → `juri.py birlestir`; akış `captain` "Hüküm hattı")
   videoyu gerçek viral referanslarla yan yana puanlar. Kalırsa kök nedeni `fixer` yazar.
-  **Referans < 3 ise iş durmaz, kullanıcıya soru sorulmaz:** `juri.py yapilamadi is/NN --video VNN --referans-sayisi N --neden "…"` → kapı "JÜRİ YAPILAMADI" notuyla geçer, teslim notuna yazılır; referans bulma ayrı iş (DURUM.md).
+  **Referans < 3 ise sessizce geçilmez:** `juri.py yapilamadi is/NN --video VNN --referans-sayisi N --neden "…"` → kapı KALDI olur ("JÜRİ YAPILAMADI"); teslim yalnız kullanıcının (mağaza sahibinin) açık aşım cümlesiyle (KARARLAR.md `kapi-asimi`), kullanıcıya tek soru olarak sorulur; referans bulma DURUM.md'ye yazılır.
 - **Teslim geçişinin tek kapısı:** `python3 "${CLAUDE_PLUGIN_ROOT}/skills/captain/scripts/kapi.py" yayin is/NN --proje . --kopyala`
   (teknik, kurgu, görüntü, ses, iddia, hüküm, defter, sözleşme); çıkış 0 olmadan `teslim/` klasörüne video konmaz.
 
@@ -77,6 +78,10 @@ HyperFrames üretir. Ön koşul: Node 22+ ve `npx hyperframes doctor --json` →
 yazısız, kontrol ve render, saydam bindirme, sonra aynı ön-kontrol kapısı): `${CLAUDE_SKILL_DIR}/referans/hareketli-tasarim.md`.
 Yazı metni ve zamanı tek kaynaktan gelir (`is/NN/kurgu/VNN.json`); yeni metin uydurulmaz. Katman kurulamıyorsa yazı
 `hizli_kurgu.py` ile kalır ve raporda yazılır. ChatGPT'de bu aşama yok.
+
+**Kanca + tipografi + geçiş + SFX paketi (0.6.0):** altı yazı şablonu (IG kutu, kalın kontur, karaoke, tepki, yorum-anahtar CTA rozeti, rakam sayacı),
+kanca ↔ CTA dönüşümü, whip/punch geçişleri, bölünmüş ekran/donmuş kare/yakın çekim ve olay→SFX eşleme: `${CLAUDE_SKILL_DIR}/hf-sablonlar/README.md`
+(kanca türü K1–K15 → şablon tablosu). Kurallar ve ölçüler: `${CLAUDE_SKILL_DIR}/referans/tipografi-ve-kanca-gorseli.md`. Hat: `scripts/hikaye/uret.py` (6–10 sn döngü ve 25 sn hikâye).
 
 ## Aşama 9 — Teslim
 `is/NN/teslim/` altına: MP4 + kontrol karesi + caption metni (+ istenirse kareler, klipler, senaryo tablosu .zip).

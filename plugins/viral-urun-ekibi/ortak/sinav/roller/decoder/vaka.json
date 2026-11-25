@@ -1,0 +1,38 @@
+{
+ "rol": "decoder",
+ "sabit_urun": {
+  "vaka": "a-kolay",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "TR",
+  "urun_dizin": "is/01-kupa"
+ },
+ "moduller": [
+  {
+   "mod": null,
+   "brief": "is/kesfet/kreatif/notlar/ altında 6 hesaptan 8 not (marka skoru ≥ 7)",
+   "beklenen": {
+    "cikti_dosyasi": "is/kesfet/kreatif/ortak-noktalar.md",
+    "zorunlu_bolumler": [
+     "kanca aileleri",
+     "n="
+    ]
+   }
+  }
+ ],
+ "eksik_girdi": [
+  {
+   "mod": null,
+   "brief": "is/kesfet/kreatif/notlar/ boş",
+   "eksik": "not yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  }
+ ]
+}

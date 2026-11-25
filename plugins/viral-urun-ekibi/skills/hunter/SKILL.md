@@ -1,9 +1,20 @@
 ---
 name: hunter
-description: Hunter (AliExpress fırsat avı). Finds AliExpress products that are not viral yet and proves the case. Instagram'da viral olmuş ürünlerin ortak DNA'sını ölçüt yapıp AliExpress'te HENÜZ viral olmamış ürünleri bulur, "zaten viral mi" kontrolünü pazara göre yapar (TR Trendyol, ABD Amazon + TikTok Shop), kanıt dosyası yazar ve SAT / İZLE / ELE diye sıralar. "AliExpress'ten ürün bul", "henüz patlamamış ürün ara", "viral olacak ürün", "fırsat ürünü bul", "winner ürün avı", "yeni ürün adayı çıkar", "bu ürün tutar mı" isteklerinde çağır.
+description: Hunter (Ürün avı: AliExpress · Trendyol). Finds products to sell from AliExpress or Trendyol and proves the case. Tek ürün avı becerisi: AliExpress'te viral DNA'ya uyan henüz patlamamış ürünü ya da Trendyol'da ilgi gören ucuz ürünü bulur, "zaten viral mi" kontrolünü pazara göre yapar, kanıt dosyası yazar ve kullanıcıya YALNIZ SAT gösterir. "Ürün bul", "AliExpress'ten ürün bul", "Trendyol'dan ürün bul", "Trendyol fırsatı", "henüz patlamamış ürün ara", "winner ürün avı", "Türkiye'de satılacak ürün", "bu ürün tutar mı" isteklerinde çağır.
 ---
 
-# AliExpress fırsat avı
+# Ürün avı (AliExpress · Trendyol)
+
+## Kaynak seçimi (ilk iş)
+| Kullanıcı ne dedi / ne var | Kaynak | Akış |
+|---|---|---|
+| "Trendyol", "Türkiye'de ucuza alıp markalı satalım", pazar TR ve kullanıcı Trendyol istedi | **Trendyol** | `${CLAUDE_SKILL_DIR}/trendyol/AKIS.md` (betikler `trendyol/scripts/`) |
+| "AliExpress", "viral olacak ürün", pazar TR dışı ya da belirtilmedi | **AliExpress** | bu dosyadaki Akış |
+Belirsizse varsayılan AliExpress; kullanıcı ikisini de isterse önce AliExpress, sonra Trendyol (ayrı `is/firsat/` ve `is/firsat/trendyol/`). Aşağıdaki Yalnız-SAT, hafıza ve brief kuralları iki kaynakta da geçerlidir.
+
+## AliExpress kaynağı
+
+**Yalnız SAT:** kullanıcıya (sohbet özeti, Excel ana sayfası, rapor) YALNIZ SAT ürünleri gider; İZLE ve SAT-KOŞULLU ayrı sınıf değildir. ELE yalnız kanıtlı engeldir (veto · kanıtlı negatif marj · kanıtlı doygunluk/zaten viral · eşiğin altında talep/sıra); doğrulanamayan ölçüt (zaten viral, marj, numune, sıra puanı …) engel değil, SAT kartında "ilk testte kontrol et" notudur. Elenenler `elenenler.md` ve Excel'in gizli "Ayrıntı" sayfasında denetim için kalır; kullanıcıya listelenmez.
 
 **Amaç:** seçilen pazarda henüz kimsenin büyütmediği ama viral ürün DNA'sına uyan ürünü kanıtla bulmak.
 **Bitiş durumu:** `is/firsat/adaylar.md` sıralı ve denetimden geçmiş; kısa listedeki her ürünün
@@ -11,7 +22,7 @@ description: Hunter (AliExpress fırsat avı). Finds AliExpress products that ar
 5–10 satırlık özet verilmiş; `.ekip/DURUM.md` güncel.
 
 Önce oku: `${CLAUDE_PLUGIN_ROOT}/ortak/viral-dna.md` (ölçüt) ve `${CLAUDE_PLUGIN_ROOT}/ortak/sozluk.md` (terimler).
-Terimler (aday, kanıt, tutmamış, tutabilir, SAT/İZLE/ELE) yalnız sözlükteki anlamıyla kullanılır.
+Terimler (aday, kanıt, tutmamış, tutabilir, SAT/ELE) yalnız sözlükteki anlamıyla kullanılır.
 **Tarif:** `${CLAUDE_PLUGIN_ROOT}/ortak/tarifler/06-trendyol-ve-aliexpress-avi.md` (ürün SAYFASINDAN oku; AliExpress "This seller: N | Total sales: M" ayrımı; öneri bölümü sayıları alınmaz; sınama 3/3; estetik filtre).
 
 ## Hafıza protokolü (her aşamada)
@@ -19,7 +30,7 @@ Terimler (aday, kanıt, tutmamış, tutabilir, SAT/İZLE/ELE) yalnız sözlükte
 |---|---|
 | Başlarken | `.ekip/DURUM.md` ve `.ekip/KARARLAR.md` okunur. `is/firsat/` yoksa `${CLAUDE_SKILL_DIR}/referans/dosya-sablonlari.md`'ye göre kurulur. |
 | Başlarken (ivme) | `is/firsat/ivme.csv` varsa `python3 "${CLAUDE_SKILL_DIR}/scripts/ivme_olc.py" bekleyen is/firsat/ivme.csv` → t7 günü gelen ürünler önce ölçülür. |
-| Pazar | KARARLAR.md'de `\| pazar \|` satırı varsa o kullanılır. Yoksa kullanıcıya **bir kez** sorulur (TR / ABD / diğer: hangi ülke) ve `- YYYY-AA-GG \| pazar \| <cevap>` eklenir. |
+| Pazar | KARARLAR.md'de `\| pazar \|` satırı varsa o kullanılır. Yoksa kullanıcıya **bir kez** sorulur (TR / ABD / diğer: hangi ülke) ve `- YYYY-AA-GG \| pazar \| <cevap>` eklenir. Alt ajan ya da sınav modunda pazar brifte/vaka dosyasında verildiyse sorulmaz, o kullanılır. |
 | Her terim aranmadan önce | `is/firsat/aramalar.md`'de var mı bakılır; aranan terim aynı satıra sonucuyla yazılır. |
 | Her ürün önerilmeden önce | Tekrar kontrolü (aşağıdaki komut). "DAHA ONCE GORULDU" çıkan ürün önerilmez. |
 | Her aşama sonunda | `.ekip/DURUM.md` üzerine yazılır (aktif iş, aşama, son çıktı, sıradaki adım, bekleyen onay). |
@@ -47,7 +58,7 @@ Uzun tablo sohbete yazılmaz, dosyaya yazılır. Sohbete yalnız özet + dosya y
    iade/COD reddi, teslim günü) ve `is/firsat/ivme.csv` `t0` satırı. `marj_hesap.py` çıkış 0 olmadan marj yazılmaz;
    7 gün sonra `t7` ölçülür, `ivme_olc.py bant` → ERKEN DALGA / BOŞ / DOYMUŞ. Kanıt dosyasına 10 ölçütlü puan (0–20) tablosu
    girer: `${CLAUDE_SKILL_DIR}/referans/marj-ivme-puan.md`.
-8. **Karar** — SAT / İZLE / ELE (`kanit-ve-karar.md` §2). ELE olanlar sebebiyle `is/firsat/elenenler.md`'ye.
+8. **Karar** — SAT ya da ELE (`kanit-ve-karar.md` §2). ELE olanlar sebebiyle `is/firsat/elenenler.md`'ye (kullanıcıya gösterilmez). Hedef "N SAT bulana kadar" (varsayılan N=5, kullanıcı değiştirebilir); arama/sayfa sayısı yalnız üst güvenlik sınırıdır.
    SAT olan ürün için `is/NN-urun-adi/DURUM.md` açılır; kullanıcı onaylarsa KARARLAR.md'ye yazılır.
 9. **Ürün paketi** — mağaza kurulacaksa onaylanan SAT ürünü için lider `is/NN-urun-adi/magaza/urun-paketi.json` yazar (mağaza kolunun
    girdisi; `captain` §2b adım 3): `python3 "${CLAUDE_PLUGIN_ROOT}/ortak/paket.py" urun-yaz --cikti is/NN-urun-adi/magaza/urun-paketi.json
@@ -73,7 +84,7 @@ veri ver. Aynı anda en fazla 2 ajan. Ajan çıktısı sınamadan geçmeden kull
 - Marj **iniş maliyetiyle** (`marj_hesap.py`) hesaplanır; oran bilinmiyorsa satır hesaplanmaz, "doğrulanamadı" yazılır.
   Betik değişirse önce `python3 "${CLAUDE_SKILL_DIR}/scripts/kirma_testi.py"` (16 test) çıkış 0 vermeli.
 - Benzer ürün aynı ürün değildir: form + ana parça + mekanizma fotoğrafla eşleşmeden satış/video/yorum aktarılmaz.
-- Mekanizma gerçek alıcı fotoğrafı/videosuyla doğrulanmadan SAT verilmez.
+- Mekanizma gerçek alıcı fotoğrafı/videosuyla doğrulanamadıysa SAT verilir ama kartın ilk notu "ilk testte mekanizmayı doğrula" olur; mekanizmanın ÇALIŞMADIĞI kanıtlanırsa ELE.
 - Veto (lisans/marka görünümü, bebek güvenliği iddiası, riskli kargo) olan ürün puanlanmaz. Sağlık/sonuç faydası veto değildir
   (IDD-01, `${CLAUDE_PLUGIN_ROOT}/ortak/kurallar.md`): ürün puanlanır; kanıt dosyasına bilgi notu ve platform reklam riski (PLT-01) yazılır.
 - Satın alma, sepet, numune siparişi, ücretli araç: kullanıcı onayı olmadan yok; onay KARARLAR.md'ye yazılır. TrendTrack kullanılmaz.
@@ -85,15 +96,15 @@ veri ver. Aynı anda en fazla 2 ajan. Ajan çıktısı sınamadan geçmeden kull
 |---|---|
 | `${CLAUDE_SKILL_DIR}/referans/aliexpress-okuma.md` | Terim üretme, ürün sayfası okuma, satış/fiyat/görsel tuzakları |
 | `${CLAUDE_SKILL_DIR}/referans/zaten-viral-kontrolu.md` | Pazara göre mağaza, video, reklam kontrolü |
-| `${CLAUDE_SKILL_DIR}/referans/kanit-ve-karar.md` | Sıra puanı, kanıt dosyası şablonu, SAT/İZLE/ELE, sınama |
+| `${CLAUDE_SKILL_DIR}/referans/kanit-ve-karar.md` | Sıra puanı, kanıt dosyası şablonu, SAT/ELE, sınama |
 | `${CLAUDE_SKILL_DIR}/referans/dosya-sablonlari.md` | `is/firsat/` ve `.ekip/` dosya biçimleri |
 | `${CLAUDE_SKILL_DIR}/referans/marj-ivme-puan.md` | İniş maliyeti (marj.csv), 7 günlük ivme (ivme.csv), 10 ölçütlü puan |
 | `${CLAUDE_SKILL_DIR}/referans/pazar-oranlari.tsv` | Pazar başına gümrük eşiği/KDV — tarihli, kaynaklı; değişince güncelle |
 | `${CLAUDE_PLUGIN_ROOT}/ortak/marka-skoru.md` | Akraba ürün hesabının örnek alınabilir marka olup olmadığı |
 | `${CLAUDE_PLUGIN_ROOT}/ortak/sozlesme/arayuz-sozlesmesi.md` | `urun-paketi.json` alanları (mağaza koluyla dosya sözleşmesi) |
 
-Tur sonunda: `python3 "${CLAUDE_SKILL_DIR}/scripts/excel_hazirla.py"` → `is/firsat/firsat-urunler.xlsx`; çıktıda `TAMAM` görmelisin.
+Tur sonunda: `python3 "${CLAUDE_SKILL_DIR}/scripts/excel_hazirla.py"` → `is/firsat/firsat-urunler.xlsx` (ana sayfada yalnız SAT, denetim kaydı gizli "Ayrıntı" sayfasında); çıktıda `TAMAM` görmelisin.
 
-## Kullanıcıya özet (her tur sonunda, ≤10 satır)
-Pazar · aranan terim sayısı · bakılan ürün sayfası · aday / elenen (sebep dağılımı) · sınama sonucu (3/3 tuttu mu) ·
-en iyi 3–5 aday (ürün, fiyat, ürün satışı, sıra puanı, karar) · doğrulanamayanlar · sıradaki adım ve gereken onay.
+## Kullanıcıya özet (her tur sonunda, ≤10 satır, YALNIZ SAT)
+`python3 "${CLAUDE_SKILL_DIR}/scripts/firsat_kontrol.py" ozet is/firsat/adaylar.md --hedef N` çıktısı aynen: `SAT k/N` · her SAT için ürün, AliExpress satışı, fiyat, sıra puanı, "ilk testte kontrol et" notları · sınama sonucu (3/3) · sıradaki adım ve gereken onay.
+İZLE/ELE satırı, sayısı ve ürün adı yazılmaz. N'e ulaşılamazsa tek satır: `k SAT buldum, sebep: …` (İZLE listesi yok).

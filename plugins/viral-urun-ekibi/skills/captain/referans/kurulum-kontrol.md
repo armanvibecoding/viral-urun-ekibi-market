@@ -13,7 +13,13 @@ Her satırı ölç, tahmin etme. Eksik olanı kullanıcıya tek listede, kurulum
 | iPhone Yansıtma (yalnız Mac) | uygulama açılıyor mu | macOS 15+, iPhone aynı Apple hesabında; yoksa "tarayıcı" modu kullanılır |
 | Swift derleyici (yalnız Mac iPhone modu) | `swiftc --version` | `xcode-select --install` |
 | Shopify bağlantısı (yalnız mağaza kolu) | `/mcp` listesinde `shopify` bağlı mı (eklenti `.mcp.json` ile gelir) | `/mcp` → shopify → giriş; giriş ekranını kullanıcı geçer |
+| ffprobe | `ffprobe -version` (ffmpeg ile gelir) | ffmpeg ile birlikte kur; yoksa süre/çözünürlük ölçümü `ffmpeg -i` çıktısından yapılır |
+| numpy (ses ve kurgu betikleri) | `python3 -c "import numpy"` | `python3 -m pip install --user numpy` (yoksa betik "kurulum eksik" der, çıkış 3) |
+| Tesseract (Türkçe harfli görsel yazısı) | `tesseract --list-langs` (`tur` görünmeli) | Mac: `brew install tesseract tesseract-lang` · yoksa TR görsel yazısı `olculemedi` |
+| RapidOCR sanal ortamı (görsel yazı kapısı K2) | `python3 "${CLAUDE_PLUGIN_ROOT}/ortak/on_ucus.py" hepsi` | `on_ucus.py` kurulum komutunu yazar; yoksa K2 `olculemedi` (geçti sayılmaz) |
+| ChatGPT / Google Flow / ElevenLabs hesabı | kullanıcı oturumu açık mı (tarayıcı) | Hesap yoksa ilgili kol girişte durur; kullanıcı açar (ekip hesap açmaz, şifre girmez); maliyet: `claude/README.md` "Hesaplar ve maliyet" |
 | Pillow ≥ 10 (mağaza görsel betikleri) | `python3 -c "import PIL; print(PIL.__version__)"` | `python3 -m pip install --user "pillow>=10"` |
+| Web ölçümü (Lighthouse + axe) | `python3 "${CLAUDE_PLUGIN_ROOT}/ortak/web_olcum.py" kontrol` (Node ≥ 22.19 ve Chrome gerekir) | `web_olcum.py kur` (sabit sürüm, ayrı klasör); Chrome yoksa kullanıcıya bildir, ölçüm `olculemedi` kalır |
 | Node.js 22+ (hareketli tasarım, HyperFrames) | `node --version` · `npx --version` | nodejs.org'dan LTS (22+) · Mac: `brew install node` · Windows: `winget install OpenJS.NodeJS.LTS` |
 | HyperFrames CLI | `npx --no-install hyperframes --version` (paket yoksa hata verir, indirmez) | Kullanıcı onayıyla: `npx hyperframes doctor --json` (ilk çağrı CLI'yi indirir) → `.ok` true olmalı; Chrome eksikse `npx hyperframes browser ensure` |
 

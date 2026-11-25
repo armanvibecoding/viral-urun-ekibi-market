@@ -27,3 +27,5 @@ kurulum kontrolü; kurulumu kullanıcı onaylar). Bu katman kurulamıyorsa yazı
    Kesim dışı sıçrama hareketli öğeden geliyorsa kareye bak, gerekçeyi yaz; eşik gevşetilmez.
 Telemetri: HyperFrames CLI kullanım sayacı gönderir; kullanıcı isterse `npx hyperframes telemetry disable`.
 ChatGPT'de bu aşama yok (render yerel Node + Chrome ister).
+
+**Reels/Keşfet kanca paketi:** kanca yazısı şablonları, geçişler ve SFX eşleme `hf-sablonlar/` (README: kanca türü → şablon) ve `tipografi-ve-kanca-gorseli.md`'de.

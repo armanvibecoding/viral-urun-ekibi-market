@@ -14,6 +14,7 @@ HESAP_X=90; HESAP_Y=751    # Reels videosunda kullanıcı adı
 ARAMA_X=190; ARAMA_Y=118   # Ara sekmesinde arama kutusu
 KON
   echo "konum.env yazıldı (varsayılan): $D/konum.env"
+  echo "KALİBRASYON UYARISI: bu başlangıç koordinatları TEK bir iPhone modelinde ölçüldü. Senin iPhone'un ekran oranı farklıysa tıklamalar yanlış yere gider; ip.png'yi aç, geri oku / kullanıcı adı / arama kutusunu kontrol et, gerekirse konum.env'yi düzelt."
 fi
 [ -f "$D/klavye" ] || echo us > "$D/klavye"
 "$D/ekran.sh" || exit 1

@@ -1,0 +1,188 @@
+{
+ "hedef": "7 özelliğin sınav seti (ortak/sinav, sinav_kos.py) 3 vakada çıkış 0; zevk kapısı = kör jüri medyanı ≥7 ve referansa ≤1 fark; betikle ölçülemeyen kapı 'olculemedi' olarak açıkça kalır",
+ "donmus_kurallar": [
+  "Kapı/eşik/test dosyası iş geçsin diye gevşetilmez, silinmez; kapıyı zayıflatmak geçme yolu değildir",
+  "Para/kredi yok (Flow, ElevenLabs, ücretli API) — kurucu onayı olmadan",
+  "Müşteri/kişi adı ve ev dizini depoya yazılmaz (anonim_kontrol.sh, musteri_icerik_kontrol.py)",
+  "git add -A yok; commit/push yalnız kurucu isteyince",
+  "Yapılamıyorsa 'YAPILAMAZ: <neden>' yaz ve dur — bu başarısızlık değil, geçerli çıktıdır"
+ ],
+ "durma": {
+  "ozellik_basina_en_cok_tur": 2,
+  "ilerlemesiz_tur": 2,
+  "saat_tavani_gece": "2026-11-25 02:00"
+ },
+ "adimlar": [
+  {
+   "no": 1,
+   "is": "Geçiş + bitiş + logolu son kart müşteri kitinden eklentiye (hf-sablonlar) + ikili_kiyas soru kutusu büyüt",
+   "durum": "GECTI",
+   "olcum": "sablon_test 16/16, anonim 0, sozlesme 49/49, sinav_kos_test 61/61; urun_gecisi/dip_gecis/kapanis + ses_tasarla --son_fade_egri; ikili_kiyas soru >=72px"
+  },
+  {
+   "no": 2,
+   "is": "04-ses-muzik sınavı 3 vaka",
+   "durum": "GECTI",
+   "olcum": "tur3 sinav_kos 04 cikis 0, 3/3 vaka; drop 9.1-9.5 dB (esik 6); muzik_sentez.drop_payi + muzik_sentez_test.py 13/13"
+  },
+  {
+   "no": 3,
+   "is": "02-kanca-senaryo sınavı 3 vaka",
+   "durum": "MEKANIK-GECTI",
+   "olcum": "sinav_kos 02 tur2 cikis 3 (yalniz juri bekliyor; lider yeniden kostu); K14/K15 basliksiz -> kapilar reddediyordu, duzeltildi, kanca_varyasyon_test 8/8. Juri: onuretim kareleri yer tutucu -> stok goruntuyle yeniden kurulunca kosulacak"
+  },
+  {
+   "no": 4,
+   "is": "06-urun-avi sınavı (TR Trendyol lider Chrome + hunter)",
+   "durum": "GECTI",
+   "olcum": "sinav_kos 06 tur2 cikis 0 (lider yeniden kostu); 1 urun AliExpress sayfasinda lider dogruladi (15 sold, 3 reviews); hunter yonerge 4 duzeltme (pazar sorma, normal fiyat, ELE onceligi, link okuma); kirma 16/16"
+  },
+  {
+   "no": 5,
+   "is": "01/03 video sınavı + 03/04 referans (Reklam Kütüphanesi, lider) + kör jüri",
+   "durum": "MALZEME-TAVANI",
+   "olcum": {
+    "01_tur3": {
+     "a-kolay": "KALDI 6.0",
+     "b-zor": "GECTI 7.0",
+     "c-tuzak": "KALDI 4.5"
+    }
+   },
+   "notlar": [
+    "2026-11-24 23:30 kor juri 01 c-tuzak tur2: 3/3 kopya bizimkini 13/13 son; toplam 3.5 < ref medyan 7.5-1 -> KALDI. Gerekce 3/3 ayni: gri siluet cizimi, gercek urun yok, ilgisiz stok = MALZEME teshisini dogruladi.",
+    "Korluk sizintisi (KOR-1 bildirdi): pano bicimleri farkli (telefon kaydi cerceveli / zaman etiketli izgara / cercevesiz duz kare), bizimki tek cercevesiz -> kimlik ipucu. Acik is: sinav_kos pano hazirligi tum ogeleri ayni bicime getirmeli. Bu turda hukmu degistirmez (gerekceler icerik temelli).",
+    "Tedarikci videolari (kurucu 'devam et' onayi 23:34): a=seramik kupa gercek cekim, b=2 gercek tuy rulosu, c=1 gercek dusuk coz. Kaynak: <referans-kok>/sinav-kosu/tedarikci/KAYNAK.tsv. Tur3 = malzeme degisti + kurucu onayli (2 tur siniri disinda, kayitli).",
+    "2026-11-24 23:52 01 tur3 (gercek tedarikci goruntusu) kor juri 9 kopya: b-zor GECTI 7.0>=6.5 (ilk juri gecisi; tur2 yanlis urundu). a-kolay KALDI 6.0<7.2 (tur2 3.5 olcumsuz); gercek 8 anlasilir 7 ama ritim 3-4: ilk 2 sn dokuz kare ayni, desen ancak 12. karede -> KURGU (kanit ani ilk 1.5 sn'ye). c-tuzak KALDI 4.5<6.0 (tur2 3.5): katalog cekimi, once-sonra yok -> MALZEME tavani."
+   ],
+   "sonraki": "a-kolay tek degisken: desen acilmasini ilk 1.5 sn'ye al (kurgu). Kural adayi: ilk 2 sn'de kare farki olcumu (ritim) kurgu_kontrol'e."
+  },
+  {
+   "no": 6,
+   "is": "05-gorsel + 07-site",
+   "durum": "OLCUM-TAVANI",
+   "olcum": {
+    "07_tur1": "mekanik 4 kapi x3 vaka GECTI; hiz/erisim/arama/donusum/juri olculemedi (tasarim geregi + ref 0/3); cikis 3",
+    "05": "tur1 22/22 uretim: dosyalar/K3/yasakli 3x GECTI; K1 sap duzeltildi (lider gozu: g0/galeri-3/b1 sap tutarli), K1/K2/juri olculemedi -> cikis 3."
+   },
+   "notlar": [
+    "2026-11-25 00:50 lider gozu 07: (1) 390 px ekranlar yatay tasiyor (headless Chrome min genislik) -> mobil goruntu gecersiz; yontem: genis pencerede 390 px iframe. (2) urun sayfasi metnine vaka 'kanit_ani' uretim notu sizmis ('Kanit ... kendisidir', 'Der Moment: Dieselbe Person...') = musteriye ic dil; kapilar yakalamiyor. Kural adayi: metinler kanit_ani'yi gorsel brifi sayar, sayfa metnine kopyalamaz.",
+    "Sema fiyat+gorsel zorunlu -> ajan fiyat 0 ve uydurma marka adi yazdi (sitede fiyat satiri yok).",
+    "2026-11-25 01:25 lider gozu 05: a sap tutarsiz (dogru); b tutarli ama yalniz studyo, kullanim baglami yok (koltuk/tuy gorunmuyor) -> juri 'anlasilir' riski; c tutarli, galeri-2/3 benzer aci. KAZA: uretim betigi ~/Downloads'tan kurucunun eski PNG'sini tasidi, geri kondu ama ozgun ad kayip. Ders: indirme alimi yalniz zaman+boyut+beklenen ad ile; eski dosyaya dokunma.",
+    "2026-11-25 01:40 OCR kuruldu (rapidocr venv, kurucu onayi). Kirma: dogru 0, farkli 1, ama 1-2 harf yazim hatasi GECIYOR (esik %90) -> yazim kismi olculmemis. TR Tesseract yok. Rapor docs/gelistirici/ARAC-OCR.md"
+   ],
+   "sonraki": "Olcum altyapisi: (1) OCR araci arac-ekle kapisindan (kurucu onayi), (2) 05/07 icin >=3 pazar-uyumlu referans (gorsel: urun sayfasi gorselleri; site: ilk ekran), (3) mobil ekran yontemi 390px iframe, (4) metinler kurali: kanit_ani musteri metnine kopyalanmaz."
+  }
+ ],
+ "basarisiz_denemeler": [
+  {
+   "adim": 2,
+   "deneme": "tur1-2 ajan: c-tuzak drop 4.9 dB",
+   "neden": "muzik_sentez drop artisi tonige bagliydi (52->4-5 dB); ajan uretim hatasi sandi, kok neden aracta",
+   "cozum": "drop oncesi 0.6 sn nefes rampasi, hedef 8 dB"
+  },
+  {
+   "adim": 4,
+   "deneme": "tur1 a/b yasakli kapisi",
+   "neden": "puan metni (5.0, 3 yorum) IDD-02 sanildi; yonerge bicim uyarisi yoktu",
+   "cozum": "dosya-sablonlari.md uyari; kalici: kosucu deseni daraltma (ayri is)"
+  },
+  {
+   "adim": 5,
+   "deneme": "01 b-zor stokla",
+   "neden": "kanca tuy rulosu ama gorunen urun buharli utu = yanlis urun; mekanik kapi yakalamiyor",
+   "cozum": "gercek urun goruntusu (tedarikci videosu) sart; juriye sokulmadi"
+  },
+  {
+   "adim": 5,
+   "deneme": "test_hikaye true peak testi",
+   "neden": "duzeltme oncesi de geciyor = kirma tutmadi, olculmemis sayilir",
+   "cozum": "gercek AAC zinciriyle kirma vakasi yazilacak"
+  },
+  {
+   "adim": 5,
+   "deneme": "tedarikci videosu ae-3256813414959750 (kupa)",
+   "neden": "yapay zeka uretimi; gercek kapisini dusurur",
+   "cozum": "gercek telefon cekimi 3256813439449115 1:46-2:06"
+  }
+ ],
+ "kaynak_turleri": {
+  "KAÇAK": "Kapıların GEÇTİ verdiği, ama lider gözünün (ya da bağımsız denetimin) yakaladığı kusur. Her KAÇAK kaydı: kaçıran kapı, yeni/değişen kapı, eski çıktıda KALDI + iyi çıktıda GEÇTİ veren kırma testi komutu. Kırma testi tutmayan kapı ölçülmemiş sayılır; KAÇAK kaydı kırma testi geçmeden 'kapandı' olamaz.",
+  "başarısız_deneme": "basarisiz_denemeler listesindeki kayıtlar (üretim/araç hatası, kök neden, çözüm)"
+ },
+ "kacaklar": [
+  {
+   "id": "KACAK-01a",
+   "kaynak": "KAÇAK",
+   "tarih": "2026-11-25",
+   "ozellik": "01-urun-videosu",
+   "cikti": "<referans-kok>/sinav-kosu/01-urun-videosu/tur2/b-zor",
+   "kusur": "yanlış ürün klibi: etiket 'urun_elde' ama klip tedarikçi malzemesi değil stok (Pexels, el aleti); mekanik kapılar GEÇTİ, lider gözü yakaladı",
+   "kacıran_kapi": "kurgu_kontrol (klip etiketi içeriği/kaynağı ölçülmüyordu)",
+   "yeni_kapi": "kurgu_kontrol [malzeme]: urun/urun_elde/telefon/sokum etiketli klibin kaynağı KAYNAK.tsv `dosya` satırına bağlanmalı (vaka eşleşir, `kullanma` satırı sayılmaz) · kapi.py yayin lisans@V",
+   "kirma_testi": {
+    "komut": "python3 <eklenti>/skills/cut/scripts/kurgu_kontrol.py <referans-kok>/sinav-kosu/01-urun-videosu/tur2/b-zor/ayar.json --video <aynı klasör>/video.mp4",
+    "eski_cikti": "çıkış 0 (GEÇTİ)",
+    "yeni_cikti": "çıkış 1: HATA [malzeme] klip b-tuy-10558368 'urun_elde' etiketli ama kaynağı KAYNAK.tsv'de yok (etiket: \"stok Pexels (LISANS.md)\")",
+    "iyi_cikti": "tur3/b-zor (gerçek tedarikçi klibi): çıkış 0 GEÇTİ"
+   },
+   "otomatik_test": "python3 scripts/kacak_kirma_test.py --referans-kok <referans-kok> · <eklenti>/skills/cut/scripts/kurgu_kontrol_test.py",
+   "durum": "KAPANDI (kırma testi tuttu)"
+  },
+  {
+   "id": "KACAK-01b",
+   "kaynak": "KAÇAK",
+   "tarih": "2026-11-25",
+   "ozellik": "01-urun-videosu",
+   "cikti": "<referans-kok>/sinav-kosu/01-urun-videosu/tur3/a-kolay",
+   "kusur": "ilk 2 sn durağan (kupa kadrajda, yalnız el titremesi); kanca saniyeleri boş geçti, jüri 6,0",
+   "kacıran_kapi": "kurgu_kontrol / goruntu (yalnız kesim dışı sıçrama ve son 2 sn gürültü ölçüyordu)",
+   "yeni_kapi": "kurgu_kontrol [ilk2sn]: ilk 2 sn, 54×96 gri, 10 kare/sn; son olaydan fark > 15 olan 'belirgin değişim' ≥ 3 (el titremesi olay değildir)",
+   "kirma_testi": {
+    "komut": "python3 <eklenti>/skills/cut/scripts/kurgu_kontrol.py <referans-kok>/sinav-kosu/01-urun-videosu/tur3/a-kolay/ayar.json --video <aynı klasör>/video.mp4",
+    "eski_cikti": "çıkış 0 (GEÇTİ)",
+    "yeni_cikti": "çıkış 1: HATA [ilk2sn] ilk 2 sn'de yalnız 2 belirgin kare değişimi (en az 3)",
+    "iyi_cikti": "tur3/b-zor: 6 olay, çıkış 0 GEÇTİ"
+   },
+   "kalibrasyon": "9 sınav videosu: iyiler (tur3 b-zor, c-tuzak, tur1/2 b-zor) 5–8 olay; kötüler (tur3 a-kolay 2, tur1/2 a-kolay 1, c-tuzak tur1/2 1) 1–2. Plan 0.6'daki '≥ 2' eşiği tur3/a-kolay'ı (2 olay) ayıramadı, bu yüzden ≥ 3 (sıkılaştırma; gevşetme değil)",
+   "otomatik_test": "python3 scripts/kacak_kirma_test.py --referans-kok <referans-kok> · kurgu_kontrol_test.py (sentetik durağan/değişen video)",
+   "durum": "KAPANDI (kırma testi tuttu)"
+  },
+  {
+   "id": "KACAK-07c",
+   "kaynak": "KAÇAK",
+   "tarih": "2026-11-25",
+   "ozellik": "07-site",
+   "cikti": "<referans-kok>/sinav-kosu/07-site/tur1 (b-zor, c-tuzak; a-kolay'da da '## The moment')",
+   "kusur": "vaka `kanit_ani` (çekim talimatı) ve iç bölüm adı müşteri metnine sızdı: b-zor 'Kanıt, sayfanın kendisidir.', c-tuzak '## Der Moment'",
+   "kacıran_kapi": "sinav_kos 07 (iddia_kontrol + yasakli yalnız yasaklı iddiaya bakıyordu; iç dil kapısı yoktu)",
+   "yeni_kapi": "sinav_kos.py kanit_ani_sizinti: 'kanıt anı / The moment / Der Moment' bölüm başlığı, cümle başı 'Kanıt', vaka kanit_ani cümlesinin (≥ 4 sözcük) aynen sitede geçmesi = KALDI",
+   "kirma_testi": {
+    "komut": "python3 scripts/sinav_kos.py 07 <referans-kok>/sinav-kosu/07-site/tur1 --vaka b-zor (ve c-tuzak)",
+    "eski_cikti": "kanit_ani_sizinti kapısı yoktu; 07 mekanik GEÇTİ (çıkış 3)",
+    "yeni_cikti": "kanit_ani_sizinti KALDI (b-zor, c-tuzak, a-kolay)",
+    "iyi_cikti": "iç terimler silinmiş aynı metin: kanit_ani_sizinti GEÇTİ"
+   },
+   "not": "Plan yalnız b-zor ve c-tuzak'ı sayıyordu; a-kolay'daki '## The moment' başlığı aynı sınıf olduğundan o da KALDI verir (tutarlılık).",
+   "otomatik_test": "python3 scripts/kacak_kirma_test.py --referans-kok <referans-kok> · scripts/sinav_kos_test.py (mutasyonlar)",
+   "durum": "KAPANDI (kırma testi tuttu)"
+  },
+  {
+   "id": "KACAK-07d",
+   "kaynak": "KAÇAK",
+   "tarih": "2026-11-25",
+   "ozellik": "07-site",
+   "cikti": "<referans-kok>/sinav-kosu/07-site/tur1/*/ekran/*-390.png (6 görüntü)",
+   "kusur": "390 px mobil ekranlar yatay taşıyor/kırpılıyor: headless Chrome penceresi en az ~500 px, sayfa 500 px düzenle çizilip 390 px'e kırpıldı (yöntem hatası)",
+   "kacıran_kapi": "yok (mobil ekranı ölçen kapı yoktu; lider gözü yakaladı)",
+   "yeni_kapi": "ortak/mobil_ekran.py (ekran: geniş pencerede 390 px iframe · kontrol: aynı sayfayı iframe'le yeniden çizip piksel farkı > 6 = KALDI, scrollWidth > 390 = taşma) · sinav_kos.py mobil_ekran kapısı",
+   "kirma_testi": {
+    "komut": "python3 <eklenti>/ortak/mobil_ekran.py kontrol <referans-kok>/sinav-kosu/07-site/tur1/<vaka>/ekran/<sayfa>.html <aynı>-390.png",
+    "eski_cikti": "kapı yoktu",
+    "yeni_cikti": "6/6 eski ekran: MOBİL EKRAN YANLIŞ ALINMIŞ (ortalama fark ≈ 12,5), çıkış 1",
+    "iyi_cikti": "mobil_ekran.py ekran ile yeniden alınan ekran: fark 0,00, çıkış 0"
+   },
+   "otomatik_test": "python3 scripts/kacak_kirma_test.py --referans-kok <referans-kok> · scripts/sinav_kos_test.py (iyi/yanlış yöntem)",
+   "durum": "KAPANDI (kırma testi tuttu)"
+  }
+ ]
+}

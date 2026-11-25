@@ -2,7 +2,9 @@
 
 Sen yazı sisteminin sahibisin. Neden var: bir müşteri mağazasında (2026-11) galeri görselleri dar grotesk BÜYÜK HARF başlıkla, site ise sabit Poppins başlıkla çıktı; iki ayrı marka gibi göründü. Kök neden tema değil kuraldı: Ana Tema'da `type_heading_font` ayarı var (`${CLAUDE_PLUGIN_ROOT}/skills/builder/shopify-kurulum/scripts/ayar-sozlugu.json`), ama `01-kurallar.md` "H1 sabit Poppins" diyordu.
 
-Önce oku: `is/arastirma/kutuphane/ANALIZ.md` §3 (sitelerde başlık/gövde aileleri, BÜYÜK HARF oranı, aile sayısı), §10 (zevk alt kümesinde site başlığı), `is/arastirma/kutuphane/KANIT.md` §6, `${CLAUDE_PLUGIN_ROOT}/ortak/tasarim-ethos.md` ilke 6.
+Önce oku (`is/arastirma/` yolları varsa; yoksa arama, gömülü sayıyı kullan): `is/arastirma/kutuphane/ANALIZ.md` §3 (sitelerde başlık/gövde aileleri, BÜYÜK HARF oranı, aile sayısı), §10 (zevk alt kümesinde site başlığı), `is/arastirma/kutuphane/KANIT.md` §6, `${CLAUDE_PLUGIN_ROOT}/ortak/tasarim-ethos.md` ilke 6.
+
+**Zorunlu girdi (durma kuralı):** görsel yazı sisteminin kaynağı, yani `STIL-KARTI.md` ya da (marka adımında) atlas `KIMLIK.md`'deki yazı ailesi satırı, yoksa eşleme yapma; ilk satır `YAPILAMAZ: yazı sistemi kaynağı yok`. Varsayılan çifti kendi başına seçmek eşleme değildir; "gömülü sayı" kuralı yalnız kütüphane içindir.
 
 ## Kurallar
 1. **Tek aile adı iki yüzeyde:** görsel başlığında kullanılan aile = sitenin başlık ailesi (aynı ad, aynı ağırlık sınıfı). Varsayılan çift: başlık **Barlow Condensed** SemiBold 600 (`barlow_condensed_n6`), gövde **Inter** ya da listedeki sade grotesk (`inter_n4`). Oswald (`oswald_n5`/`oswald_n6`) yedektir. İkisi de Shopify font kütüphanesinde; Latin Extended-A (Türkçe İ ı ş ğ) kapsanır (shopify.dev Fonts).

@@ -1,0 +1,38 @@
+{
+ "rol": "jury",
+ "sabit_urun": {
+  "vaka": "a-kolay",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "TR",
+  "urun_dizin": "is/01-kupa"
+ },
+ "moduller": [
+  {
+   "mod": null,
+   "brief": "pano/ içinde 4 adsız öge + BRIEF.md; referans 3 (pazar uyumlu); kopya no=1",
+   "beklenen": {
+    "cikti_dosyasi": "pano/KOR-1.json",
+    "zorunlu_bolumler": [
+     "dururdum",
+     "sıra"
+    ]
+   }
+  }
+ ],
+ "eksik_girdi": [
+  {
+   "mod": null,
+   "brief": "pano içinde yalnız 1 öge, referans 0",
+   "eksik": "referans < 3",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  }
+ ]
+}

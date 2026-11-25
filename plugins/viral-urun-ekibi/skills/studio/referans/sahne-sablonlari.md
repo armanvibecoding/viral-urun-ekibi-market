@@ -304,6 +304,14 @@ Caption: AI ibaresi ("Problem sahnesi AI ile oluşturuldu"); etiket açık.
 
 ---
 
+## S11 — Tek planlı ürün testi — uzman yöntemi (R74; uygulayıcı yöntemi, izlenme desteği yok)
+Hedef ilk karede yazılı, sonuç tek planda: kesme yok, tek kamera. İzleyici sonucu beklemek için kalır (açık döngü A: kanca = hedef sorusu, son an = cevap).
+Yapı: **0. kare** `3 leke. Tek silme.` ya da `Düşeni yakalayacak mı?` (hedef + tek soru, ≤ 7 kelime) → **tek plan 6–10 sn** (kamera sabit; ürün işini baştan sona yapar) → **son 1–2 sn** sonuç açık (cevap anı). R2 sayaç (`deneme_sayaci`) ya da R1 kıyas (`ikili_kiyas`) üstüne gelebilir.
+Kural: sonuç gerçek çekimle gösterilir (AI'da tek plan "uydurma" görünür); plan kesilirse şablon bozulur → S8 ya da S1'e geç. Çekim: telefon dikey, tek kaynak ışık.
+Senaryoda `sablon: "S1"` (tek sahne gag, 2–3 klip) olarak yazılır; betik ayrı S11 tanımaz, ayrım `neden` alanında ("tek planlı ürün testi") durur.
+
+---
+
 ## Bu kitte şablonu OLMAYANLAR (bilerek)
 - **Mağaza perde açılışı / raf reveal / "RUN to [mağaza]"** [056, 079, 107]: milyonlar gerçek marka adıyla; N1 karşı-kanıtı güçlü (10 hesap). Jenerik "büyük mağaza rafı" yalnız bir kez milyonda görüldü [132: 2 sn raf + 3 kullanım sahnesi 2,6MN; aynı hesabın mağaza adlı kalabalık reveal'leri 4.645–19,1B] → GÖZLEM: ≤2 sn, sonra gövde tamamen ürün kullanımı, "deneme" etiketiyle.
   Görsel: `Vertical 9:16 photorealistic still. SCENE: a generic big-box store aisle, one shelf section stacked with our branded boxes — match the attached product photo. AVOID: any real store name, logo, uniform or signage; readable text other than our box logo.`

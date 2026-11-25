@@ -2,16 +2,21 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "sozlesme/magaza-paketi.schema.json",
   "title": "magaza-paketi.json (sürüm 1 ve 2)",
-  "description": "Mağaza kolu (shopify-kurulum sonu) üretir, video kolu okur. Sürüm 2 = magaza.tema_modu (sürüm 1 dosyada HATA). Alan açıklamaları: arayuz-sozlesmesi.md.",
+  "description": "Mağaza kolu (shopify-kurulum sonu) üretir, video kolu okur. Sürüm 2 = magaza.tema_modu (sürüm 1 dosyada HATA). Bilinmeyen değer UYDURULMAZ: marka.ad, urun.baslik, urun.fiyat, urun.para ve gorseller null olabilir ve her null eksik[] listesinde adıyla yazılır (fiyat 0, yer tutucu dosya/ad, kaynağı olmayan marka adı = HATA). Alan açıklamaları: arayuz-sozlesmesi.md.",
   "type": "object",
   "required": ["surum", "marka", "renkler", "tipografi", "urun", "onayli_metinler", "gorseller", "magaza"],
   "properties": {
     "surum": { "enum": ["1", "2"] },
+    "eksik": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
     "marka": {
       "type": "object",
       "required": ["ad"],
       "properties": {
-        "ad": { "type": "string", "minLength": 1 },
+        "ad": { "type": ["string", "null"] },
+        "ad_kaynak": { "type": "string" },
         "slogan": { "type": "string" },
         "ses": {
           "type": "object",
@@ -68,11 +73,11 @@
       "type": "object",
       "required": ["baslik", "fiyat", "para"],
       "properties": {
-        "baslik": { "type": "string", "minLength": 1 },
+        "baslik": { "type": ["string", "null"] },
         "handle": { "type": "string" },
         "url": { "type": "string" },
-        "fiyat": { "type": ["number", "string"] },
-        "para": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "fiyat": { "type": ["number", "string", "null"] },
+        "para": { "type": ["string", "null"], "pattern": "^[A-Z]{3}$" },
         "varyantlar": { "type": "array", "items": { "type": ["string", "object"] } }
       }
     },
@@ -98,7 +103,7 @@
       }
     },
     "gorseller": {
-      "type": "array",
+      "type": ["array", "null"],
       "minItems": 1,
       "items": {
         "type": "object",
@@ -117,7 +122,7 @@
       "properties": {
         "alan_adi": { "type": "string" },
         "tema_id": { "type": ["string", "integer"] },
-        "pdp_url": { "type": "string", "pattern": "^https://" },
+        "pdp_url": { "type": ["string", "null"], "pattern": "^https://" },
         "utm": { "type": "string", "pattern": "^utm_source=" },
         "tema_modu": { "enum": ["tam", "temasiz"] }
       }

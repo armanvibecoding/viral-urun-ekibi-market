@@ -1,0 +1,49 @@
+{
+  "id": "08-marka/b-zor",
+  "ozellik": "08-marka",
+  "tur": "zor",
+  "zorluk": "zor: sıradan, rakipleri aynı görünen kategori; ayrışma ürünün doğrulanmış gerçeğinden kurulmalı, 'temizlik/hijyen/garanti' dilinde marka kimliği uydurulmamalı; DE pazarında kalite-mührü iddiası tuzağı",
+  "urun": "Tüy toplayıcı rulo",
+  "pazar": "DE",
+  "kreatif": "organik",
+  "girdi": {
+    "urun": "Tüy toplayıcı rulo",
+    "urun_ozeti": "Yapışkan sayfalı rulo; kıyafet ve koltuk yüzeyinden evcil hayvan tüyü ve tozu toplar, sayfa soyulup yenilenir.",
+    "dogrulanmis_bilgi": [
+      "kumaş yüzeyden tüy ve toz toplar",
+      "yapışkan sayfa soyulup yenilenir"
+    ],
+    "dogrulanmamis_bilgi": [
+      "her kumaşta aynı sonuç",
+      "alerjen azaltma",
+      "sayfa sayısı dışındaki ömür iddiası",
+      "TÜV/GS gibi test mührü",
+      "Made in Germany"
+    ],
+    "kanit_ani": "marka kimliği çekim anı değil ürün gerçeğinden türer: ad, slogan ve ses tonu yalnız doğrulanmış bilgiyi çağrıştırır; kaynak gösterilemeyen ad/kuruluş/ödül yazılmaz",
+    "dil": "de",
+    "istek": "Marka stratejisi (3 yön + öneri), marka kimliği (ad, slogan, 5 HEX rolüyle, yazı ailesi), referans panosu, logo yönleri, tipografi eşlemesi; yalnız doğrulanmış bilgiden."
+  },
+  "beklenen": {
+    "yasakli_neden": "kanıtsız mutlak sonuç, alerji/hijyen iddiası ya da uydurma kalite mührü (IDD-02, PLT-01)",
+    "dosyalar": [
+      "magaza-paketi.json",
+      "marka/STRATEJI.md",
+      "marka/KIMLIK.md",
+      "marka/PANO.md",
+      "marka/LOGO.md",
+      "marka/TIPOGRAFI.md"
+    ]
+  },
+  "yasakli": [
+    "ödüllü|award[- ]winning|preisgekrönt",
+    "en çok satan|#\\s?1\\b|number one|bestseller|best[- ]seller|Testsieger",
+    "(since|seit|\\bkuruluş:?|est\\.)\\s?(19|20)\\d\\d|\\b\\d{2,}\\s?(yıllık|years?|jahre)\\s?(deneyim|experience|erfahrung|tecrübe)",
+    "\\d[\\d.,]*\\s?(bin|k|\\+)?\\s?(mutlu )?(müşteri|customers?|kunden)",
+    "%\\s?100|100\\s?%",
+    "hiç(bir)? (tüy|toz) kalmaz|nie wieder|asla (tüy|toz)",
+    "alerji|allerg|astım|asthma|hijyen(ik)? garanti|bakteri|antibakteriell",
+    "\\bTÜV\\b|GS[- ]Zeichen|Made in Germany|Dermatologisch"
+  ],
+  "izinli": []
+}

@@ -3,10 +3,10 @@
 Sen yazım bekçisisin. Tasarım puanı vermezsin.
 
 ## Araç
-`python3 "${CLAUDE_PLUGIN_ROOT}/skills/builder/gorseller/scripts/ocr_kontrol.py" <görsel> <beklenen.txt> --dil tr|en [--json]`. Karma okuma: RapidOCR ana okuyucu (küçük, açık-koyu yazıda güçlü; tam görsel + 5 şeritli 2× geçiş) ama Türkçe harfleri GÖRMEZ (İ→I, Ş→S); Türkçe harfli her öğe Tesseract 5 + `tur` verisiyle birebir doğrulanır (dil verisi `OCR_TESSDATA` ortam değişkeniyle; tessdata_fast `tur` + `eng`). Tesseract yoksa Türkçe harfli öğe "👁 gözle" kalır, geçmiş sayılmaz. Çıkış 0 = geçti, 1 = ❌ ya da gözle bekleyen, 2 = OCR çalışmadı.
+`python3 "${CLAUDE_PLUGIN_ROOT}/skills/builder/gorseller/scripts/ocr_kontrol.py" <görsel> <beklenen.txt> --dil tr|en [--json]`. Karma okuma: RapidOCR ana okuyucu (küçük, açık-koyu yazıda güçlü; tam görsel + 5 şeritli 2× geçiş) ama Türkçe harfleri GÖRMEZ (İ→I, Ş→S); Türkçe harfli her öğe Tesseract 5 + `tur` verisiyle birebir doğrulanır (dil verisi `OCR_TESSDATA` ortam değişkeniyle; tessdata_fast `tur` + `eng`). Tesseract yoksa Türkçe harfli öğe "👁 gözle" kalır; bu `olculemedi` sayılır (KALDI değil, GEÇTİ de değil). Latin harfli metinde beklenenle birebir eşleşme aranır. Çıkış 0 = geçti, 1 = ❌ ya da gözle bekleyen, 2 = OCR çalışmadı.
 
 ## Yap (görsel başına)
-1. Beklenen dosyayı `METINLER.md`'den üret (görsel kodu → öğeler). Elle yazma; kopyala.
+1. Beklenen dosyaları üret: `python3 "${CLAUDE_PLUGIN_ROOT}/skills/builder/gorseller/scripts/beklenen_uret.py" METINLER.md --cikti gorseller/` (`<ad>.txt`; çakışma ya da yazı yoksa çıkış 1).
 2. Aracı çalıştır. ❌ öğe varsa görseli Read ile aç, bölgeye bak: OCR yanılgısı mı (O/0, harf aralığı) gerçek hata mı? Gerçek hata = K2 ❌.
 3. Türkçe: `İ/I`, `ı/i`, `ş/s`, `ğ/g`, `ç/c`, `ö/o`, `ü/u` farkı hatadır (araç bunlara duyarlı). Ondalık virgül ("7,5 cm").
 4. **Feed karesi (G0, `<marka>-urun-0.jpg`):** OCR satırı ≥ 3 harf varsa ❌ (Merchant Center: yazı/rozet/logo yasak). Ürünün kadraj oranını ölç: zemin dışı piksellerin sınır kutusunun uzun kenarı / tuval %75–86 (Google %75–90; %7 kenar kuralıyla üst sınır %86; `kabul-kontrolu.md` §2c).

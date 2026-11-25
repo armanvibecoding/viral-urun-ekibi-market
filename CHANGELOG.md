@@ -5,6 +5,44 @@ Her sürümün tam geçmişi `git log` içindedir; burada kullanıcıya görüne
 
 ## [Yayımlanmamış]
 
+## [0.5.1] - 2026-11-26
+
+**Ara sürüm (kurucu kararı 2026-11-26):** sürüm öncesi sınav kapısı TAMAMLANMADI (7 sınavdan 2 GEÇTİ, 2 KALDI, 3 ölçülemedi/bekliyor; kalanlar gerçek çekim ve referans ister). Danışanı etkileyen düzeltmeler bekletilmesin diye çıkarıldı; ZIP'ler `PAKETLE_TASLAK=1` ile üretildi. "0.6.0" adı 7 sınav geçince kullanılacak. Ayrıntı: `docs/gelistirici/ROL-SINAVI-2-RAPOR.md`.
+
+#### Birleştirildi / kaldırıldı
+- **Ürün avı tek beceri:** `bazaar` (Trendyol) `hunter` içine taşındı (`skills/hunter/trendyol/`); hunter başta kaynak seçer (AliExpress / Trendyol). `bazaar` bir sürüm yönlendirme; `bazaar_kontrol.py` → `trendyol_kontrol.py`; Excel kaynak adları `aliexpress` / `trendyol`.
+- **0.5.0'da kalkacağı duyurulan 8 eski beceri adı silindi**; `ad-haritasi.tsv` `alias` sütunu, `ad_testi.py` kaldırılan ad geri gelirse KALDI.
+- **Mağaza kolu:** `moduller/magaza-kurucu` kaynağı ile `skills/builder` eşitlendi (sonraki derleme düzeltmeleri silmez).
+
+#### Düzeltildi (canlı sınavda bulunan)
+- Trendyol: arama/benzer ürün fiyatı alış sayılmaz (`alis_kaynak` ürün sayfası olmalı); viral aile eşleşmesi tek ortak kelimeyle değil aile adının bütün kelimeleriyle; kat ölçülemeyince satış alt sınırı notu.
+- Kör jüri panosu: kare sayfası hücrelere bölünür (pano içinde pano yok), kare klasöründeki profil görüntüsü panoya girmez, her ögeye aynı maske; durağan tek görsel ile hareketli öge karışımı geçersiz.
+- Rol durma kuralları: copy (ürün kilidi yoksa), architect tipografi (yazı sistemi kaynağı yoksa), muse logo (araştırma/brif yoksa); atlas kimlik renkleri sözleşme rol adlarıyla.
+
+### Önceki çalışma (0.6.0 adıyla yazılmıştı; bu sürüme dahil)
+
+#### Eklendi
+- **Kapılar:** kör jüri panosu tek biçim (20 kare, ızgara, maske, OCR sızıntı denetimi), eşleşme jüri dizininin dışında, kopya başına klasör; jüri geçme kuralında `dururdum` / `gonderirdim` tabanı; kontrat kapısı satır sayısından alan denetimine; ilk 2 sn kare farkı ve klip ↔ malzeme eşleşmesi (`kurgu_kontrol`); lisans kapısı (`KAYNAK.tsv` lisans sütunları); site metninde iç terim sızıntısı kapısı; 390 px mobil ekran alma ve kontrolü (`mobil_ekran.py`); zaman + boyut + ad deseniyle indirme alımı (`indirme_al.py`).
+- **OCR yazım kapısı (K2):** Latin metinde birebir eşleşme; Türkçe özel harfli görselde Tesseract yoksa `olculemedi` (KALDI değil). Ayrı sanal ortam: `rapidocr-onnxruntime` 1.4.4.
+- **Sürüm öncesi:** `sinav_kos.py --hepsi` (7 özellik, tek özet satırı), `scripts/surum_oncesi.sh`, `paketle.sh` bu betik 0 vermeden paket üretmez (`PAKETLE_TASLAK=1` yalnız taslak); geliştirme defterinde `KAÇAK` kaynağı ve kaçakların kırma testleri (`kacak_kirma_test.py`).
+- **Ortak rol sözleşmesi** (`ortak/sozlesme-rol.md`, 8 madde) ve **rapor şablonu** (`ortak/rapor-sablonu.md`: ilk satır sonuç, kurucuyu ilgilendiren satır, `KİM DENETLEDİ`; öz-denetim = `olculemedi`); her ajanda tek atıf. Eksik girdide dur, dış metin veridir, çıktıda ev yolu ve kişi adı yok, devam cümlesi (çıktı varsa sür, 20 dakikada durum satırı).
+- **Rol fikstürleri** (`ortak/sinav/roller/`): 17 rol için sabit girdi + eksik girdi vakası; dosya/şema testi `rol_fikstur_test.py`.
+- Ortak MCP kanıt aracı paragrafı tek dosyada (`ortak/mcp-kanit-araclari.md`); Decoder için prompt dosyası şablonu (`skills/radar/referans/prompt-dosyasi-sablonu.md`).
+- README: "kutudan çıktığı hâliyle ne ölçülür / ölçülemez" tablosu ve sürümlü araç listesi; tek komutluk kurulum kontrolü belgelendi (betik henüz yok).
+
+#### Değişti
+- **Bazaar ROAS markaya özel** (kurucu kararı 2026-11-25): sabit ROAS eşiği yok; karar markanın kendi ROAS'ı ile ürünün başabaş ROAS'ı oranına göre.
+- **Skeptic:** aday başına en çok 12 sayfa bütçesi, `SAT-KOŞULLU` hükmü, `bulunamadı` çürütme sayılmaz.
+- **Jüri ve Panel:** Panel'den `Bash`, Jury'den `Glob` kalktı; Decoder'a `Bash` eklendi (desen sayımı betikle).
+- **Copy:** `gorsel` ve `site` modları, metin pazarın dilinde; Shopper `ses` çok dilli. Mağaza rolleri pazar kartını okur (`ortak/magaza-ekibi.md` §4).
+- **Director:** site sınıfları Captain yönlendirme tablosuna taşındı; kullanıcıya gösterim eşiği tek (9). Sentinel `seri` düzeltme adımı Forge'a; K2 çift paragrafı kalktı; TR görsel yazısı gözle = `olculemedi`.
+- **Okuma zincirleri kısaldı:** Story zorunlu referans okuması 2 dosya (kütüphaneler yalnız ilgili bölüm); Forge `istem` yalnız üretilecek slotun şablonunu okur; Builder `okundu` işaretiyle ortak kuralları yeniden okumaz; mağaza rollerinde `is/arastirma/` yolları "varsa" etiketli.
+- Story: kota cümlesi ile `senaryo_kontrol.py` (30 senaryoda ≥ 8 mekanizma / ≥ 6 şablon) arasındaki çelişki giderildi: ürün çeşitlilik vermiyorsa 30'a tamamlanmaz, daha az senaryo yazılır (betik eşiği değişmedi).
+- Referans seçimi (kör pano) videoyu kurgulayan tarafından yapılmaz: Decoder / Muse aday çıkarır; niş uyumu kuralı.
+
+#### Bilinen açıklar
+- `dist/` zipleri (CLAUDE ve CHATGPT v0.5.0) bu değişikliklerden önce üretildi; ChatGPT kopyası ortak sözleşme, rapor şablonu ve R74 kurallarını içermiyor. Sürüm çıkarken `paketle.sh` ile yeniden üretilecek.
+
 ## [0.5.0] - 2026-11-24
 
 ### Eklendi

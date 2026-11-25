@@ -1,37 +1,37 @@
-tur	eski	yeni	kod_adi	gorev_en	rol_tr	model	mod
-beceri	ekip-lideri	captain	Captain	Runs the team: routes work, guards the gates, keeps the memory.	Ekip lideri	fable	
-beceri	kesfet-urun-avi	radar	Radar	Scans Instagram Explore for products that are already going viral.	Instagram viral ürün taraması	-	
-beceri	reklam-kutuphanesi-avi	spy	Spy	Scans the Meta Ad Library for ads and stores that are scaling.	Reklam kütüphanesi taraması	-	
-beceri	aliexpress-firsat	hunter	Hunter	Finds AliExpress products that are not viral yet and proves the case.	AliExpress fırsat avı	-	
-beceri	-	bazaar	Bazaar	Finds in-demand, not-yet-viral, cheap Trendyol products to sell in our own Shopify store.	Trendyol fırsat avı	-	
-beceri	magaza-kurucu	builder	Builder	Builds the Shopify store in three stages: plan, visuals, site.	Mağaza kurucu	-	
-beceri	teklif-ve-sayfa	builder	Builder	Builds the Shopify store in three stages: plan, visuals, site.	Mağaza kurucu	-	teklif
-beceri	ai-video-kreatif	studio	Studio	Prepares AI video creatives: scripts, start frames, clips.	AI video kreatifi	-	
-beceri	video-kurgu	cut	Cut	Edits clips into the final video: text, sound, delivery.	Video kurgu	-	
-ajan	firsat-avcisi	scout	Scout	Finds not-yet-viral product candidates on marketplaces.	Fırsat avcısı	sonnet	
-ajan	kanit-savcisi	skeptic	Skeptic	Tries to disprove each shortlisted product before we sell it.	Kanıt savcısı	opus	
-ajan	kreatif-analisti	decoder	Decoder	Extracts repeating hook and format patterns from viral videos.	Kreatif analisti	sonnet	
-ajan	icerik-stratejisti	story	Story	Writes the 30 video scripts for a product.	İçerik stratejisti	sonnet	
-ajan	video-juri	jury	Jury	Scores unnamed video boards blind against real viral references.	Kör video jürisi	fable	
-ajan	video-elestirmen	fixer	Fixer	Names the root cause of a failed video and writes the fix order.	Video kök neden direktörü	fable	
-ajan	ses-tasarimcisi	mixer	Mixer	Plans and measures sound, effects and music for short video.	Ses tasarımcısı	sonnet	
-ajan	marka-stratejisti	atlas	Atlas	Sets brand positioning, identity directions and the niche style card.	Marka ve stil stratejisti	fable	strateji
-ajan	kimlik-direktoru	atlas	Atlas	Sets brand positioning, identity directions and the niche style card.	Marka ve stil stratejisti	fable	kimlik
-ajan	nis-stil-mimari	atlas	Atlas	Sets brand positioning, identity directions and the niche style card.	Marka ve stil stratejisti	fable	stil
-ajan	referans-kuratoru	muse	Muse	Collects measured design references and logo directions.	Referans ve logo araştırmacısı	sonnet	referans
-ajan	logo-tasarimci	muse	Muse	Collects measured design references and logo directions.	Referans ve logo araştırmacısı	sonnet	logo
-ajan	metin-yazari	copy	Copy	Writes the in-image copy from verified facts only.	Metin yazarı	sonnet	
-ajan	prompt-muhendisi	forge	Forge	Writes image prompts and runs the approved production list.	İstem yazarı ve görsel üretim operatörü	sonnet	istem
-ajan	gorsel-uretici	forge	Forge	Writes image prompts and runs the approved production list.	İstem yazarı ve görsel üretim operatörü	sonnet	uretim
-ajan	urun-kilidi-analisti	sentinel	Sentinel	Guards image gates K1–K4: product fidelity, spelling, set consistency.	Görsel kapı bekçisi	sonnet	kilit
-ajan	gorsel-qa	sentinel	Sentinel	Guards image gates K1–K4: product fidelity, spelling, set consistency.	Görsel kapı bekçisi	sonnet	yazim
-ajan	seri-tutarlilik-denetcisi	sentinel	Sentinel	Guards image gates K1–K4: product fidelity, spelling, set consistency.	Görsel kapı bekçisi	sonnet	seri
-ajan	kor-elestirmen	panel	Panel	Scores unnamed image boards blind against niche references.	Kör görsel jürisi	fable	
-ajan	tasarim-direktoru	director	Director	Names the root cause of a failed image and writes one-variable fix orders.	Görsel kök neden direktörü	fable	
-ajan	site-bolum-mimari	architect	Architect	Plans store sections and maps image typography to theme settings.	Site ve tipografi mimarı	sonnet	bolum
-ajan	tipografi-sistemcisi	architect	Architect	Plans store sections and maps image typography to theme settings.	Site ve tipografi mimarı	sonnet	tipografi
-ajan	hiz-muhendisi	probe	Probe	Measures speed, accessibility and search/feed readiness.	Teknik denetçi	sonnet	hiz
-ajan	erisilebilirlik-denetcisi	probe	Probe	Measures speed, accessibility and search/feed readiness.	Teknik denetçi	sonnet	erisim
-ajan	seo-aio-uzmani	probe	Probe	Measures speed, accessibility and search/feed readiness.	Teknik denetçi	sonnet	arama
-ajan	cro-ux-denetcisi	shopper	Shopper	Audits the store as a buyer: conversion, usability, brand voice.	Müşteri gözü denetçisi	sonnet	donusum
-ajan	marka-sesi-denetcisi	shopper	Shopper	Audits the store as a buyer: conversion, usability, brand voice.	Müşteri gözü denetçisi	sonnet	ses
+tur	eski	yeni	kod_adi	gorev_en	rol_tr	model	mod	alias
+beceri	ekip-lideri	captain	Captain	Runs the team: routes work, guards the gates, keeps the memory.	Ekip lideri	fable		kaldirildi
+beceri	kesfet-urun-avi	radar	Radar	Scans Instagram Explore for products that are already going viral.	Instagram viral ürün taraması	-		kaldirildi
+beceri	reklam-kutuphanesi-avi	spy	Spy	Scans the Meta Ad Library for ads and stores that are scaling.	Reklam kütüphanesi taraması	-		kaldirildi
+beceri	aliexpress-firsat	hunter	Hunter	Finds products to sell from AliExpress or Trendyol and proves the case.	Ürün avı (AliExpress · Trendyol)	-		kaldirildi
+beceri	bazaar	hunter	Hunter	Finds products to sell from AliExpress or Trendyol and proves the case.	Ürün avı (AliExpress · Trendyol)	-		var
+beceri	magaza-kurucu	builder	Builder	Builds the Shopify store in three stages: plan, visuals, site.	Mağaza kurucu	-		kaldirildi
+beceri	teklif-ve-sayfa	builder	Builder	Builds the Shopify store in three stages: plan, visuals, site.	Mağaza kurucu	-	teklif	kaldirildi
+beceri	ai-video-kreatif	studio	Studio	Prepares AI video creatives: scripts, start frames, clips.	AI video kreatifi	-		kaldirildi
+beceri	video-kurgu	cut	Cut	Edits clips into the final video: text, sound, delivery.	Video kurgu	-		kaldirildi
+ajan	firsat-avcisi	scout	Scout	Finds not-yet-viral product candidates on marketplaces.	Fırsat avcısı	sonnet		
+ajan	kanit-savcisi	skeptic	Skeptic	Tries to disprove each shortlisted product before we sell it.	Kanıt savcısı	opus		
+ajan	kreatif-analisti	decoder	Decoder	Extracts repeating hook and format patterns from viral videos.	Kreatif analisti	sonnet		
+ajan	icerik-stratejisti	story	Story	Writes the 30 video scripts for a product.	İçerik stratejisti	sonnet		
+ajan	video-juri	jury	Jury	Scores unnamed video boards blind against real viral references.	Kör video jürisi	fable		
+ajan	video-elestirmen	fixer	Fixer	Names the root cause of a failed video and writes the fix order.	Video kök neden direktörü	fable		
+ajan	ses-tasarimcisi	mixer	Mixer	Plans and measures sound, effects and music for short video.	Ses tasarımcısı	sonnet		
+ajan	marka-stratejisti	atlas	Atlas	Sets brand positioning, identity directions and the niche style card.	Marka ve stil stratejisti	fable	strateji	
+ajan	kimlik-direktoru	atlas	Atlas	Sets brand positioning, identity directions and the niche style card.	Marka ve stil stratejisti	fable	kimlik	
+ajan	nis-stil-mimari	atlas	Atlas	Sets brand positioning, identity directions and the niche style card.	Marka ve stil stratejisti	fable	stil	
+ajan	referans-kuratoru	muse	Muse	Collects measured design references and logo directions.	Referans ve logo araştırmacısı	sonnet	referans	
+ajan	logo-tasarimci	muse	Muse	Collects measured design references and logo directions.	Referans ve logo araştırmacısı	sonnet	logo	
+ajan	metin-yazari	copy	Copy	Writes the in-image copy from verified facts only.	Metin yazarı	sonnet		
+ajan	prompt-muhendisi	forge	Forge	Writes image prompts and runs the approved production list.	İstem yazarı ve görsel üretim operatörü	sonnet	istem	
+ajan	gorsel-uretici	forge	Forge	Writes image prompts and runs the approved production list.	İstem yazarı ve görsel üretim operatörü	sonnet	uretim	
+ajan	urun-kilidi-analisti	sentinel	Sentinel	Guards image gates K1–K4: product fidelity, spelling, set consistency.	Görsel kapı bekçisi	sonnet	kilit	
+ajan	gorsel-qa	sentinel	Sentinel	Guards image gates K1–K4: product fidelity, spelling, set consistency.	Görsel kapı bekçisi	sonnet	yazim	
+ajan	seri-tutarlilik-denetcisi	sentinel	Sentinel	Guards image gates K1–K4: product fidelity, spelling, set consistency.	Görsel kapı bekçisi	sonnet	seri	
+ajan	kor-elestirmen	panel	Panel	Scores unnamed image boards blind against niche references.	Kör görsel jürisi	fable		
+ajan	tasarim-direktoru	director	Director	Names the root cause of a failed image and writes one-variable fix orders.	Görsel kök neden direktörü	fable		
+ajan	site-bolum-mimari	architect	Architect	Plans store sections and maps image typography to theme settings.	Site ve tipografi mimarı	sonnet	bolum	
+ajan	tipografi-sistemcisi	architect	Architect	Plans store sections and maps image typography to theme settings.	Site ve tipografi mimarı	sonnet	tipografi	
+ajan	hiz-muhendisi	probe	Probe	Measures speed, accessibility and search/feed readiness.	Teknik denetçi	sonnet	hiz	
+ajan	erisilebilirlik-denetcisi	probe	Probe	Measures speed, accessibility and search/feed readiness.	Teknik denetçi	sonnet	erisim	
+ajan	seo-aio-uzmani	probe	Probe	Measures speed, accessibility and search/feed readiness.	Teknik denetçi	sonnet	arama	
+ajan	cro-ux-denetcisi	shopper	Shopper	Audits the store as a buyer: conversion, usability, brand voice.	Müşteri gözü denetçisi	sonnet	donusum	
+ajan	marka-sesi-denetcisi	shopper	Shopper	Audits the store as a buyer: conversion, usability, brand voice.	Müşteri gözü denetçisi	sonnet	ses	

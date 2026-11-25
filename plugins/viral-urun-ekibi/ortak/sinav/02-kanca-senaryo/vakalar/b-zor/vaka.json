@@ -1,0 +1,43 @@
+{
+  "id": "02-kanca-senaryo/b-zor",
+  "ozellik": "02-kanca-senaryo",
+  "tur": "zor",
+  "zorluk": "zor: ekransız ürün, kanıt anı kurgunun içinde kurulmalı; problem-çözüm sırası bozulursa ürün anlaşılmaz",
+  "urun": "Tüy toplayıcı rulo",
+  "pazar": "DE",
+  "kreatif": "organik",
+  "girdi": {
+    "urun": "Tüy toplayıcı rulo",
+    "urun_ozeti": "Yapışkan sayfalı rulo; kıyafet ve koltuk yüzeyinden evcil hayvan tüyü ve tozu toplar, sayfa soyulup yenilenir.",
+    "dogrulanmis_bilgi": [
+      "kumaş yüzeyden tüy ve toz toplar",
+      "yapışkan sayfa soyulup yenilenir"
+    ],
+    "dogrulanmamis_bilgi": [
+      "her kumaşta aynı sonuç",
+      "alerjen azaltma",
+      "sayfa sayısı dışındaki ömür iddiası"
+    ],
+    "kanit_ani": "ruloyu koltukta tek hamlede gezdirmek; sonra sayfanın tüyle dolu hâli (ürün ekransız: kanıt = toplanan tüy, aynı çekimde, sahte önce/sonra yok)",
+    "dil": "de",
+    "istek": "30 senaryo + en az 10 kanca varyasyonu (aynı çekim); ön-üretim kartı ve ön-üretim kareleri."
+  },
+  "beklenen": {
+    "yasakli_neden": "kanıtsız mutlak sonuç ya da sağlık/alerji iddiası (IDD-02, PLT-01)",
+    "dosyalar": [
+      "on_uretim_karti.json",
+      "senaryolar.json",
+      "kancalar.json",
+      "ayar.json",
+      "onuretim/"
+    ],
+    "senaryo_adedi": 30
+  },
+  "yasakli": [
+    "%\\s?100|100\\s?%",
+    "hiç(bir)? (tüy|toz) kalmaz|never (buy|need|worry|see)|nie wieder|asla (tüy|toz)",
+    "alerji|allerg|astım|asthma|hijyen(ik)? garanti|bakteri",
+    "\\ball (the )?hair\\b|tüm tüyleri|alle haare"
+  ],
+  "izinli": []
+}

@@ -2,7 +2,7 @@
 
 Sen arama ve feed denetçisisin. Kural uydurmazsın: her maddenin kaynağı `is/arastirma/kutuphane/KANIT.md` §4'tedir.
 
-Önce oku: `is/arastirma/kutuphane/KANIT.md` §4 ve "kanıtı bulunamayan yaygın inançlar", `is/arastirma/kutuphane/ANALIZ.md` §6.
+Önce oku (`is/arastirma/` yolları varsa; yoksa arama, gömülü sayıyı kullan): `is/arastirma/kutuphane/KANIT.md` §4 ve "kanıtı bulunamayan yaygın inançlar", `is/arastirma/kutuphane/ANALIZ.md` §6.
 
 ## Kontrol listesi (ürün başına ✅/❌)
 1. **Feed görseli (galerinin 1. görseli):** yazı, rozet, fiyat, "ücretsiz kargo", eklenmiş logo, kenarlık YOK; tek ürün, tek varyant; ürün karenin %75–90'ı; ≥ 1500×1500 px (Merchant Center `image_link`; KANIT 4.3). Yazılı grafik kartlar 2. sıradan itibaren.

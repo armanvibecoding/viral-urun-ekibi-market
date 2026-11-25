@@ -1,0 +1,40 @@
+{
+ "rol": "story",
+ "sabit_urun": {
+  "vaka": "a-kolay",
+  "urun": "Isıyla renk değiştiren kupa",
+  "pazar": "TR",
+  "urun_dizin": "is/01-kupa"
+ },
+ "moduller": [
+  {
+   "mod": null,
+   "brief": "kart.md + kilit.txt + hikaye-bankasi.md + pazar=TR",
+   "beklenen": {
+    "cikti_dosyasi": "is/01-kupa/senaryolar.json",
+    "zorunlu_bolumler": [
+     "30 senaryo",
+     "kanca_sorusu",
+     "cevap_an"
+    ]
+   }
+  }
+ ],
+ "eksik_girdi": [
+  {
+   "mod": null,
+   "brief": "hikaye-bankasi.md yok",
+   "eksik": "banka yok",
+   "beklenen": "dur",
+   "ilk_satir_icerir": [
+    "dur",
+    "banka"
+   ],
+   "yasak": [
+    "uydurma sayı",
+    "uydurma marka",
+    "fiyat 0"
+   ]
+  }
+ ]
+}

@@ -2,7 +2,7 @@
 
 Sen istemin sahibisin. Stili, metni ve ürün kilidini sen icat etmezsin; üç girdiden birleştirirsin.
 
-Önce oku: `${CLAUDE_PLUGIN_ROOT}/skills/builder/gorseller/references/ortak-istem-bloklari.md`, `${CLAUDE_PLUGIN_ROOT}/skills/builder/gorseller/references/istemler/*.md` (0.3.6 hazır şablonlar), `is/arastirma/test12/DERSLER.md`, `is/arastirma/plan/ON-ON-STRATEJI.md` §3 (ürün tipi düzenleri) ve §4.
+Önce oku (`is/arastirma/` yolları varsa; yoksa arama, gömülü sayıyı kullan): `${CLAUDE_PLUGIN_ROOT}/skills/builder/gorseller/references/ortak-istem-bloklari.md` ve yalnız bu turda üretilecek slotların şablonu `${CLAUDE_PLUGIN_ROOT}/skills/builder/gorseller/references/istemler/<slot>.md` (0.3.6 hazır şablonlar; klasörün tamamı okunmaz), varsa `is/arastirma/test12/DERSLER.md`, `is/arastirma/plan/ON-ON-STRATEJI.md` §3 (ürün tipi düzenleri) ve §4.
 
 ## Girdi
 - `is/NN-urun/magaza/STIL-KARTI.md` (seçilen yön: HEX'ler, yazı tipi tarifi, tip başına düzen satırı)
@@ -33,5 +33,6 @@ Sen istemin sahibisin. Stili, metni ve ürün kilidini sen icat etmezsin; üç g
 - **Tipografi tek sistem:** SİSTEM bloğundaki aile adı DEVAM KARTI "Tipografi" satırındaki aileyle aynı (site `type_heading_font`); `architect` (mod `tipografi`) değiştirirse istem de değişir.
 
 ## 0.4.1 ekleri
+- **Kod düzeltmesi sende, ölçüm Sentinel'de:** Sentinel `seri` ❌ verdiği görselde zemin/kenar/ölçüyü `skills/builder/gorseller/scripts/duzelt.py` ile düzelt (ham dosyayı silme, düzeltilmiş dosya `secili/` altına aynı adla); SADAKAT, KAPI ya da OCR dosyası yazma.
 - **Ret durumunda:** araç ürünü reddediyorsa istemi "geçirecek" biçimde yeniden yazma: ürünü başka şey gibi anlatmak, parça parça tarif etmek, yanlış bağlam uydurmak YASAK. Yedek istem `istemler/bos-kart.md`: ürünsüz kart tasarımı, ek yok, ürün adı yerine nötr ve doğru başlık; istem boş alana sonradan gerçek fotoğraf konacağını açıkça söyler.
 - **Bölüm görseli:** S görsellerinin istemindeki zemin HEX'i temadaki bölüm zemin HEX'iyle birebir aynı; yakın ton yazma.

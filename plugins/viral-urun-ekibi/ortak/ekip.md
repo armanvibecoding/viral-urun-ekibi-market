@@ -58,6 +58,6 @@ başına bir satır basar; veri yoksa "veri yok" yazar. Bir rol 3 hafta üst üs
 
 Bağımsızlık korunur: Panel hiçbir üreticiyle birleşmedi; Director, Panel'den ayrıdır; üreten ölçmez (Forge ↔ Sentinel ↔ Panel ayrı roller); yazan denetlemez (Copy ↔ Shopper mod `ses`).
 
-Mağaza aşamalarındaki durum satırı (`AŞAMA a/3 · ADIM n/9 · <Kod adı>`) aynı kod adlarını kullanır: 1–2 Scout · 3–4 Atlas · 5 Copy · 6 Atlas · 7 Forge (kabulde Director) · 8 Architect · 9 Probe.
+Mağaza aşamalarındaki durum satırı (`AŞAMA a/3 · ADIM n/9 · <Kod adı>`) aynı kod adlarını kullanır: 1–2 Scout · 3–4 Atlas · 5 Copy (mod `site`; görsel içi yazı mod `gorsel`) · 6 Atlas · 7 Forge (kabulde Director) · 8 Architect · 9 Probe.
 
 Geliştirme ekibi (pakete girmez, yalnız eklenti deposunda): Platform Compatibility Engineer (Tuna), Design Language Lead (Kuzey) → depo kökünde `.claude/agents/`.

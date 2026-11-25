@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="LICENSE"><img alt="Lisans: MIT" src="https://img.shields.io/badge/lisans-MIT-blue"></a>
-  <img alt="Sürüm 0.5.0" src="https://img.shields.io/badge/s%C3%BCr%C3%BCm-0.5.0-brightgreen">
+  <img alt="Sürüm 0.5.1" src="https://img.shields.io/badge/s%C3%BCr%C3%BCm-0.5.1-brightgreen">
   <a href="https://github.com/armanvibecoding/viral-urun-ekibi-market/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/armanvibecoding/viral-urun-ekibi-market/actions/workflows/ci.yml/badge.svg"></a>
   <img alt="Claude Code eklentisi" src="https://img.shields.io/badge/Claude%20Code-eklenti-orange">
 </p>
@@ -26,8 +26,8 @@ AliExpress'te henüz patlamamış benzerlerini avlar, Shopify mağazanı kurar, 
 | Hangisini kullanıyorsun? | İndir (Releases) | Nereye yükle | Ayrıntı |
 |---|---|---|---|
 | **Claude Code** (terminal; önerilen, hattın tamamı) | ZIP gerekmez: `/plugin marketplace add armanvibecoding/viral-urun-ekibi-market` | Claude Code içinde | [claude/README.md](claude/README.md) |
-| **claude.ai / Claude uygulaması** | [`viral-urun-ekibi-CLAUDE-v0.5.0.zip`](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) | Customize → Plugins → Add → **Upload plugin** | [claude/README.md](claude/README.md) |
-| **ChatGPT** | [`viral-urun-ekibi-CHATGPT-v0.5.0.zip`](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) | ChatGPT → **Plugins** → yükle | [chatgpt/README.md](chatgpt/README.md) |
+| **claude.ai / Claude uygulaması** | [`viral-urun-ekibi-CLAUDE-v0.5.1.zip`](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) | Customize → Plugins → Add → **Upload plugin** | [claude/README.md](claude/README.md) |
+| **ChatGPT** | [`viral-urun-ekibi-CHATGPT-v0.5.1.zip`](https://github.com/armanvibecoding/viral-urun-ekibi-market/releases/latest) | ChatGPT → **Plugins** → yükle | [chatgpt/README.md](chatgpt/README.md) |
 | **Proje** (kurulumsuz; claude.ai ya da ChatGPT Projesi) | [`chatgpt/proje-paketi/`](chatgpt/proje-paketi/KURULUM.md) klasörü | Projects → talimat + dosyalar | [chatgpt/proje-paketi/KURULUM.md](chatgpt/proje-paketi/KURULUM.md) |
 
 İki ZIP'i karıştırma: **CLAUDE** olan yalnız Claude'a, **CHATGPT** olan yalnız ChatGPT'ye yüklenir. ZIP'ler depoda tutulmaz, her sürümde Releases'a eklenir.
@@ -38,14 +38,53 @@ AliExpress'te henüz patlamamış benzerlerini avlar, Shopify mağazanı kurar, 
 
 1. **Ürün bulur:** Instagram Reels/Keşfet'te viral ürün videolarını izler, ölçütlerle ayıklar, tabloya yazar.
 2. **Fırsat avlar:** viral ürünlerin ortak DNA'sından AliExpress'te henüz viral olmamış adayları bulur, "zaten viral mi" kontrolü yapar, SAT / İZLE / ELE diye sıralar.
-3. **Trendyol fırsatı avlar (`bazaar`):** Trendyol'da ilgi gören, henüz viral olmamış ucuz ürünü bulur; net marj ve fiyat şeffaflığı riskini hesaplar.
+3. **Trendyol fırsatı avlar (`hunter`, kaynak Trendyol):** Trendyol'da ilgi gören, henüz viral olmamış ucuz ürünü bulur; net marj ve fiyat şeffaflığı riskini hesaplar.
 4. **Mağaza kurar (`builder`):** 3 aşamada: Plan (araştırma, teklif, marka, site metinleri), Görseller, Site (Shopify kurulumu ve denetim). 10 rollü kadro, toplam 17 ajan.
 5. **Video üretir:** ürün kartı, 30 senaryo, ChatGPT ile başlangıç kareleri, Google Flow ile klipler, ffmpeg ile kurgu ve teslim.
+
+## Güncel sürüm nasıl kontrol edilir?
+
+Claude Code oturumu açılırken "Eklenti sürümü: X" satırı yazılır (`/plugin` listesinde de görünür); yukarıdaki sürümle aynı değilse `/plugin` → Marketplaces → Update. **claude.ai ve ChatGPT zip'leri kendiliğinden güncellenmez:** yeni sürümde Releases'tan yeni zip'i indirip elle yükle; dosya adındaki `-vX.Y.Z` güncel sürümle aynı olmalı. Ayrıntı: [claude/README.md](claude/README.md#güncel-sürüm-nasıl-kontrol-edilir).
 
 ## Kimin için?
 
 - **Kimin için:** Türkiye ya da ABD pazarında e-ticaret/dropshipping kuran, kod bilmeyen girişimci. Bilgisayarında Claude Code kurabilen yeter.
 - **Kimin için değil:** hazır kazanç, garanti sonuç ya da şifre/hesap devri arayanlar. Ekip karar önerir, kanıtı gösterir; para harcayan her adım senin onayındır.
+
+## Kutudan çıktığı hâliyle ne ölçülür, ne ölçülmez?
+
+Ekip bir kapıyı ölçemiyorsa "geçti" demez, `olculemedi` yazar. Temiz kurulumda durum:
+
+| Ölçülen (ek kurulum gerekmez) | Ölçülemeyen (ne eksik → ne olur) |
+|---|---|
+| Video süresi, çözünürlük, ses seviyesi ve müzik girişi, sıçrama, yazı konumu ve okunma süresi (`ffmpeg` + Python) | Türkçe harfli görsel yazısı (İ Ö Ş Ğ Ü Ç): Tesseract yok → `olculemedi`; Latin yazıda yalnız yazı var/yok ve fazla yazı ölçülür, yazım hatası ölçülmez (OCR kırma testi tutmadı) |
+| Senaryo kuralları (çeşitlilik, kanca, yasak ifade), ürün avı tabloları, marj ve eşik hesapları | Kör jüri (video ve görsel zevk puanı): pazara uygun ≥ 3 gerçek referans yoksa → "jüri yapılamadı" notuyla teslim |
+| Mağaza sözleşmesi ve köprü dosyaları (`urun-paketi.json` vb.) | Mağaza hızı ve erişilebilirlik (Probe): yerel Lighthouse/axe ölçümü yok → `olculemedi` (ölçüm betiği yazılacak) |
+| Trendyol avı marj hesabı, Excel çıktısı (`openpyxl` varsa) | Ses kalitesini kulakla yargılama: ses yalnız ölçülür, dinlenmez |
+| | HyperFrames render: Node 22+, Chrome ve `hyperframes` CLI yoksa hareketli yazı katmanı çalışmaz |
+
+### Gerekli araçlar (geliştirme makinesinde ölçülen sürümler)
+
+| Araç | Ne için | Ölçülen sürüm | Yoksa |
+|---|---|---|---|
+| Python 3 | betikler, kapılar | 3.9.6 (betikler 3.8+ ister) | hiçbir kapı koşmaz |
+| ffmpeg (+ ffprobe) | kurgu ve ses ölçümü | `imageio_ffmpeg` ikilisi v7.1 (PATH'te sistem ffmpeg'i yok; ffprobe yok → ölçüm `ffmpeg -i` çıktısından) | video kapıları `olculemedi` |
+| Pillow · numpy | yazı katmanı, pano, ses | 11.3.0 · 2.0.2 | pano ve kurgu betikleri durur |
+| openpyxl | Excel teslimi | bu makinede kurulu değil | Excel dosyası üretilemez |
+| OCR sanal ortamı (`rapidocr-onnxruntime`) | görsel yazı kapısı K2 | 1.4.4 · Python 3.12.13 · onnxruntime 1.32.0 · ortam yolu `~/.local/share/viral-urun-ekibi/ocr-venv` | K2 yazı kapısı `olculemedi` |
+| Tesseract | Türkçe harf doğrulaması | kurulu değil | TR görsel yazısı `olculemedi` |
+| Node.js | HyperFrames, mağaza ölçümü | v22.20.0 (22+ şart) | hareketli yazı katmanı yok |
+| `hyperframes` CLI | render | `npx` ile, sürüm sabitlenmedi | render yok |
+
+Sürümler bu makinede ölçüldü; başka makinede farklı olabilir. Kapı eşikleri sürüme göre ayarlanmadı.
+
+### Kurulum kontrolü (tek komut)
+
+```
+sh scripts/kurulum_kontrol.sh
+```
+
+Komut yukarıdaki tabloyu makinende doldurur (var / yok / sürüm) ve hangi kapıların `olculemedi` kalacağını listeler; hiçbir şey kurmaz, ağa çıkmaz. **Durum: betik henüz yazılmadı** (geliştirici işi, yazılacak); yazılana kadar tablo elle doğrulanır: `python3 plugins/viral-urun-ekibi/skills/cut/scripts/ffaraclar.py` ffmpeg, font ve pazar durumunu verir.
 
 ## Nasıl çalışır?
 
