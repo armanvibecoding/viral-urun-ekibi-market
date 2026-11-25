@@ -49,3 +49,4 @@ Süre ~6 sa · Maliyet: Flow/ElevenLabs kredisi YOK (stok + yerel) · Durma: kö
 - 08 marka: 3/3 vaka paket GEÇTİ, müşteri metni yasaklı 0, kontrast GEÇTİ; vaka durumu olculemedi.
 - Birleştirme: hunter = ürün avı (AliExpress+Trendyol), bazaar yönlendirme; 8 eski ad silindi; builder ↔ moduller kaynak eşit.
 - Kurucu kararı bekleyen: architect bölüm fikstürü · 08 iddia/yasaklı kapsamı (yalnız müşteri metni) · muse'a tarayıcı aracı · sürüm 0.6.0.
+- 2026-11-26 01:13 · **0.5.1 yayımlandı** (kurucu: ara sürüm; sınav kapısı 2/7, CHANGELOG'da yazılı). main 6540aef · Release v0.5.1 (CLAUDE + CHATGPT ZIP, taslak bayraklı) · viral tablo public (kurucu onayı). Danışan adı dosyalardan çıkarıldı, kara listeye eklendi.
